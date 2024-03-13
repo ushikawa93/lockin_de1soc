@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1692387819 source:c:\users\matioliva\documents\06-de1soc_sw\firmware\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<dirent.h>
+
