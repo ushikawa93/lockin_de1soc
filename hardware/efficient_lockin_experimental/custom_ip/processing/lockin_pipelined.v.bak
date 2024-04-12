@@ -1,0 +1,97 @@
+
+module lockin_pipelined(
+
+	input clock,
+	input reset,
+	input CE,
+	input signed [31:0] data,
+	
+	output reg signed [31:0] data_out_fase,
+	output data_valid_fase,
+	
+	output reg signed [31:0] data_out_cuad,
+	output data_valid_cuad
+	
+);
+
+parameter M=31; 
+
+reg [2:0] state; parameter init=0, esperar=1, multiplicar=2,restar_anterior=3,sumar_nuevo=4, act_salida=5; initial state=init;
+
+reg signed [63:0] acum_fase;	// Son un poco mas largos para que no haya overflow
+reg signed [63:0] acum_cuad;
+
+assign data_valid_fase=CE; 
+assign data_valid_cuad=CE;
+
+
+
+// Estos dos los implementa bien como roms asi como estan...
+reg [15:0]  ref_sen   [0:M];	initial	$readmemh("LU_tables/x32_16b.mem",ref_sen);
+reg [15:0] 	ref_cos   [0:M];	initial	$readmemh("LU_tables/y32_16b.mem",ref_cos);
+ 
+reg [5:0] index;
+
+reg signed [31:0] data_reg [4:0];
+	
+reg signed [31:0] prod_fase [4:0]; //assign prod_fase = data_reg * ref_fase_actual;
+reg signed [31:0] prod_cuad [4:0]; //assign prod_cuad = data_reg * ref_cuad_actual;
+
+reg signed [31:0] aux_reg_fase;
+reg signed [31:0] aux_reg_cuad;
+
+reg [3:0] pipe_index;  
+
+reg signed [31:0] array_prod_fase [0:M];
+reg signed [31:0] array_prod_cuad [0:M];
+	
+always @ (posedge clock)
+begin
+
+	if(reset)
+		state <= init;
+	
+	if(CE) 
+	begin
+	
+		pipe_index <= (pipe_index == 4)? 0: pipe_index + 1 ;
+		index <= (index== M)? 0: index+1;
+
+		//registrar dato entrante (pos n)
+										
+			data_reg[pipe_index] <= data;							
+				
+		//multiplicar (pos n-1):
+	
+			prod_fase[pipe_index-1] <= data_reg[pipe_index-1] * (ref_sen[index-1]-32768);
+			prod_cuad[pipe_index-1] <= data_reg[pipe_index-1] * (ref_cos[index-1]-32768);
+		
+		//guardar el anterior (pos n-2)
+			array_prod_fase[index-2] <= prod_fase[pipe_index-2];
+			array_prod_fase[index-2] <= prod_fase[pipe_index-2];
+
+
+		//restar_anterior del acumulador:
+		
+			acum_fase <= acum_fase - array_prod_fase[index-31];				
+			acum_cuad <= acum_cuad - array_prod_cuad[index-31];
+			
+		//sumar_nuevo al acumulador:
+		
+			acum_fase <= acum_fase + array_prod_fase[index];
+			acum_cuad <= acum_cuad + array_prod_cuad[index];
+			
+			
+		//act_salida:
+			
+			data_out_fase <= acum_fase >> 5;			
+			data_out_cuad <= acum_cuad >> 5;										
+
+	end
+end
+
+endmodule
+
+	
+	
+	

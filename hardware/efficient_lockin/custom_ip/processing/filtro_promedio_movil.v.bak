@@ -1,0 +1,107 @@
+
+module filtro_promedio_movil(
+
+	input clock,
+	input reset,
+	
+	input [50:0]	 configuracion,
+	
+	input data_valid,
+	input signed [31:0] data,	
+		
+	output signed [63:0] data_out,
+	output data_out_valid,	
+
+);
+
+);
+//=======================================================
+// Parametros de configuracion de los módulos
+//=======================================================
+
+
+wire origen_datos = configuracion[0];								// 1 para datos simulados, 0 para adc
+wire [7:0] simulation_noise = configuracion[8:1];				// Cantidad de bits de ruido en la simulacion
+wire [15:0] ptos_x_ciclo = configuracion[24:9];					// Ctdad de puntos por ciclo de señal
+wire [7:0] frames_integracion = configuracion[32:25];			// Largo del Lock In
+wire adc_channel = configuracion[33];								// 1 canal a, 0 canal b
+wire [15:0] frames_prom_coherente = configuracion[49:34];	// Cantidad de ciclos promediados coherentemente 
+
+parameter buf_tam = 2048;					// Con 4096 ya me paso de la cantidad de bloques de ram que hay
+parameter fifo_depth = 8192;
+parameter delay=3;
+
+
+//=======================================================
+// Reg/Wire declarations
+//=======================================================
+
+reg signed [63:0] data_in_2_etapa;
+reg signed [63:0] data_out_2_etapa;
+
+reg signed [63:0] acumulador;	// Son un poco mas largos para que no haya overflow
+
+reg signed [63:0] array_datos [0:buf_tam-1];
+
+reg habilitar;
+
+//=======================================================
+// Algoritmo principal
+//=======================================================
+
+always @ (posedge clock or negedge reset)
+begin
+
+	if(!reset)
+	begin
+	
+		acumulador<=0;
+		
+		data_in_2_etapa<=0;		
+		data_out_2_etapa<=0;
+		index_promediacion <= 0;
+		
+		habilitar <= 1;	
+		
+	end
+		
+	else if(data_valid)
+	begin
+	
+		habilitar <= (index_lockin == ((M*N)-1)+delay)? 0:1; 
+
+		index_promediacion <= index_promediacion + 1;
+
+		//guardar dato en arreglo (1 etapa)
+						
+		array_datos[index_promediacion] <= data;
+		
+		data_in_2_etapa <= data;
+			
+		data_out_2_etapa <= array_datos[index_promediacion];
+			
+		// Actualizar acumulador (2 etapa)				
+		acumulador <= acumulador + data_in_2_etapa - data_out_2_etapa;		
+		
+				
+		// Actualizar salida (3 etapa)		
+		data_out <= acumulador;			
+	end
+	
+	else if(!habilitar)	// Clear arrays	
+	begin
+	
+		array_prod_fase[i]<=0;
+		array_prod_cuad[i]<=0;
+		i<=i+1;	
+		
+	end
+	
+end			
+
+
+//=======================================================
+//  Circuiteria registros de status 
+//=======================================================
+
+assign fifos_llenos = ((data_valid && !habilitar))? 1:0;

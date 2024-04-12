@@ -1,0 +1,31 @@
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.exe.config
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.exe
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.pdb
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.AssemblyReference.cache
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.Properties.Resources.resources
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.GenerateResource.cache
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.CoreCompileInputs.cache
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.exe
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.pdb
+G:\Mi unidad\00-Doctorado\00-Notas random\FIR_GUI\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.FIR_demo.resources
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.exe.config
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.exe
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.pdb
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.AssemblyReference.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.SuggestedBindingRedirects.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.FIR_demo.resources
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.Properties.Resources.resources
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.GenerateResource.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.CoreCompileInputs.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.exe
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.pdb
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.exe.config
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.exe
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\bin\Debug\FIR_GUI.pdb
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.AssemblyReference.cache
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.FIR_demo.resources
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.Properties.Resources.resources
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.GenerateResource.cache
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.csproj.CoreCompileInputs.cache
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.exe
+C:\Users\mati9\Desktop\signal_processing_fpga\software\hps\FIR_GUI\FIR_GUI\obj\Debug\FIR_GUI.pdb

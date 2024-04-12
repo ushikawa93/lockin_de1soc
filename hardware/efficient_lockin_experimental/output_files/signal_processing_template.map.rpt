@@ -1,0 +1,502 @@
+Analysis & Synthesis report for signal_processing_template
+Fri Apr 12 13:38:44 2024
+Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Messages
+  6. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                              ;
++-----------------------------+---------------------------------------------+
+; Analysis & Synthesis Status ; Failed - Fri Apr 12 13:38:44 2024           ;
+; Quartus Prime Version       ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
+; Revision Name               ; signal_processing_template                  ;
+; Top-level Entity Name       ; efficient_lockin                            ;
+; Family                      ; Cyclone V                                   ;
+; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
+; Total registers             ; N/A until Partition Merge                   ;
+; Total pins                  ; N/A until Partition Merge                   ;
+; Total virtual pins          ; N/A until Partition Merge                   ;
+; Total block memory bits     ; N/A until Partition Merge                   ;
+; Total PLLs                  ; N/A until Partition Merge                   ;
+; Total DLLs                  ; N/A until Partition Merge                   ;
++-----------------------------+---------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                                     ;
++---------------------------------------------------------------------------------+--------------------+----------------------------+
+; Option                                                                          ; Setting            ; Default Value              ;
++---------------------------------------------------------------------------------+--------------------+----------------------------+
+; Device                                                                          ; 5CSEMA5F31C6       ;                            ;
+; Top-level entity name                                                           ; efficient_lockin   ; signal_processing_template ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V                  ;
+; Use smart compilation                                                           ; Off                ; Off                        ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation      ; On                 ; On                         ;
+; Enable compact report table                                                     ; Off                ; Off                        ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto                       ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                        ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                        ;
+; Preserve fewer node names                                                       ; On                 ; On                         ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable                     ;
+; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001               ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993                  ;
+; State Machine Processing                                                        ; Auto               ; Auto                       ;
+; Safe State Machine                                                              ; Off                ; Off                        ;
+; Extract Verilog State Machines                                                  ; On                 ; On                         ;
+; Extract VHDL State Machines                                                     ; On                 ; On                         ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                        ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000                       ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                        ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                         ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                         ;
+; Parallel Synthesis                                                              ; On                 ; On                         ;
+; DSP Block Balancing                                                             ; Auto               ; Auto                       ;
+; NOT Gate Push-Back                                                              ; On                 ; On                         ;
+; Power-Up Don't Care                                                             ; On                 ; On                         ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                        ;
+; Remove Duplicate Registers                                                      ; On                 ; On                         ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                        ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                        ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                        ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                        ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                        ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                         ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                        ;
+; Optimization Technique                                                          ; Balanced           ; Balanced                   ;
+; Carry Chain Length                                                              ; 70                 ; 70                         ;
+; Auto Carry Chains                                                               ; On                 ; On                         ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                         ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                        ;
+; Auto ROM Replacement                                                            ; On                 ; On                         ;
+; Auto RAM Replacement                                                            ; On                 ; On                         ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                         ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto                       ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto                       ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                         ;
+; Strict RAM Replacement                                                          ; Off                ; Off                        ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                         ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                        ;
+; Auto Resource Sharing                                                           ; Off                ; Off                        ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                        ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                        ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                        ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                         ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                        ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                         ;
+; Report Parameter Settings                                                       ; On                 ; On                         ;
+; Report Source Assignments                                                       ; On                 ; On                         ;
+; Report Connectivity Checks                                                      ; On                 ; On                         ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                        ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                          ;
+; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation         ;
+; HDL message level                                                               ; Level2             ; Level2                     ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                        ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000                       ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000                       ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                        ;
+; Clock MUX Protection                                                            ; On                 ; On                         ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                        ;
+; Block Design Naming                                                             ; Auto               ; Auto                       ;
+; SDC constraint protection                                                       ; Off                ; Off                        ;
+; Synthesis Effort                                                                ; Auto               ; Auto                       ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                         ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                        ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium                     ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto                       ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                         ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                         ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                        ;
++---------------------------------------------------------------------------------+--------------------+----------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+    Info: Processing started: Fri Apr 12 13:38:19 2024
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off efficient_lockin -c signal_processing_template
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/lu_table.v
+    Info (12023): Found entity 1: lu_table File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/lu_table.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/dds_compiler_module.v
+    Info (12023): Found entity 1: dds_compiler_module File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/dds_compiler_module.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/coherent_avg.v
+    Info (12023): Found entity 1: coherent_avg File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/coherent_avg.v Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/multiplicate_ref.v
+    Info (12023): Found entity 1: multiplicate_ref File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/multiplicate_ref.v Line: 2
+Warning (10463): Verilog HDL Declaration warning at multiplicate_ref_2.v(49): "ref" is SystemVerilog-2005 keyword File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/multiplicate_ref_2.v Line: 49
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/multiplicate_ref_2.v
+    Info (12023): Found entity 1: multiplicate_ref_2 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/multiplicate_ref_2.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/lockin_segmentado.v
+    Info (12023): Found entity 1: lockin_segmentado File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/lockin_segmentado.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file efficient_lockin.v
+    Info (12023): Found entity 1: efficient_lockin File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/prom_coherente_pipelined.v
+    Info (12023): Found entity 1: prom_coherente_pipelined File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/prom_coherente_pipelined.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/timer.v
+    Info (12023): Found entity 1: timer File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/timer.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/lfsr.v
+    Info (12023): Found entity 1: LFSR File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/LFSR.v Line: 18
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/gcl.v
+    Info (12023): Found entity 1: GCL File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/GCL.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/embedded_adc.v
+    Info (12023): Found entity 1: embedded_adc File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/embedded_adc.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/data_source_dac.v
+    Info (12023): Found entity 1: data_source_dac File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/data_source_dac.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/data_source.v
+    Info (12023): Found entity 1: data_source File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/data_source.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/dac_driver.v
+    Info (12023): Found entity 1: dac_driver File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/dac_driver.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/adc2streaming.v
+    Info (12023): Found entity 1: adc2streaming File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/adc2streaming.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/adc_ltc2308.v
+    Info (12023): Found entity 1: adc_ltc2308 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/adc_ltc2308.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/data_source/adc_driver.v
+    Info (12023): Found entity 1: adc_driver File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/adc_driver.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/control/clock_divider.v
+    Info (12023): Found entity 1: Clock_divider File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/control/clock_divider.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/filtro_promedio_movil.v
+    Info (12023): Found entity 1: filtro_promedio_movil File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/filtro_promedio_movil.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/procesador.v
+    Info (12023): Found entity 1: procesador File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/procesador.v Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_reset_controller.v
+    Info (12023): Found entity 1: altera_reset_controller File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_reset_controller.v Line: 42
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_reset_synchronizer.v
+    Info (12023): Found entity 1: altera_reset_synchronizer File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_reset_synchronizer.v Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_irq_mapper.sv
+    Info (12023): Found entity 1: procesador_irq_mapper File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_irq_mapper.sv Line: 31
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0.v
+    Info (12023): Found entity 1: procesador_mm_interconnect_0 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_avalon_st_adapter.v
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_avalon_st_adapter File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_avalon_st_adapter.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_avalon_st_adapter_error_adapter_0 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv Line: 66
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_avalon_st_handshake_clock_crosser.v
+    Info (12023): Found entity 1: altera_avalon_st_handshake_clock_crosser File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_avalon_st_handshake_clock_crosser.v Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_avalon_st_clock_crosser.v
+    Info (12023): Found entity 1: altera_avalon_st_clock_crosser File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_avalon_st_clock_crosser.v Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_avalon_st_pipeline_base.v
+    Info (12023): Found entity 1: altera_avalon_st_pipeline_base File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_avalon_st_pipeline_base.v Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_std_synchronizer_nocut.v
+    Info (12023): Found entity 1: altera_std_synchronizer_nocut File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_std_synchronizer_nocut.v Line: 44
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_mux_003.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_rsp_mux_003 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_mux_003.sv Line: 51
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/altera_merlin_arbitrator.sv
+    Info (12023): Found entity 1: altera_merlin_arbitrator File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_arbitrator.sv Line: 103
+    Info (12023): Found entity 2: altera_merlin_arb_adder File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_arbitrator.sv Line: 228
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_mux_001.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_rsp_mux_001 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_mux_001.sv Line: 51
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_mux.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_rsp_mux File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_mux.sv Line: 51
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux_013.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_rsp_demux_013 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux_013.sv Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux_003.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_rsp_demux_003 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux_003.sv Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux_002.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_rsp_demux_002 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux_002.sv Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_rsp_demux File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_rsp_demux.sv Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux_013.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_cmd_mux_013 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux_013.sv Line: 51
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux_002.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_cmd_mux_002 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux_002.sv Line: 51
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux_001.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_cmd_mux_001 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux_001.sv Line: 51
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_cmd_mux File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_mux.sv Line: 51
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_demux_003.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_cmd_demux_003 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_demux_003.sv Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_demux_001.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_cmd_demux_001 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_demux_001.sv Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_demux.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_cmd_demux File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_cmd_demux.sv Line: 43
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_burst_adapter.sv
+    Info (12023): Found entity 1: altera_merlin_burst_adapter File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter.sv Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_burst_adapter_uncmpr.sv
+    Info (12023): Found entity 1: altera_merlin_burst_adapter_uncompressed_only File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter_uncmpr.sv Line: 39
+Info (12021): Found 5 design units, including 5 entities, in source file procesador/synthesis/submodules/altera_merlin_burst_adapter_13_1.sv
+    Info (12023): Found entity 1: altera_merlin_burst_adapter_burstwrap_increment File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter_13_1.sv Line: 40
+    Info (12023): Found entity 2: altera_merlin_burst_adapter_adder File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter_13_1.sv Line: 55
+    Info (12023): Found entity 3: altera_merlin_burst_adapter_subtractor File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter_13_1.sv Line: 77
+    Info (12023): Found entity 4: altera_merlin_burst_adapter_min File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter_13_1.sv Line: 98
+    Info (12023): Found entity 5: altera_merlin_burst_adapter_13_1 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter_13_1.sv Line: 264
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_burst_adapter_new.sv
+    Info (12023): Found entity 1: altera_merlin_burst_adapter_new File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_adapter_new.sv Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_incr_burst_converter.sv
+    Info (12023): Found entity 1: altera_incr_burst_converter File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_incr_burst_converter.sv Line: 28
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_wrap_burst_converter.sv
+    Info (12023): Found entity 1: altera_wrap_burst_converter File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_wrap_burst_converter.sv Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_default_burst_converter.sv
+    Info (12023): Found entity 1: altera_default_burst_converter File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_default_burst_converter.sv Line: 30
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_address_alignment.sv
+    Info (12023): Found entity 1: altera_merlin_address_alignment File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_address_alignment.sv Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_avalon_st_pipeline_stage.sv
+    Info (12023): Found entity 1: altera_avalon_st_pipeline_stage File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_avalon_st_pipeline_stage.sv Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_traffic_limiter.sv
+    Info (12023): Found entity 1: altera_merlin_traffic_limiter File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_traffic_limiter.sv Line: 49
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/altera_merlin_reorder_memory.sv
+    Info (12023): Found entity 1: altera_merlin_reorder_memory File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_reorder_memory.sv Line: 28
+    Info (12023): Found entity 2: memory_pointer_controller File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_reorder_memory.sv Line: 185
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_avalon_sc_fifo.v
+    Info (12023): Found entity 1: altera_avalon_sc_fifo File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_avalon_sc_fifo.v Line: 21
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_router_017.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_router_017_default_decode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_017.sv Line: 45
+    Info (12023): Found entity 2: procesador_mm_interconnect_0_router_017 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_017.sv Line: 84
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_router_006.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_router_006_default_decode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_006.sv Line: 45
+    Info (12023): Found entity 2: procesador_mm_interconnect_0_router_006 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_006.sv Line: 84
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_router_005.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_router_005_default_decode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_005.sv Line: 45
+    Info (12023): Found entity 2: procesador_mm_interconnect_0_router_005 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_005.sv Line: 84
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_router_004.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_router_004_default_decode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_004.sv Line: 45
+    Info (12023): Found entity 2: procesador_mm_interconnect_0_router_004 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_004.sv Line: 84
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_router_003.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_router_003_default_decode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_003.sv Line: 45
+    Info (12023): Found entity 2: procesador_mm_interconnect_0_router_003 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_003.sv Line: 84
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_router_001.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_router_001_default_decode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_001.sv Line: 45
+    Info (12023): Found entity 2: procesador_mm_interconnect_0_router_001 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router_001.sv Line: 84
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/procesador_mm_interconnect_0_router.sv
+    Info (12023): Found entity 1: procesador_mm_interconnect_0_router_default_decode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router.sv Line: 45
+    Info (12023): Found entity 2: procesador_mm_interconnect_0_router File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_mm_interconnect_0_router.sv Line: 84
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_slave_agent.sv
+    Info (12023): Found entity 1: altera_merlin_slave_agent File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_slave_agent.sv Line: 34
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+    Info (12023): Found entity 1: altera_merlin_burst_uncompressor File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_burst_uncompressor.sv Line: 40
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_axi_master_ni.sv
+    Info (12023): Found entity 1: altera_merlin_axi_master_ni File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_axi_master_ni.sv Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_master_agent.sv
+    Info (12023): Found entity 1: altera_merlin_master_agent File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_master_agent.sv Line: 28
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_slave_translator.sv
+    Info (12023): Found entity 1: altera_merlin_slave_translator File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_slave_translator.sv Line: 35
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_merlin_master_translator.sv
+    Info (12023): Found entity 1: altera_merlin_master_translator File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_merlin_master_translator.sv Line: 32
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_result0_32_bit.v
+    Info (12023): Found entity 1: procesador_result0_32_bit File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_result0_32_bit.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_reset.v
+    Info (12023): Found entity 1: procesador_reset File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_reset.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_program_memory.v
+    Info (12023): Found entity 1: procesador_program_memory File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_program_memory.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_pll_reconfig_top.v
+    Info (12023): Found entity 1: altera_pll_reconfig_top File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_pll_reconfig_top.v Line: 16
+Info (12021): Found 6 design units, including 6 entities, in source file procesador/synthesis/submodules/altera_pll_reconfig_core.v
+    Info (12023): Found entity 1: altera_pll_reconfig_core File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_pll_reconfig_core.v Line: 16
+    Info (12023): Found entity 2: self_reset File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_pll_reconfig_core.v Line: 1691
+    Info (12023): Found entity 3: dprio_mux File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_pll_reconfig_core.v Line: 1739
+    Info (12023): Found entity 4: fpll_dprio_init File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_pll_reconfig_core.v Line: 1789
+    Info (12023): Found entity 5: dyn_phase_shift File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_pll_reconfig_core.v Line: 1884
+    Info (12023): Found entity 6: generic_lcell_comb File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_pll_reconfig_core.v Line: 2112
+Warning (12090): Entity "altera_std_synchronizer" obtained from "procesador/synthesis/submodules/altera_std_synchronizer.v" instead of from Quartus Prime megafunction library File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_std_synchronizer.v Line: 37
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_std_synchronizer.v
+    Info (12023): Found entity 1: altera_std_synchronizer File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_std_synchronizer.v Line: 37
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_pll.v
+    Info (12023): Found entity 1: procesador_pll File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_pll.v Line: 2
+Info (12021): Found 2 design units, including 2 entities, in source file procesador/synthesis/submodules/slave_template.v
+    Info (12023): Found entity 1: slave_template File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/slave_template.v Line: 57
+    Info (12023): Found entity 2: register_with_bytelanes File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/slave_template.v Line: 746
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/interrupt_logic.v
+    Info (12023): Found entity 1: interrupt_logic File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/interrupt_logic.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_nios2_gen2_0.v
+    Info (12023): Found entity 1: procesador_nios2_gen2_0 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0.v Line: 9
+Info (12021): Found 21 design units, including 21 entities, in source file procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v
+    Info (12023): Found entity 1: procesador_nios2_gen2_0_cpu_register_bank_a_module File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 21
+    Info (12023): Found entity 2: procesador_nios2_gen2_0_cpu_register_bank_b_module File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 87
+    Info (12023): Found entity 3: procesador_nios2_gen2_0_cpu_nios2_oci_debug File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 153
+    Info (12023): Found entity 4: procesador_nios2_gen2_0_cpu_nios2_oci_break File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 295
+    Info (12023): Found entity 5: procesador_nios2_gen2_0_cpu_nios2_oci_xbrk File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 588
+    Info (12023): Found entity 6: procesador_nios2_gen2_0_cpu_nios2_oci_dbrk File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 795
+    Info (12023): Found entity 7: procesador_nios2_gen2_0_cpu_nios2_oci_itrace File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 982
+    Info (12023): Found entity 8: procesador_nios2_gen2_0_cpu_nios2_oci_td_mode File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1115
+    Info (12023): Found entity 9: procesador_nios2_gen2_0_cpu_nios2_oci_dtrace File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1183
+    Info (12023): Found entity 10: procesador_nios2_gen2_0_cpu_nios2_oci_compute_input_tm_cnt File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1265
+    Info (12023): Found entity 11: procesador_nios2_gen2_0_cpu_nios2_oci_fifo_wrptr_inc File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1337
+    Info (12023): Found entity 12: procesador_nios2_gen2_0_cpu_nios2_oci_fifo_cnt_inc File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1380
+    Info (12023): Found entity 13: procesador_nios2_gen2_0_cpu_nios2_oci_fifo File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1427
+    Info (12023): Found entity 14: procesador_nios2_gen2_0_cpu_nios2_oci_pib File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1913
+    Info (12023): Found entity 15: procesador_nios2_gen2_0_cpu_nios2_oci_im File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 1936
+    Info (12023): Found entity 16: procesador_nios2_gen2_0_cpu_nios2_performance_monitors File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 2006
+    Info (12023): Found entity 17: procesador_nios2_gen2_0_cpu_nios2_avalon_reg File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 2023
+    Info (12023): Found entity 18: procesador_nios2_gen2_0_cpu_ociram_sp_ram_module File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 2116
+    Info (12023): Found entity 19: procesador_nios2_gen2_0_cpu_nios2_ocimem File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 2181
+    Info (12023): Found entity 20: procesador_nios2_gen2_0_cpu_nios2_oci File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 2362
+    Info (12023): Found entity 21: procesador_nios2_gen2_0_cpu File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu.v Line: 2834
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_debug_slave_sysclk.v
+    Info (12023): Found entity 1: procesador_nios2_gen2_0_cpu_debug_slave_sysclk File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_debug_slave_sysclk.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_debug_slave_tck.v
+    Info (12023): Found entity 1: procesador_nios2_gen2_0_cpu_debug_slave_tck File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_debug_slave_tck.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_debug_slave_wrapper.v
+    Info (12023): Found entity 1: procesador_nios2_gen2_0_cpu_debug_slave_wrapper File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_debug_slave_wrapper.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_test_bench.v
+    Info (12023): Found entity 1: procesador_nios2_gen2_0_cpu_test_bench File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_nios2_gen2_0_cpu_test_bench.v Line: 21
+Info (12021): Found 5 design units, including 5 entities, in source file procesador/synthesis/submodules/procesador_jtag_uart_0.v
+    Info (12023): Found entity 1: procesador_jtag_uart_0_sim_scfifo_w File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_jtag_uart_0.v Line: 21
+    Info (12023): Found entity 2: procesador_jtag_uart_0_scfifo_w File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_jtag_uart_0.v Line: 78
+    Info (12023): Found entity 3: procesador_jtag_uart_0_sim_scfifo_r File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_jtag_uart_0.v Line: 164
+    Info (12023): Found entity 4: procesador_jtag_uart_0_scfifo_r File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_jtag_uart_0.v Line: 243
+    Info (12023): Found entity 5: procesador_jtag_uart_0 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_jtag_uart_0.v Line: 331
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_hps_0.v
+    Info (12023): Found entity 1: procesador_hps_0 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_hps_0.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_hps_0_hps_io.v
+    Info (12023): Found entity 1: procesador_hps_0_hps_io File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_hps_0_hps_io.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram.v
+    Info (12023): Found entity 1: hps_sdram File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altdq_dqs2_acv_connect_to_hard_phy_cyclonev.sv
+    Info (12023): Found entity 1: altdq_dqs2_acv_connect_to_hard_phy_cyclonev File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altdq_dqs2_acv_connect_to_hard_phy_cyclonev.sv Line: 19
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_mem_if_dll_cyclonev.sv
+    Info (12023): Found entity 1: altera_mem_if_dll_cyclonev File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_mem_if_dll_cyclonev.sv Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_mem_if_hard_memory_controller_top_cyclonev.sv
+    Info (12023): Found entity 1: altera_mem_if_hard_memory_controller_top_cyclonev File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_mem_if_hard_memory_controller_top_cyclonev.sv Line: 18
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_mem_if_hhp_qseq_synth_top.v
+    Info (12023): Found entity 1: altera_mem_if_hhp_qseq_synth_top File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_mem_if_hhp_qseq_synth_top.v Line: 15
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/altera_mem_if_oct_cyclonev.sv
+    Info (12023): Found entity 1: altera_mem_if_oct_cyclonev File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/altera_mem_if_oct_cyclonev.sv Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0.sv
+    Info (12023): Found entity 1: hps_sdram_p0 File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0.sv Line: 18
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_acv_hard_addr_cmd_pads.v
+    Info (12023): Found entity 1: hps_sdram_p0_acv_hard_addr_cmd_pads File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_acv_hard_addr_cmd_pads.v Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_acv_hard_io_pads.v
+    Info (12023): Found entity 1: hps_sdram_p0_acv_hard_io_pads File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_acv_hard_io_pads.v Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_acv_hard_memphy.v
+    Info (12023): Found entity 1: hps_sdram_p0_acv_hard_memphy File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_acv_hard_memphy.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_acv_ldc.v
+    Info (12023): Found entity 1: hps_sdram_p0_acv_ldc File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_acv_ldc.v Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_altdqdqs.v
+    Info (12023): Found entity 1: hps_sdram_p0_altdqdqs File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_altdqdqs.v Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_clock_pair_generator.v
+    Info (12023): Found entity 1: hps_sdram_p0_clock_pair_generator File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_clock_pair_generator.v Line: 28
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_generic_ddio.v
+    Info (12023): Found entity 1: hps_sdram_p0_generic_ddio File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_generic_ddio.v Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_iss_probe.v
+    Info (12023): Found entity 1: hps_sdram_p0_iss_probe File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_iss_probe.v Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_phy_csr.sv
+    Info (12023): Found entity 1: hps_sdram_p0_phy_csr File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_phy_csr.sv Line: 31
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_reset.v
+    Info (12023): Found entity 1: hps_sdram_p0_reset File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_reset.v Line: 18
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_p0_reset_sync.v
+    Info (12023): Found entity 1: hps_sdram_p0_reset_sync File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_p0_reset_sync.v Line: 17
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/hps_sdram_pll.sv
+    Info (12023): Found entity 1: hps_sdram_pll File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_pll.sv Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_hps_0_hps_io_border.sv
+    Info (12023): Found entity 1: procesador_hps_0_hps_io_border File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_hps_0_hps_io_border.sv Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_hps_0_fpga_interfaces.sv
+    Info (12023): Found entity 1: procesador_hps_0_fpga_interfaces File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_hps_0_fpga_interfaces.sv Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_finalizacion.v
+    Info (12023): Found entity 1: procesador_finalizacion File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_finalizacion.v Line: 21
+Info (12021): Found 4 design units, including 4 entities, in source file procesador/synthesis/submodules/procesador_fifo0_32_bit.v
+    Info (12023): Found entity 1: procesador_fifo0_32_bit_single_clock_fifo File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_fifo0_32_bit.v Line: 21
+    Info (12023): Found entity 2: procesador_fifo0_32_bit_scfifo_with_controls File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_fifo0_32_bit.v Line: 88
+    Info (12023): Found entity 3: procesador_fifo0_32_bit_map_avalonst_to_avalonmm File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_fifo0_32_bit.v Line: 151
+    Info (12023): Found entity 4: procesador_fifo0_32_bit File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_fifo0_32_bit.v Line: 178
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_enable.v
+    Info (12023): Found entity 1: procesador_enable File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_enable.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file procesador/synthesis/submodules/procesador_divisor_clock.v
+    Info (12023): Found entity 1: procesador_divisor_clock File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/procesador_divisor_clock.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file control.v
+    Info (12023): Found entity 1: control File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/control.v Line: 2
+Warning (10275): Verilog HDL Module Instantiation warning at data_in.v(101): ignored dangling comma in List of Port Connections File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/data_in.v Line: 101
+Info (12021): Found 1 design units, including 1 entities, in source file data_in.v
+    Info (12023): Found entity 1: data_in File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/data_in.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/multiplicador.v
+    Info (12023): Found entity 1: multiplicador File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/multiplicador.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/referencias.v
+    Info (12023): Found entity 1: referencias File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/referencias.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/fir_filter.v
+    Info (12023): Found entity 1: FIR_filter File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/FIR_filter.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/signal_processing_cali.v
+    Info (12023): Found entity 1: signal_processing_CALI File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/signal_processing_CALI.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/signal_processing_li.v
+    Info (12023): Found entity 1: signal_processing_LI File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/signal_processing_LI.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file custom_ip/processing/filtro_ma.v
+    Info (12023): Found entity 1: filtro_ma File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/filtro_ma.v Line: 2
+Warning (10236): Verilog HDL Implicit Net warning at multiplicate_ref_2.v(71): created implicit net for "data_valid_seno" File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/multiplicate_ref_2.v Line: 71
+Warning (10236): Verilog HDL Implicit Net warning at multiplicate_ref_2.v(90): created implicit net for "data_valid_cos" File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/multiplicate_ref_2.v Line: 90
+Warning (10236): Verilog HDL Implicit Net warning at efficient_lockin.v(456): created implicit net for "delta_phase" File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 456
+Warning (10236): Verilog HDL Implicit Net warning at signal_processing_LI.v(122): created implicit net for "data_out1_valid" File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/signal_processing_LI.v Line: 122
+Warning (10236): Verilog HDL Implicit Net warning at signal_processing_LI.v(125): created implicit net for "data_out2_valid" File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/processing/signal_processing_LI.v Line: 125
+Warning (10236): Verilog HDL Implicit Net warning at hps_sdram_pll.sv(168): created implicit net for "pll_dr_clk" File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/procesador/synthesis/submodules/hps_sdram_pll.sv Line: 168
+Warning (10222): Verilog HDL Parameter Declaration warning at lu_table.v(21): Parameter Declaration in module "lu_table" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/lu_table.v Line: 21
+Warning (10222): Verilog HDL Parameter Declaration warning at lu_table.v(23): Parameter Declaration in module "lu_table" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/lu_table.v Line: 23
+Warning (10222): Verilog HDL Parameter Declaration warning at lu_table.v(25): Parameter Declaration in module "lu_table" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/custom_ip/data_source/lu_table.v Line: 25
+Error (10161): Verilog HDL error at efficient_lockin.v(98): object "data_canal_b" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 98
+Error (10161): Verilog HDL error at efficient_lockin.v(98): object "data_canal_a" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 98
+Error (10161): Verilog HDL error at efficient_lockin.v(100): object "data_adc_2308" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 100
+Error (10161): Verilog HDL error at efficient_lockin.v(100): object "datos_simulados" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 100
+Error (10161): Verilog HDL error at efficient_lockin.v(101): object "data_adc_2308_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 101
+Error (10161): Verilog HDL error at efficient_lockin.v(101): object "data_adc_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 101
+Error (10161): Verilog HDL error at efficient_lockin.v(101): object "datos_simulados_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 101
+Error (10161): Verilog HDL error at efficient_lockin.v(116): object "data_adc_2308" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 116
+Error (10161): Verilog HDL error at efficient_lockin.v(117): object "data_adc_2308_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 117
+Error (10161): Verilog HDL error at efficient_lockin.v(123): object "data_adc_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 123
+Error (10161): Verilog HDL error at efficient_lockin.v(128): object "datos_simulados" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 128
+Error (10161): Verilog HDL error at efficient_lockin.v(129): object "datos_simulados_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 129
+Error (10161): Verilog HDL error at efficient_lockin.v(134): object "data_procesada1" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 134
+Error (10161): Verilog HDL error at efficient_lockin.v(135): object "data_procesada1_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 135
+Error (10161): Verilog HDL error at efficient_lockin.v(140): object "data_procesada2" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 140
+Error (10161): Verilog HDL error at efficient_lockin.v(141): object "data_procesada2_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 141
+Error (10161): Verilog HDL error at efficient_lockin.v(146): object "data_promc" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 146
+Error (10161): Verilog HDL error at efficient_lockin.v(147): object "data_promc_valid" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 147
+Error (10161): Verilog HDL error at efficient_lockin.v(189): object "data_adc_2308" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/efficient_lockin.v Line: 189
+Info (144001): Generated suppressed messages file C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/output_files/signal_processing_template.map.smsg
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 19 errors, 13 warnings
+    Error: Peak virtual memory: 4921 megabytes
+    Error: Processing ended: Fri Apr 12 13:41:19 2024
+    Error: Elapsed time: 00:03:00
+    Error: Total CPU time (on all processors): 00:03:16
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/output_files/signal_processing_template.map.smsg.
+
+

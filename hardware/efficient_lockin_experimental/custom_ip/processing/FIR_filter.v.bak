@@ -1,0 +1,68 @@
+
+module FIR_filter (
+
+	input clk,
+	input reset_n,
+	input enable,
+
+	input [31:0] data_in,
+	input data_in_valid,
+	
+	output [31:0] data_out,
+	output reg data_out_valid,
+
+
+);
+
+
+parameter B0 = 2217;
+parameter B1 = 15736;
+parameter B2 = 29627;
+parameter B3 = 1536;
+parameter B4 = 2217;
+
+reg [31:0] x_0;
+reg [31:0] x_1;
+reg [31:0] x_2;
+reg [31:0] x_3;
+reg [31:0] x_4;
+
+reg [31:0] y;
+
+always @ (posedge clk)
+begin
+
+	if (!reset_n)
+	begin
+		x_0 <= 0;
+		x_1 <= 0;
+		x_2 <= 0;
+		x_3 <= 0;
+		x_4 <= 0;
+		data_out_valid <= 0;
+	
+	end
+	
+	else if (enable)
+	begin 
+		
+		if(data_in_valid)
+		begin
+		
+			x_0 <= data_in;
+			x_1 <= x_0;
+			x_2 <= x_1;
+			x_3 <= x_2;
+			x_4 <= x_3;
+	
+			y <= B0 * x_0 + B1 * x_1 + B2 * x_2 + B3 * x_3 + B4 * x_4;
+			data_out_valid <= 1;
+		
+		end
+	end
+
+end
+
+assign data_out = y;
+
+endmodule

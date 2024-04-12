@@ -1,0 +1,17 @@
+/*
+ * lockin_results.h
+ *
+ *  Funciones para calcular amplitud y fase de una
+ *  transferencia a partir del X e Y
+ *
+ */
+
+#include "math.h"
+int amplitud_ref = 32767;
+
+
+int Amplitud_lockin(int X, int Y){
+	return sqrt(X*X+Y*Y)*2/amplitud_ref;
+}
+
+

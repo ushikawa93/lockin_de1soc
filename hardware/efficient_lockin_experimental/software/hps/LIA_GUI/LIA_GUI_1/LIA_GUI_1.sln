@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIA_GUI_1", "LIA_GUI_1\LIA_GUI_1.csproj", "{6C264D09-728A-47B4-84CD-4DB4F36EC75A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C264D09-728A-47B4-84CD-4DB4F36EC75A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C264D09-728A-47B4-84CD-4DB4F36EC75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C264D09-728A-47B4-84CD-4DB4F36EC75A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C264D09-728A-47B4-84CD-4DB4F36EC75A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C68E40E2-1C64-4227-8A71-B3CF71FF9479}
+	EndGlobalSection
+EndGlobal

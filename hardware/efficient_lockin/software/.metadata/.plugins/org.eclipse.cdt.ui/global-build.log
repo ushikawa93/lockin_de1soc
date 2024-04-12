@@ -1,0 +1,659 @@
+12:41:01 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+12:41:02 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+12:41:08 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+12:41:09 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+12:42:20 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+12:42:21 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:62:6: warning: unused variable 'fuente' [-Wunused-variable]
+  int fuente = 1; //-> 0 adc_2308 // 1 adc_hs // 2 simulacion
+      ^
+main.c:61:6: warning: unused variable 'sim_noise' [-Wunused-variable]
+  int sim_noise = 10;
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+13:56:16 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+13:56:17 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:18:32 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:18:34 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:19:26 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:19:27 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:37:40 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:37:40 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:38:07 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:38:08 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+17:07:17 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:07:18 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:08:21 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:08:22 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling .metadata/.plugins/org.eclipse.cdt.make.core/specs.cpp to obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o
+nios2-elf-gcc -xc++ -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED      -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o .metadata/.plugins/org.eclipse.cdt.make.core/specs.cpp
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+17:08:47 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:08:48 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+17:10:19 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:10:20 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:63:6: warning: unused variable 'div' [-Wunused-variable]
+  int div = M*N_ma*N_ca;
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 103 KBytes program size (code + initialized data).
+Info:                        36 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+17:12:12 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:12:13 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:12:50 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:12:50 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:13:41 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:13:42 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:14:14 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:14:15 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:15:18 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:15:19 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:15:42 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:15:43 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:16:43 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:16:43 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:17:55 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:17:55 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:20:03 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:20:03 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:20:54 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:20:55 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+17:21:27 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+17:21:28 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:12:29 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:12:30 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:68:6: warning: unused variable 'pts_to_print' [-Wunused-variable]
+  int pts_to_print = 256;
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        34 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:12:39 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:12:40 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:13:51 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:13:52 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:68:6: warning: unused variable 'pts_to_print' [-Wunused-variable]
+  int pts_to_print = 256;
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:14:11 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:14:11 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:14:44 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:14:45 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:68:6: warning: unused variable 'pts_to_print' [-Wunused-variable]
+  int pts_to_print = 256;
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:15:51 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:15:52 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:17:51 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:17:52 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:20:07 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:20:07 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:68:6: warning: unused variable 'pts_to_print' [-Wunused-variable]
+  int pts_to_print = 256;
+      ^
+main.c:67:6: warning: unused variable 'div_clk' [-Wunused-variable]
+  int div_clk = 1; // Si queremos f_muestreo menor a 1MHz
+      ^
+main.c:66:6: warning: unused variable 'f' [-Wunused-variable]
+  int f = 64; //En MHZ
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:21:35 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:21:36 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:68:6: warning: unused variable 'pts_to_print' [-Wunused-variable]
+  int pts_to_print = 256;
+      ^
+main.c:67:6: warning: unused variable 'div_clk' [-Wunused-variable]
+  int div_clk = 1; // Si queremos f_muestreo menor a 1MHz
+      ^
+main.c:66:6: warning: unused variable 'f' [-Wunused-variable]
+  int f = 64; //En MHZ
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:22:48 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:22:49 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:67:6: warning: unused variable 'div_clk' [-Wunused-variable]
+  int div_clk = 1; // Si queremos f_muestreo menor a 1MHz
+      ^
+main.c:66:6: warning: unused variable 'f' [-Wunused-variable]
+  int f = 64; //En MHZ
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:23:44 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:23:44 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:67:6: warning: unused variable 'div_clk' [-Wunused-variable]
+  int div_clk = 1; // Si queremos f_muestreo menor a 1MHz
+      ^
+main.c:66:6: warning: unused variable 'f' [-Wunused-variable]
+  int f = 64; //En MHZ
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:24:28 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:24:29 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+[signal_procesing build complete]
+16:26:20 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:26:21 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:67:6: warning: unused variable 'div_clk' [-Wunused-variable]
+  int div_clk = 1; // Si queremos f_muestreo menor a 1MHz
+      ^
+main.c:66:6: warning: unused variable 'f' [-Wunused-variable]
+  int f = 64; //En MHZ
+      ^
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:27:15 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:27:16 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:29:01 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:29:02 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:31:15 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:31:16 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]
+16:34:59 **** Incremental Build of configuration Nios II for project signal_procesing_bsp ****
+make all 
+[BSP build complete]
+16:35:00 **** Incremental Build of configuration Nios II for project signal_procesing ****
+make all 
+makefile:761: warning: overriding commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+makefile:758: warning: ignoring old commands for target `obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o'
+Info: Building ../signal_procesing_bsp/
+C:/intelFPGA_lite/17.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../signal_procesing_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../signal_procesing_bsp//HAL/inc -I../signal_procesing_bsp/ -I../signal_procesing_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/main.o main.c
+Info: Linking signal_procesing.elf
+nios2-elf-g++  -T'../signal_procesing_bsp//linker.x' -msys-crt0='../signal_procesing_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../signal_procesing_bsp/   -Wl,-Map=signal_procesing.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o signal_procesing.elf obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o obj/default/funciones_pll.o obj/default/main.o obj/default/parameters_control.o obj/default/.metadata/.plugins/org.eclipse.cdt.make.core/specs.o -lm -msys-lib=m
+nios2-elf-insert signal_procesing.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name procesador --quartus_project_dir "C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin" --jdi ../..//output_files/signal_processing_template.jdi --sopcinfo C:/Users/MatiOliva/Documents/00-ProyectosQuartus/efficient_lockin/software/signal_procesing_bsp/../../procesador.sopcinfo
+Info: (signal_procesing.elf) 104 KBytes program size (code + initialized data).
+Info:                        35 KBytes free for stack + heap.
+Info: Creating signal_procesing.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source signal_procesing.elf >signal_procesing.objdump
+[signal_procesing build complete]

@@ -1,0 +1,10 @@
+cd Pipe_c++/
+make
+cd ..
+
+rm /tmp/myfifo1
+rm /tmp/myfifo2
+
+./Pipe_c++/fpga_driver &
+
+mono FIR_GUI/bin/Debug/FIR_GUI.exe

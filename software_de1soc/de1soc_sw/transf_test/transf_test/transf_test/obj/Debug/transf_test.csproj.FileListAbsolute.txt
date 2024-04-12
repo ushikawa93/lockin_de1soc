@@ -1,0 +1,8 @@
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\bin\Debug\transf_test.exe.config
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\bin\Debug\transf_test.exe
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\bin\Debug\transf_test.pdb
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\obj\Debug\transf_test.csproj.AssemblyReference.cache
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\obj\Debug\transf_test.csproj.SuggestedBindingRedirects.cache
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\obj\Debug\transf_test.csproj.CoreCompileInputs.cache
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\obj\Debug\transf_test.exe
+C:\Users\MatiOliva\Documents\04-de1soc_sw\de1soc_sw\transf_test\transf_test\transf_test\obj\Debug\transf_test.pdb
