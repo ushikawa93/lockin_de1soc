@@ -1,0 +1,273 @@
+\doxysection{lockin\+\_\+consola.\+FPGA Class Reference}
+\hypertarget{classlockin__consola_1_1_f_p_g_a}{}\label{classlockin__consola_1_1_f_p_g_a}\index{lockin\_consola.FPGA@{lockin\_consola.FPGA}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a8a0a24a2b9a6448b714f103b86527a99}\label{classlockin__consola_1_1_f_p_g_a_a8a0a24a2b9a6448b714f103b86527a99} 
+enum {\bfseries FUENTE\+\_\+\+DATOS} \{ \newline
+{\bfseries ADC\+\_\+2308} = 0
+, {\bfseries ADC\+\_\+\+HS} = 1
+, {\bfseries SIM} = 2
+, {\bfseries ADC\+\_\+2308} = 0
+, \newline
+{\bfseries ADC\+\_\+\+HS} = 1
+, {\bfseries SIM} = 2
+, {\bfseries ADC\+\_\+2308} = 0
+, {\bfseries ADC\+\_\+\+HS} = 1
+, \newline
+{\bfseries SIM} = 2
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae77647af6913085eb2c73ef53dcd39fb}\label{classlockin__consola_1_1_f_p_g_a_ae77647af6913085eb2c73ef53dcd39fb} 
+enum {\bfseries PROC\+\_\+\+MODE} \{ \newline
+{\bfseries CALI} = 0
+, {\bfseries LI} = 1
+, {\bfseries CALI} = 0
+, {\bfseries LI} = 1
+, \newline
+{\bfseries CALI} = 0
+, {\bfseries LI} = 1
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae970047a4c741f13fa81a0db2a58fed3}\label{classlockin__consola_1_1_f_p_g_a_ae970047a4c741f13fa81a0db2a58fed3} 
+enum {\bfseries FIFO\+\_\+\+DIRECTION} \{ \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+, \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+, \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a8a0a24a2b9a6448b714f103b86527a99}\label{classlockin__consola_1_1_f_p_g_a_a8a0a24a2b9a6448b714f103b86527a99} 
+enum {\bfseries FUENTE\+\_\+\+DATOS} \{ \newline
+{\bfseries ADC\+\_\+2308} = 0
+, {\bfseries ADC\+\_\+\+HS} = 1
+, {\bfseries SIM} = 2
+, {\bfseries ADC\+\_\+2308} = 0
+, \newline
+{\bfseries ADC\+\_\+\+HS} = 1
+, {\bfseries SIM} = 2
+, {\bfseries ADC\+\_\+2308} = 0
+, {\bfseries ADC\+\_\+\+HS} = 1
+, \newline
+{\bfseries SIM} = 2
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae77647af6913085eb2c73ef53dcd39fb}\label{classlockin__consola_1_1_f_p_g_a_ae77647af6913085eb2c73ef53dcd39fb} 
+enum {\bfseries PROC\+\_\+\+MODE} \{ \newline
+{\bfseries CALI} = 0
+, {\bfseries LI} = 1
+, {\bfseries CALI} = 0
+, {\bfseries LI} = 1
+, \newline
+{\bfseries CALI} = 0
+, {\bfseries LI} = 1
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae970047a4c741f13fa81a0db2a58fed3}\label{classlockin__consola_1_1_f_p_g_a_ae970047a4c741f13fa81a0db2a58fed3} 
+enum {\bfseries FIFO\+\_\+\+DIRECTION} \{ \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+, \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+, \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a8a0a24a2b9a6448b714f103b86527a99}\label{classlockin__consola_1_1_f_p_g_a_a8a0a24a2b9a6448b714f103b86527a99} 
+enum {\bfseries FUENTE\+\_\+\+DATOS} \{ \newline
+{\bfseries ADC\+\_\+2308} = 0
+, {\bfseries ADC\+\_\+\+HS} = 1
+, {\bfseries SIM} = 2
+, {\bfseries ADC\+\_\+2308} = 0
+, \newline
+{\bfseries ADC\+\_\+\+HS} = 1
+, {\bfseries SIM} = 2
+, {\bfseries ADC\+\_\+2308} = 0
+, {\bfseries ADC\+\_\+\+HS} = 1
+, \newline
+{\bfseries SIM} = 2
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae77647af6913085eb2c73ef53dcd39fb}\label{classlockin__consola_1_1_f_p_g_a_ae77647af6913085eb2c73ef53dcd39fb} 
+enum {\bfseries PROC\+\_\+\+MODE} \{ \newline
+{\bfseries CALI} = 0
+, {\bfseries LI} = 1
+, {\bfseries CALI} = 0
+, {\bfseries LI} = 1
+, \newline
+{\bfseries CALI} = 0
+, {\bfseries LI} = 1
+ \}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae970047a4c741f13fa81a0db2a58fed3}\label{classlockin__consola_1_1_f_p_g_a_ae970047a4c741f13fa81a0db2a58fed3} 
+enum {\bfseries FIFO\+\_\+\+DIRECTION} \{ \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+, \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+, \newline
+{\bfseries F0\+\_\+32}
+, {\bfseries F1\+\_\+32}
+, {\bfseries F0\+\_\+64}
+, {\bfseries F1\+\_\+64}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a01e7b8d1480d4f47920434b3b5a1e82a}\label{classlockin__consola_1_1_f_p_g_a_a01e7b8d1480d4f47920434b3b5a1e82a} 
+void {\bfseries Start} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a091a313cabeb795f3859548cfcd00b71}\label{classlockin__consola_1_1_f_p_g_a_a091a313cabeb795f3859548cfcd00b71} 
+void {\bfseries Reset} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a6be97cd9aed44f40f0d94dd6801ef6d0}\label{classlockin__consola_1_1_f_p_g_a_a6be97cd9aed44f40f0d94dd6801ef6d0} 
+void {\bfseries set\+\_\+clk} (int value)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a581e9261ccae7678aa774be3c41a0bbd}\label{classlockin__consola_1_1_f_p_g_a_a581e9261ccae7678aa774be3c41a0bbd} 
+void {\bfseries set\+\_\+lockin\+\_\+frec} (int value, int M)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a633673ee8de7ee27f88f285b57a92f05}\label{classlockin__consola_1_1_f_p_g_a_a633673ee8de7ee27f88f285b57a92f05} 
+void {\bfseries set\+\_\+param} (int param\+\_\+index, int value)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a7b19099ecccdf287401c140bd4dc0a61}\label{classlockin__consola_1_1_f_p_g_a_a7b19099ecccdf287401c140bd4dc0a61} 
+long {\bfseries get\+\_\+param} (int param\+\_\+index)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a9f654a194541ff9be2de439704bc8a63}\label{classlockin__consola_1_1_f_p_g_a_a9f654a194541ff9be2de439704bc8a63} 
+void {\bfseries set\+\_\+fuente\+\_\+datos} (FUENTE\+\_\+\+DATOS fuente\+\_\+datos)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a218a5faa8f0ee8ecfa5833ed399bcee4}\label{classlockin__consola_1_1_f_p_g_a_a218a5faa8f0ee8ecfa5833ed399bcee4} 
+void {\bfseries set\+\_\+processing\+\_\+mode} (PROC\+\_\+\+MODE procesing\+\_\+mode)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_abc14903ece42356e906cb27f8c95b253}\label{classlockin__consola_1_1_f_p_g_a_abc14903ece42356e906cb27f8c95b253} 
+void {\bfseries Terminate} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ab18810382254235fc1c3ef5795063e76}\label{classlockin__consola_1_1_f_p_g_a_ab18810382254235fc1c3ef5795063e76} 
+void {\bfseries set\+\_\+\+N\+\_\+param} (int start\+\_\+index, List$<$ int $>$ parametros)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a4b9c211023b36e18e9d611befea23fef}\label{classlockin__consola_1_1_f_p_g_a_a4b9c211023b36e18e9d611befea23fef} 
+List$<$ int $>$ {\bfseries get\+\_\+from\+\_\+fifo\+\_\+32} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction, int N)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a21d4f692eb05faeed671692a91db8bd6}\label{classlockin__consola_1_1_f_p_g_a_a21d4f692eb05faeed671692a91db8bd6} 
+List$<$ long $>$ {\bfseries get\+\_\+from\+\_\+fifo\+\_\+64} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction, int N)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae915dd52e3647cf8059f793af2bbe2ae}\label{classlockin__consola_1_1_f_p_g_a_ae915dd52e3647cf8059f793af2bbe2ae} 
+long {\bfseries get\+\_\+result\+\_\+64} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ad36bf894e0a992c2ed35131201d6b70d}\label{classlockin__consola_1_1_f_p_g_a_ad36bf894e0a992c2ed35131201d6b70d} 
+void {\bfseries Toggle\+\_\+led} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a01e7b8d1480d4f47920434b3b5a1e82a}\label{classlockin__consola_1_1_f_p_g_a_a01e7b8d1480d4f47920434b3b5a1e82a} 
+void {\bfseries Start} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a091a313cabeb795f3859548cfcd00b71}\label{classlockin__consola_1_1_f_p_g_a_a091a313cabeb795f3859548cfcd00b71} 
+void {\bfseries Reset} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a6be97cd9aed44f40f0d94dd6801ef6d0}\label{classlockin__consola_1_1_f_p_g_a_a6be97cd9aed44f40f0d94dd6801ef6d0} 
+void {\bfseries set\+\_\+clk} (int value)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a581e9261ccae7678aa774be3c41a0bbd}\label{classlockin__consola_1_1_f_p_g_a_a581e9261ccae7678aa774be3c41a0bbd} 
+void {\bfseries set\+\_\+lockin\+\_\+frec} (int value, int M)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a633673ee8de7ee27f88f285b57a92f05}\label{classlockin__consola_1_1_f_p_g_a_a633673ee8de7ee27f88f285b57a92f05} 
+void {\bfseries set\+\_\+param} (int param\+\_\+index, int value)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a7b19099ecccdf287401c140bd4dc0a61}\label{classlockin__consola_1_1_f_p_g_a_a7b19099ecccdf287401c140bd4dc0a61} 
+long {\bfseries get\+\_\+param} (int param\+\_\+index)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a9f654a194541ff9be2de439704bc8a63}\label{classlockin__consola_1_1_f_p_g_a_a9f654a194541ff9be2de439704bc8a63} 
+void {\bfseries set\+\_\+fuente\+\_\+datos} (FUENTE\+\_\+\+DATOS fuente\+\_\+datos)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a218a5faa8f0ee8ecfa5833ed399bcee4}\label{classlockin__consola_1_1_f_p_g_a_a218a5faa8f0ee8ecfa5833ed399bcee4} 
+void {\bfseries set\+\_\+processing\+\_\+mode} (PROC\+\_\+\+MODE procesing\+\_\+mode)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_abc14903ece42356e906cb27f8c95b253}\label{classlockin__consola_1_1_f_p_g_a_abc14903ece42356e906cb27f8c95b253} 
+void {\bfseries Terminate} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ab18810382254235fc1c3ef5795063e76}\label{classlockin__consola_1_1_f_p_g_a_ab18810382254235fc1c3ef5795063e76} 
+void {\bfseries set\+\_\+\+N\+\_\+param} (int start\+\_\+index, List$<$ int $>$ parametros)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a4b9c211023b36e18e9d611befea23fef}\label{classlockin__consola_1_1_f_p_g_a_a4b9c211023b36e18e9d611befea23fef} 
+List$<$ int $>$ {\bfseries get\+\_\+from\+\_\+fifo\+\_\+32} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction, int N)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a21d4f692eb05faeed671692a91db8bd6}\label{classlockin__consola_1_1_f_p_g_a_a21d4f692eb05faeed671692a91db8bd6} 
+List$<$ long $>$ {\bfseries get\+\_\+from\+\_\+fifo\+\_\+64} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction, int N)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae915dd52e3647cf8059f793af2bbe2ae}\label{classlockin__consola_1_1_f_p_g_a_ae915dd52e3647cf8059f793af2bbe2ae} 
+long {\bfseries get\+\_\+result\+\_\+64} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ad36bf894e0a992c2ed35131201d6b70d}\label{classlockin__consola_1_1_f_p_g_a_ad36bf894e0a992c2ed35131201d6b70d} 
+void {\bfseries Toggle\+\_\+led} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a01e7b8d1480d4f47920434b3b5a1e82a}\label{classlockin__consola_1_1_f_p_g_a_a01e7b8d1480d4f47920434b3b5a1e82a} 
+void {\bfseries Start} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a091a313cabeb795f3859548cfcd00b71}\label{classlockin__consola_1_1_f_p_g_a_a091a313cabeb795f3859548cfcd00b71} 
+void {\bfseries Reset} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a6be97cd9aed44f40f0d94dd6801ef6d0}\label{classlockin__consola_1_1_f_p_g_a_a6be97cd9aed44f40f0d94dd6801ef6d0} 
+void {\bfseries set\+\_\+clk} (int value)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a581e9261ccae7678aa774be3c41a0bbd}\label{classlockin__consola_1_1_f_p_g_a_a581e9261ccae7678aa774be3c41a0bbd} 
+void {\bfseries set\+\_\+lockin\+\_\+frec} (int value, int M)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a633673ee8de7ee27f88f285b57a92f05}\label{classlockin__consola_1_1_f_p_g_a_a633673ee8de7ee27f88f285b57a92f05} 
+void {\bfseries set\+\_\+param} (int param\+\_\+index, int value)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a7b19099ecccdf287401c140bd4dc0a61}\label{classlockin__consola_1_1_f_p_g_a_a7b19099ecccdf287401c140bd4dc0a61} 
+long {\bfseries get\+\_\+param} (int param\+\_\+index)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a9f654a194541ff9be2de439704bc8a63}\label{classlockin__consola_1_1_f_p_g_a_a9f654a194541ff9be2de439704bc8a63} 
+void {\bfseries set\+\_\+fuente\+\_\+datos} (FUENTE\+\_\+\+DATOS fuente\+\_\+datos)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a218a5faa8f0ee8ecfa5833ed399bcee4}\label{classlockin__consola_1_1_f_p_g_a_a218a5faa8f0ee8ecfa5833ed399bcee4} 
+void {\bfseries set\+\_\+processing\+\_\+mode} (PROC\+\_\+\+MODE procesing\+\_\+mode)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_abc14903ece42356e906cb27f8c95b253}\label{classlockin__consola_1_1_f_p_g_a_abc14903ece42356e906cb27f8c95b253} 
+void {\bfseries Terminate} ()
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ab18810382254235fc1c3ef5795063e76}\label{classlockin__consola_1_1_f_p_g_a_ab18810382254235fc1c3ef5795063e76} 
+void {\bfseries set\+\_\+\+N\+\_\+param} (int start\+\_\+index, List$<$ int $>$ parametros)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a4b9c211023b36e18e9d611befea23fef}\label{classlockin__consola_1_1_f_p_g_a_a4b9c211023b36e18e9d611befea23fef} 
+List$<$ int $>$ {\bfseries get\+\_\+from\+\_\+fifo\+\_\+32} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction, int N)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_a21d4f692eb05faeed671692a91db8bd6}\label{classlockin__consola_1_1_f_p_g_a_a21d4f692eb05faeed671692a91db8bd6} 
+List$<$ long $>$ {\bfseries get\+\_\+from\+\_\+fifo\+\_\+64} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction, int N)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ae915dd52e3647cf8059f793af2bbe2ae}\label{classlockin__consola_1_1_f_p_g_a_ae915dd52e3647cf8059f793af2bbe2ae} 
+long {\bfseries get\+\_\+result\+\_\+64} (FIFO\+\_\+\+DIRECTION fifo\+\_\+direction)
+\item 
+\Hypertarget{classlockin__consola_1_1_f_p_g_a_ad36bf894e0a992c2ed35131201d6b70d}\label{classlockin__consola_1_1_f_p_g_a_ad36bf894e0a992c2ed35131201d6b70d} 
+void {\bfseries Toggle\+\_\+led} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin/software/lockin\+\_\+consola/lockin\+\_\+consola/lockin\+\_\+consola/FPGA.\+cs\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin\+\_\+experimental/software/lockin\+\_\+consola/lockin\+\_\+consola/lockin\+\_\+consola/FPGA.\+cs\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/software\+\_\+de1soc/de1soc\+\_\+sw/lockin\+\_\+consola/lockin\+\_\+consola/lockin\+\_\+consola/FPGA.\+cs\end{DoxyCompactItemize}

@@ -9,6 +9,13 @@ module multiplicate_ref_2(
 	// Parametros de configuracion
 	input [15:0] ptos_x_ciclo,
 	
+	// Referencia externa
+	input referencia_externa,
+	input sync,
+	input signed [31:0] referencia_externa_sen,
+	input signed [31:0] referencia_externa_cos,
+	input referencia_externa_valid,
+	
 	// Entrada avalon streaming
 	input signed [31:0] data,	
 	input data_valid,	
@@ -19,6 +26,9 @@ module multiplicate_ref_2(
 	output data_valid_multiplicacion	
 
 );
+
+wire signed [31:0] ref_seno_int;
+wire signed [31:0] ref_cos_int;
 
 referencias ref(
 
@@ -33,13 +43,14 @@ referencias ref(
 	// Entrada de sincronizacion
 	.avanzar_en_tabla(data_valid),
 	
-	.data_out_seno(ref_seno),
-	.data_out_cos(ref_cos)
+	.data_out_seno(ref_seno_int),
+	.data_out_cos(ref_cos_int)
 	
 );
 
-wire signed [31:0] ref_seno;
-wire signed [31:0] ref_cos;
+wire signed [31:0] ref_seno = (referencia_externa)? referencia_externa_sen:ref_seno_int;
+wire signed [31:0] ref_cos = (referencia_externa)? referencia_externa_cos:ref_cos_int;
+
 
 wire data_valid_seno,data_valid_cos;
 

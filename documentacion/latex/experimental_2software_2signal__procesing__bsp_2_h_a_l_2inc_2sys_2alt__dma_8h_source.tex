@@ -1,0 +1,232 @@
+\doxysection{alt\+\_\+dma.\+h}
+\hypertarget{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__dma_8h_source}{}\label{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__dma_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_dma.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_dma.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_DMA\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_ALT\_DMA\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2004-\/2005\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{*\ Altera\ does\ not\ recommend,\ suggest\ or\ require\ that\ this\ reference\ design\ \ \ \ *}}
+\DoxyCodeLine{00033\ \textcolor{comment}{*\ file\ be\ used\ in\ conjunction\ or\ combination\ with\ any\ other\ product.\ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00037\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{*\ THIS\ IS\ A\ LIBRARY\ READ-\/ONLY\ SOURCE\ FILE.\ DO\ NOT\ EDIT.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}sys/alt\_dma\_dev.h"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}alt\_types.h"{}}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <errno.h>}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ This\ header\ contains\ the\ application\ side\ interface\ for\ accessing\ DMA\ }}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ resources.\ See\ alt\_dma\_dev.h\ for\ the\ dma\ device\ driver\ interface.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ The\ interface\ model\ treats\ a\ DMA\ transaction\ as\ being\ composed\ of\ two\ }}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ halves\ (read\ and\ write).\ }}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ The\ application\ can\ supply\ data\ for\ transmit\ using\ an\ "{}alt\_dma\_txchan"{}}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ descriptor.\ Alternatively\ an\ "{}alt\_dma\_rxchan"{}\ descriptor\ can\ be\ used\ to}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ receive\ data.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ alt\_dma\_txchan\_open()\ is\ used\ to\ obtain\ an\ "{}alt\_dma\_txchan"{}\ descriptor\ for}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ a\ DMA\ transmit\ device.\ The\ name\ is\ the\ name\ of\ the\ associated\ physical}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ device\ (e.g.\ "{}/dev/dma\_0"{}).}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ The\ return\ value\ will\ be\ NULL\ on\ failure,\ and\ non-\/NULL\ otherwise.\ }}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__dma__txchan__dev__s}{alt\_dma\_txchan}}\ alt\_dma\_txchan\_open\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ alt\_dma\_txchan\_close()\ is\ provided\ so\ that\ an\ application\ can\ notify\ the\ }}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ system\ that\ it\ has\ finished\ with\ a\ given\ DMA\ transmit\ channel.\ This\ is\ only}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ provided\ for\ completness.}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ alt\_dma\_txchan\_close\ (\mbox{\hyperlink{structalt__dma__txchan__dev__s}{alt\_dma\_txchan}}\ dma)}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ alt\_dma\_txchan\_send()\ posts\ a\ transmit\ request\ to\ a\ DMA\ transmit\ channel.}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ The\ input\ arguments\ are:}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ dma:\ the\ channel\ to\ use.}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *\ from:\ a\ pointer\ to\ the\ start\ of\ the\ data\ to\ send.}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ length:\ the\ length\ of\ the\ data\ to\ send\ in\ bytes.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ done:\ callback\ function\ that\ will\ be\ called\ once\ the\ data\ has\ been\ sent.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ handle:\ opaque\ value\ passed\ to\ "{}done"{}.}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *\ The\ return\ value\ will\ be\ negative\ if\ the\ request\ cannot\ be\ posted,\ and}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ zero\ otherwise.}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ alt\_dma\_txchan\_send\ (\mbox{\hyperlink{structalt__dma__txchan__dev__s}{alt\_dma\_txchan}}\ dma,\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ from,\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_u32\ length,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_txchan\_done*\ done,\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ handle)}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordflow}{return}\ dma\ ?\ dma-\/>dma\_send\ (dma,\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ from,\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ length,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ done,\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ handle)\ :\ -\/ENODEV;}
+\DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ alt\_dma\_txchan\_space()\ returns\ the\ number\ of\ tranmit\ requests\ that\ can\ be\ }}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ posted\ to\ the\ specified\ DMA\ transmit\ channel.}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ A\ negative\ value\ indicates\ that\ the\ value\ could\ not\ be\ determined.\ }}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ alt\_dma\_txchan\_space\ (\mbox{\hyperlink{structalt__dma__txchan__dev__s}{alt\_dma\_txchan}}\ dma)}
+\DoxyCodeLine{00120\ \{}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{return}\ dma\ ?\ dma-\/>space\ (dma)\ :\ -\/ENODEV;}
+\DoxyCodeLine{00122\ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ alt\_dma\_txchan\_ioctl()\ can\ be\ used\ to\ perform\ device\ specific\ I/O\ }}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ operations\ on\ the\ indicated\ DMA\ transmit\ channel.\ For\ example\ some\ drivers}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ support\ options\ to\ control\ the\ width\ of\ the\ transfer\ operations.\ See}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ alt\_dma\_dev.h\ for\ the\ list\ of\ generic\ requests.}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *\ A\ negative\ return\ value\ indicates\ failure,\ otherwise\ the\ interpretation}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ of\ the\ return\ value\ is\ request\ specific.\ \ }}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ alt\_dma\_txchan\_ioctl\ (\mbox{\hyperlink{structalt__dma__txchan__dev__s}{alt\_dma\_txchan}}\ dma,\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ req,\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ arg)}
+\DoxyCodeLine{00137\ \{}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordflow}{return}\ dma\ ?\ dma-\/>ioctl\ (dma,\ req,\ arg)\ :\ -\/ENODEV;}
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ alt\_dma\_rxchan\_open()\ is\ used\ to\ obtain\ an\ "{}alt\_dma\_rxchan"{}\ descriptor\ for}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ a\ DMA\ receive\ channel.\ The\ name\ is\ the\ name\ of\ the\ associated\ physical}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *\ device\ (e.g.\ "{}/dev/dma\_0"{}).}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ The\ return\ value\ will\ be\ NULL\ on\ failure,\ and\ non-\/NULL\ otherwise.\ }}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__dma__rxchan__dev__s}{alt\_dma\_rxchan}}\ alt\_dma\_rxchan\_open\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ dev);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ alt\_dma\_rxchan\_close()\ is\ provided\ so\ that\ an\ application\ can\ notify\ the\ }}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *\ system\ that\ it\ has\ finished\ with\ a\ given\ DMA\ receive\ channel.\ This\ is\ only}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *\ provided\ for\ completness.}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ alt\_dma\_rxchan\_close\ (\mbox{\hyperlink{structalt__dma__rxchan__dev__s}{alt\_dma\_rxchan}}\ dma)}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ alt\_dma\_rxchan\_prepare()\ posts\ a\ receive\ request\ to\ a\ DMA\ receive\ channel.}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *\ The\ input\ arguments\ are:}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ *\ dma:\ the\ channel\ to\ use.}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ *\ data:\ a\ pointer\ to\ the\ location\ that\ data\ is\ to\ be\ received\ to.}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ *\ len:\ the\ maximum\ length\ of\ the\ data\ to\ receive.\ }}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ *\ done:\ callback\ function\ that\ will\ be\ called\ once\ the\ data\ has\ been\ }}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ *\ \ \ \ \ \ \ received.}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ *\ handle:\ opaque\ value\ passed\ to\ "{}done"{}.}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ *\ The\ return\ value\ will\ be\ negative\ if\ the\ request\ cannot\ be\ posted,\ and}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ *\ zero\ otherwise.}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ alt\_dma\_rxchan\_prepare\ (\mbox{\hyperlink{structalt__dma__rxchan__dev__s}{alt\_dma\_rxchan}}\ \ \ dma,\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ data,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_u32\ \ \ \ \ \ \ \ \ \ len,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_rxchan\_done*\ done,\ \ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ handle)}
+\DoxyCodeLine{00187\ \{}
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordflow}{return}\ dma\ ?\ dma-\/>prepare\ (dma,\ data,\ len,\ done,\ handle)\ :\ -\/ENODEV;}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ *\ alt\_dma\_rxchan\_ioctl()\ can\ be\ used\ to\ perform\ device\ specific\ I/O\ }}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ *\ operations\ on\ the\ indicated\ DMA\ receive\ channel.\ For\ example\ some\ drivers}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ *\ support\ options\ to\ control\ the\ width\ of\ the\ transfer\ operations.\ See}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ *\ alt\_dma\_dev.h\ for\ the\ list\ of\ generic\ requests.}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ *\ A\ negative\ return\ value\ indicates\ failure,\ otherwise\ the\ interpretation}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ *\ of\ the\ return\ value\ is\ request\ specific.\ \ }}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ alt\_dma\_rxchan\_ioctl\ (\mbox{\hyperlink{structalt__dma__rxchan__dev__s}{alt\_dma\_rxchan}}\ dma,\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ req,\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ arg)}
+\DoxyCodeLine{00204\ \{}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordflow}{return}\ dma\ ?\ dma-\/>ioctl\ (dma,\ req,\ arg)\ :\ -\/ENODEV;}
+\DoxyCodeLine{00206\ \}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ *\ alt\_dma\_rxchan\_depth()\ returns\ the\ depth\ of\ the\ receive\ FIFO\ used\ to\ store}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ receive\ requests.}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{static}\ ALT\_INLINE\ alt\_u32\ alt\_dma\_rxchan\_depth(\mbox{\hyperlink{structalt__dma__rxchan__dev__s}{alt\_dma\_rxchan}}\ dma)}
+\DoxyCodeLine{00214\ \{}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordflow}{return}\ dma-\/>depth;}
+\DoxyCodeLine{00216\ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00223\ \}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_DMA\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

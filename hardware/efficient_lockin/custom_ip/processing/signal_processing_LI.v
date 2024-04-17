@@ -6,14 +6,21 @@ module signal_processing_LI(
 	
 	input bypass,
 	
-	input [63:0] data_in,
+	// Referencia externa
+	input referencia_externa,
+	input sync,
+	input signed [31:0] referencia_externa_sen,
+	input signed [31:0] referencia_externa_cos,
+	input referencia_externa_valid,
+	
+	input signed [31:0] data_in,
 	input 		 data_in_valid,
 	
 	output signed [63:0] data_out1,
 	output signed  data_out1_valid,
 	
-	output [63:0] data_out2,
-	output		  data_out2_valid,
+	output signed [63:0] data_out2,
+	output signed  data_out2_valid,
 	
 	output ready_to_calculate,
 	output processing_finished,
@@ -155,6 +162,13 @@ lockin_segmentado lock_in(
 	.ptos_x_ciclo(M),
 	.frames_integracion(N_ma),
 	
+	// Referencia externa
+	.referencia_externa(referencia_externa),
+	.sync(sync),
+	.referencia_externa_sen(referencia_externa_sen),
+	.referencia_externa_cos(referencia_externa_cos),
+	.referencia_externa_valid(referencia_externa_valid),
+	
 	// Entrada avalon streaming
 	.data_valid(data_in_lia_valid),
 	.data(data_in_lia),	
@@ -168,6 +182,7 @@ lockin_segmentado lock_in(
 	
 	// Salidas auxiliares
 	.lockin_ready(lockin_ready),
+	.n_datos_promediados(n_datos_promediados),
 	.fifos_llenos(calculo_finalizado)
 	
 );
@@ -180,6 +195,7 @@ wire data_fase_valid;
 
 wire calculo_finalizado;
 wire lockin_ready;	// El lockin esta listo para calcular
+wire [31:0] n_datos_promediados;
 
 
 
@@ -200,7 +216,7 @@ wire finished_fase,finished_cuadratura;
 assign ready_to_calculate = lockin_ready;
 assign processing_finished = calculo_finalizado;
 
-assign parameter_out_0 = 0;
+assign parameter_out_0 = n_datos_promediados;
 assign parameter_out_1 = 0;
 assign parameter_out_2 = 0;
 assign parameter_out_3 = 0;

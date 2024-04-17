@@ -25,7 +25,7 @@
 #include <chrono>
 #include <thread>
 
-#include "FPGA_de1soc.h"
+#include "fpga_driver/FPGA_de1soc.h"
 
 
 using namespace std;

@@ -1,0 +1,360 @@
+\doxysection{alt\+\_\+log\+\_\+printf.\+h}
+\hypertarget{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__log__printf_8h_source}{}\label{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__log__printf_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_log\_printf.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_log\_printf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ \ alt\_log\_printf.h}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ \ ALT\_LOG\ is\ designed\ to\ provide\ extra\ logging/debugging\ messages\ from\ HAL}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ through\ a\ different\ port\ than\ stdout.\ \ It\ is\ enabled\ by\ the\ ALT\_LOG\_ENABLE}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ define,\ which\ needs\ to\ supplied\ at\ compile\ time.\ \ When\ logging\ is\ turned\ off,\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ code\ size\ is\ unaffected.\ \ Thus,\ this\ should\ be\ transparent\ to\ the\ user}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ when\ it\ is\ not\ actively\ turned\ on,\ and\ should\ not\ affect\ projects\ in\ any\ way.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ \ There\ are\ macros\ sprinkled\ within\ different\ components,\ such\ as\ the\ jtag\ uart\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ and\ timer,\ in\ the\ HAL\ code.\ \ They\ are\ always\ named\ ALT\_LOG\_<name>,\ and\ can\ be}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ safely\ ignored\ if\ ALT\_LOG\ is\ turned\ off.\ }}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ To\ turn\ on\ ALT\_LOG,\ ALT\_LOG\_ENABLE\ must\ be\ defined,\ and\ ALT\_LOG\_PORT\_TYPE\ and}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ ALT\_LOG\_PORT\_BASE\ must\ be\ set\ in\ system.h.\ \ This\ is\ done\ through\ editing\ }}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ <project>.ptf,\ by\ editing\ the\ alt\_log\_port\_type\ \&\ alt\_log\_port\_base\ settings.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ See\ the\ documentation\ html\ file\ for\ examples.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ \ When\ it\ is\ turned\ on,\ it\ will\ output\ extra\ HAL\ messages\ to\ a\ port\ specified}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ in\ system.h.\ \ This\ can\ be\ a\ UART\ or\ JTAG\ UART\ port.\ \ By\ default\ it\ will\ }}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ output\ boot\ messages,\ detailing\ every\ step\ of\ the\ boot\ process.\ \ }}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ Extra\ logging\ is\ designed\ to\ be\ enabled\ by\ flags,\ which\ are\ defined\ in\ }}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ \ alt\_log\_printf.c.\ \ The\ default\ value\ is\ that\ all\ flags\ are\ off,\ so\ only\ the}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ boot\ up\ logging\ messages\ show\ up.\ \ ALT\_LOG\_FLAGS\ can\ be\ set\ to\ enable\ certain}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ \ groupings\ of\ flags,\ and\ that\ grouping\ is\ done\ in\ this\ file.\ \ Each\ flag\ can\ }}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ \ also\ be\ overridden\ with\ a\ -\/D\ at\ compile\ time.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ \ This\ header\ file\ includes\ the\ necessary\ prototypes\ for\ using\ the\ alt\_log}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ \ functions.\ \ It\ also\ contains\ all\ the\ macros\ that\ are\ used\ to\ remove\ the\ code}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ \ from\ alt\ log\ is\ turned\ off.\ \ Also,\ the\ macros\ in\ other\ HAL\ files\ are\ defined\ }}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ \ here\ at\ the\ bottom.\ \ These\ macros\ all\ call\ some\ C\ function\ that\ is\ in\ }}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ \ alt\_log\_printf.c.}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ \ The\ logging\ has\ functions\ for\ printing\ in\ C\ (ALT\_LOG\_PRINTF)\ and\ in\ assembly}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ \ (ALT\_LOG\_PUTS).\ \ This\ was\ needed\ because\ the\ assembly\ printing\ occurs\ before}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ \ the\ device\ is\ initialized.\ \ The\ assembly\ function\ corrupts\ register\ R4-\/R7,\ }}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ \ which\ are\ not\ used\ in\ the\ normal\ boot\ process.\ \ For\ this\ reason,\ do\ not\ call}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ \ the\ assembly\ function\ in\ C.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ \ author:\ gkwan\ }}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_LOG\_PRINTF\_H\_\_}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ \_\_ALT\_LOG\_PRINTF\_H\_\_}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <system.h>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ Global\ switch\ to\ turn\ on\ logging\ functions\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ ALT\_LOG\_ENABLE}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{/*\ ALT\_LOG\_PORT\_TYPE\ values\ as\ defined\ in\ system.h.\ \ They\ are\ defined\ as}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ \ \ *\ numbers\ here\ first\ becasue\ the\ C\ preprocessor\ does\ not\ handle\ string}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ \ \ *\ comparisons.\ \ */}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALTERA\_AVALON\_JTAG\_UART\ 1}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALTERA\_AVALON\_UART\ 0}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{/*\ If\ this\ .h\ file\ is\ included\ by\ an\ assembly\ file,\ skip\ over\ include\ files}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ \ *\ that\ won't\ compile\ in\ assembly.\ */}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_ASM\_SRC}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <stdarg.h>}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ "{}sys/alt\_alarm.h"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ "{}sys/alt\_dev.h"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#include\ "{}altera\_avalon\_jtag\_uart.h"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_ASM\_SRC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{/*\ These\ are\ included\ for\ the\ port\ register\ offsets\ and\ masks,\ needed}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \ *\ to\ write\ to\ the\ port.\ \ Only\ include\ if\ the\ port\ type\ is\ set\ correctly,}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ \ \ *\ otherwise\ error.\ \ If\ alt\_log\ is\ turned\ on\ and\ the\ port\ to\ output\ to\ is}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ \ \ *\ incorrect\ or\ does\ not\ exist,\ then\ should\ exit.\ */}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \#if\ ALT\_LOG\_PORT\_TYPE\ ==\ ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_ALTERA\_AVALON\_JTAG\_UART}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#include\ <altera\_avalon\_jtag\_uart\_regs.h>}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#error\ ALT\_LOG:\ JTAG\_UART\ port\ chosen,\ but\ no\ JTAG\_UART\ in\ system.\ }}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \#elif\ ALT\_LOG\_PORT\_TYPE\ ==\ ALTERA\_AVALON\_UART\ }}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_ALTERA\_AVALON\_UART}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#include\ <altera\_avalon\_uart\_regs.h>}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#error\ ALT\_LOG:\ UART\ Port\ chosen,\ but\ no\ UART\ in\ system.}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#error\ ALT\_LOG:\ alt\_log\_port\_type\ declaration\ invalid!}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{/*\ ALT\_LOG\_ENABLE\ turns\ on\ the\ basic\ printing\ function\ */}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_PRINTF(...)\ do\ \{alt\_log\_printf\_proc(\_\_VA\_ARGS\_\_);\}\ while\ (0)}}
+\DoxyCodeLine{00091\ \ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{/*\ Assembly\ macro\ for\ printing\ in\ assembly,\ calls\ tx\_log\_str}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ \ \ \ \ *\ which\ is\ in\ alt\_log\_macro.S.}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ \ \ *\ If\ alt\_log\_boot\_on\_flag\ is\ 0,\ skips\ the\ printing\ */}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_PUTS(str)\ movhi\ r4,\ \%hiadj(alt\_log\_boot\_on\_flag)\ ;\ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ addi\ r4,\ r4,\ \%lo(alt\_log\_boot\_on\_flag)\ ;\ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ ldwio\ r5,\ 0(r4)\ ;\ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ beq\ r0,\ r5,\ 0f\ ;\ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ movhi\ r4,\ \%hiadj(str)\ ;\ \(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ addi\ r4,\ r4,\ \%lo(str)\ ;\ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ \ call\ tx\_log\_str\ ;\ \(\backslash\)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \ \ \ 0:}}
+\DoxyCodeLine{00103\ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{/*\ These\ defines\ are\ here\ to\ faciliate\ the\ use\ of\ one\ output\ function\ }}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ \ \ *\ (alt\_log\_txchar)\ to\ print\ to\ both\ the\ JTAG\ UART\ or\ the\ UART.\ Depending}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ \ \ *\ on\ the\ port\ type,\ the\ status\ register,\ read\ mask,\ and\ output\ register\ }}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ \ \ *\ are\ set\ to\ the\ appropriate\ value\ for\ the\ port.\ \ */}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ \#if\ ALT\_LOG\_PORT\_TYPE\ ==\ ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_REG\_RD\ IORD\_ALTERA\_AVALON\_JTAG\_UART\_CONTROL}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_MSK\ ALTERA\_AVALON\_JTAG\_UART\_CONTROL\_WSPACE\_MSK}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_TXDATA\_WR\ IOWR\_ALTERA\_AVALON\_JTAG\_UART\_DATA}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_REG\_OFFSET\ (ALTERA\_AVALON\_JTAG\_UART\_CONTROL\_REG*0x4)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_TXDATA\_REG\_OFFSET\ (ALTERA\_AVALON\_JTAG\_UART\_DATA\_REG*0x4)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ \ \ \#elif\ ALT\_LOG\_PORT\_TYPE\ ==\ ALTERA\_AVALON\_UART\ }}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_REG\_RD\ IORD\_ALTERA\_AVALON\_UART\_STATUS}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_MSK\ ALTERA\_AVALON\_UART\_STATUS\_TRDY\_MSK}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_TXDATA\_WR\ IOWR\_ALTERA\_AVALON\_UART\_TXDATA}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_REG\_OFFSET\ (ALTERA\_AVALON\_UART\_STATUS\_REG*0x4)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \ \ \ \ \#define\ ALT\_LOG\_PRINT\_TXDATA\_REG\_OFFSET\ (ALTERA\_AVALON\_UART\_TXDATA\_REG*0x4)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_PORT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{/*\ Grouping\ of\ flags\ via\ ALT\_LOG\_FLAGS.\ \ Each\ specific\ flag\ can\ be\ set\ via\ }}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ \ \ *\ -\/D\ at\ compile\ time,\ or\ else\ they'll\ be\ set\ to\ a\ default\ value\ according}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ \ \ *\ to\ ALT\_LOG\_FLAGS.\ \ ALT\_LOG\_FLAGS\ =\ 0\ or\ not\ set\ is\ the\ default,\ where\ }}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ \ \ *\ only\ the\ boot\ messages\ will\ be\ printed.\ As\ ALT\_LOG\_FLAGS\ increase,\ they}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ \ \ *\ increase\ in\ intrusiveness\ to\ the\ program,\ and\ will\ affect\ performance.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ \ *\ Flag\ Level\ 1\ -\/\ turns\ on\ system\ clock\ and\ JTAG\ UART\ startup\ status}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ 2\ -\/\ turns\ on\ write\ echo\ and\ JTAG\_UART\ alarm\ (periodic\ report)}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ 3\ -\/\ turns\ on\ JTAG\ UART\ ISR\ logging\ -\/\ will\ slow\ performance}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ significantly.\ }}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ \ \ \ \ \ \ -\/1\ -\/\ All\ logging\ output\ is\ off,\ but\ if\ ALT\_LOG\_ENABLE\ is\ }}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defined\ all\ logging\ function\ is\ built\ and\ code\ size\ }}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ remains\ constant\ }}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ \ \ *\ Flag\ settings\ -\/\ 1\ =\ on,\ 0\ =\ off.\ */}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{/*\ This\ flag\ turns\ on\ "{}boot"{}\ messages\ for\ printing.\ \ This\ includes\ messages}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ \ \ *\ during\ crt0.S,\ then\ alt\_main,\ and\ finally\ alt\_exit.\ */}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_BOOT\_ON\_FLAG\_SETTING}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ ALT\_LOG\_FLAGS\ ==\ 1}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_BOOT\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 2}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_BOOT\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 3}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_BOOT\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ -\/1\ }\textcolor{comment}{/*\ silent\ mode\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_BOOT\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else\ }\textcolor{comment}{/*\ default\ setting\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_BOOT\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_BOOT\_ON\_FLAG\_SETTING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_SYS\_CLK\_ON\_FLAG\_SETTING}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ ALT\_LOG\_FLAGS\ ==\ 1}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 2}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 3}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ -\/1\ }\textcolor{comment}{/*\ silent\ mode\ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else\ }\textcolor{comment}{/*\ default\ setting\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_SYS\_CLK\_ON\_FLAG\_SETTING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_WRITE\_ON\_FLAG\_SETTING}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ ALT\_LOG\_FLAGS\ ==\ 1}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_WRITE\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 2}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_WRITE\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 3}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_WRITE\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ -\/1\ }\textcolor{comment}{/*\ silent\ mode\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_WRITE\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else\ }\textcolor{comment}{/*\ default\ setting\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_WRITE\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_WRITE\_ON\_FLAG\_SETTING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifndef\ \_\_ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 1}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 2}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 3}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ -\/1\ }\textcolor{comment}{/*\ silent\ mode\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else\ }\textcolor{comment}{/*\ default\ setting\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_JTAG\_UART\_ALARM\_ON\_FLAG\_SETTING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_ON\_FLAG\_SETTING}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifndef\ \_\_ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 1}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 2}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 3}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ -\/1\ }\textcolor{comment}{/*\ silent\ mode\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else\ }\textcolor{comment}{/*\ default\ setting\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_JTAG\_UART\_STARTUP\_INFO\_FLAG\_SETTING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifndef\ \_\_ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 1}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 2}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ 3}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING\ 0x1}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ ALT\_LOG\_FLAGS\ ==\ -\/1\ }\textcolor{comment}{/*\ silent\ mode\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else\ }\textcolor{comment}{/*\ default\ setting\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING\ 0x0}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_JTAG\_UART\_ISR\_ON\_FLAG\_SETTING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#ifndef\ ALT\_ASM\_SRC}}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{comment}{/*\ Function\ Prototypes\ */}}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_txchar(\textcolor{keywordtype}{int}\ c,\textcolor{keywordtype}{char}\ *uartBase);}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_private\_printf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\textcolor{keywordtype}{int}\ base,va\_list\ args);}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_repchar(\textcolor{keywordtype}{char}\ c,\textcolor{keywordtype}{int}\ r,\textcolor{keywordtype}{int}\ base);}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{int}\ alt\_log\_printf\_proc(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...\ );}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_system\_clock();}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ alt\_u32\ altera\_avalon\_jtag\_uart\_report\_log(\textcolor{keywordtype}{void}\ *\ context);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_jtag\_uart\_startup\_info(\mbox{\hyperlink{structaltera__avalon__jtag__uart__state__s}{altera\_avalon\_jtag\_uart\_state}}*\ dev,\ \textcolor{keywordtype}{int}\ base);}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_jtag\_uart\_print\_control\_reg(\mbox{\hyperlink{structaltera__avalon__jtag__uart__state__s}{altera\_avalon\_jtag\_uart\_state}}*\ dev,\ \(\backslash\)}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ base,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ header);}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_jtag\_uart\_isr\_proc(\textcolor{keywordtype}{int}\ base,\ \mbox{\hyperlink{structaltera__avalon__jtag__uart__state__s}{altera\_avalon\_jtag\_uart\_state}}*\ dev);}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordtype}{void}\ alt\_log\_write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00245\ \ \ \ \ }
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{comment}{/*\ extern\ all\ global\ variables\ */}}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{comment}{/*\ CASE:368514\ -\/\ The\ boot\ message\ flag\ is\ linked\ into\ the\ sdata\ section}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ \ \ \ \ *\ because\ if\ it\ is\ zero,\ it\ would\ otherwise\ be\ placed\ in\ the\ bss\ section.}}
+\DoxyCodeLine{00249\ \textcolor{comment}{\ \ \ \ \ *\ alt\_log\ examines\ this\ variable\ before\ the\ BSS\ is\ cleared\ in\ the\ boot-\/up}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ \ \ \ \ *\ process.\ }}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ alt\_u32\ alt\_log\_boot\_on\_flag\ \_\_attribute\_\_\ ((section\ (\textcolor{stringliteral}{"{}.sdata"{}})));}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ alt\_u8\ alt\_log\_write\_on\_flag;}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ alt\_u8\ alt\_log\_sys\_clk\_on\_flag;}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ alt\_u8\ alt\_log\_jtag\_uart\_alarm\_on\_flag;}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ alt\_u8\ alt\_log\_jtag\_uart\_isr\_on\_flag;}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ alt\_u8\ alt\_log\_jtag\_uart\_startup\_info\_on\_flag;}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ alt\_log\_sys\_clk\_count;}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ alt\_system\_clock\_in\_sec;}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__alarm__s}{alt\_alarm}}\ alt\_log\_jtag\_uart\_alarm\_1;}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ALT\_ASM\_SRC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{comment}{/*\ Below\ are\ the\ MACRO\ defines\ used\ in\ various\ HAL\ files.\ \ They\ check}}
+\DoxyCodeLine{00265\ \textcolor{comment}{\ \ \ \ \ *\ if\ their\ specific\ flag\ is\ turned\ on;\ if\ it\ is,\ then\ it\ executes\ its\ }}
+\DoxyCodeLine{00266\ \textcolor{comment}{\ \ \ \ \ *\ code.}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00268\ \textcolor{comment}{\ \ \ \ \ *\ To\ keep\ this\ file\ reasonable,\ most\ of\ these\ macros\ calls\ functions,}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ \ \ \ \ *\ which\ are\ defined\ in\ alt\_log\_printf.c.\ \ Look\ there\ for\ implementation}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ \ \ \ \ *\ details.\ */}}
+\DoxyCodeLine{00271\ \ \ }
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{comment}{/*\ Boot\ Messages\ Logging\ */}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_PRINT\_BOOT(...)\ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ \ \ \ \ \ do\ \{\ if\ (alt\_log\_boot\_on\_flag==1)\ \{ALT\_LOG\_PRINTF(\_\_VA\_ARGS\_\_);\}\ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{comment}{/*\ JTAG\ UART\ Logging\ */}}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{/*\ number\ of\ ticks\ before\ alarm\ runs\ logging\ function\ */}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_JTAG\_UART\_TICKS\_DIVISOR}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_TICKS\_DIVISOR\ 10}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_JTAG\_UART\_TICKS}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_TICKS\ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ (alt\_ticks\_per\_second()/ALT\_LOG\_JTAG\_UART\_TICKS\_DIVISOR)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00286\ \ \ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{comment}{/*\ if\ there's\ a\ JTAG\ UART\ defined,\ then\ enable\ these\ macros\ */}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_ALTERA\_AVALON\_JTAG\_UART\ }}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Macro\ in\ altera\_avalon\_jtag\_uart.c,\ to\ register\ the\ alarm\ function.}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Also,\ the\ startup\ register\ info\ is\ also\ printed\ here,\ as\ this\ is}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ called\ within\ the\ device\ driver\ initialization.\ \ */}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_REGISTER(dev,\ base)\ \(\backslash\)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ do\ \{\ if\ (alt\_log\_jtag\_uart\_alarm\_on\_flag==1)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_alarm\_start(\&alt\_log\_jtag\_uart\_alarm\_1,\ \(\backslash\)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ALT\_LOG\_JTAG\_UART\_TICKS,\ \&altera\_avalon\_jtag\_uart\_report\_log,\(\backslash\)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dev);\}\ \(\backslash\)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (alt\_log\_jtag\_uart\_startup\_info\_on\_flag==1)\ \{\(\backslash\)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_log\_jtag\_uart\_startup\_info(dev,\ base);\}\ \(\backslash\)}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00301\ \ \ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ JTAG\ UART\ IRQ\ Logging\ (when\ buffer\ is\ empty)\ }}
+\DoxyCodeLine{00303\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Inserted\ in\ the\ ISR\ in\ altera\_avalon\_jtag\_uart.c\ */}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_FUNCTION(base,\ dev)\ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ do\ \{\ alt\_log\_jtag\_uart\_isr\_proc(base,\ dev);\ \}\ while\ (0)\ }}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{comment}{/*\ else,\ define\ macros\ to\ nothing.\ \ Or\ else\ the\ jtag\_uart\ specific\ types}}
+\DoxyCodeLine{00307\ \textcolor{comment}{\ \ \ \ \ *\ will\ throw\ compiler\ errors\ */}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_REGISTER(dev,\ base)\ }}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_FUNCTION(base,\ dev)\ }}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{comment}{/*\ System\ clock\ logging}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ \ \ \ \ *\ How\ often\ (in\ seconds)\ the\ system\ clock\ logging\ prints.}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ \ \ \ \ *\ The\ default\ value\ is\ every\ 1\ second\ */}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_SYS\_CLK\_INTERVAL\_MULTIPLIER}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_INTERVAL\_MULTIPLIER\ 1}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_SYS\_CLK\_INTERVAL}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_INTERVAL\ \(\backslash\)}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ (alt\_ticks\_per\_second()*ALT\_LOG\_SYS\_CLK\_INTERVAL\_MULTIPLIER)}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{comment}{/*\ System\ clock\ logging\ -\/\ prints\ a\ message\ every\ interval\ (set\ above)\ }}
+\DoxyCodeLine{00325\ \textcolor{comment}{\ \ \ \ \ *\ to\ show\ that\ the\ system\ clock\ is\ alive.\ }}
+\DoxyCodeLine{00326\ \textcolor{comment}{\ \ \ \ \ *\ This\ macro\ is\ used\ in\ altera\_avalon\_timer\_sc.c\ */}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_HEARTBEAT()\ \(\backslash\)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ do\ \{\ alt\_log\_system\_clock();\ \}\ while\ (0)}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{comment}{/*\ alt\_write\_logging\ -\/\ echos\ a\ message\ every\ time\ write()\ is\ called,}}
+\DoxyCodeLine{00331\ \textcolor{comment}{\ \ \ \ \ *\ displays\ the\ first\ ALT\_LOG\_WRITE\_ECHO\_LEN\ characters.}}
+\DoxyCodeLine{00332\ \textcolor{comment}{\ \ \ \ \ *\ This\ macro\ is\ used\ in\ alt\_write.c\ */}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ ALT\_LOG\_WRITE\_ECHO\_LEN}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ ALT\_LOG\_WRITE\_ECHO\_LEN\ 15}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_WRITE\_FUNCTION(ptr,len)\ \(\backslash\)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ do\ \{\ alt\_log\_write(ptr,len);\ \}\ while\ (0)}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ ALT\_LOG\_ENABLE\ not\ defined\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{comment}{/*\ logging\ is\ off,\ set\ all\ relevant\ macros\ to\ null\ */}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_PRINT\_BOOT(...)}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_PRINTF(...)}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ISR\_FUNCTION(base,\ dev)\ }}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_JTAG\_UART\_ALARM\_REGISTER(dev,\ base)\ }}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_SYS\_CLK\_HEARTBEAT()}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_PUTS(str)\ }}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\ \ \ \ \#define\ ALT\_LOG\_WRITE\_FUNCTION(ptr,len)\ }}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ALT\_LOG\_ENABLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_LOG\_PRINTF\_H\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00354\ }
+
+\end{DoxyCode}

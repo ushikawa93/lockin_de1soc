@@ -20,6 +20,8 @@ ip=${6:-192.168.1.101}
 
 
 scp -r ../program/adquirir root@$ip:/root/Documents/de1soc_sw/shell_scripts/
+scp -r ../program/fpga_driver root@$ip:/root/Documents/de1soc_sw/shell_scripts/
+
 
 ssh root@$ip <<EOF
 
@@ -30,3 +32,5 @@ EOF
 
 cd ../datos_adquiridos
 scp root@$ip:/root/Documents/de1soc_sw/shell_scripts/adquirir/$nombre_archivo .
+
+read -p "Presione cualquier tecla para salir..."

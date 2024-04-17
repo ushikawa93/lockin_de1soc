@@ -1,0 +1,60 @@
+\doxysection{sdram\+\_\+io.\+h}
+\hypertarget{hps__isw__handoff_2procesador__hps__0_2sdram__io_8h_source}{}\label{hps__isw__handoff_2procesador__hps__0_2sdram__io_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/hps\_isw\_handoff/procesador\_hps\_0/sdram\_io.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/hps\_isw\_handoff/procesador\_hps\_0/sdram\_io.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ Altera\ Corporation\ (C)\ 2012-\/2014.\ All\ rights\ reserved}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ \ \ \ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ \ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ \ *\ Neither\ the\ name\ of\ Altera\ Corporation\ nor\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ \ \ names\ of\ its\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ \ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}\ AND}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ ALTERA\ CORPORATION\ BE\ LIABLE\ FOR\ ANY}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <sdram.h>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ MGR\_SELECT\_MASK\ \ \ 0xf8000}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ APB\_BASE\_SCC\_MGR\ \ \ \ SDR\_PHYGRP\_SCCGRP\_ADDRESS}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ APB\_BASE\_PHY\_MGR\ \ \ \ SDR\_PHYGRP\_PHYMGRGRP\_ADDRESS}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ APB\_BASE\_RW\_MGR\ \ \ \ \ SDR\_PHYGRP\_RWMGRGRP\_ADDRESS}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ APB\_BASE\_DATA\_MGR\ \ \ SDR\_PHYGRP\_DATAMGRGRP\_ADDRESS}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ APB\_BASE\_REG\_FILE\ \ \ SDR\_PHYGRP\_REGFILEGRP\_ADDRESS}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ APB\_BASE\_MMR\ \ \ \ \ \ \ \ SDR\_CTRLGRP\_ADDRESS}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ \_\_AVL\_TO\_APB(ADDR)\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ ((((ADDR)\ \&\ MGR\_SELECT\_MASK)\ ==\ (BASE\_PHY\_MGR))\ \ ?\ (APB\_BASE\_PHY\_MGR)\ \ |\ (((ADDR)\ >>\ (14-\/6))\ \&\ (0x1<<6))\ \ |\ ((ADDR)\ \&\ 0x3f)\ :\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ \ (((ADDR)\ \&\ MGR\_SELECT\_MASK)\ ==\ (BASE\_RW\_MGR))\ \ \ ?\ (APB\_BASE\_RW\_MGR)\ \ \ |\ ((ADDR)\ \&\ 0x1fff)\ :\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ \ (((ADDR)\ \&\ MGR\_SELECT\_MASK)\ ==\ (BASE\_DATA\_MGR))\ ?\ (APB\_BASE\_DATA\_MGR)\ |\ ((ADDR)\ \&\ 0x7ff)\ :\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ (((ADDR)\ \&\ MGR\_SELECT\_MASK)\ ==\ (BASE\_SCC\_MGR))\ \ ?\ (APB\_BASE\_SCC\_MGR)\ \ |\ ((ADDR)\ \&\ 0xfff)\ :\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \ (((ADDR)\ \&\ MGR\_SELECT\_MASK)\ ==\ (BASE\_REG\_FILE))\ ?\ (APB\_BASE\_REG\_FILE)\ |\ ((ADDR)\ \&\ 0x7ff)\ :\ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \ (((ADDR)\ \&\ MGR\_SELECT\_MASK)\ ==\ (BASE\_MMR))\ \ \ \ \ \ ?\ (APB\_BASE\_MMR)\ \ \ \ \ \ |\ ((ADDR)\ \&\ 0xfff)\ :\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \ -\/1)}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ IOWR\_32DIRECT(BASE,\ OFFSET,\ DATA)\ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ write\_register(HPS\_SDR\_BASE,\ \_\_AVL\_TO\_APB((alt\_u32)((BASE)\ +\ (OFFSET))),\ DATA)}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ IORD\_32DIRECT(BASE,\ OFFSET)\ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ read\_register(HPS\_SDR\_BASE,\ \_\_AVL\_TO\_APB((alt\_u32)((BASE)\ +\ (OFFSET))))}}
+\DoxyCodeLine{00054\ }
+
+\end{DoxyCode}

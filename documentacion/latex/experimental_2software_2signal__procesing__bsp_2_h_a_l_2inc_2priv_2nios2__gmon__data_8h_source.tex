@@ -1,0 +1,53 @@
+\doxysection{nios2\+\_\+gmon\+\_\+data.\+h}
+\hypertarget{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2priv_2nios2__gmon__data_8h_source}{}\label{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2priv_2nios2__gmon__data_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/priv/nios2\_gmon\_data.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/priv/nios2\_gmon\_data.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ Copyright\ (c)\ 2003\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ NIOS2\_GMON\_DATA\_H}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ NIOS2\_GMON\_DATA\_H}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_SIG\ \ 0}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_WORDS\ 1}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_PROFILE\_DATA\ 2}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_PROFILE\_LOWPC\ 3}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_PROFILE\_HIGHPC\ 4}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_PROFILE\_BUCKET\ 5}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_PROFILE\_RATE\ 6}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_MCOUNT\_START\ 7}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_MCOUNT\_LIMIT\ 8}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ GMON\_DATA\_SIZE\ 9}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ alt\_gmon\_data[GMON\_DATA\_SIZE];}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

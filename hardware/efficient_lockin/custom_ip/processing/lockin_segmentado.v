@@ -10,6 +10,13 @@ module lockin_segmentado(
 	input [15:0] ptos_x_ciclo,
 	input [15:0] frames_integracion,
 	
+	// Referencia externa
+	input referencia_externa,
+	input sync,
+	input signed [31:0] referencia_externa_sen,
+	input signed [31:0] referencia_externa_cos,
+	input referencia_externa_valid,
+	
 	// Entrada avalon streaming
 	input data_valid,
 	input signed [31:0] data,	
@@ -22,7 +29,8 @@ module lockin_segmentado(
 	output data_out_cuad_valid,
 	
 	// Salidas auxiliares
-	output reg lockin_ready,	
+	output reg lockin_ready,
+	output [31:0] n_datos_promediados,	
 	output reg fifos_llenos
 	
 );
@@ -39,6 +47,14 @@ multiplicate_ref_2 multiplicador(
 	.enable(enable),
 	
 	.ptos_x_ciclo(ptos_x_ciclo),
+	
+	// Referencia externa
+	.referencia_externa(referencia_externa),
+	.sync(sync),
+	.referencia_externa_sen(referencia_externa_sen),
+	.referencia_externa_cos(referencia_externa_cos),
+	.referencia_externa_valid(referencia_externa_valid),
+	
 	
 	.data(data),
 	.data_valid(data_valid),		
@@ -59,7 +75,7 @@ wire data_valid_multiplicacion;
 // Filtros pasabajos
 //=======================================================
 
-filtro_ma filtro_fase(
+filtro_ma_con_sync filtro_fase(
 
 	// Entradas de control
 	.clock(clock),
@@ -74,18 +90,22 @@ filtro_ma filtro_fase(
 	.data_valid(data_valid_multiplicacion),
 	.data(data_out_seno),	
 	
+	.start_signal(sync),
+	
 	// Interfaz avalon streaming de salida
 	.data_out(data_out_fase),
 	.data_out_valid(data_out_fase_valid),		
 	
 	// Salidas auxiliares
 	.ready_to_calculate(lockin_fase_ready),
-	.calculo_finalizado(fifo_lleno_fase)
+	.calculo_finalizado(fifo_lleno_fase),
+	
+	.datos_promediados(n_datos_promediados)
 
 );
 
 
-filtro_ma filtro_cuadratura(
+filtro_ma_con_sync filtro_cuadratura(
 
 	// Entradas de control
 	.clock(clock),
@@ -98,7 +118,9 @@ filtro_ma filtro_cuadratura(
 	
 	// Interfaz avalon streaming de entrada
 	.data_valid(data_valid_multiplicacion),
-	.data(data_out_coseno),	
+	.data(data_out_coseno),
+	
+	.start_signal(sync),
 	
 	// Interfaz avalon streaming de salida
 	.data_out(data_out_cuad),
@@ -109,7 +131,6 @@ filtro_ma filtro_cuadratura(
 	.calculo_finalizado(fifo_lleno_cuad)
 
 );
-
 
 
 wire fifo_lleno_fase,fifo_lleno_cuad,lockin_cuadratura_ready,lockin_fase_ready;

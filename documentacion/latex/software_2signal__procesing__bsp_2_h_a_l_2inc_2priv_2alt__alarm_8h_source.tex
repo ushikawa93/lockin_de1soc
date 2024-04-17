@@ -1,0 +1,107 @@
+\doxysection{alt\+\_\+alarm.\+h}
+\hypertarget{software_2signal__procesing__bsp_2_h_a_l_2inc_2priv_2alt__alarm_8h_source}{}\label{software_2signal__procesing__bsp_2_h_a_l_2inc_2priv_2alt__alarm_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/priv/alt\_alarm.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/priv/alt\_alarm.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_PRIV\_ALARM\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_ALT\_PRIV\_ALARM\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2004\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{*\ Altera\ does\ not\ recommend,\ suggest\ or\ require\ that\ this\ reference\ design\ \ \ \ *}}
+\DoxyCodeLine{00033\ \textcolor{comment}{*\ file\ be\ used\ in\ conjunction\ or\ combination\ with\ any\ other\ product.\ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00037\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{*\ THIS\ IS\ A\ LIBRARY\ READ-\/ONLY\ SOURCE\ FILE.\ DO\ NOT\ EDIT.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}alt\_types.h"{}}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ This\ header\ provides\ the\ internal\ defenitions\ required\ by\ the\ public\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ interface\ alt\_alarm.h.\ These\ variables\ and\ structures\ are\ not\ guaranteed\ to\ }}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ exist\ in\ future\ implementations\ of\ the\ HAL.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ "{}alt\_alarm\_s"{}\ is\ a\ structure\ type\ used\ to\ maintain\ lists\ of\ alarm\ callback}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ functions.}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structalt__alarm__s}{alt\_alarm\_s}}}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{structalt__llist__s}{alt\_llist}}\ llist;\ \ \ \ \ \ \ \textcolor{comment}{/*\ linked\ list\ */}}
+\DoxyCodeLine{00063\ \ \ alt\_u32\ time;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ time\ in\ system\ ticks\ of\ the\ callback\ */}}
+\DoxyCodeLine{00064\ \ \ alt\_u32\ (*callback)\ (\textcolor{keywordtype}{void}*\ context);\ \textcolor{comment}{/*\ callback\ function.\ The\ return\ }}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ value\ is\ the\ period\ for\ the\ next\ callback;\ where\ }}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ zero\ indicates\ that\ the\ alarm\ should\ be\ removed\ }}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ from\ the\ list.\ }}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00069\ \ \ alt\_u8\ rollover;\ \ \ \ \ \ \ \textcolor{comment}{/*\ set\ when\ desired\ alarm\ time\ +\ current\ time\ causes}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ overflow,\ to\ prevent\ premature\ alarm\ */}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{void}*\ context;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Argument\ for\ the\ callback\ */}}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ "{}\_alt\_tick\_rate"{}\ is\ a\ global\ variable\ used\ to\ store\ the\ system\ clock\ rate\ }}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ in\ ticks\ per\ second.\ This\ is\ initialised\ to\ zero,\ which\ coresponds\ to\ there}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ being\ no\ system\ clock\ available.\ }}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ It\ is\ then\ set\ to\ it's\ final\ value\ by\ the\ system\ clock\ driver\ through\ a\ call}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ to\ alt\_sysclk\_init().\ }}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{extern}\ alt\_u32\ \_alt\_tick\_rate;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ "{}\_alt\_nticks"{}\ is\ a\ global\ variable\ which\ records\ the\ elapsed\ number\ of\ }}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ system\ clock\ ticks\ since\ the\ last\ call\ to\ settimeofday()\ or\ since\ reset\ if}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ settimeofday()\ has\ not\ been\ called.}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ alt\_u32\ \_alt\_nticks;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ The\ list\ of\ registered\ alarms.\ */}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__llist__s}{alt\_llist}}\ alt\_alarm\_list;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_PRIV\_ALARM\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

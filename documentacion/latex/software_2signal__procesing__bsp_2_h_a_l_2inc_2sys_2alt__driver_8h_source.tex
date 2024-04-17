@@ -1,0 +1,174 @@
+\doxysection{alt\+\_\+driver.\+h}
+\hypertarget{software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__driver_8h_source}{}\label{software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__driver_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_driver.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_driver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_DRIVER\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_ALT\_DRIVER\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2006\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{*\ Altera\ does\ not\ recommend,\ suggest\ or\ require\ that\ this\ reference\ design\ \ \ \ *}}
+\DoxyCodeLine{00033\ \textcolor{comment}{*\ file\ be\ used\ in\ conjunction\ or\ combination\ with\ any\ other\ product.\ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ Macros\ used\ to\ access\ a\ driver\ without\ HAL\ file\ descriptors.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ ALT\_MODULE\_CLASS}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ This\ macro\ returns\ the\ module\ class\ name\ for\ the\ specified\ module\ instance.}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ It\ uses\ information\ in\ the\ system.h\ file.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ Neither\ the\ instance\ name\ or\ class\ name\ are\ quoted\ (so\ that\ they\ can}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ be\ used\ with\ other\ pre-\/processor\ macros).}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ Example:}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ \ \ Assume\ the\ design\ has\ an\ instance\ of\ an\ altera\_avalon\_uart\ called\ uart1.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ \ \ Calling\ ALT\_MODULE\_CLASS(uart1)\ returns\ altera\_avalon\_uart.}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ALT\_MODULE\_CLASS(instance)\ ALT\_MODULE\_CLASS\_\ \#\#\ instance}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ ALT\_DRIVER\_FUNC\_NAME}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ instance\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Instance\ name.}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ func\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Function\ name.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ This\ macro\ returns\ the\ device\ driver\ function\ name\ of\ the\ specified}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ module\ instance\ for\ the\ specified\ function\ name.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ Example:}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ \ \ Assume\ the\ design\ has\ an\ instance\ of\ an\ altera\_avalon\_uart\ called\ uart1.}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ \ \ Calling\ ALT\_DRIVER\_FUNC\_NAME(uart1,\ write)\ returns\ }}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ \ \ altera\_avalon\_uart\_write.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_FUNC\_NAME(instance,\ func)\ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ ALT\_DRIVER\_FUNC\_NAME1(ALT\_MODULE\_CLASS(instance),\ func)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_FUNC\_NAME1(module\_class,\ func)\ \(\backslash\)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ ALT\_DRIVER\_FUNC\_NAME2(module\_class,\ func)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_FUNC\_NAME2(module\_class,\ func)\ \(\backslash\)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ module\_class\ \#\#\ \_\ \#\#\ func}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ ALT\_DRIVER\_STATE\_STRUCT}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ instance\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Instance\ name.}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ This\ macro\ returns\ the\ device\ driver\ state\ type\ name\ of\ the\ specified}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ module\ instance.}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ Example:}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ \ \ Assume\ the\ design\ has\ an\ instance\ of\ an\ altera\_avalon\_uart\ called\ uart1.}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ \ \ Calling\ ALT\_DRIVER\_STATE\_STRUCT(uart1)\ returns:}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ \ \ \ \ struct\ altera\_avalon\_uart\_state\_s}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ Note\ that\ the\ ALT\_DRIVER\_FUNC\_NAME\ macro\ is\ used\ even\ though\ "{}state"{}\ isn't}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ really\ a\ function\ but\ it\ does\ match\ the\ required\ naming\ convention.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_STATE\_STRUCT(instance)\ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ struct\ ALT\_DRIVER\_FUNC\_NAME(instance,\ state\_s)}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ ALT\_DRIVER\_STATE}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ instance\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Instance\ name.}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *\ This\ macro\ returns\ the\ device\ driver\ state\ name\ of\ the\ specified}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *\ module\ instance.}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ Example:}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ \ \ Assume\ the\ design\ has\ an\ instance\ of\ an\ altera\_avalon\_uart\ called\ uart1.}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ \ \ Calling\ ALT\_DRIVER\_STATE(uart1)\ returns\ uart1.}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_STATE(instance)\ instance}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ ALT\_DRIVER\_WRITE}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ instance\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Instance\ name.}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ buffer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Write\ buffer.}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ len\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Length\ of\ write\ buffer\ data.}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ flags\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Control\ flags\ (e.g.\ O\_NONBLOCK)}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ This\ macro\ calls\ the\ "{}write"{}\ function\ of\ the\ specified\ driver\ instance.}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_WRITE\_EXTERNS(instance)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ \ \ extern\ ALT\_DRIVER\_STATE\_STRUCT(instance)\ ALT\_DRIVER\_STATE(instance);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ \ \ extern\ int\ ALT\_DRIVER\_FUNC\_NAME(instance,\ write)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ \ \ \ \ (ALT\_DRIVER\_STATE\_STRUCT(instance)\ *,\ const\ char\ *,\ int,\ int);}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_WRITE(instance,\ buffer,\ len,\ flags)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ ALT\_DRIVER\_FUNC\_NAME(instance,\ write)(\&ALT\_DRIVER\_STATE(instance),\ buffer,\ len,\ flags)}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ ALT\_DRIVER\_READ}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ instance\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Instance\ name.}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ \ \ <-\/-\/\ buffer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Read\ buffer.}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ len\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Length\ of\ read\ buffer.}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ flags\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Control\ flags\ (e.g.\ O\_NONBLOCK)}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ This\ macro\ calls\ the\ "{}read"{}\ function\ of\ the\ specified\ driver\ instance.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_READ\_EXTERNS(instance)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ extern\ ALT\_DRIVER\_STATE\_STRUCT(instance)\ ALT\_DRIVER\_STATE(instance);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ \ \ extern\ int\ ALT\_DRIVER\_FUNC\_NAME(instance,\ read)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ \ \ \ \ (ALT\_DRIVER\_STATE\_STRUCT(instance)\ *,\ const\ char\ *,\ int,\ int);}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_READ(instance,\ buffer,\ len,\ flags)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ \ \ ALT\_DRIVER\_FUNC\_NAME(instance,\ read)(\&ALT\_DRIVER\_STATE(instance),\ buffer,\ len,\ flags)}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ *\ ALT\_DRIVER\_IOCTL}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ instance\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Instance\ name.}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ req\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ioctl\ request\ (e.g.\ TIOCSTIMEOUT)}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ \ \ -\/-\/>\ arg\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Optional\ argument\ (void*)}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ *\ This\ macro\ calls\ the\ "{}ioctl"{}\ function\ of\ the\ specified\ driver\ instance}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_IOCTL\_EXTERNS(instance)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ \ \ extern\ ALT\_DRIVER\_STATE\_STRUCT(instance)\ ALT\_DRIVER\_STATE(instance);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ \ extern\ int\ ALT\_DRIVER\_FUNC\_NAME(instance,\ ioctl)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ \ \ \ \ (ALT\_DRIVER\_STATE\_STRUCT(instance)\ *,\ int,\ void*);}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ ALT\_DRIVER\_IOCTL(instance,\ req,\ arg)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\ \ \ \ ALT\_DRIVER\_FUNC\_NAME(instance,\ ioctl)(\&ALT\_DRIVER\_STATE(instance),\ req,\ arg)}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_DRIVER\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

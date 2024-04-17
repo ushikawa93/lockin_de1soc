@@ -1,0 +1,306 @@
+\doxysection{nios2.\+h}
+\hypertarget{software_2signal__procesing__bsp_2_h_a_l_2inc_2nios2_8h_source}{}\label{software_2signal__procesing__bsp_2_h_a_l_2inc_2nios2_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/nios2.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/nios2.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_NIOS2\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_NIOS2\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2008\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ This\ header\ provides\ processor\ specific\ macros\ for\ accessing\ the\ Nios2}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ control\ registers.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ Number\ of\ available\ IRQs\ in\ internal\ interrupt\ controller.}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ NIOS2\_NIRQ\ 32}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ Macros\ for\ accessing\ select\ Nios\ II\ general-\/purpose\ registers.}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ ET\ (Exception\ Temporary)\ register\ */}\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_ET(et)\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_asm\ ("{}mov\ \%0,\ et"{}\ :\ "{}=r"{}\ (et)\ );\ \}\ while\ (0)}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_ET(et)\ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_asm\ volatile\ ("{}mov\ et,\ \%z0"{}\ :\ :\ "{}rM"{}\ (et));\ \}\ while\ (0)}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{/*\ SP\ (Stack\ Pointer)\ register\ */}\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_SP(sp)\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_asm\ ("{}mov\ \%0,\ sp"{}\ :\ "{}=r"{}\ (sp)\ );\ \}\ while\ (0)}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ Macros\ for\ useful\ processor\ instructions.}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ NIOS2\_BREAK()\ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_asm\ volatile\ ("{}break"{});\ \}\ while\ (0)}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ NIOS2\_REPORT\_STACK\_OVERFLOW()\ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_asm\ volatile("{}break\ 3"{});\ \}\ while\ (0)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *\ Macros\ for\ accessing\ Nios\ II\ control\ registers.}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_STATUS(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(0);\ \}\ while\ (0)}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_STATUS(src)\ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(0,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_ESTATUS(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(1);\ \}\ while\ (0)}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_BSTATUS(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(2);\ \}\ while\ (0)}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_IENABLE(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(3);\ \}\ while\ (0)}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_IENABLE(src)\ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(3,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_IPENDING(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(4);\ \}\ while\ (0)}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_CPUID(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(5);\ \}\ while\ (0)}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_EXCEPTION(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(7);\ \}\ while\ (0)}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_PTEADDR(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(8);\ \}\ while\ (0)}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_PTEADDR(src)\ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(8,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_TLBACC(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(9);\ \}\ while\ (0)}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_TLBACC(src)\ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(9,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_TLBMISC(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(10);\ \}\ while\ (0)}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_TLBMISC(src)\ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(10,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_ECCINJ(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(11);\ \}\ while\ (0)}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_ECCINJ(src)\ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(11,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_BADADDR(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(12);\ \}\ while\ (0)}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_CONFIG(src)\ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(13,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_CONFIG(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(13);\ \}\ while\ (0)}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_MPUBASE(src)\ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(14,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_MPUBASE(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(14);\ \}\ while\ (0)}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ NIOS2\_WRITE\_MPUACC(src)\ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \_\_builtin\_wrctl(15,\ src);\ \}\ while\ (0)}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ NIOS2\_READ\_MPUACC(dest)\ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ dest\ =\ \_\_builtin\_rdctl(15);\ \}\ while\ (0)}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *\ Nios\ II\ control\ registers\ that\ are\ always\ present}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\ \ \ status}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ NIOS2\_ESTATUS\ \ estatus}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ NIOS2\_BSTATUS\ \ bstatus}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ NIOS2\_IENABLE\ \ ienable}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ NIOS2\_IPENDING\ ipending}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ NIOS2\_CPUID\ cpuid}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ Bit\ masks\ \&\ offsets\ for\ Nios\ II\ control\ registers.}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *\ The\ presence\ and\ size\ of\ a\ field\ is\ sometimes\ dependent\ on\ the\ Nios\ II}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ *\ configuration.\ \ Bit\ masks\ for\ every\ possible\ field\ and\ the\ maximum\ size\ of}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ *\ that\ field\ are\ defined.}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ *\ All\ bit-\/masks\ are\ expressed\ relative\ to\ the\ position}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ of\ the\ data\ with\ a\ register.\ To\ read\ data\ that\ is\ LSB-\/}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *\ aligned,\ the\ register\ read\ data\ should\ be\ masked,\ then}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ right-\/shifted\ by\ the\ designated\ "{}OFST"{}\ macro\ value.\ The}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *\ opposite\ should\ be\ used\ for\ register\ writes\ when\ starting}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *\ with\ LSB-\/aligned\ data.}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{comment}{/*\ STATUS,\ ESTATUS,\ BSTATUS,\ and\ SSTATUS\ registers\ */}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_PIE\_MSK\ \ (0x00000001)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_PIE\_OFST\ (0)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_U\_MSK\ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_U\_OFST\ \ \ (1)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_EH\_MSK\ \ \ (0x00000004)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_EH\_OFST\ \ (2)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_IH\_MSK\ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_IH\_OFST\ \ \ \ (3)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_IL\_MSK\ \ \ \ \ (0x000003f0)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_IL\_OFST\ \ \ \ (4)}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_CRS\_MSK\ \ \ \ (0x0000fc00)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_CRS\_OFST\ \ \ (10)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_PRS\_MSK\ \ \ \ (0x003f0000)}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_PRS\_OFST\ \ \ (16)}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_NMI\_MSK\ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_NMI\_OFST\ \ \ (22)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_RSIE\_MSK\ \ \ (0x00800000)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_RSIE\_OFST\ \ (23)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_SRS\_MSK\ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ NIOS2\_STATUS\_SRS\_OFST\ \ \ (31)}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{/*\ EXCEPTION\ register\ */}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ NIOS2\_EXCEPTION\_REG\_CAUSE\_MASK\ (0x0000007c)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ NIOS2\_EXCEPTION\_REG\_CAUSE\_OFST\ (2)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ NIOS2\_EXCEPTION\_REG\_ECCFTL\_MASK\ (0x80000000)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ NIOS2\_EXCEPTION\_REG\_ECCFTL\_OFST\ (31)}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{comment}{/*\ PTEADDR\ (Page\ Table\ Entry\ Address)\ register\ */}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ NIOS2\_PTEADDR\_REG\_VPN\_OFST\ 2}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ NIOS2\_PTEADDR\_REG\_VPN\_MASK\ 0x3ffffc}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ NIOS2\_PTEADDR\_REG\_PTBASE\_OFST\ 22}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ NIOS2\_PTEADDR\_REG\_PTBASE\_MASK\ 0xffc00000}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{comment}{/*\ TLBACC\ (TLB\ Access)\ register\ */}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_PFN\_OFST\ 0}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_PFN\_MASK\ 0xfffff}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_G\_OFST\ 20}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_G\_MASK\ 0x100000}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_X\_OFST\ 21}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_X\_MASK\ 0x200000}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_W\_OFST\ 22}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_W\_MASK\ 0x400000}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_R\_OFST\ 23}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_R\_MASK\ 0x800000}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_C\_OFST\ 24}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_C\_MASK\ 0x1000000}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_IG\_OFST\ 25}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBACC\_REG\_IG\_MASK\ 0xfe000000}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{comment}{/*\ TLBMISC\ (TLB\ Miscellaneous)\ register\ */}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_D\_OFST\ 0}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_D\_MASK\ 0x1}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_PERM\_OFST\ 1}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_PERM\_MASK\ 0x2}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_BAD\_OFST\ 2}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_BAD\_MASK\ 0x4}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_DBL\_OFST\ 3}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_DBL\_MASK\ 0x8}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_PID\_OFST\ 4}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_PID\_MASK\ 0x3fff0}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_WE\_OFST\ 18}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_WE\_MASK\ 0x40000}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_RD\_OFST\ 19}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_RD\_MASK\ 0x80000}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_WAY\_OFST\ 20}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_WAY\_MASK\ 0xf00000}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_EE\_OFST\ 24}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ NIOS2\_TLBMISC\_REG\_EE\_MASK\ 0x1000000}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{comment}{/*\ ECCINJ\ (ECC\ Inject)\ register\ */}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_RF\_OFST\ 0}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_RF\_MASK\ 0x3}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_ICTAG\_OFST\ 2}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_ICTAG\_MASK\ 0xc}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_ICDAT\_OFST\ 4}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_ICDAT\_MASK\ 0x30}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DCTAG\_OFST\ 6}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DCTAG\_MASK\ 0xc0}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DCDAT\_OFST\ 8}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DCDAT\_MASK\ 0x300}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_TLB\_OFST\ 10}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_TLB\_MASK\ 0xc00}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM0\_OFST\ 12}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM0\_MASK\ 0x3000}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM1\_OFST\ 14}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM1\_MASK\ 0xc000}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM2\_OFST\ 16}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM2\_MASK\ 0x30000}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM3\_OFST\ 18}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ NIOS2\_ECCINJ\_REG\_DTCM3\_MASK\ 0xc0000}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{comment}{/*\ CONFIG\ register\ */}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_PE\_MASK\ (0x00000001)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_PE\_OFST\ (0)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_ANI\_MASK\ (0x00000002)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_ANI\_OFST\ (1)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_ECCEN\_MASK\ (0x00000004)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_ECCEN\_OFST\ (2)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_ECCEXC\_MASK\ (0x00000008)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#define\ NIOS2\_CONFIG\_REG\_ECCEXC\_OFST\ (3)}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{/*\ MPUBASE\ (MPU\ Base\ Address)\ Register\ */}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUBASE\_D\_MASK\ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUBASE\_D\_OFST\ \ \ \ \ \ \ \ \ (0)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUBASE\_INDEX\_MASK\ \ \ \ \ (0x0000003e)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUBASE\_INDEX\_OFST\ \ \ \ \ (1)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUBASE\_BASE\_ADDR\_MASK\ (0xffffffc0)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUBASE\_BASE\_ADDR\_OFST\ (6)}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{comment}{/*\ MPUACC\ (MPU\ Access)\ Register\ */}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_LIMIT\_MASK\ (0xffffffc0)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_LIMIT\_OFST\ (6)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_MASK\_MASK\ \ (0xffffffc0)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_MASK\_OFST\ \ (6)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_C\_MASK\ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_C\_OFST\ \ \ \ \ (5)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_PERM\_MASK\ \ (0x0000001c)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_PERM\_OFST\ \ (2)}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_RD\_MASK\ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_RD\_OFST\ \ \ \ (1)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_WR\_MASK\ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#define\ NIOS2\_MPUACC\_WR\_OFST\ \ \ \ (0)}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00297\ \}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_NIOS2\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,587 @@
+\doxysection{tclrpt.\+h}
+\hypertarget{hps__isw__handoff_2procesador__hps__0_2tclrpt_8h_source}{}\label{hps__isw__handoff_2procesador__hps__0_2tclrpt_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/hps\_isw\_handoff/procesador\_hps\_0/tclrpt.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/hps\_isw\_handoff/procesador\_hps\_0/tclrpt.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TCLRPT\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TCLRPT\_H\_}}
+\DoxyCodeLine{00003\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*\ Copyright\ Altera\ Corporation\ (C)\ 2012-\/2014.\ All\ rights\ reserved}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ SPDX-\/License-\/Identifier:\ \ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ \ *\ Neither\ the\ name\ of\ Altera\ Corporation\ nor\ the}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ \ names\ of\ its\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}\ AND}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ ALTERA\ CORPORATION\ BE\ LIABLE\ FOR\ ANY}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}sequencer.h"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#if\ ENABLE\_TCL\_DEBUG}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ TCLRPT\_SET(item,\ value)\ item\ =\ value}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ TCLRPT\_SET(item,\ value)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ None\ of\ the\ rest\ of\ the\ file\ should\ be\ referenced\ if\ ENABLE\_TCL\_DEBUG\ is\ not}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ set\ (although\ it's\ not\ a\ problem\ if\ it\ is,\ but\ this\ helps\ catch\ errors)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#if\ ENABLE\_TCL\_DEBUG}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ PRINTF\_READ\_BUFFER\_SIZE\ 128/4}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ PRINTF\_READ\_BUFFER\_FIFO\_WORDS\ 32}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ NUM\_DI\_SAMPLE\ 100}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ DI\_REPORT\_FLAGS\_READY\ 0x00000001}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ DI\_REPORT\_FLAGS\_DONE\ 0x00000002}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ TCL\ Commands}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ The\ wait\ command}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ TCLDBG\_CMD\_WAIT\_CMD\ 1000}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ No\ operation\ command}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ TCLDBG\_CMD\_NOP\ 0}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ Command\ response\ acknowledged}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ TCLDBG\_CMD\_RESPONSE\_ACK\ 1}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ Run\ the\ full\ test}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ TCLDBG\_RUN\_FULLTEST\ 2}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ Query\ the\ parameterization\ info}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ TCLDBG\_PARAM\_INFO\ 3}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ Query\ the\ status\ of\ calibration}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ TCLDBG\_CAL\_STATUS\ 4}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ Run\ memory\ calibration}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ TCLDBG\_RUN\_MEM\_CALIBRATE\ 5}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ Run\ pattern\ to\ generate\ eye\ diagrams}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ TCLDBG\_RUN\_EYE\_DIAGRAM\_PATTERN\ 6}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ Run\ full\ test\ and\ see\ how\ far\ we\ can\ push\ DQ\ delay\ on\ input\ and\ output\ sides}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ TCLDBG\_FIND\_FULL\_TEST\_DQ\ 7}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ Run\ full\ test\ and\ see\ how\ far\ we\ can\ push\ DQS\ delay\ on\ input\ and\ output\ sides}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ TCLDBG\_FIND\_FULL\_TEST\_DQS\ 8}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ Run\ full\ test\ and\ see\ how\ far\ we\ can\ push\ DM\ delay\ on\ output\ sides}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ TCLDBG\_FIND\_FULL\_TEST\_DM\ 9}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ Query\ the\ margins\ found\ during\ read\ and\ write\ calibration}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ TCLDBG\_QUERY\_CALIB\_MARGINS\ 10}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ Query\ the\ settings\ applied\ during\ calibration\ on\ DQ\ pins}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ TCLDBG\_QUERY\_DQ\_SETTINGS\ 11}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ Query\ the\ settings\ applied\ during\ calibration\ on\ DQS\ groups}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ TCLDBG\_QUERY\_DQS\_SETTINGS\ 12}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ Query\ the\ state\ of\ the\ PHY.\ User\ mode\ or\ debug\ mode}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ TCLDBG\_QUERY\_PHY\_USER\_DEBUG\_MODE\ 13}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{comment}{//\ Mark\ all\ groups\ as\ being\ valid\ for\ calibration}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ TCLDBG\_MARK\_ALL\_DQS\_GROUPS\_AS\_VALID\ 14}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ Mark\ a\ specific\ group\ to\ be\ skipped\ for\ calibration}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ TCLDBG\_MARK\_GROUP\_AS\_SKIP\ 15}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{//\ Query\ the\ DQS\ skip\ group\ mask}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ TCLDBG\_QUERY\_GROUP\_AS\_SKIP\ 16}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{comment}{//\ Mark\ all\ ranks\ as\ being\ valid\ for\ calibration}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ TCLDBG\_MARK\_ALL\_RANKS\_AS\_VALID\ 17}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ Mark\ a\ specific\ rank\ to\ be\ skipped\ for\ calibration}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ TCLDBG\_MARK\_RANK\_AS\_SKIP\ 18}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ Query\ the\ rank\ skip\ mask}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ TCLDBG\_QUERY\_RANK\_AS\_SKIP\ 19}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//\ Query\ the\ settings\ applied\ during\ calibration\ on\ DM\ pins}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ TCLDBG\_QUERY\_DM\_SETTINGS\ 20}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ Enable\ the\ margining\ report\ as\ part\ of\ calibration}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ TCLDBG\_ENABLE\_MARGIN\_REPORT\ 21}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ Enable\ sweeping\ all\ groups\ of\ calibration}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ TCLDBG\_ENABLE\_SWEEP\_ALL\_GROUPS\ 22}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ Enable\ the\ guaranteed\ read\ test\ as\ part\ of\ calibration}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ TCLDBG\_DISABLE\_GUARANTEED\_READ\ 23}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ Enable/disable\ non-\/destructive\ calibration}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_NON\_DESTRUCTIVE\_CALIBRATION\ 24}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#if\ ENABLE\_DELAY\_CHAIN\_WRITE}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ Set\ DQ\ D1\ Delay\ (I/O\ buffer\ to\ input\ register)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQ\_D1\_DELAY\ 25}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ Set\ DQ\ D5\ Delay\ (output\ register\ to\ I/O\ buffer)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQ\_D5\_DELAY\ 26}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ Set\ DQ\ D6\ Delay\ (output\ register\ to\ I/O\ buffer)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQ\_D6\_DELAY\ 27}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ Set\ DQS\ D4\ Delay\ (DQS\ delay\ chain)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQS\_D4\_DELAY\ 28}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{comment}{//\ Set\ DQS\ DQ\ Output\ Phase\ (deg)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQDQS\_OUTPUT\_PHASE\ 29}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{comment}{//\ Set\ DQS\ D5\ Delay\ (output\ register\ to\ I/O\ buffer)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQS\_D5\_DELAY\ 30}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ Set\ DQS\ D6\ Delay\ (output\ register\ to\ I/O\ buffer)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQS\_D6\_DELAY\ 31}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{comment}{//\ Set\ DQS\ DQS\ Enable\ Phase\ (deg)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQS\_EN\_PHASE\ 32}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ Set\ DQS\ T11\ Delay\ (DQS\ post-\/amble\ delay)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DQS\_T11\_DELAY\ 33}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{comment}{//\ Set\ DM\ D5\ Delay\ (output\ register\ to\ I/O\ buffer)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DM\_D5\_DELAY\ 34}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{comment}{//\ Set\ DM\ D6\ Delay\ (output\ register\ to\ I/O\ buffer)}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_DM\_D6\_DELAY\ 35}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ Rerun\ DQ\ margining\ without\ calibrating}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ TCLDBG\_REMARGIN\_DQ\ 36}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{comment}{//\ Rerun\ DM\ margining\ without\ calibrating}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ TCLDBG\_REMARGIN\_DM\ 37}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{comment}{//\ Increment\ VFIFO}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ TCLDBG\_INCR\_VFIFO\ 38}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{comment}{//\ Decrement\ VFIFO}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ TCLDBG\_DECR\_VFIFO\ 39}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{comment}{//\ Select\ shadow\ register}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ TCLDBG\_SELECT\_SHADOW\_REG\ 40}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_DELAY\_CHAIN\_WRITE}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ Update\ RDIMM\ Control\ Word}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ TCLDBG\_SET\_UPDATE\_PARAMETERS\ 41}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{comment}{//\ Run\ memory\ calibration}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ TCLDBG\_RUN\_NON\_DES\_MEM\_CALIBRATE\ 42}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00191\ \textcolor{comment}{//\ TCL\ RX\ Status\ Codes}}
+\DoxyCodeLine{00192\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00193\ \textcolor{comment}{//\ RX\ interface\ waiting\ for\ command}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ TCLDBG\_RX\_STATUS\_WAIT\_CMD\ 0}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ RX\ interface\ command\ ready\ for\ operation.}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ TCLDBG\_RX\_STATUS\_CMD\_READY\ 1}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{comment}{//\ RX\ interface\ command\ executing}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ TCLDBG\_RX\_STATUS\_CMD\_EXE\ 2}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00203\ \textcolor{comment}{//\ TCL\ TX\ Status\ Codes}}
+\DoxyCodeLine{00204\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00205\ \textcolor{comment}{//\ RX\ interface\ ready\ to\ accept\ commands\ in\ debug\ mode}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ TCLDBG\_TX\_STATUS\_CMD\_READY\ 0}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{comment}{//\ TX\ interface\ response\ not\ ready\ as\ command\ is\ running}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ TCLDBG\_TX\_STATUS\_CMD\_EXE\ 1}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{comment}{//\ RX\ interface\ illegal\ command}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ TCLDBG\_TX\_STATUS\_ILLEGAL\_CMD\ 2}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ TX\ interface\ response\ ready}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ TCLDBG\_TX\_STATUS\_RESPONSE\_READY\ 3}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00220\ \textcolor{comment}{//\ Main\ report\ status\ bits}}
+\DoxyCodeLine{00221\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ DEBUG\_STATUS\_PRINTF\_ENABLED\_BIT\ 0}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ DEBUG\_STATUS\_CALIBRATION\_STARTED\ 1}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ DEBUG\_STATUS\_CALIBRATION\_ENDED\ 2}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00227\ \textcolor{comment}{//\ Individual\ reports\ status\ bits}}
+\DoxyCodeLine{00228\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#define\ DEBUG\_REPORT\_STATUS\_REPORT\_READY\ 0x00000001}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#define\ DEBUG\_REPORT\_STATUS\_REPORT\_GEN\_ENABLED\ 0x00000002}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ DEBUG\_REPORT\_DTAP\_PER\_PTAP\_DYNAMIC\ 0x00000004}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00234\ \textcolor{comment}{//\ Debug\ report\ sizes}}
+\DoxyCodeLine{00235\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ NUM\_RANK\_MASK\_WORDS\ ((RW\_MGR\_MEM\_NUMBER\_OF\_RANKS\ \%\ 32)\ ==\ 0\ ?\ (RW\_MGR\_MEM\_NUMBER\_OF\_RANKS/32)\ :\ (RW\_MGR\_MEM\_NUMBER\_OF\_RANKS/32)+1)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ NUM\_GROUP\_MASK\_WORDS\ ((RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH\ \%\ 32)\ ==\ 0\ ?\ (RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH/32)\ :\ (RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH/32)+1)}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ COMMAND\_PARAM\_WORDS\ 4}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00242\ \textcolor{comment}{//\ Debug\ report\ structs}}
+\DoxyCodeLine{00243\ \textcolor{comment}{//\ Margins\ are\ reported\ in\ terms\ of\ delay\ chain\ taps.}}
+\DoxyCodeLine{00244\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{00245\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_observed\_dq\_margins\_struct\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ alt\_32\ left\_edge;}
+\DoxyCodeLine{00247\ \ \ \ \ alt\_32\ right\_edge;}
+\DoxyCodeLine{00248\ \}\ debug\_cal\_observed\_dq\_margins\_t;}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_observed\_dqs\_in\_margins\_struct\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ alt\_32\ dq\_margin;}
+\DoxyCodeLine{00252\ \ \ \ \ alt\_32\ dqs\_margin;}
+\DoxyCodeLine{00253\ \ \ \ \ alt\_u32\ dqsen\_margin;}
+\DoxyCodeLine{00254\ \}\ debug\_cal\_observed\_dqs\_in\_margins\_t;}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_observed\_dqsen\_margins\_struct\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ alt\_u32\ vfifo\_begin;}
+\DoxyCodeLine{00258\ \ \ \ \ alt\_u32\ phase\_begin;}
+\DoxyCodeLine{00259\ \ \ \ \ alt\_u32\ delay\_begin;}
+\DoxyCodeLine{00260\ \ \ \ \ alt\_u32\ work\_begin;}
+\DoxyCodeLine{00261\ \ \ \ \ alt\_u32\ vfifo\_end;}
+\DoxyCodeLine{00262\ \ \ \ \ alt\_u32\ phase\_end;}
+\DoxyCodeLine{00263\ \ \ \ \ alt\_u32\ delay\_end;}
+\DoxyCodeLine{00264\ \ \ \ \ alt\_u32\ work\_end;}
+\DoxyCodeLine{00265\ \}\ debug\_cal\_observed\_dqsen\_margins\_t;}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_observed\_dqs\_out\_margins\_struct\ \{}
+\DoxyCodeLine{00268\ \ \ \ \ alt\_32\ dq\_margin;}
+\DoxyCodeLine{00269\ \ \ \ \ alt\_32\ dqs\_margin;}
+\DoxyCodeLine{00270\ \ \ \ \ alt\_32\ dm\_margin;}
+\DoxyCodeLine{00271\ \ \ \ \ alt\_u32\ dqdqs\_start;}
+\DoxyCodeLine{00272\ \ \ \ \ alt\_u32\ dqdqs\_end;}
+\DoxyCodeLine{00273\ \}\ debug\_cal\_observed\_dqs\_out\_margins\_t;}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_dq\_settings\_struct\ \{}
+\DoxyCodeLine{00276\ \ \ \ \ alt\_u32\ dq\_in\_delay;}
+\DoxyCodeLine{00277\ \ \ \ \ alt\_u32\ dq\_out\_delay1;}
+\DoxyCodeLine{00278\ \ \ \ \ alt\_u32\ dq\_out\_delay2;}
+\DoxyCodeLine{00279\ \}\ debug\_cal\_dq\_settings\_t;}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_dqs\_in\_settings\_struct\ \{}
+\DoxyCodeLine{00282\ \ \ \ \ alt\_u32\ dqs\_bus\_in\_delay;}
+\DoxyCodeLine{00283\ \ \ \ \ alt\_u32\ dqs\_en\_phase;}
+\DoxyCodeLine{00284\ \ \ \ \ alt\_u32\ dqs\_en\_delay;}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#if\ TRACKING\_ERROR\_TEST\ ||\ TRACKING\_WATCH\_TEST}}
+\DoxyCodeLine{00286\ \ \ \ \ alt\_u32\ sample\_count;}
+\DoxyCodeLine{00287\ \ \ \ \ alt\_u32\ dtaps\_per\_ptap;}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00289\ \}\ debug\_cal\_dqs\_in\_settings\_t;}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_dqs\_out\_settings\_struct\ \{}
+\DoxyCodeLine{00292\ \ \ \ \ alt\_u32\ dqdqs\_out\_phase;}
+\DoxyCodeLine{00293\ \ \ \ \ alt\_u32\ dqs\_out\_delay1;}
+\DoxyCodeLine{00294\ \ \ \ \ alt\_u32\ dqs\_out\_delay2;}
+\DoxyCodeLine{00295\ \ \ \ \ alt\_u32\ oct\_out\_delay1;}
+\DoxyCodeLine{00296\ \ \ \ \ alt\_u32\ oct\_out\_delay2;}
+\DoxyCodeLine{00297\ \ \ \ \ alt\_u32\ dqs\_io\_in\_delay;}
+\DoxyCodeLine{00298\ \}\ debug\_cal\_dqs\_out\_settings\_t;}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_dm\_settings\_struct\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ alt\_u32\ dm\_in\_delay;}
+\DoxyCodeLine{00302\ \ \ \ \ alt\_u32\ dm\_out\_delay1;}
+\DoxyCodeLine{00303\ \ \ \ \ alt\_u32\ dm\_out\_delay2;}
+\DoxyCodeLine{00304\ \}\ debug\_cal\_dm\_settings\_t;}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{comment}{/*\ Error\ stages\ are\ defined\ in\ sequencer.h\ */}}
+\DoxyCodeLine{00307\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_status\_per\_group\_struct\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ alt\_u32\ error\_stage;}
+\DoxyCodeLine{00309\ \ \ \ \ alt\_u32\ error\_sub\_stage;}
+\DoxyCodeLine{00310\ \ \ \ \ alt\_u32\ fom\_in;}
+\DoxyCodeLine{00311\ \ \ \ \ alt\_u32\ fom\_out;}
+\DoxyCodeLine{00312\ \}\ debug\_cal\_status\_per\_group\_t;}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{comment}{/*\ Summary\ report\ */}}
+\DoxyCodeLine{00315\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_summary\_report\_struct\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{comment}{//\ Size\ in\ 32-\/bit\ words\ of\ the\ report}}
+\DoxyCodeLine{00317\ \ \ \ \ alt\_u32\ data\_size;}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ alt\_u32\ report\_flags;}
+\DoxyCodeLine{00320\ \ \ \ \ }
+\DoxyCodeLine{00321\ \ \ \ \ alt\_u32\ sequencer\_signature;}
+\DoxyCodeLine{00322\ \ \ \ \ alt\_u32\ protocol;}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ alt\_u32\ error\_stage;}
+\DoxyCodeLine{00325\ \ \ \ \ alt\_u32\ error\_sub\_stage;}
+\DoxyCodeLine{00326\ \ \ \ \ alt\_u32\ error\_group;}
+\DoxyCodeLine{00327\ \ \ \ \ alt\_u32\ fom\_in;}
+\DoxyCodeLine{00328\ \ \ \ \ alt\_u32\ fom\_out;}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ alt\_u32\ mem\_address\_width;}
+\DoxyCodeLine{00331\ \ \ \ \ alt\_u32\ mem\_bank\_width;}
+\DoxyCodeLine{00332\ \ \ \ \ alt\_u32\ mem\_control\_width;}
+\DoxyCodeLine{00333\ \ \ \ \ alt\_u32\ mem\_cs\_width;}
+\DoxyCodeLine{00334\ \ \ \ \ alt\_u32\ mem\_cke\_width;}
+\DoxyCodeLine{00335\ \ \ \ \ alt\_u32\ mem\_odt\_width;}
+\DoxyCodeLine{00336\ \ \ \ \ alt\_u32\ mem\_data\_width;}
+\DoxyCodeLine{00337\ \ \ \ \ alt\_u32\ mem\_dm\_width;}
+\DoxyCodeLine{00338\ \ \ \ \ alt\_u32\ mem\_read\_dqs\_width;}
+\DoxyCodeLine{00339\ \ \ \ \ alt\_u32\ mem\_write\_dqs\_width;}
+\DoxyCodeLine{00340\ \ \ \ \ alt\_u32\ mem\_dq\_per\_read\_dqs;}
+\DoxyCodeLine{00341\ \ \ \ \ alt\_u32\ mem\_num\_ranks;}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ alt\_u32\ num\_shadow\_regs;}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ alt\_u32\ mem\_mmr\_burst\_len;}
+\DoxyCodeLine{00346\ \ \ \ \ alt\_u32\ mem\_mmr\_cas;}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ alt\_u32\ mem\_num\_dm\_per\_write\_group;}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ \ \ alt\_u32\ rate;}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ alt\_u32\ cal\_write\_latency;}
+\DoxyCodeLine{00353\ \ \ \ \ alt\_u32\ cal\_read\_latency;}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ alt\_u32\ dll\_length;}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \ \ alt\_u32\ rank\_mask\_size;}
+\DoxyCodeLine{00358\ \ \ \ \ alt\_u32\ active\_ranks;}
+\DoxyCodeLine{00359\ \ \ \ \ alt\_u32\ rank\_mask[NUM\_RANK\_MASK\_WORDS];}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ alt\_u32\ group\_mask\_size;}
+\DoxyCodeLine{00362\ \ \ \ \ alt\_u32\ active\_groups;}
+\DoxyCodeLine{00363\ \ \ \ \ alt\_u32\ group\_mask[NUM\_GROUP\_MASK\_WORDS];}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ alt\_u32\ groups\_attempted\_calibration[NUM\_GROUP\_MASK\_WORDS];}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ alt\_u32\ computed\_dtap\_per\_ptap;}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{comment}{//\ The\ delay\ per\ phase\ tap\ is\ the\ period/dll\_length}}
+\DoxyCodeLine{00369\ \ \ \ \ alt\_u32\ io\_delay\_per\_opa\_tap;}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{comment}{//\ The\ delay\ per\ delay\ tap\ is\ the\ delay\ per\ phase\ tap}}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{comment}{//\ divided\ by\ the\ number\ of\ delay\ taps\ per\ phase\ tap}}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{comment}{//\ (i.e.\ io\_delay\_per\_opa\_tap\ /\ computed\_dtap\_per\_ptap)}}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{comment}{//\ The\ value\ of\ computed\_dtap\_per\_ptap\ is\ computed\ during\ calibration.}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ alt\_u32\ margin\_dq\_in\_left\_delay\_chain\_len;}
+\DoxyCodeLine{00376\ \ \ \ \ alt\_u32\ margin\_dq\_in\_right\_delay\_chain\_len;}
+\DoxyCodeLine{00377\ \ \ \ \ alt\_u32\ margin\_dq\_out\_left\_delay\_chain\_len;}
+\DoxyCodeLine{00378\ \ \ \ \ alt\_u32\ margin\_dq\_out\_right\_delay\_chain\_len;}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \}\ debug\_summary\_report\_t;}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \textcolor{comment}{/*\ Calibration\ report:\ \ The\ calibration\ status\ per\ group\ is\ here\ (cal\_status\_per\_group)*/}}
+\DoxyCodeLine{00383\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_cal\_report\_struct\ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{comment}{//\ Size\ in\ 32-\/bit\ words\ of\ the\ report}}
+\DoxyCodeLine{00385\ \ \ \ \ alt\_u32\ data\_size;}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ alt\_u32\ report\_flags;}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ alt\_u32\ mem\_data\_width;}
+\DoxyCodeLine{00390\ \ \ \ \ alt\_u32\ mem\_dm\_width;}
+\DoxyCodeLine{00391\ \ \ \ \ alt\_u32\ mem\_num\_dm\_per\_write\_group;}
+\DoxyCodeLine{00392\ \ \ \ \ alt\_u32\ mem\_read\_dqs\_width;}
+\DoxyCodeLine{00393\ \ \ \ \ alt\_u32\ mem\_write\_dqs\_width;}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ alt\_u32\ num\_shadow\_regs;}
+\DoxyCodeLine{00396\ \ \ \ \ }
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{comment}{/*\ Pass/fail\ status\ per\ group\ */}}
+\DoxyCodeLine{00398\ \ \ \ \ debug\_cal\_status\_per\_group\_t\ cal\_status\_per\_group[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH];}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{comment}{/*\ Margins\ observed\ before\ calibration.\ \ \ */}}
+\DoxyCodeLine{00401\ \ \ \ \ debug\_cal\_observed\_dq\_margins\_t\ cal\_dq\_in\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_DATA\_WIDTH];}
+\DoxyCodeLine{00402\ \ \ \ \ debug\_cal\_observed\_dq\_margins\_t\ cal\_dq\_out\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_DATA\_WIDTH];}
+\DoxyCodeLine{00403\ \ \ \ \ debug\_cal\_observed\_dq\_margins\_t\ cal\_dm\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH][RW\_MGR\_NUM\_TRUE\_DM\_PER\_WRITE\_GROUP];}
+\DoxyCodeLine{00404\ \ \ \ \ debug\_cal\_observed\_dqsen\_margins\_t\ cal\_dqsen\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH];}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ debug\_cal\_observed\_dqs\_in\_margins\_t\ cal\_dqs\_in\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH];}
+\DoxyCodeLine{00407\ \ \ \ \ debug\_cal\_observed\_dqs\_out\_margins\_t\ cal\_dqs\_out\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH];}
+\DoxyCodeLine{00408\ \ \ \ \ }
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{comment}{/*\ Phase,\ delay\ chain\ settings\ */}}
+\DoxyCodeLine{00410\ \ \ \ \ debug\_cal\_dq\_settings\_t\ cal\_dq\_settings[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_DATA\_WIDTH];}
+\DoxyCodeLine{00411\ \ \ \ \ debug\_cal\_dqs\_in\_settings\_t\ cal\_dqs\_in\_settings[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH];}
+\DoxyCodeLine{00412\ \ \ \ \ debug\_cal\_dqs\_out\_settings\_t\ cal\_dqs\_out\_settings[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH];}
+\DoxyCodeLine{00413\ \ \ \ \ debug\_cal\_dm\_settings\_t\ cal\_dm\_settings[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH][RW\_MGR\_NUM\_TRUE\_DM\_PER\_WRITE\_GROUP];}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \}\ debug\_cal\_report\_t;}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \textcolor{comment}{/*\ Left\ and\ right\ edges\ of\ the\ data\ valid\ window,\ in\ units\ of\ delay\ taps.\ */}}
+\DoxyCodeLine{00418\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_margin\_min\_max\_margins\_struct\ \{}
+\DoxyCodeLine{00419\ \ \ \ \ alt\_u32\ min\_working\_setting;}
+\DoxyCodeLine{00420\ \ \ \ \ alt\_u32\ max\_working\_setting;}
+\DoxyCodeLine{00421\ \}\ debug\_margin\_min\_max\_margins\_t;}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \textcolor{comment}{/*\ Post-\/calibration\ margin\ report\ (must\ be\ enabled\ using\ the\ TCLDBG\_ENABLE\_MARGIN\_REPORT\ command\ first)*/}}
+\DoxyCodeLine{00424\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_margin\_report\_struct\ \{}
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{comment}{//\ Size\ in\ 32-\/bit\ words\ of\ the\ report}}
+\DoxyCodeLine{00426\ \ \ \ \ alt\_u32\ data\_size;}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ alt\_u32\ report\_flags;}
+\DoxyCodeLine{00429\ \ \ \ \ }
+\DoxyCodeLine{00430\ \ \ \ \ alt\_u32\ mem\_data\_width;}
+\DoxyCodeLine{00431\ \ \ \ \ alt\_u32\ mem\_write\_dqs\_width;}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \ \ alt\_u32\ num\_shadow\_regs;}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \ \ debug\_margin\_min\_max\_margins\_t\ margin\_dm\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH][RW\_MGR\_NUM\_TRUE\_DM\_PER\_WRITE\_GROUP];}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ debug\_margin\_min\_max\_margins\_t\ margin\_dq\_in\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_DATA\_WIDTH];}
+\DoxyCodeLine{00438\ \ \ \ \ debug\_margin\_min\_max\_margins\_t\ margin\_dq\_out\_margins[NUM\_SHADOW\_REGS][RW\_MGR\_MEM\_DATA\_WIDTH];}
+\DoxyCodeLine{00439\ \ \ \ \ }
+\DoxyCodeLine{00440\ \ \ \ \ }
+\DoxyCodeLine{00441\ \}\ debug\_margin\_report\_t;}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{keyword}{typedef}\ alt\_u32\ printf\_read\_buffer\_t[PRINTF\_READ\_BUFFER\_SIZE];}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_printf\_output\ \{}
+\DoxyCodeLine{00446\ \ \ \ \ alt\_u32\ data\_size;}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ \ \ alt\_u32\ fifo\_size;}
+\DoxyCodeLine{00449\ \ \ \ \ alt\_u32\ word\_size;}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ alt\_u32\ head;}
+\DoxyCodeLine{00452\ \ \ \ \ alt\_u32\ count;}
+\DoxyCodeLine{00453\ \ \ \ \ alt\_u32\ slave\_lock;}
+\DoxyCodeLine{00454\ \ \ \ \ alt\_u32\ master\_lock;}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ printf\_read\_buffer\_t\ read\_buffer[PRINTF\_READ\_BUFFER\_FIFO\_WORDS];}
+\DoxyCodeLine{00458\ \ \ \ \ printf\_read\_buffer\_t\ active\_word;}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \}\ debug\_printf\_output\_t;}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }rw\_manager\_di\_buffer\ \{}
+\DoxyCodeLine{00463\ \ \ \ \ alt\_u32\ bit\_chk;}
+\DoxyCodeLine{00464\ \ \ \ \ alt\_u32\ delay;}
+\DoxyCodeLine{00465\ \ \ \ \ alt\_u32\ v;}
+\DoxyCodeLine{00466\ \ \ \ \ alt\_u32\ p;}
+\DoxyCodeLine{00467\ \ \ \ \ alt\_u32\ d;}
+\DoxyCodeLine{00468\ \ \ \ \ alt\_u32\ di\_buffer\_0a;}
+\DoxyCodeLine{00469\ \ \ \ \ alt\_u32\ di\_buffer\_0b;}
+\DoxyCodeLine{00470\ \ \ \ \ alt\_u32\ di\_buffer\_1a;}
+\DoxyCodeLine{00471\ \ \ \ \ alt\_u32\ di\_buffer\_1b;}
+\DoxyCodeLine{00472\ \ \ \ \ alt\_u32\ di\_buffer\_2a;}
+\DoxyCodeLine{00473\ \ \ \ \ alt\_u32\ di\_buffer\_2b;}
+\DoxyCodeLine{00474\ \ \ \ \ alt\_u32\ di\_buffer\_3a;}
+\DoxyCodeLine{00475\ \ \ \ \ alt\_u32\ di\_buffer\_3b;}
+\DoxyCodeLine{00476\ \ \ \ \ alt\_u32\ di\_buffer\_4a;}
+\DoxyCodeLine{00477\ \ \ \ \ alt\_u32\ di\_buffer\_4b;}
+\DoxyCodeLine{00478\ \}\ rw\_manager\_di\_buffer\_t;}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }rw\_manager\_di\_report\ \{}
+\DoxyCodeLine{00481\ \ \ \ \ alt\_u32\ data\_size;}
+\DoxyCodeLine{00482\ \ \ \ \ alt\_u32\ flags;}
+\DoxyCodeLine{00483\ \ \ \ \ alt\_u32\ cur\_samples;}
+\DoxyCodeLine{00484\ \ \ \ \ alt\_u32\ max\_samples;}
+\DoxyCodeLine{00485\ \ \ \ \ rw\_manager\_di\_buffer\_t\ di\_buffer[NUM\_DI\_SAMPLE];}
+\DoxyCodeLine{00486\ \}\ rw\_manager\_di\_report\_t;}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }emif\_toolkit\_debug\_data\ \{}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{comment}{//\ Size\ in\ 32-\/bit\ words\ of\ all\ the\ emif\ toolkit\ debug\ data}}
+\DoxyCodeLine{00490\ \ \ \ \ alt\_u32\ data\_size;}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ \ \ alt\_u32\ dqs\_write\_width\_ptr;}
+\DoxyCodeLine{00493\ \ \ \ \ alt\_u32\ group\_mask\_ptr;}
+\DoxyCodeLine{00494\ \ \ \ \ alt\_u32\ num\_ranks\_ptr;}
+\DoxyCodeLine{00495\ \ \ \ \ alt\_u32\ rank\_mask\_ptr;}
+\DoxyCodeLine{00496\ \ \ \ \ alt\_u32\ active\_groups\_ptr;}
+\DoxyCodeLine{00497\ \ \ \ \ alt\_u32\ active\_ranks\_ptr;}
+\DoxyCodeLine{00498\ \ \ \ \ alt\_u32\ group\_mask\_size\_ptr;}
+\DoxyCodeLine{00499\ \ \ \ \ alt\_u32\ rank\_mask\_size\_ptr;}
+\DoxyCodeLine{00500\ \}\ emif\_toolkit\_debug\_data\_t;}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \textcolor{comment}{/*\ This\ the\ main\ debug\ data\ structure.\ \ This\ is\ where\ you\ write}}
+\DoxyCodeLine{00503\ \textcolor{comment}{commands,\ poll\ command\ status,\ pass\ command\ parameters,\ etc.\ \ Contained}}
+\DoxyCodeLine{00504\ \textcolor{comment}{within\ this\ data\ structure\ are\ the\ reports.\ The\ memory\ address\ of\ this\ }}
+\DoxyCodeLine{00505\ \textcolor{comment}{data\ structure\ is\ in\ core\_debug\_defines.h\ (it\ is\ dynamic).\ For\ example:}}
+\DoxyCodeLine{00506\ \textcolor{comment}{\#define\ SEQ\_CORE\_DEBUG\_BASE\ 0x000140c4}}
+\DoxyCodeLine{00507\ \textcolor{comment}{The\ sizes\ of\ all\ the\ data\ structures\ are\ dynamic,\ as\ they\ depend\ on\ }}
+\DoxyCodeLine{00508\ \textcolor{comment}{interface\ size\ and\ other\ parameters.\ \ Accessing\ them\ outside\ a\ software}}
+\DoxyCodeLine{00509\ \textcolor{comment}{context\ is\ trickier\ but\ it\ can\ be\ done\ by\ looking\ at\ the\ "{}data\_size"{}}}
+\DoxyCodeLine{00510\ \textcolor{comment}{field\ of\ the\ reports.}}
+\DoxyCodeLine{00511\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00512\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }debug\_data\_struct\ \{}
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{comment}{//\ Size\ in\ 32-\/bit\ words\ of\ all\ the\ debug\ data}}
+\DoxyCodeLine{00514\ \ \ \ \ alt\_u32\ data\_size;}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ \ \ \ \ \textcolor{comment}{//\ Status\ bits}}
+\DoxyCodeLine{00517\ \ \ \ \ alt\_u32\ status;}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \ \ \ \ \textcolor{comment}{//\ Command\ interaction}}
+\DoxyCodeLine{00520\ \ \ \ \ alt\_u32\ requested\_command;}
+\DoxyCodeLine{00521\ \ \ \ \ alt\_u32\ command\_status;}
+\DoxyCodeLine{00522\ \ \ \ \ alt\_u32\ command\_parameters[COMMAND\_PARAM\_WORDS];}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \textcolor{comment}{//\ Pointers\ to\ the\ reports}}
+\DoxyCodeLine{00525\ \ \ \ \ alt\_u32\ summary\_report\_ptr;}
+\DoxyCodeLine{00526\ \ \ \ \ alt\_u32\ cal\_report\_ptr;}
+\DoxyCodeLine{00527\ \ \ \ \ alt\_u32\ margin\_report\_ptr;}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \ \ \ \ \textcolor{comment}{//\ Printf\ output\ report}}
+\DoxyCodeLine{00530\ \ \ \ \ alt\_u32\ printf\_output\_ptr;}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{comment}{//\ Debug\ toolkit\ debugging\ data}}
+\DoxyCodeLine{00533\ \ \ \ \ alt\_u32\ emif\_toolkit\_debug\_data\_ptr;}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \textcolor{preprocessor}{\#if\ ENABLE\_DQSEN\_SWEEP}}
+\DoxyCodeLine{00536\ \ \ \ \ \textcolor{comment}{//\ di\ report}}
+\DoxyCodeLine{00537\ \ \ \ \ alt\_u32\ di\_report\_ptr;}
+\DoxyCodeLine{00538\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{comment}{//\ Report\ data\ structures}}
+\DoxyCodeLine{00541\ \ \ \ \ debug\_summary\_report\_t\ summary\_report;}
+\DoxyCodeLine{00542\ \ \ \ \ debug\_cal\_report\_t\ cal\_report;}
+\DoxyCodeLine{00543\ \ \ \ \ debug\_margin\_report\_t\ margin\_report;}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\#if\ ENABLE\_PRINTF\_LOG}}
+\DoxyCodeLine{00546\ \ \ \ \ debug\_printf\_output\_t\ printf\_output;}
+\DoxyCodeLine{00547\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \textcolor{preprocessor}{\#if\ ENABLE\_DQSEN\_SWEEP}}
+\DoxyCodeLine{00550\ \ \ \ \ rw\_manager\_di\_report\_t\ di\_report;}
+\DoxyCodeLine{00551\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \ \ \ \ emif\_toolkit\_debug\_data\_t\ emif\_toolkit\_debug\_data;}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \}\ debug\_data\_t;}
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00557\ \textcolor{comment}{/*\ TCL\ io\ memory\ */}}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{extern}\ debug\_summary\_report\_t\ *debug\_summary\_report;}
+\DoxyCodeLine{00560\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{extern}\ debug\_cal\_report\_t\ *debug\_cal\_report;}
+\DoxyCodeLine{00561\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{extern}\ debug\_margin\_report\_t\ *debug\_margin\_report;}
+\DoxyCodeLine{00562\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{extern}\ debug\_printf\_output\_t\ *debug\_printf\_output;}
+\DoxyCodeLine{00563\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{extern}\ debug\_data\_t\ *debug\_data;}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{extern}\ emif\_toolkit\_debug\_data\_t\ *debug\_emif\_toolkit\_debug\_data;}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ tclrpt\_initialize\_debug\_status\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00569\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ tclrpt\_initialize\ (debug\_data\_t\ *);}
+\DoxyCodeLine{00570\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ tclrpt\_loop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00571\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ tclrpt\_initialize\_data(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00572\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ tclrpt\_set\_group\_as\_calibration\_attempted(alt\_u32\ write\_group);}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\#if\ BFM\_MODE}}
+\DoxyCodeLine{00575\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ tclrpt\_dump\_internal\_data(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00576\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ tclrpt\_populate\_fake\_margin\_data(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00577\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENABLE\_TCL\_DEBUG}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

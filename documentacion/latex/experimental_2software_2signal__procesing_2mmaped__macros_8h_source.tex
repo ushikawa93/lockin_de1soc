@@ -1,0 +1,85 @@
+\doxysection{mmaped\+\_\+macros.\+h}
+\hypertarget{experimental_2software_2signal__procesing_2mmaped__macros_8h_source}{}\label{experimental_2software_2signal__procesing_2mmaped__macros_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing/mmaped\_macros.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing/mmaped\_macros.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*****************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ These\ are\ all\ word\ addresses.\ Please\ shift\ the}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ offset\ accordingly\ when\ using\ them\ in\ IORD\ or\ IOWR.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ E.g.:\ Write\ to\ a\ 32-\/bit\ user\_datain\_0\ port}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ IOWR\_32DIRECT(BASE,\ DATA\_IN\_0\ *\ 4,\ 0XFFFFFFFF)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Another\ example:\ Read\ a\ 16-\/bit\ edge\ capture\ reg}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ \ IORD\_16DIRECT(BASE,\ EDGE\_CAPTURE\_0\ *\ 2)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*****************************************************/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ DATA\_IN\_0\ 0x00}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ DATA\_IN\_1\ 0x10}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ DATA\_IN\_2\ 0x20}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ DATA\_IN\_3\ 0x30}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ DATA\_IN\_4\ 0x40}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ DATA\_IN\_5\ 0x50}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ DATA\_IN\_6\ 0x60}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ DATA\_IN\_7\ 0x70}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ DATA\_IN\_8\ 0x80}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ DATA\_IN\_9\ 0x90}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ DATA\_IN\_10\ 0xA0}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ DATA\_IN\_11\ 0xB0}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ DATA\_IN\_12\ 0xC0}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ DATA\_IN\_13\ 0xD0}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ DATA\_IN\_14\ 0xE0}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ DATA\_IN\_15\ 0xF0}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_0\ 0x01}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_1\ 0x11}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_2\ 0x21}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_3\ 0x31}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_4\ 0x41}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_5\ 0x51}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_6\ 0x61}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_7\ 0x71}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_8\ 0x81}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_9\ 0x91}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_10\ 0xA1}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_11\ 0xB1}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_12\ 0xC1}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_13\ 0xD1}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_14\ 0xE1}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_15\ 0xF1}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_0\ 0x02}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_1\ 0x12}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_2\ 0x22}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_3\ 0x32}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_4\ 0x42}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_5\ 0x52}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_6\ 0x62}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_7\ 0x72}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_8\ 0x82}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_9\ 0x92}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_10\ 0xA2}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_11\ 0xB2}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_12\ 0xC2}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_13\ 0xD2}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_14\ 0xE2}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ IRQ\_MASK\_15\ 0xF2}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_0\ 0x03}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_1\ 0x13}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_2\ 0x23}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_3\ 0x33}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_4\ 0x43}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_5\ 0x53}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_6\ 0x63}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_7\ 0x73}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_8\ 0x83}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_9\ 0x93}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_10\ 0xA3}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_11\ 0xB3}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_12\ 0xC3}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_13\ 0xD3}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_14\ 0xE3}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ EDGE\_CAPTURE\_15\ 0xF3}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ PRIORITIZED\_INTERRUPT\_SRC\ 0x100}}
+
+\end{DoxyCode}

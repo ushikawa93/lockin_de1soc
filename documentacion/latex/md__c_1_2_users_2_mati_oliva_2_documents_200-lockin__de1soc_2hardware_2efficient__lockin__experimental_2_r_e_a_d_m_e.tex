@@ -1,0 +1,21 @@
+\chapter{Efficient\+\_\+lockin}
+\hypertarget{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e}{}\label{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e}\index{Efficient\_lockin@{Efficient\_lockin}}
+\label{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e_autotoc_md3}%
+\Hypertarget{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e_autotoc_md3}%
+ \hypertarget{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e_autotoc_md4}{}\doxysection{\texorpdfstring{Hardware}{Hardware}}\label{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e_autotoc_md4}
+Proyecto Lock-\/in en de1\+SoC con plataforma highspeed AD/\+DA
+
+Este Proyecto toma una señal proveniente de alguna de las 3 opciones de origen de señal\+:
+
+1) Señal provieniente de highspeed AD/\+DA 2) Señal proveniente de ADC LTC2308 (ADC integrado en la placa de1\+SoC) 3) Señal simulada
+
+Y realiza el Lock-\/in de dos formas distintas\+:
+
+1) LI\+: Lock-\/in con filtro de media movil (MAF) de N\+\_\+ma x N\+\_\+ca ciclos de señal. 2) CA\+\_\+\+LI\+: Promediación coherente de N\+\_\+ca ciclos seguido de Lock-\/in con MAF de N\+\_\+ma ciclos.\hypertarget{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e_autotoc_md5}{}\doxysection{\texorpdfstring{Software}{Software}}\label{md__c_1_2_users_2_mati_oliva_2_documents_200-lockin__de1soc_2hardware_2efficient__lockin__experimental_2_r_e_a_d_m_e_autotoc_md5}
+En la carpeta software hay programas para controlar la operación del Lock-\/in desde el CPU de la de1\+SoC Para ello en la FPGA debe estar cargado el bitstream "{}efficient\+\_\+lockin\+\_\+estable.\+rbf"{} disponible en software/\+Firmware
+
+Recomiendo usar el programa \doxylink{namespacelockin__consola}{lockin\+\_\+consola}. Este esta escrito en c\# y utiliza pipes para comunicarse con la FPGA por medio de un driver escrito en c. -\/\texorpdfstring{$>$}{>} Ejecutar con el shell script run\+\_\+lia\+\_\+consola.\+sh
+
+También hay un programa (verion beta) que implementa una interfaz de usuario grafica (software/hps/\+LIA\+\_\+\+GUI)
+
+También estan disponibles las herramientas para controlar el diseño a través de un procesador NIOS (signal\+\_\+procesing y signal\+\_\+procesing\+\_\+bsp). Esto puede ser útil para otras placas que no dispongan de CPU. 

@@ -61,7 +61,9 @@ module efficient_lockin(
 	output	adc_cs_n,
 	output	adc_sclk,
 	output	adc_din,
-	input 	adc_dout
+	input 	adc_dout,
+	
+	output watch
 );
 
 
@@ -89,8 +91,8 @@ parameter open = 8;
 wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
 
 parameter fuente_dac = dds_compiler_sen ;	// En realidad sería desde una look up table (parametro dentro del modulo)
-parameter fuente_fifo0_32bit = dds_compiler_sen;
-parameter fuente_fifo1_32bit = dds_compiler_cos;
+parameter fuente_fifo0_32bit = avgd_signal;
+parameter fuente_fifo1_32bit = adc_hs;
 parameter fuente_fifo0_64bit = procesada_1;
 parameter fuente_fifo1_64bit = procesada_2;
 
@@ -150,13 +152,13 @@ begin
 		
 		dds_compiler_sen:
 		begin
-			data_in_dac = sen_dds_compiler[(B_dds_signals-1):(B_dds_signals-14)]; // Porque el DAC es de 14 bits
+			data_in_dac = sen_dds_compiler_14b; // Porque el DAC es de 14 bits
 			data_in_dac_valid = dds_compiler_valid;	
 		end
 		
 		dds_compiler_cos:
 		begin
-			data_in_dac = cos_dds_compiler[(B_dds_signals-1):(B_dds_signals-14)];
+			data_in_dac = cos_dds_compiler_14b;
 			data_in_dac_valid = dds_compiler_valid;	
 		end
 		
@@ -223,13 +225,13 @@ begin
 		
 		dds_compiler_sen:
 		begin
-			data_in_fifo0_32bit = sen_dds_compiler;
+			data_in_fifo0_32bit = sen_dds_compiler_ca_coupled;
 			data_in_fifo0_32bit_valid = dds_compiler_valid;	
 		end
 		
 		dds_compiler_cos:
 		begin
-			data_in_fifo0_32bit = cos_dds_compiler;
+			data_in_fifo0_32bit = cos_dds_compiler_ca_coupled;
 			data_in_fifo0_32bit_valid = dds_compiler_valid;	
 		end
 		
@@ -286,13 +288,13 @@ begin
 		
 		dds_compiler_sen:
 		begin
-			data_in_fifo1_32bit = sen_dds_compiler;
+			data_in_fifo1_32bit = sen_dds_compiler_ca_coupled;
 			data_in_fifo1_32bit_valid = dds_compiler_valid;	
 		end
 		
 		dds_compiler_cos:
 		begin
-			data_in_fifo1_32bit = cos_dds_compiler;
+			data_in_fifo1_32bit = cos_dds_compiler_ca_coupled;
 			data_in_fifo1_32bit_valid = dds_compiler_valid;	
 		end
 		
@@ -350,13 +352,13 @@ begin
 		
 		dds_compiler_sen:
 		begin
-			data_in_fifo0_64bit = sen_dds_compiler;
+			data_in_fifo0_64bit = sen_dds_compiler_ca_coupled;
 			data_in_fifo0_64bit_valid = dds_compiler_valid;	
 		end
 				
 		dds_compiler_cos:
 		begin
-			data_in_fifo0_64bit = cos_dds_compiler;
+			data_in_fifo0_64bit = cos_dds_compiler_ca_coupled;
 			data_in_fifo0_64bit_valid = dds_compiler_valid;	
 		end
 		
@@ -412,13 +414,13 @@ begin
 		
 		dds_compiler_sen:
 		begin
-			data_in_fifo1_64bit = sen_dds_compiler;
+			data_in_fifo1_64bit = sen_dds_compiler_ca_coupled;
 			data_in_fifo1_64bit_valid = dds_compiler_valid;	
 		end
 		
 		dds_compiler_cos:
 		begin
-			data_in_fifo1_64bit = cos_dds_compiler;
+			data_in_fifo1_64bit = cos_dds_compiler_ca_coupled;
 			data_in_fifo1_64bit_valid = dds_compiler_valid;	
 		end
 		
@@ -442,8 +444,15 @@ end
 //// En Proceso... mejor forma de generar ondas sinusoidales ////
 
 parameter B_dds_signals = 16;
+parameter dds_mean_value = 2**(B_dds_signals-1)-1;	//Es muy desprolijo que esto este aca...
 
 wire [31:0] sen_dds_compiler,cos_dds_compiler;
+wire signed [31:0] sen_dds_compiler_ca_coupled = sen_dds_compiler - dds_mean_value ;
+wire signed [31:0] cos_dds_compiler_ca_coupled = cos_dds_compiler - dds_mean_value ;
+
+wire signed [31:0] sen_dds_compiler_14b = sen_dds_compiler[(B_dds_signals-1):(B_dds_signals-14)];
+wire signed [31:0] cos_dds_compiler_14b = cos_dds_compiler[(B_dds_signals-1):(B_dds_signals-14)];
+
 wire dds_compiler_valid;
 wire start_referencia;
 
@@ -451,7 +460,7 @@ dds_compiler_module #(
 	.B_out(B_dds_signals)
 ) generador_sinusoidal
 (
-	.clk(clk),
+	.clk(clk_custom),
 	.reset_n(reset_n),
 	.enable(enable),
 	
@@ -512,6 +521,8 @@ control nios (
 	 .parameter_out_6				(N_LI),
 	 .parameter_out_7				(delta_phase),
 	 .parameter_out_9				(led_test),
+	 
+	 .parameter_in_0				(n_datos_promediados),
 	 
 	
 	 // Resultados de procesamiento de 32 bits
@@ -577,8 +588,8 @@ data_in data(
 	
 	// Salida avalon streaming simulacion
 	
-	.simulation_data_valid(datos_simulados_valid),
-	.simulation_data(datos_simulados),
+	.simulation_data_valid(datos_simulados_old_valid),
+	.simulation_data(datos_simulados_old),
 	
 	// Salida avalon streaming ADC
 	.data_canal_a(data_canal_a),
@@ -615,7 +626,7 @@ data_in data(
 	.SMA_DAC4(SMA_DAC4),
 	
 	// Entradas digitales para el DAC
-	.lu_table_input(1),
+	.lu_table_input(0),
 	.digital_data_in(data_in_dac),
 	.digital_data_in_valid(data_in_dac_valid),
 	
@@ -629,8 +640,14 @@ data_in data(
 );
 
 ////// Salidas de datos simulados //////
-wire [31:0] datos_simulados;
-wire datos_simulados_valid;
+
+parameter dds_in_data_sim = 1;
+
+wire [31:0] datos_simulados_old;
+wire datos_simulados_old_valid;
+
+wire [31:0] datos_simulados = (dds_in_data_sim)? sen_dds_compiler_14b : datos_simulados_old;
+wire datos_simulados_valid = (dds_in_data_sim)? dds_compiler_valid : datos_simulados_old_valid;
 
 ///// Salidas de los ADC HS ////////
 wire [31:0] data_canal_a;
@@ -655,6 +672,13 @@ signal_processing_CALI signal_processing_CALI_inst(
 	
 	.bypass(0),
 	
+	.referencia_externa(1),
+	.sync(start_referencia),
+	.referencia_externa_sen(sen_dds_compiler_ca_coupled),
+	.referencia_externa_cos(cos_dds_compiler_ca_coupled),
+	.referencia_externa_valid(dds_compiler_valid),
+	
+	
 	.data_in(data_in_procesamiento),
 	.data_in_valid(data_in_procesamiento_valid),
 	
@@ -671,6 +695,8 @@ signal_processing_CALI signal_processing_CALI_inst(
 	.parameter_in_1(N_ma_CALI),
 	.parameter_in_2(N_ca_CALI),
 	
+	.parameter_out_0(sync_avgd_signal),
+	
 	.ready_to_calculate(ready_to_calculate_CALI),
 	.processing_finished(calculo_finalizado_CALI)
 
@@ -685,7 +711,7 @@ wire calculo_finalizado_CALI;
 ///// Señal promediada coherentemente /////
 wire [31:0] data_promc;
 wire data_promc_valid;
-
+wire sync_avgd_signal;
 
 
 ////////////////////////////////////////////////
@@ -701,6 +727,12 @@ signal_processing_LI signal_processing_LI_inst(
 	
 	.bypass(0),
 	
+	.referencia_externa(1),
+	.sync(start_referencia),
+	.referencia_externa_sen(sen_dds_compiler_ca_coupled),
+	.referencia_externa_cos(cos_dds_compiler_ca_coupled),
+	.referencia_externa_valid(dds_compiler_valid),
+	
 	.data_in(data_in_procesamiento),
 	.data_in_valid(data_in_procesamiento_valid),
 	
@@ -713,11 +745,12 @@ signal_processing_LI signal_processing_LI_inst(
 	.parameter_in_0(M),
 	.parameter_in_1(N_LI),
 	
+	.parameter_out_0(n_datos_promediados),
+	
 	.ready_to_calculate(ready_to_calculate_LI),
 	.processing_finished(calculo_finalizado_LI)
 
 );
-
 
 
 ///// Salidas de procesamiento ////////
@@ -725,6 +758,8 @@ wire [63:0] data_procesada1_LI,data_procesada2_LI;
 wire data_procesada1_LI_valid,data_procesada2_LI_valid;
 wire ready_to_calculate_LI;
 wire calculo_finalizado_LI;
+wire [31:0] n_datos_promediados;
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -763,5 +798,7 @@ assign LED[2] = calculo_finalizado;
 
 assign LED[1] = 0;
 	 
+assign watch = sync_avgd_signal;
+
 endmodule
 	 

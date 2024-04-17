@@ -1,0 +1,187 @@
+\doxysection{termios.\+h}
+\hypertarget{software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2termios_8h_source}{}\label{software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2termios_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/sys/termios.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/sys/termios.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ Copyright\ (c)\ 2004\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ Altera\ does\ not\ recommend,\ suggest\ or\ require\ that\ this\ reference\ design\ \ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ file\ be\ used\ in\ conjunction\ or\ combination\ with\ any\ other\ product.\ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00034\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{*\ THIS\ IS\ A\ LIBRARY\ READ-\/ONLY\ SOURCE\ FILE.\ DO\ NOT\ EDIT.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00036\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00037\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ This\ is\ the\ termios.h\ file\ provided\ with\ newlib.\ The\ only\ modification\ has\ }}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ been\ to\ the\ baud\ rate\ macro\ definitions,\ and\ an\ increase\ in\ the\ size\ of\ the}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ termios\ structure\ to\ accomodate\ this.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#ifndef\ \_SYS\_TERMIOS\_H}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#\ define\ \_SYS\_TERMIOS\_H}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#\ define\ \_XCGETA\ (('x'<<8)|1)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ define\ \_XCSETA\ (('x'<<8)|2)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#\ define\ \_XCSETAW\ (('x'<<8)|3)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#\ define\ \_XCSETAF\ (('x'<<8)|4)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#\ define\ \_TCSBRK\ (('T'<<8)|5)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#\ define\ \_TCFLSH\ (('T'<<8)|7)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#\ define\ \_TCXONC\ (('T'<<8)|6)}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ define\ TCOOFF\ 0}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ define\ TCOON\ \ 1}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ define\ TCIOFF\ 2}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ define\ TCION\ \ 3}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#\ define\ TCIFLUSH\ 0}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#\ define\ TCOFLUSH\ 1}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#\ define\ TCIOFLUSH\ \ 2}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ define\ NCCS\ 13}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#\ define\ TCSAFLUSH\ \ \_XCSETAF}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#\ define\ TCSANOW\ \ \_XCSETA}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#\ define\ TCSADRAIN\ \ \_XCSETAW}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#\ define\ TCSADFLUSH\ \_XCSETAF}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#\ define\ IGNBRK\ 000001}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#\ define\ BRKINT\ 000002}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#\ define\ IGNPAR\ 000004}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#\ define\ INPCK\ \ 000020}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#\ define\ ISTRIP\ 000040}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#\ define\ INLCR\ \ 000100}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#\ define\ IGNCR\ \ 000200}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#\ define\ ICRNL\ \ 000400}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#\ define\ IXON\ 002000}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#\ define\ IXOFF\ \ 010000}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#\ define\ OPOST\ \ 000001}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#\ define\ OCRNL\ \ 000004}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#\ define\ ONLCR\ \ 000010}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ define\ ONOCR\ \ 000020}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#\ define\ TAB3\ 014000}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#\ define\ CLOCAL\ 004000}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ define\ CREAD\ \ 000200}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#\ define\ CSIZE\ \ 000060}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ define\ CS5\ \ 0}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#\ define\ CS6\ \ 020}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#\ define\ CS7\ \ 040}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#\ define\ CS8\ \ 060}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#\ define\ CSTOPB\ 000100}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#\ define\ HUPCL\ \ 002000}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#\ define\ PARENB\ 000400}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#\ define\ PAODD\ \ 001000}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ CCTS\_OFLOW\ 010000}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ CRTS\_IFLOW\ 020000}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ CRTSCTS\ (CCTS\_OFLOW\ |\ CRTS\_IFLOW)}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#\ define\ ECHO\ 0000010}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#\ define\ ECHOE\ \ 0000020}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#\ define\ ECHOK\ \ 0000040}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#\ define\ ECHONL\ 0000100}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#\ define\ ICANON\ 0000002}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#\ define\ IEXTEN\ 0000400\ }\textcolor{comment}{/*\ anybody\ know\ *what*\ this\ does?!\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#\ define\ ISIG\ 0000001}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#\ define\ NOFLSH\ 0000200}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#\ define\ TOSTOP\ 0001000}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#\ define\ VEOF\ 4\ }\textcolor{comment}{/*\ also\ VMIN\ -\/-\/\ thanks,\ AT\&T\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#\ define\ VEOL\ 5\ }\textcolor{comment}{/*\ also\ VTIME\ -\/-\/\ thanks\ again\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#\ define\ VERASE\ 2}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#\ define\ VINTR\ \ 0}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#\ define\ VKILL\ \ 3}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#\ define\ VMIN\ 4\ }\textcolor{comment}{/*\ also\ VEOF\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#\ define\ VQUIT\ \ 1}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#\ define\ VSUSP\ \ 10}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#\ define\ VTIME\ \ 5\ }\textcolor{comment}{/*\ also\ VEOL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#\ define\ VSTART\ 11}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#\ define\ VSTOP\ \ 12}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#\ define\ B0\ 0}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#\ define\ B50\ \ 50}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#\ define\ B75\ \ 75}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#\ define\ B110\ 110}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#\ define\ B134\ 134}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#\ define\ B150\ 150}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#\ define\ B200\ 200}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#\ define\ B300\ 300}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#\ define\ B600\ 600}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#\ define\ B1200\ \ 1200}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#\ define\ B1800\ \ 1800}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#\ define\ B2400\ \ 2400}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#\ define\ B4800\ \ 4800}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#\ define\ B9600\ \ 9600}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#\ define\ B19200\ 19200}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#\ define\ B38400\ 38400}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#\ define\ B57600\ 57600}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#\ define\ B115200\ 115200}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ cc\_t;}
+\DoxyCodeLine{00153\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ tcflag\_t;}
+\DoxyCodeLine{00154\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ speed\_t;}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtermios}{termios}}\ \{}
+\DoxyCodeLine{00157\ \ \ tcflag\_t\ \ c\_iflag;}
+\DoxyCodeLine{00158\ \ \ tcflag\_t\ \ c\_oflag;}
+\DoxyCodeLine{00159\ \ \ tcflag\_t\ \ c\_cflag;}
+\DoxyCodeLine{00160\ \ \ tcflag\_t\ \ c\_lflag;}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ c\_line;}
+\DoxyCodeLine{00162\ \ \ cc\_t\ \ \ \ \ \ c\_cc[NCCS];}
+\DoxyCodeLine{00163\ \ \ speed\_t\ \ \ c\_ispeed;}
+\DoxyCodeLine{00164\ \ \ speed\_t\ \ \ c\_ospeed;}
+\DoxyCodeLine{00165\ \};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#\ ifndef\ \_NO\_MACROS}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#\ \ define\ cfgetospeed(tp)\ ((tp)-\/>c\_ospeed)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#\ \ define\ cfgetispeed(tp)\ ((tp)-\/>c\_ispeed)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#\ \ define\ cfsetospeed(tp,s)\ (((tp)-\/>c\_ospeed\ =\ (s)),\ 0)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#\ \ define\ cfsetispeed(tp,s)\ (((tp)-\/>c\_ispeed\ =\ (s)),\ 0)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#\ \ define\ tcdrain(fd)\ \ \ \_ioctl\ (fd,\ \_TCSBRK,\ 1)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#\ endif\ }\textcolor{comment}{/*\ \_NO\_MACROS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00177\ \}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00179\ \ }
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ \_SYS\_TERMIOS\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00181\ }
+
+\end{DoxyCode}

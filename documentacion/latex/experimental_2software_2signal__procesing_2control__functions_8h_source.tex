@@ -1,0 +1,36 @@
+\doxysection{control\+\_\+functions.\+h}
+\hypertarget{experimental_2software_2signal__procesing_2control__functions_8h_source}{}\label{experimental_2software_2signal__procesing_2control__functions_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing/control\_functions.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing/control\_functions.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ control\_functions.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ Funciones\ para\ dar\ la\ habilitación y\ el\ reset\ sin\ tocar\ los\ parametros\ directamente....}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keywordtype}{void}\ setEnable(\textcolor{keywordtype}{int}*\ enable\_ptr)\{}
+\DoxyCodeLine{00010\ \ \ \ \ *enable\_ptr\ =\ 1;}
+\DoxyCodeLine{00011\ \}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{void}\ unsetEnable(\textcolor{keywordtype}{int}*\ enable\_ptr)\{}
+\DoxyCodeLine{00014\ \ \ \ \ *enable\_ptr\ =\ 0;}
+\DoxyCodeLine{00015\ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ Reset(\textcolor{keywordtype}{int}*enable\_ptr,\textcolor{keywordtype}{int}*reset\_ptr)\{}
+\DoxyCodeLine{00018\ \ \ \ \ *enable\_ptr\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ *reset\_ptr\ =\ 1;}
+\DoxyCodeLine{00020\ \ \ \ \ *reset\_ptr\ =\ 0;}
+\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{int}\ getFin(\textcolor{keywordtype}{int}*\ finish\_ptr)\{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{return}\ *finish\_ptr;}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ waitForFin(\textcolor{keywordtype}{int}\ *finish\_ptr)\{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{while}\ (*finish\_ptr\ ==\ 0)\{\}}
+\DoxyCodeLine{00029\ \}}
+\DoxyCodeLine{00030\ }
+
+\end{DoxyCode}

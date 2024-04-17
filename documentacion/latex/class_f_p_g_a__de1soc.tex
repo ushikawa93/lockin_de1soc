@@ -1,0 +1,781 @@
+\doxysection{FPGA\+\_\+de1soc Class Reference}
+\hypertarget{class_f_p_g_a__de1soc}{}\label{class_f_p_g_a__de1soc}\index{FPGA\_de1soc@{FPGA\_de1soc}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745}\label{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745}\label{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745}\label{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745}\label{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745}\label{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745}\label{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745}\label{class_f_p_g_a__de1soc_aed189d3516bfebc1b906e3173409d745} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791}\label{class_f_p_g_a__de1soc_a94e87f76b27972adece6e9c747711791} 
+void {\bfseries Comenzar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726}\label{class_f_p_g_a__de1soc_a324020563bea5b31d44e999eb120b726} 
+void {\bfseries Reiniciar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057}\label{class_f_p_g_a__de1soc_a7c2a72380076078c88e11c8561b93057} 
+void {\bfseries Calcular} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d}\label{class_f_p_g_a__de1soc_ad0954eef06ada37422da88e09149e48d} 
+void {\bfseries Terminar} ()
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c}\label{class_f_p_g_a__de1soc_a9da278112b8ae2d5d3dcbcae8f02661c} 
+void {\bfseries set\+\_\+\+N\+\_\+parametros} (int N, int \texorpdfstring{$\ast$}{*}paramters\+\_\+array)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0}\label{class_f_p_g_a__de1soc_a9042cd9b478575460c84ff0a8d1d32e0} 
+void {\bfseries set\+\_\+parameter} (int value, int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db}\label{class_f_p_g_a__de1soc_aa37c7a3aea9d0a3387c1ca5fc2c8b1db} 
+void {\bfseries set\+\_\+frec\+\_\+clk} (int frec\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b}\label{class_f_p_g_a__de1soc_a2e19f8c09bc531c8bab8de3b3355900b} 
+void {\bfseries set\+\_\+divisor\+\_\+clock} (int div\+\_\+clk\+\_\+i)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a88dfb691ff7268d8009854f87c0ccc79}\label{class_f_p_g_a__de1soc_a88dfb691ff7268d8009854f87c0ccc79} 
+float {\bfseries set\+\_\+frec\+\_\+dds\+\_\+compiler} (float f\+\_\+deseada, float f\+\_\+clk)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a826a4b6c117500923b5ac21cf902919f}\label{class_f_p_g_a__de1soc_a826a4b6c117500923b5ac21cf902919f} 
+void {\bfseries switch\+LED} (int state)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771}\label{class_f_p_g_a__de1soc_a64a3c4a844d2818ba733c3d02d37e771} 
+int {\bfseries get\+\_\+parameter} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_afd1506b88f0a35b1e713efe46eab9839}\label{class_f_p_g_a__de1soc_afd1506b88f0a35b1e713efe46eab9839} 
+int {\bfseries get\+\_\+output\+\_\+auxiliar} (int parameter\+\_\+index)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead}\label{class_f_p_g_a__de1soc_a0b1cb4360c24e44e95b26b10a3254ead} 
+int \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7}\label{class_f_p_g_a__de1soc_abb8a4e4befa3cdc394f4590e9061ffa7} 
+int {\bfseries leer\+\_\+resultado\+\_\+32\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055}\label{class_f_p_g_a__de1soc_a55a63daaabf233368bd552fa56db5055} 
+long long \texorpdfstring{$\ast$}{*} {\bfseries leer\+\_\+\+FIFO\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab}\label{class_f_p_g_a__de1soc_a8adcae431aed1aea27e292b385a490ab} 
+long long {\bfseries leer\+\_\+resultado\+\_\+64\+\_\+bit} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45}\label{class_f_p_g_a__de1soc_a034890fd4680dcf8de8dda0c00a82c45} 
+int {\bfseries Leer\+FIFO32individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41}\label{class_f_p_g_a__de1soc_aec45a18e6e20d7659e5ad9a634f36b41} 
+long long int {\bfseries Leer\+FIFO64individual} (int fifo)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61}\label{class_f_p_g_a__de1soc_af93fb8bb434b9a9b05a462465b559a61} 
+void {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec} (int frecuencia)
+\item 
+\Hypertarget{class_f_p_g_a__de1soc_abd532e9328ee1d4b16eb8ccb5fe2ecdb}\label{class_f_p_g_a__de1soc_abd532e9328ee1d4b16eb8ccb5fe2ecdb} 
+double {\bfseries set\+\_\+clk\+\_\+from\+\_\+frec\+\_\+and\+\_\+M} (int frecuencia, int M)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin/software/hps/\+FIR\+\_\+\+GUI/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin/software/hps/\+LIA\+\_\+\+GUI/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin/software/hps/\+Pipe\+Test/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin/software/hps/signal\+\_\+processing/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin/software/lockin\+\_\+consola/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin\+\_\+experimental/software/hps/\+FIR\+\_\+\+GUI/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin\+\_\+experimental/software/hps/\+LIA\+\_\+\+GUI/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin\+\_\+experimental/software/hps/\+Pipe\+Test/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin\+\_\+experimental/software/hps/signal\+\_\+processing/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/hardware/efficient\+\_\+lockin\+\_\+experimental/software/lockin\+\_\+consola/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/software\+\_\+de1soc/de1soc\+\_\+sw/\+FIR\+\_\+consola/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/software\+\_\+de1soc/de1soc\+\_\+sw/\+FIR\+\_\+\+GUI/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/software\+\_\+de1soc/de1soc\+\_\+sw/lockin\+\_\+consola/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/software\+\_\+de1soc/de1soc\+\_\+sw/\+Lockin\+\_\+\+GUI/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/software\+\_\+de1soc/de1soc\+\_\+sw/pipe\+\_\+test/\+Pipe\+\_\+c++/FPGA\+\_\+de1soc.\+h\item 
+C\+:/\+Users/\+Mati\+Oliva/\+Documents/00-\/lockin\+\_\+de1soc/software\+\_\+host/program/fpga\+\_\+driver/FPGA\+\_\+de1soc.\+h\end{DoxyCompactItemize}

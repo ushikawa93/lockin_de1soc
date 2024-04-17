@@ -1,0 +1,199 @@
+\doxysection{PLL.\+h}
+\hypertarget{hardware_2efficient__lockin__experimental_2software_2lockin__consola_2_pipe__c_09_09_2_p_l_l_8h_source}{}\label{hardware_2efficient__lockin__experimental_2software_2lockin__consola_2_pipe__c_09_09_2_p_l_l_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/lockin\_consola/Pipe\_c++/PLL.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/lockin\_consola/Pipe\_c++/PLL.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ Clase\ que\ controla\ el\ comportamiento\ del\ PLL}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_p_l_l}{PLL}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setM(\textcolor{keywordtype}{int}\ M,\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*\ pll\_reconfig);}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setN(\textcolor{keywordtype}{int}\ N,\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*\ pll\_reconfig);}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setC(\textcolor{keywordtype}{int}\ C,\textcolor{keywordtype}{int}\ counter\_number,\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*\ pll\_reconfig);}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setMNC(\textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ C,\ \textcolor{keywordtype}{int}\ counter\_number,\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*\ pll\_reconfig);}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pll__parameters}{Pll\_parameters}}\{\ \textcolor{keywordtype}{int}\ M,\ N,\ C;\};}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pll__parameters}{Pll\_parameters}}\ calculatePll\_parameters(int\ frec\_deseada,int\ frec\_referencia);}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ configurar\_pll(\textcolor{keywordtype}{int}\ frec\_deseada,\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*\ pll\_reconfig);}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Funcion\ para\ configurar\ todo\ abstrayendome\ de\ como\ se\ hace\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Solo\ recibe\ la\ frecuencia\ deseada,\ y\ un\ puntero\ adonde\ estan\ los\ parametros\ del\ PLL\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{double}\ PLL::configurar\_pll(\textcolor{keywordtype}{int}\ frec\_deseada,\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*pll\_reconfig)\{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pll__parameters}{Pll\_parameters}}\ pll\ =\ calculatePll\_parameters(frec\_deseada,50);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ setM(pll.M,pll\_reconfig);}
+\DoxyCodeLine{00029\ \ \ \ \ setN(pll.N,pll\_reconfig);}
+\DoxyCodeLine{00030\ \ \ \ \ setC(pll.C,0,pll\_reconfig);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ Devuelvo\ la\ frecuencia\ lograda\ (no\ siempre\ es\ exactamente\ la\ que\ quiero)}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})50\ *\ (double)pll.M/((\textcolor{keywordtype}{double})pll.N*(double)pll.C);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Funciones\ para\ cambiar\ parametros\ del\ PLL\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Fout\ =\ M/\ (N*C0)\ *\ Fin\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ PLL::setM(\textcolor{keywordtype}{int}\ M,\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*pll\_reconfig)\{}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ El\ PLL\ tiene\ el\ divisor\ del\ VCO\ activado\ (divide\ en\ dos\ la\ salida\ del\ fvco\ y\ no\ se\ como\ sacarlo)}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ por\ eso\ le\ mando\ M\ a\ el\ high\_count\ y\ el\ low\ count!}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ low\_count\ =\ M;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ high\_count\ =\ M;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ code\_mult\ =\ ((high\_count\ \&\ 0b11111111)\ <<\ 8)\ |\ (low\_count\ \&\ 0b11111111);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ *(pll\_reconfig)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//1:Polling\ mode\ 0:WaitRequestMode}}
+\DoxyCodeLine{00051\ \ \ \ \ *(pll\_reconfig\ +\ 4)\ =\ code\_mult;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Start\ register}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{while}(*(pll\_reconfig+1)\ ==\ 0)\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Status\ reg\ -\/>\ 0:busy;\ 1:ready}}
+\DoxyCodeLine{00055\ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Stop\ register}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ PLL::setN(\textcolor{keywordtype}{int}\ N,\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*pll\_reconfig)\{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//\ El\ PLL\ tiene\ el\ divisor\ del\ VCO\ activado\ (divide\ en\ dos\ la\ salida\ del\ fvco\ y\ no\ se\ como\ sacarlo)}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ por\ eso\ le\ mando\ M\ a\ el\ high\_count\ y\ el\ low\ count!}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ low\_count\ =\ N;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{int}\ high\_count\ =\ N;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ code\_div\ =\ ((high\_count\ \&\ 0b11111111)\ <<\ 8)\ |\ (low\_count\ \&\ 0b11111111);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ *(pll\_reconfig)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//1:Polling\ mode\ 0:WaitRequestMode}}
+\DoxyCodeLine{00068\ \ \ \ \ *(pll\_reconfig\ +\ 3)\ =\ code\_div;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Start\ register}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{while}(*(pll\_reconfig+1)\ ==\ 0)\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Status\ reg\ -\/>\ 0:busy;\ 1:ready}}
+\DoxyCodeLine{00072\ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Stop\ register}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ PLL::setC(\textcolor{keywordtype}{int}\ C,\ \textcolor{keywordtype}{int}\ counter\_number,\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*pll\_reconfig)\{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{int}\ low\_count;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ high\_count;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}(C\%2==0)\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ low\_count\ =\ C/2;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ high\_count\ =\ C/2;}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ low\_count\ =\ C/2+1;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ high\_count\ =\ C/2;}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{int}\ c\_address\ =\ counter\_number;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{int}\ code\_pll\ =\ ((c\_address\ \&\ 0b11111)\ <<\ 18)\ |\ ((high\_count\ \&\ 0b11111111)\ <<\ 8)\ |\ (low\_count\ \&\ 0b11111111);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ *(pll\_reconfig)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//1:Polling\ mode\ 0:WaitRequestMode}}
+\DoxyCodeLine{00096\ \ \ \ \ *(pll\_reconfig\ +\ 5)\ =\ (code\_pll);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Start\ register}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{while}(*(pll\_reconfig+1)\ ==\ 0)\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Status\ reg\ -\/>\ 0:busy;\ 1:ready}}
+\DoxyCodeLine{00100\ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Stop\ register}}
+\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{void}\ PLL::setMNC(\textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ C,\ \textcolor{keywordtype}{int}\ counter\_number,\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*\ pll\_reconfig)}
+\DoxyCodeLine{00106\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{comment}{//\ El\ PLL\ tiene\ el\ divisor\ del\ VCO\ activado\ (divide\ en\ dos\ la\ salida\ del\ fvco\ y\ no\ se\ como\ sacarlo)}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ por\ eso\ le\ mando\ M\ a\ el\ high\_count\ y\ el\ low\ count!}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ low\_count\ =\ M;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ high\_count\ =\ M;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ code\_mult\ =\ ((high\_count\ \&\ 0b11111111)\ <<\ 8)\ |\ (low\_count\ \&\ 0b11111111);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ low\_count\ =\ N;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ high\_count\ =\ N;}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ code\_div\ =\ ((high\_count\ \&\ 0b11111111)\ <<\ 8)\ |\ (low\_count\ \&\ 0b11111111);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(C\%2==0)\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ low\_count\ =\ C/2;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ high\_count\ =\ C/2;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ low\_count\ =\ C/2+1;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ high\_count\ =\ C/2;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ c\_address\ =\ counter\_number;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ code\_pll\ =\ ((c\_address\ \&\ 0b11111)\ <<\ 18)\ |\ ((high\_count\ \&\ 0b11111111)\ <<\ 8)\ |\ (low\_count\ \&\ 0b11111111);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ *(pll\_reconfig)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//1:Polling\ mode\ 0:WaitRequestMode}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ *(pll\_reconfig\ +\ 3)\ =\ code\_div;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ *(pll\_reconfig\ +\ 4)\ =\ code\_mult;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ *(pll\_reconfig\ +\ 5)\ =\ code\_pll;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Start\ register}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(*(pll\_reconfig+1)\ ==\ 0)\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Status\ reg\ -\/>\ 0:busy;\ 1:ready}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ *(pll\_reconfig\ +\ 2)\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Stop\ register}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Funcion\ para\ calcular\ parametros\ del\ PLL\ segun\ f\_deseada\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Fout\ =\ M/\ (N*C0)\ *\ Fin\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00146\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Asegura\ que\ -\/>\ fvco\ =\ (fin\ *\ M/N)\ este\ en\ rango\ -\/>\ [300;1600]MHz\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00147\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Asegura\ que\ -\/>\ fpfd\ =\ fin/N\ este\ en\ rango\ -\/>\ [5;325]MHz\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{struct\ }PLL::Pll\_parameters\ \mbox{\hyperlink{class_p_l_l}{PLL}}::calculatePll\_parameters(int\ frec\_deseada,int\ frec\_referencia)\{}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pll__parameters}{Pll\_parameters}}\ pll;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{double}\ frec\_normalizada\ =\ (double)frec\_deseada\ /\ (\textcolor{keywordtype}{double})frec\_referencia;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{double}\ vco\_out=6;}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{double}\ min\_dif=1;}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{double}\ vco\_out\_final=6;}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{double}\ C\_posible;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{while}(vco\_out<=30)}
+\DoxyCodeLine{00161\ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ C\_posible\ =\ vco\_out/frec\_normalizada;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ C\_posible\ -\/\ ((\textcolor{keywordtype}{int})C\_posible)\ ==\ 0)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ pll.C\ =\ C\_posible;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ vco\_out\_final=vco\_out;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ C\_posible\_redondeado\ =\ (int)C\_posible;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dif\ =\ C\_posible\ -\/\ C\_posible\_redondeado;}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dif<min\_dif)\{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pll.C=C\_posible\_redondeado;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_dif=dif;}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vco\_out\_final=vco\_out;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ vco\_out=vco\_out+0.5;}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{if}(\ vco\_out\_final\ -\/\ (\textcolor{keywordtype}{int})vco\_out\_final\ ==0)\{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ pll.M=vco\_out\_final;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ pll.N=1;}
+\DoxyCodeLine{00185\ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00187\ \ \ \ \ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ pll.M=2*vco\_out\_final;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ pll.N=2;}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordflow}{return}\ pll;}
+\DoxyCodeLine{00193\ \}}
+
+\end{DoxyCode}

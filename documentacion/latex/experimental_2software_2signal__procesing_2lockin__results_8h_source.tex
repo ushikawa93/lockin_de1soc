@@ -1,0 +1,44 @@
+\doxysection{lockin\+\_\+results.\+h}
+\hypertarget{experimental_2software_2signal__procesing_2lockin__results_8h_source}{}\label{experimental_2software_2signal__procesing_2lockin__results_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing/lockin\_results.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing/lockin\_results.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ lockin\_results.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ Funciones\ para\ calcular\ amplitud\ y\ fase\ de\ una}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ transferencia\ a\ partir\ del\ X\ e\ Y}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}math.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{int}\ amplitud\_ref\ =\ 32767;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{float}\ amplitud\_lockin(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ X,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ Y,\textcolor{keywordtype}{int}\ div)\{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ X\_1=\ X/div;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ Y\_1=\ Y/div;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{return}\ sqrt(X\_1*X\_1+Y\_1*Y\_1)*2/amplitud\_ref;}
+\DoxyCodeLine{00017\ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{float}\ fase\_lockin(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ X,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ Y,\textcolor{keywordtype}{int}\ div)\{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ X\_1=\ X/div;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ Y\_1=\ Y/div;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{return}\ (atan(Y\_1/X\_1))*180/3.1415;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ \ Ejemplo\ de\ uso...}}
+\DoxyCodeLine{00029\ \textcolor{comment}{}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ div\ =\ M*N\_LIA*N\_PROMC}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ long\ long\ X\ =\ leer\_resultado\_64\_bit(result0\_64\_bit\_down,result0\_64\_bit\_up);}}
+\DoxyCodeLine{00032\ \textcolor{comment}{}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ long\ long\ Y\ =\ leer\_resultado\_64\_bit(result1\_64\_bit\_down,result1\_64\_bit\_up);}}
+\DoxyCodeLine{00034\ \textcolor{comment}{}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ printf("{}\(\backslash\)n\(\backslash\)nAmplitud:\ \%f"{},\ amplitud\_lockin(X,Y,div));}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ printf("{}\(\backslash\)n\(\backslash\)nFase:\ \%f"{},\ fase\_lockin(X,Y,div));}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{*/}}
+
+\end{DoxyCode}

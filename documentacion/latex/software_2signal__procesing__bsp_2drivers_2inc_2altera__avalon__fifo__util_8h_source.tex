@@ -1,0 +1,84 @@
+\doxysection{altera\+\_\+avalon\+\_\+fifo\+\_\+util.\+h}
+\hypertarget{software_2signal__procesing__bsp_2drivers_2inc_2altera__avalon__fifo__util_8h_source}{}\label{software_2signal__procesing__bsp_2drivers_2inc_2altera__avalon__fifo__util_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/drivers/inc/altera\_avalon\_fifo\_util.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/drivers/inc/altera\_avalon\_fifo\_util.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ Copyright\ (c)\ 2006\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_FIFO\_UTIL\_H\_\_}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ \_\_ALT\_FIFO\_UTIL\_H\_\_}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}altera\_avalon\_fifo\_regs.h"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_FIFO\_TYPE\ (volatile\ alt\_u32*)}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_init(alt\_u32\ address,\ alt\_u32\ ienable,\ }
+\DoxyCodeLine{00043\ \ \ alt\_u32\ emptymark,\ alt\_u32\ fullmark);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_status(alt\_u32\ address,\ alt\_u32\ mask);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_ienable(alt\_u32\ address,\ alt\_u32\ mask);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_almostfull(alt\_u32\ address);}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_almostempty(alt\_u32\ address);}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_event(alt\_u32\ address,\ alt\_u32\ mask);}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_level(alt\_u32\ address);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_clear\_event(alt\_u32\ address,\ alt\_u32\ mask);}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_write\_ienable(alt\_u32\ address,\ alt\_u32\ mask);}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_write\_almostfull(alt\_u32\ address,\ alt\_u32\ data);}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_write\_almostempty(alt\_u32\ address,\ alt\_u32\ data);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_write\_fifo(alt\_u32\ write\_address,\ alt\_u32\ ctrl\_address,}
+\DoxyCodeLine{00058\ \ \ \ \ alt\_u32\ data);}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_write\_other\_info(alt\_u32\ write\_address,\ alt\_u32\ ctrl\_address,}
+\DoxyCodeLine{00060\ \ \ \ \ alt\_u32\ data);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{int}\ altera\_avalon\_read\_fifo(alt\_u32\ read\_address,\ alt\_u32\ ctrl\_address,\ \textcolor{keywordtype}{int}\ *data);}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_fifo(alt\_u32\ read\_address,\ alt\_u32\ ctrl\_address);}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_other\_info(alt\_u32\ read\_address);}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{int}\ altera\_avalon\_fifo\_read\_backpressure\ (alt\_u32\ read\_address);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{//Return\ Codes}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_FIFO\_OK\ 0}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_FIFO\_EVENT\_CLEAR\_ERROR\ -\/1}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_FIFO\_IENABLE\_WRITE\_ERROR\ -\/2}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_FIFO\_THRESHOLD\_WRITE\_ERROR\ \ \ \ -\/3}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_FIFO\_FULL\ -\/4}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_FIFO\_UTIL\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

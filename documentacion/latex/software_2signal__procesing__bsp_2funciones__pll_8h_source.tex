@@ -1,0 +1,43 @@
+\doxysection{funciones\+\_\+pll.\+h}
+\hypertarget{software_2signal__procesing__bsp_2funciones__pll_8h_source}{}\label{software_2signal__procesing__bsp_2funciones__pll_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/funciones\_pll.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/funciones\_pll.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ funciones\_pll.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ Define\ funciones\ para\ reconfigurar\ el\ Pll}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ Lo\ mejor\ es\ usar\ directamente\ configurar\_pll()}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ Le\ pones\ la\ frecuencia\ deseada\ en\ MHz\ y\ sale\ andando!}}
+\DoxyCodeLine{00008\ \textcolor{comment}{}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pll__parameters}{Pll\_parameters}}\{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ M,\ N,\ C;}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Funcion\ para\ setear\ el\ divisor\ del\ reloj\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{int}\ setClockDivider\ (\textcolor{keywordtype}{int}\ divisor\_deseado,\textcolor{keywordtype}{int}*clk\_divider\_addr);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Funcion\ para\ configurar\ todo\ abstrayendome\ de\ como\ se\ hace\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{double}\ configurar\_pll(\textcolor{keywordtype}{int}\ frec\_deseada,\textcolor{keywordtype}{int}*\ pll\_reconfig);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Funciones\ para\ cambiar\ parametros\ del\ PLL\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Fout\ =\ M/\ (N*C0)\ *\ Fin\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ setM(\textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}*\ pll\_reconfig);}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}\ setN(\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}*\ pll\_reconfig);}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ setC(\textcolor{keywordtype}{int}\ C,\textcolor{keywordtype}{int}\ counter\_number,\ \textcolor{keywordtype}{int}*\ pll\_reconfig);}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ setMNC(\textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ C,\ \textcolor{keywordtype}{int}\ counter\_number,\ \textcolor{keywordtype}{int}*\ pll\_reconfig);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Funcion\ para\ calcular\ parametros\ del\ PLL\ segun\ f\_deseada\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Fout\ =\ M/\ (N*C0)\ *\ Fin\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Asegura\ que\ -\/>\ fvco\ =\ (fin\ *\ M/N)\ este\ en\ rango\ -\/>\ [300;1600]MHz\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Asegura\ que\ -\/>\ fpfd\ =\ fin/N\ este\ en\ rango\ -\/>\ [5;325]MHz\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pll__parameters}{Pll\_parameters}}\ calculatePll\_parameters(int\ frec\_deseada,int\ frec\_referencia);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+
+\end{DoxyCode}

@@ -1,0 +1,55 @@
+\doxysection{parameters\+\_\+control.\+h}
+\hypertarget{software_2signal__procesing_2parameters__control_8h_source}{}\label{software_2signal__procesing_2parameters__control_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing/parameters\_control.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing/parameters\_control.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*****************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ MACROS\ PARA\ MODIFICAR\ FACIL\ EL\ TEMA\ DE\ LOS\ PARAMETROS}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*****************************************************/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}mmaped\_macros.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Aca\ conecto\ los\ parametros\ que\ quiero\ controlar\ a\ las\ I/O\ del\ mmaped}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_0\ DATA\_OUT\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_1\ DATA\_OUT\_1\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_2\ DATA\_OUT\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_3\ DATA\_OUT\_3\ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_4\ DATA\_OUT\_4\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_5\ DATA\_OUT\_5\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_6\ DATA\_OUT\_6\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_7\ DATA\_OUT\_7\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_8\ DATA\_OUT\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_9\ DATA\_OUT\_9\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ PARAMETRO\_OUT\_10\ DATA\_OUT\_10\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ PARAMETRO\_IN\_0\ DATA\_IN\_11\ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ IN}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ PARAMETRO\_IN\_1\ DATA\_IN\_12\ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ IN}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ PARAMETRO\_IN\_2\ DATA\_IN\_13\ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ IN}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ PARAMETRO\_IN\_3\ DATA\_IN\_14\ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ IN}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ PARAMETRO\_IN\_4\ DATA\_IN\_15\ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ IN}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ Parametros\ de\ configuracion}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{int}\ setParam(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}\ value,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{int}\ setParam0(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{int}\ setParam1(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{int}\ setParam2(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{int}\ setParam3(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{int}\ setParam4(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{int}\ setParam5(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{int}\ setParam6(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{int}\ setParam7(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{int}\ setParam8(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{int}\ setParam9(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{int}\ setParam10(\textcolor{keywordtype}{int}\ parametro,\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ getParam0(\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{int}\ getParam1(\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ getParam2(\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{int}\ getParam3(\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ getParam4(\textcolor{keywordtype}{int}*\ parameters\_addr);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+
+\end{DoxyCode}

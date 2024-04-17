@@ -13,11 +13,11 @@ class de1soc_handler:
 
     def __init__(self, ip_):
         self.set_f(1000000)
-        self.set_M(32) 
         self.set_N(1)
         self.set_IP(ip_)
         self.set_fuente(FuenteDatos.SIM)
         self.set_modo_procesamiento(ModoProcesamiento.LI)
+        self.M = 32 #NO IMPORTA
         
     def barrido_lockin(self,f_inicial,f_final,f_step,corregir,file_path):
                 
@@ -81,16 +81,11 @@ class de1soc_handler:
         return num_fields == 4
     
     def set_f(self, valor_f):
-        if(valor_f <= 2000000 and valor_f > 1):
+        if(valor_f <= 32000000 and valor_f >= 0.5):
             self.f = valor_f
         else:
             self.f = 100000
 
-    def set_M(self, valor_M):
-        if(valor_M <= 2048 and valor_M > 1):
-            self.M = valor_M
-        else:
-            self.M = 32
 
     def set_N(self, valor_N):
         self.N = valor_N
@@ -115,16 +110,8 @@ class de1soc_handler:
     @staticmethod
     def corregir_etapa_analogica(medida,M):
         
-        if(M == 32):
-            correccion = de1soc_handler.encontrar_medida_mas_cercana("transferencias_sin_carga/barrido_sin_carga_M32.dat",medida['f']);
-        elif(M == 64):
-             correccion = de1soc_handler.encontrar_medida_mas_cercana("transferencias_sin_carga/barrido_sin_carga_M64.dat",medida['f']); 
-        elif(M == 128):
-            correccion = de1soc_handler.encontrar_medida_mas_cercana("transferencias_sin_carga/barrido_sin_carga_M128.dat",medida['f']);
-        else:
-            print("Transferencia sin carga no medida para el M actual")
-            return 
-        
+        correccion = de1soc_handler.encontrar_medida_mas_cercana("transferencias_sin_carga/barrido_sin_carga_M32.dat",medida['f']);
+         
         r0=7429.145285;
         r = medida['r'] * r0 / correccion['r'] 
         phi = medida['phi'] - correccion['phi']
@@ -173,7 +160,6 @@ class de1soc_handler:
     def leer_archivo_adc(nombre_archivo):
         # Lista para almacenar los valores
         valores = []
-        valor_medio = 8171
         
         # Abrir el archivo y leer los valores línea por línea
         with open(nombre_archivo, "r") as archivo:

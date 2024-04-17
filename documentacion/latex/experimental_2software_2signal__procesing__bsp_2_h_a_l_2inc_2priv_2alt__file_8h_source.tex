@@ -1,0 +1,185 @@
+\doxysection{alt\+\_\+file.\+h}
+\hypertarget{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2priv_2alt__file_8h_source}{}\label{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2priv_2alt__file_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/priv/alt\_file.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/priv/alt\_file.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_FILE\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_ALT\_FILE\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2004\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{*\ Altera\ does\ not\ recommend,\ suggest\ or\ require\ that\ this\ reference\ design\ \ \ \ *}}
+\DoxyCodeLine{00033\ \textcolor{comment}{*\ file\ be\ used\ in\ conjunction\ or\ combination\ with\ any\ other\ product.\ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00037\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{*\ THIS\ IS\ A\ LIBRARY\ READ-\/ONLY\ SOURCE\ FILE.\ DO\ NOT\ EDIT.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}sys/alt\_dev.h"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}sys/alt\_llist.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}os/alt\_sem.h"{}}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}alt\_types.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ This\ header\ provides\ the\ internal\ defenitions\ required\ to\ control\ file\ }}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ access.\ These\ variables\ and\ functions\ are\ not\ guaranteed\ to\ exist\ in\ }}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ future\ implementations\ of\ the\ HAL.}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00056\ \{}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ The\ function\ alt\_find\_dev()\ is\ used\ to\ search\ the\ device\ list\ "{}list"{}\ to}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ locate\ a\ device\ named\ "{}name"{}.\ If\ a\ match\ is\ found,\ then\ a\ pointer\ to\ the}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ device\ is\ returned,\ otherwise\ NULL\ is\ returned.\ }}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00064\ \ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__dev__s}{alt\_dev}}*\ alt\_find\_dev\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \mbox{\hyperlink{structalt__llist__s}{alt\_llist}}*\ list);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ alt\_find\_file()\ is\ used\ to\ search\ the\ list\ of\ registered\ file\ systems\ to}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ find\ the\ filesystem\ that\ the\ file\ named\ "{}name"{}\ belongs\ to.\ If\ a\ match\ is}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ found,\ then\ a\ pointer\ to\ the\ filesystems\ alt\_dev\ structure\ is\ returned,}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ otherwise\ NULL\ is\ returned.}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ Note\ that\ a\ match\ does\ not\ indicate\ that\ the\ file\ exists,\ only\ that\ a\ }}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *\ filesystem\ exists\ that\ is\ registered\ for\ a\ partition\ that\ could\ contain}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ the\ file.\ The\ filesystems\ open()\ function\ would\ need\ to\ be\ called\ in\ order}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ to\ determine\ if\ the\ file\ exists.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__dev__s}{alt\_dev}}*\ alt\_find\_file\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ alt\_get\_fd()\ is\ used\ to\ allocate\ a\ file\ descriptor\ for\ the\ device\ or\ }}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ filesystem\ "{}dev"{}.\ A\ negative\ return\ value\ indicates\ an\ error,\ otherwise\ the}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ return\ value\ is\ the\ index\ of\ the\ file\ descriptor\ within\ the\ file\ descriptor}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *\ pool.}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ alt\_get\_fd\ (\mbox{\hyperlink{structalt__dev__s}{alt\_dev}}*\ dev);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ alt\_release\_fd()\ is\ called\ to\ free\ the\ file\ descriptor\ with\ index\ "{}fd"{}.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ alt\_release\_fd\ (\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *\ alt\_fd\_lock()\ is\ called\ by\ ioctl()\ to\ mark\ the\ file\ descriptor\ "{}fd"{}\ as\ }}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ being\ open\ for\ exclusive\ access.\ Subsequent\ calls\ to\ open()\ for\ the\ device\ }}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ associated\ with\ "{}fd"{}\ will\ fail.\ A\ device\ is\ unlocked\ by\ either\ calling\ }}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *\ close()\ for\ "{}fd"{},\ or\ by\ an\ alternate\ call\ to\ ioctl()\ (see\ ioctl.c\ for\ }}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *\ details).}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ alt\_fd\_lock\ (\mbox{\hyperlink{structalt__fd__s}{alt\_fd}}*\ fd);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ alt\_fd\_unlock()\ is\ called\ by\ ioctl()\ to\ unlock\ a\ descriptor\ previously\ }}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ locked\ by\ a\ call\ to\ alt\_fd\_lock().}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ alt\_fd\_unlock\ (\mbox{\hyperlink{structalt__fd__s}{alt\_fd}}*\ fd);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ "{}alt\_fd\_list"{}\ is\ the\ pool\ of\ file\ descriptors.}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__fd__s}{alt\_fd}}\ alt\_fd\_list[];}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ flags\ used\ by\ alt\_fd.\ }}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ ALT\_FD\_EXCL\ is\ used\ to\ mark\ a\ file\ descriptor\ as\ locked\ for\ exclusive}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *\ access,\ i.e.\ further\ calls\ to\ open()\ for\ the\ associated\ device\ should}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ fail.}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ ALT\_FD\_DEV\ marks\ a\ dile\ descriptor\ as\ belonging\ to\ a\ device\ as\ oposed\ to\ a}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ filesystem.\ }}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ ALT\_FD\_EXCL\ 0x80000000}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ ALT\_FD\_DEV\ \ 0x40000000}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ ALT\_FD\_FLAGS\_MASK\ (ALT\_FD\_EXCL\ |\ ALT\_FD\_DEV)}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ "{}alt\_dev\_list"{}\ is\ the\ head\ of\ the\ linked\ list\ of\ registered\ devices.}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__llist__s}{alt\_llist}}\ alt\_dev\_list;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ "{}alt\_fs\_list"{}\ is\ the\ head\ of\ the\ linked\ list\ of\ registered\ filesystems.}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structalt__llist__s}{alt\_llist}}\ alt\_fs\_list;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ *\ "{}alt\_fd\_list\_lock"{}\ is\ a\ semaphore\ used\ to\ ensure\ that\ access\ to\ the\ pool}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *\ of\ file\ descriptors\ is\ thread\ safe.}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ ALT\_EXTERN\_SEM(alt\_fd\_list\_lock)}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ "{}alt\_max\_fd"{}\ is\ a\ 'high\ water\ mark'.\ It\ indicates\ the\ highest\ file\ }}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *\ descriptor\ allocated.\ Use\ of\ this\ can\ save\ searching\ the\ entire\ pool}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ *\ for\ active\ file\ descriptors,\ which\ helps\ avoid\ contention\ on\ access\ }}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *\ to\ the\ file\ descriptor\ pool.}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00160\ \ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{extern}\ alt\_32\ alt\_max\_fd;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ *\ alt\_io\_redirect()\ is\ called\ at\ startup\ to\ redirect\ stdout,\ stdin,\ and\ }}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ stderr\ to\ the\ devices\ named\ in\ the\ input\ arguments.\ By\ default\ these\ streams}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *\ are\ directed\ at\ /dev/null,\ and\ are\ then\ redirected\ using\ this\ function\ once}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ all\ of\ the\ devices\ have\ been\ registered\ within\ the\ system.\ }}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ alt\_io\_redirect(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ stdout\_dev,\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ stdin\_dev,\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ stderr\_dev);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_FILE\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

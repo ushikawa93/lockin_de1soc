@@ -6,8 +6,18 @@ module signal_processing_CALI(
 	
 	input bypass,
 	
-	input [63:0] data_in,
-	input 		 data_in_valid,
+	
+	// Referencia externa
+	input referencia_externa,
+	input sync,
+	input signed [31:0] referencia_externa_sen,
+	input signed [31:0] referencia_externa_cos,
+	input referencia_externa_valid,
+	
+	
+	input [31:0] data_in,
+	input 		 data_in_valid,	
+
 	
 	output signed [63:0] data_out1,
 	output signed  data_out1_valid,
@@ -150,9 +160,9 @@ wire signed [31:0] data_in_promC;
 //////// Salidas de promC ////////
 wire [31:0] data_out_promC;
 wire data_out_promC_valid;
-
+wire sync_avgd_signal;
 	
-prom_coherente_pipelined promC(
+prom_coherente_pipelined_con_sync promC(
 	
 	// Entradas de control
 	.clk(clk),
@@ -163,13 +173,17 @@ prom_coherente_pipelined promC(
 	.ptos_x_ciclo(M),
 	.frames_prom_coherente(N_ca),
 	
+	.sync(sync),
+	
 	// Entrada avalon streaming
 	.data_in_valid(data_in_promC_valid),
 	.data_in(data_in_promC),
 	
 	// Salida avalon streaming
 	.data_out_valid(data_out_promC_valid),
-	.data_out(data_out_promC)	
+	.data_out(data_out_promC),
+
+	.sync_out(sync_avgd_signal)
 	
 	
 );
@@ -178,6 +192,80 @@ prom_coherente_pipelined promC(
 ////////////////////////////////////////////////
 // ================== Lock in  ===============
 ////////////////////////////////////////////////
+
+// Como la promediacion coherente tiene dos etapas de pipeline se me desfasa dos ciclos la referencia_externa...
+// Con este delay lo arreglo!..
+
+reg signed [31:0] ref_sen_aux,ref_sen_con_delay,ref_cos_aux,ref_cos_con_delay;
+reg ref_valid_con_delay,ref_valid_aux;
+
+always @ (posedge clk)
+begin
+
+	ref_sen_aux <= referencia_externa_sen;
+	ref_sen_con_delay <= ref_sen_aux;
+		
+	ref_cos_aux <= referencia_externa_cos;
+	ref_cos_con_delay <= ref_cos_aux;
+	
+	ref_valid_aux <= referencia_externa_valid;
+	ref_valid_con_delay <= ref_valid_aux;
+
+end
+
+
+// ESTO ES UNA MEJOR FORMA DE HACER LO DE ARRIBA PERO POR AHORA NO ANDA.....
+/*
+
+wire signed [31:0] ref_sen_con_delay,ref_cos_con_delay;
+wire ref_valid_con_delay;
+
+
+delay_axi_streaming #(
+	
+	.delay(12),
+	.width(32)
+	
+	
+) delay_ref_sen
+(
+	
+	.clk(clk),
+   .reset_n(reset_n),
+   .bypass_n(0),
+
+   .data_in(referencia_externa_sen),
+   .data_in_valid(referencia_externa_valid),
+    
+   .data_out(ref_sen_con_delay),
+   .data_out_valid(ref_valid_con_delay)	
+
+
+);
+
+delay_axi_streaming #(
+	
+	.delay(12),
+	.width(32)
+	
+	
+) delay_ref_cos
+(
+	
+	.clk(clk),
+   .reset_n(reset_n),
+   .bypass_n(0),
+
+   .data_in(referencia_externa_cos),
+   .data_in_valid(referencia_externa_valid),
+    
+   .data_out(ref_cos_con_delay),
+   .data_out_valid()	
+
+
+);
+*/
+
 
 //////// Entradas de LIA ///////
 wire data_in_lia_valid;
@@ -197,6 +285,13 @@ lockin_segmentado lock_in(
 	.ptos_x_ciclo(M),
 	.frames_integracion(N_ma),
 	
+	// Referencia externa
+	.referencia_externa(referencia_externa),
+	.sync(sync_avgd_signal),
+	.referencia_externa_sen(ref_sen_con_delay),
+	.referencia_externa_cos(ref_cos_con_delay),
+	.referencia_externa_valid(ref_valid_con_delay),
+	
 	// Entrada avalon streaming
 	.data_valid(data_in_lia_valid),
 	.data(data_in_lia),	
@@ -215,13 +310,13 @@ lockin_segmentado lock_in(
 );
 
 //////// Salidas de lockin ////////
-wire signed [63:0] data_cuad;
-wire data_cuad_valid;
-wire signed [63:0] data_fase;
-wire data_fase_valid;
+wire signed [63:0] data_cuad ;
+wire data_cuad_valid ;
+wire signed [63:0] data_fase ;
+wire data_fase_valid ;
 
-wire calculo_finalizado;
-wire lockin_ready;	// El lockin esta listo para calcular
+wire calculo_finalizado ;
+wire lockin_ready ;	// El lockin esta listo para calcular
 
 
 
@@ -246,7 +341,7 @@ wire finished_fase,finished_cuadratura;
 assign ready_to_calculate = lockin_ready;
 assign processing_finished = calculo_finalizado;
 
-assign parameter_out_0 = 0;
+assign parameter_out_0 = sync_avgd_signal;
 assign parameter_out_1 = 0;
 assign parameter_out_2 = 0;
 assign parameter_out_3 = 0;

@@ -1,0 +1,108 @@
+\doxysection{FPGA\+\_\+macros.\+h}
+\hypertarget{software__host_2program_2fpga__driver_2_f_p_g_a__macros_8h_source}{}\label{software__host_2program_2fpga__driver_2_f_p_g_a__macros_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/software\_host/program/fpga\_driver/FPGA\_macros.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/software\_host/program/fpga\_driver/FPGA\_macros.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ Macros\ necesarios\ para\ interaccion\ con\ FPGA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Estas\ son\ algunos\ macros\ que\ necesito\ para\ mapear\ la\ FPGA\ en\ memoria}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ ALT\_LWFPGASLVS\_OFST\ 0xff200000}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ ALT\_STM\_OFST\ 0xfc000000}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ HW\_REGS\_BASE\ (\ ALT\_STM\_OFST\ )}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ HW\_REGS\_SPAN\ (\ 0x04000000\ )}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ HW\_REGS\_MASK\ (\ HW\_REGS\_SPAN\ -\/\ 1\ )}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Direccion\ de\ memoria\ de\ la\ FPGA\ de\ todas\ las\ cosas\ que\ quiero\ acceder}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ ENABLE\_BASE\ 0x42170}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ RESET\_BASE\ 0x42180}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ FINALIZACION\_BASE\ 0x42160}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ N\_parametros\ 40}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ PARAMETERS\_BASE\ 0x41800}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ PARAMETERS\_1\_BASE\ 0x41000}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ PARAMETERS\_2\_BASE\ 0x40800}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ PARAMETERS\_3\_BASE\ 0x40000}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ DIVISOR\_CLOCK\_BASE\ 0x42190}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ PLL\_RECONFIGURAR\_BASE\ 0x42000}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ FIFO0\_32\_BIT\_BASE\ 0x421a8}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ FIFO1\_32\_BIT\_BASE\ 0x421a0}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ RESULT0\_32\_BIT\_BASE\ 0x42110}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ RESULT1\_32\_BIT\_BASE\ 0x42100}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ FIFO0\_64\_BIT\_DOWN\_BASE\ 0x421c0}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ FIFO0\_64\_BIT\_UP\_BASE\ 0x421c8}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ FIFO1\_64\_BIT\_DOWN\_BASE\ 0x421b0}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ FIFO1\_64\_BIT\_UP\_BASE\ 0x421b8}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ RESULT0\_64\_BIT\_DOWN\_BASE\ 0x42140}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ RESULT0\_64\_BIT\_UP\_BASE\ 0x42150}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ RESULT1\_64\_BIT\_DOWN\_BASE\ 0x42120}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ RESULT1\_64\_BIT\_UP\_BASE\ 0x42130}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Aca\ conecto\ los\ parametros\ que\ quiero\ controlar\ a\ las\ I/O\ del\ mmaped}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ PARAMETER\_0\ DATA\_OUT\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ PARAMETER\_1\ DATA\_OUT\_1\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ PARAMETER\_2\ DATA\_OUT\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ PARAMETER\_3\ DATA\_OUT\_3\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ PARAMETER\_4\ DATA\_OUT\_4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ PARAMETER\_5\ DATA\_OUT\_5\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ PARAMETER\_6\ DATA\_OUT\_6\ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ PARAMETER\_7\ DATA\_OUT\_7\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ PARAMETER\_8\ DATA\_OUT\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ PARAMETER\_9\ DATA\_OUT\_9\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//DATA\ OUT}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ SALIDA\_AUX\_0\ DATA\_IN\_10}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ SALIDA\_AUX\_1\ DATA\_IN\_11}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ SALIDA\_AUX\_2\ DATA\_IN\_12}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ SALIDA\_AUX\_3\ DATA\_IN\_13}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ SALIDA\_AUX\_4\ DATA\_IN\_14}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ Entradas\ y\ salidas...\ lo\ dejo\ asi\ para\ que\ sea\ facil\ agregar\ mas\ si\ hace\ falta}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ DATA\_IN\_0\ 0x00}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ DATA\_IN\_1\ 0x10}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ DATA\_IN\_2\ 0x20}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ DATA\_IN\_3\ 0x30}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ DATA\_IN\_4\ 0x40}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ DATA\_IN\_5\ 0x50}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ DATA\_IN\_6\ 0x60}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ DATA\_IN\_7\ 0x70}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ DATA\_IN\_8\ 0x80}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ DATA\_IN\_9\ 0x90}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ DATA\_IN\_10\ 0xA0}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ DATA\_IN\_11\ 0xB0}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ DATA\_IN\_12\ 0xC0}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ DATA\_IN\_13\ 0xD0}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ DATA\_IN\_14\ 0xE0}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ DATA\_IN\_15\ 0xF0}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_0\ 0x01}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_1\ 0x11}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_2\ 0x21}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_3\ 0x31}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_4\ 0x41}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_5\ 0x51}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_6\ 0x61}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_7\ 0x71}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_8\ 0x81}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_9\ 0x91}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_10\ 0xA1}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_11\ 0xB1}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_12\ 0xC1}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_13\ 0xD1}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_14\ 0xE1}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ DATA\_OUT\_15\ 0xF1}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{//\ Limites\ de\ parametros\ reconfigurables}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ MAX\_FREC\_CLK\ 65}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ MIN\_FREC\_CLK\ 1}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ Tamaño\ del\ buffer\ de\ muestras\ crudas}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ BUFFER\_SIZE\_RAW\ 2048}}
+
+\end{DoxyCode}

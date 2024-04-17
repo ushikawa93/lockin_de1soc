@@ -1,0 +1,73 @@
+\doxysection{altera\+\_\+avalon\+\_\+pio\+\_\+regs.\+h}
+\hypertarget{experimental_2software_2signal__procesing__bsp_2drivers_2inc_2altera__avalon__pio__regs_8h_source}{}\label{experimental_2software_2signal__procesing__bsp_2drivers_2inc_2altera__avalon__pio__regs_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/drivers/inc/altera\_avalon\_pio\_regs.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/drivers/inc/altera\_avalon\_pio\_regs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ Copyright\ (c)\ 2003\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifndef\ \_\_ALTERA\_AVALON\_PIO\_REGS\_H\_\_}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ \_\_ALTERA\_AVALON\_PIO\_REGS\_H\_\_}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <io.h>}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ IOADDR\_ALTERA\_AVALON\_PIO\_DATA(base)\ \ \ \ \ \ \ \ \ \ \ \_\_IO\_CALC\_ADDRESS\_NATIVE(base,\ 0)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ IORD\_ALTERA\_AVALON\_PIO\_DATA(base)\ \ \ \ \ \ \ \ \ \ \ \ \ IORD(base,\ 0)\ }}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ IOWR\_ALTERA\_AVALON\_PIO\_DATA(base,\ data)\ \ \ \ \ \ \ IOWR(base,\ 0,\ data)}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ IOADDR\_ALTERA\_AVALON\_PIO\_DIRECTION(base)\ \ \ \ \ \ \_\_IO\_CALC\_ADDRESS\_NATIVE(base,\ 1)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ IORD\_ALTERA\_AVALON\_PIO\_DIRECTION(base)\ \ \ \ \ \ \ \ IORD(base,\ 1)\ }}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ IOWR\_ALTERA\_AVALON\_PIO\_DIRECTION(base,\ data)\ \ IOWR(base,\ 1,\ data)}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ IOADDR\_ALTERA\_AVALON\_PIO\_IRQ\_MASK(base)\ \ \ \ \ \ \ \_\_IO\_CALC\_ADDRESS\_NATIVE(base,\ 2)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ IORD\_ALTERA\_AVALON\_PIO\_IRQ\_MASK(base)\ \ \ \ \ \ \ \ \ IORD(base,\ 2)\ }}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ IOWR\_ALTERA\_AVALON\_PIO\_IRQ\_MASK(base,\ data)\ \ \ IOWR(base,\ 2,\ data)}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ IOADDR\_ALTERA\_AVALON\_PIO\_EDGE\_CAP(base)\ \ \ \ \ \ \ \_\_IO\_CALC\_ADDRESS\_NATIVE(base,\ 3)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ IORD\_ALTERA\_AVALON\_PIO\_EDGE\_CAP(base)\ \ \ \ \ \ \ \ \ IORD(base,\ 3)\ }}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ IOWR\_ALTERA\_AVALON\_PIO\_EDGE\_CAP(base,\ data)\ \ \ IOWR(base,\ 3,\ data)}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ IOADDR\_ALTERA\_AVALON\_PIO\_SET\_BIT(base)\ \ \ \ \ \ \ \_\_IO\_CALC\_ADDRESS\_NATIVE(base,\ 4)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ IORD\_ALTERA\_AVALON\_PIO\_SET\_BITS(base)\ \ \ \ \ \ \ \ \ IORD(base,\ 4)\ }}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ IOWR\_ALTERA\_AVALON\_PIO\_SET\_BITS(base,\ data)\ \ \ IOWR(base,\ 4,\ data)}}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ IOADDR\_ALTERA\_AVALON\_PIO\_CLEAR\_BITS(base)\ \ \ \ \ \ \ \_\_IO\_CALC\_ADDRESS\_NATIVE(base,\ 5)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ IORD\_ALTERA\_AVALON\_PIO\_CLEAR\_BITS(base)\ \ \ \ \ \ \ \ \ IORD(base,\ 5)\ }}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ IOWR\_ALTERA\_AVALON\_PIO\_CLEAR\_BITS(base,\ data)\ \ \ IOWR(base,\ 5,\ data)}}
+\DoxyCodeLine{00060\ \ \ \ \ \ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ Defintions\ for\ direction-\/register\ operation\ with\ bi-\/directional\ PIOs\ */}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_PIO\_DIRECTION\_INPUT\ \ 0}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ALTERA\_AVALON\_PIO\_DIRECTION\_OUTPUT\ 1}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALTERA\_AVALON\_PIO\_REGS\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

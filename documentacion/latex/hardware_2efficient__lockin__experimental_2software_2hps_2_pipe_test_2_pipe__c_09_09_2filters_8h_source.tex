@@ -1,0 +1,87 @@
+\doxysection{filters.\+h}
+\hypertarget{hardware_2efficient__lockin__experimental_2software_2hps_2_pipe_test_2_pipe__c_09_09_2filters_8h_source}{}\label{hardware_2efficient__lockin__experimental_2software_2hps_2_pipe_test_2_pipe__c_09_09_2filters_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/hps/PipeTest/Pipe\_c++/filters.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/hps/PipeTest/Pipe\_c++/filters.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ \ Clase\ estática\ con\ filtros\ de\ distintas\ frecuencias\ de\ corte}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfilters}{filters}}}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtros\ Pasa-\/bajos}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PB\_0\_05\ [33]\ =\ \{83,\ 118,\ \ \ \ 188,\ \ \ \ 306,\ \ \ \ 482,\ \ \ \ 724,\ \ \ \ 1031,\ \ \ 1400,\ \ \ 1820,\ \ \ 2272,\ \ \ 2737,\ \ \ 3189,\ \ \ 3604,\ \ \ 3957,\ \ \ 4227,\ \ \ 4395,\ \ \ 4453,\ \ \ 4395,\ \ \ 4227,\ \ \ 3957,\ \ \ 3604,\ \ \ 3189,\ \ \ 2737,\ \ \ 2272,\ \ \ 1820,\ \ \ 1400,\ \ \ 1031,\ \ \ 724,\ \ \ \ 482,\ \ \ \ 306,\ \ \ \ 188,\ \ \ \ 118,\ \ \ \ 83\};}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PB\_0\_1\ [33]\ =\ \{-\/101,\ \ \ \ -\/125,\ \ \ -\/165,\ \ \ -\/207,\ \ \ -\/222,\ \ \ -\/169,\ \ \ 0,\ \ 325,\ \ \ \ 835,\ \ \ \ 1533,\ \ \ 2391,\ \ \ 3352,\ \ \ 4334,\ \ \ 5241,\ \ \ 5975,\ \ \ 6453,\ \ \ 6619,\ \ \ 6453,\ \ \ 5975,\ \ \ 5241,\ \ \ 4334,\ \ \ 3352,\ \ \ 2391,\ \ \ 1533,\ \ \ 835,\ \ \ \ 325,\ \ \ \ 0,\ \ -\/169,\ \ \ -\/222,\ \ \ -\/207,\ \ \ -\/165,\ \ \ -\/125,\ \ \ -\/101\};}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PB\_0\_15\ [33]\ =\ \{98,\ 87,\ 52,\ -\/40,\ \ \ \ -\/219,\ \ \ -\/480,\ \ \ -\/757,\ \ \ -\/927,\ \ \ -\/825,\ \ \ -\/293,\ \ \ 766,\ \ \ \ 2339,\ \ \ 4277,\ \ \ 6314,\ \ \ 8115,\ \ \ 9355,\ \ \ 9797,\ \ \ 9355,\ \ \ 8115,\ \ \ 6314,\ \ \ 4277,\ \ \ 2339,\ \ \ 766,\ \ \ \ -\/293,\ \ \ -\/825,\ \ \ -\/927,\ \ \ -\/757,\ \ \ -\/480,\ \ \ -\/219,\ \ \ -\/40,\ \ \ \ 52,\ 87,\ 98\};}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PB\_0\_2\ [33]\ =\ \{-\/62,\ 0,\ \ 100,\ \ \ \ 240,\ \ \ \ 354,\ \ \ \ 316,\ \ \ \ -\/1,\ -\/614,\ \ \ -\/1339,\ \ -\/1785,\ \ -\/1463,\ \ 0,\ \ 2651,\ \ \ 6097,\ \ \ 9567,\ \ \ 12147,\ \ 13100,\ \ 12147,\ \ 9567,\ \ \ 6097,\ \ \ 2651,\ \ \ 0,\ \ -\/1463,\ \ -\/1785,\ \ -\/1339,\ \ -\/614,\ \ \ -\/1,\ 316,\ \ \ \ 354,\ \ \ \ 240,\ \ \ \ 100,\ \ \ \ 0,\ \ -\/62\};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PB\_0\_25\ [33]\ =\ \{\ -\/1,\ \ \ \ -\/88,\ \ \ \ -\/172,\ \ \ -\/180,\ \ \ 0,\ \ 382,\ \ \ \ 761,\ \ \ \ 739,\ \ \ \ -\/1,\ -\/1331,\ \ -\/2496,\ \ -\/2353,\ \ 0,\ \ 4546,\ \ \ 10088,\ \ 14654,\ \ 16422,\ \ 14654,\ \ 10088,\ \ 4546,\ \ \ 0,\ \ -\/2353,\ \ -\/2496,\ \ -\/1331,\ \ -\/1,\ 739,\ \ \ \ 761,\ \ \ \ 382,\ \ \ \ 0,\ \ -\/180,\ \ \ -\/172,\ \ \ -\/88,\ \ \ \ -\/1\};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PB\_0\_3\ [33]\ =\ \{61,\ \ 123,\ \ \ \ 100,\ \ \ \ -\/78,\ \ \ \ -\/355,\ \ \ -\/436,\ \ \ -\/1,\ 842,\ \ \ \ 1335,\ \ \ 578,\ \ \ \ -\/1460,\ \ -\/3311,\ \ -\/2646,\ \ 1976,\ \ \ 9546,\ \ \ 16682,\ \ 19607,\ \ 16682,\ \ 9546,\ \ \ 1976,\ \ \ -\/2646,\ \ -\/3311,\ \ -\/1460,\ \ 578,\ \ \ \ 1335,\ \ \ 842,\ \ \ \ -\/1,\ -\/436,\ \ \ -\/355,\ \ \ -\/78,\ \ \ \ 100,\ \ \ \ 123,\ \ \ \ 61\};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtros\ Pasa-\/altos}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PA\_0\_05\ [33]\ =\ \{-\/62,\ \ \ \ -\/88,\ \ \ \ -\/139,\ \ \ -\/226,\ \ \ -\/356,\ \ \ -\/534,\ \ \ -\/760,\ \ \ -\/1032,\ \ -\/1341,\ \ -\/1674,\ \ -\/2016,\ \ -\/2349,\ \ -\/2655,\ \ -\/2915,\ \ -\/3113,\ \ -\/3238,\ \ 62309,\ \ -\/3238,\ \ -\/3113,\ \ -\/2915,\ \ -\/2655,\ \ -\/2349,\ \ -\/2016,\ \ -\/1674,\ \ -\/1341,\ \ -\/1032,\ \ -\/760,\ \ \ -\/534,\ \ \ -\/356,\ \ \ -\/226,\ \ \ -\/139,\ \ \ -\/88,\ \ \ \ -\/62\};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PA\_0\_1\ [33]\ =\ \{99,\ \ 123,\ \ \ \ 162,\ \ \ \ 204,\ \ \ \ 219,\ \ \ \ 166,\ \ \ \ -\/1,\ -\/323,\ \ \ -\/827,\ \ \ -\/1517,\ \ -\/2365,\ \ -\/3315,\ \ -\/4286,\ \ -\/5183,\ \ -\/5908,\ \ -\/6381,\ \ 58900,\ \ -\/6381,\ \ -\/5908,\ \ -\/5183,\ \ -\/4286,\ \ -\/3315,\ \ -\/2365,\ \ -\/1517,\ \ -\/827,\ \ \ -\/323,\ \ \ -\/1,\ 166,\ \ \ \ 219,\ \ \ \ 204,\ \ \ \ 162,\ \ \ \ 123,\ \ \ \ 99\};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PA\_0\_15\ [33]\ =\ \{-\/100,\ \ \ -\/88,\ \ \ \ -\/54,\ \ \ \ 39,\ 219,\ \ \ \ 481,\ \ \ \ 760,\ \ \ \ 931,\ \ \ \ 828,\ \ \ \ 294,\ \ \ \ -\/771,\ \ \ -\/2351,\ \ -\/4299,\ \ -\/6346,\ \ -\/8156,\ \ -\/9402,\ \ 55793,\ \ -\/9402,\ \ -\/8156,\ \ -\/6346,\ \ -\/4299,\ \ -\/2351,\ \ -\/771,\ \ \ 294,\ \ \ \ 828,\ \ \ \ 931,\ \ \ \ 760,\ \ \ \ 481,\ \ \ \ 219,\ \ \ \ 39,\ -\/54,\ \ \ \ -\/88,\ \ \ \ -\/100\};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PA\_0\_2\ [33]\ =\ \{61,\ \ 0,\ \ -\/101,\ \ \ -\/241,\ \ \ -\/355,\ \ \ -\/317,\ \ \ -\/1,\ 612,\ \ \ \ 1337,\ \ \ 1782,\ \ \ 1461,\ \ \ 0,\ \ -\/2649,\ \ -\/6093,\ \ -\/9561,\ \ -\/12138,\ 52360,\ \ -\/12138,\ -\/9561,\ \ -\/6093,\ \ -\/2649,\ \ 0,\ \ 1461,\ \ \ 1782,\ \ \ 1337,\ \ \ 612,\ \ \ \ -\/1,\ -\/317,\ \ \ -\/355,\ \ \ -\/241,\ \ \ -\/101,\ \ \ 0,\ \ 61\};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PA\_0\_25\ [33]\ =\ \{-\/1,\ 87,\ 171,\ \ \ \ 178,\ \ \ \ -\/1,\ -\/382,\ \ \ -\/760,\ \ \ -\/739,\ \ \ -\/1,\ 1327,\ \ \ 2491,\ \ \ 2348,\ \ \ -\/1,\ -\/4539,\ \ -\/10072,\ -\/14630,\ 49182,\ \ -\/14630,\ -\/10072,\ -\/4539,\ \ -\/1,\ 2348,\ \ \ 2491,\ \ \ 1327,\ \ \ -\/1,\ -\/739,\ \ \ -\/760,\ \ \ -\/382,\ \ \ -\/1,\ 178,\ \ \ \ 171,\ \ \ \ 87,\ -\/1\};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ PA\_0\_3\ [33]\ =\ \{-\/62,\ -\/124,\ \ \ -\/101,\ \ \ 78,\ 355,\ \ \ \ 436,\ \ \ \ 0,\ \ -\/845,\ \ \ -\/1340,\ \ -\/581,\ \ \ 1463,\ \ \ 3320,\ \ \ 2653,\ \ \ -\/1983,\ \ -\/9576,\ \ -\/16733,\ 45888,\ \ -\/16733,\ -\/9576,\ \ -\/1983,\ \ 2653,\ \ \ 3320,\ \ \ 1463,\ \ \ -\/581,\ \ \ -\/1340,\ \ -\/845,\ \ \ 0,\ \ 436,\ \ \ \ 355,\ \ \ \ 78,\ -\/101,\ \ \ -\/124,\ \ \ -\/62\};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ zero\_array\ [33]\ =\ \{0\};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ getfiltro(\textcolor{keywordtype}{int}\ w,\textcolor{keywordtype}{int}\ high\_low)\ \ \ \ \ \textcolor{comment}{//\ 0<w<1.0\ -\/>\ Se\ ingresa\ en\ entero\ 0.15\ =\ 15,\ como\ un\ porcentaje.\ high\_low\ =\ 1\ para\ pasa-\/altos\ y\ 0\ para\ pasa-\/bajos}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(high\_low\ ==\ 0)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (w)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PB\_0\_05;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PB\_0\_1;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 15:}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PB\_0\_15;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 20:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PB\_0\_2;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 25:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PB\_0\_25;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 30:}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PB\_0\_3;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(high\_low\ ==\ 1)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (w)}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PA\_0\_05;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PA\_0\_1;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 15:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PA\_0\_15;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 20:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PA\_0\_2;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 25:}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PA\_0\_25;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 30:}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PA\_0\_3;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ zero\_array;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \};}
+
+\end{DoxyCode}

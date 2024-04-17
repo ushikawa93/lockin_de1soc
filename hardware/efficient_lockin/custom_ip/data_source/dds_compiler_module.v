@@ -2,7 +2,7 @@
 module dds_compiler_module #(
 
 	parameter res_f = 0.5,
-	parameter f_clk = 50000000,
+	parameter f_clk = 65000000,
 	parameter B_acumulador = 27,	// Esto es ceil(log2(f_clk/res_f))
 	
 	parameter B_out = 16,							// bits de la señal de salida

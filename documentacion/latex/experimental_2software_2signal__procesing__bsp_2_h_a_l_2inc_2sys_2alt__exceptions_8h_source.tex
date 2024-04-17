@@ -1,0 +1,172 @@
+\doxysection{alt\+\_\+exceptions.\+h}
+\hypertarget{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__exceptions_8h_source}{}\label{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__exceptions_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_exceptions.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_exceptions.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_EXCEPTIONS\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_ALT\_EXCEPTIONS\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2008\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}alt\_types.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}system.h"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ This\ file\ defines\ instruction-\/generated\ exception\ handling\ and\ registry}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ API,\ exception\ type\ enumeration,\ and\ handler\ return\ value\ enumeration\ for}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ Nios\ II.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ The\ following\ enumeration\ describes\ the\ value\ in\ the\ CPU\ EXCEPTION}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ register\ CAUSE\ bit\ field.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{enum}\ alt\_exception\_cause\_e\ \{}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ *\ This\ value\ is\ passed\ to\ an\ exception\ handler's\ cause\ argument\ if}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ *\ "{}extra\ exceptions"{}\ information\ (EXECPTION)\ register\ is\ not}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ *\ present\ in\ the\ processor\ hardware\ configuration.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00057\ \ \ NIOS2\_EXCEPTION\_CAUSE\_NOT\_PRESENT\ \ \ \ \ \ \ \ \ \ \ \ =\ -\/1,}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ *\ Real\ values}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00062\ \ \ NIOS2\_EXCEPTION\_RESET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00063\ \ \ NIOS2\_EXCEPTION\_CPU\_ONLY\_RESET\_REQUEST\ \ \ \ \ \ \ =\ 1,}
+\DoxyCodeLine{00064\ \ \ NIOS2\_EXCEPTION\_INTERRUPT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 2,}
+\DoxyCodeLine{00065\ \ \ NIOS2\_EXCEPTION\_TRAP\_INST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 3,}
+\DoxyCodeLine{00066\ \ \ NIOS2\_EXCEPTION\_UNIMPLEMENTED\_INST\ \ \ \ \ \ \ \ \ \ \ =\ 4,}
+\DoxyCodeLine{00067\ \ \ NIOS2\_EXCEPTION\_ILLEGAL\_INST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 5,}
+\DoxyCodeLine{00068\ \ \ NIOS2\_EXCEPTION\_MISALIGNED\_DATA\_ADDR\ \ \ \ \ \ \ \ \ =\ 6,}
+\DoxyCodeLine{00069\ \ \ NIOS2\_EXCEPTION\_MISALIGNED\_TARGET\_PC\ \ \ \ \ \ \ \ \ =\ 7,}
+\DoxyCodeLine{00070\ \ \ NIOS2\_EXCEPTION\_DIVISION\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 8,}
+\DoxyCodeLine{00071\ \ \ NIOS2\_EXCEPTION\_SUPERVISOR\_ONLY\_INST\_ADDR\ \ \ \ =\ 9,}
+\DoxyCodeLine{00072\ \ \ NIOS2\_EXCEPTION\_SUPERVISOR\_ONLY\_INST\ \ \ \ \ \ \ \ \ =\ 10,}
+\DoxyCodeLine{00073\ \ \ NIOS2\_EXCEPTION\_SUPERVISOR\_ONLY\_DATA\_ADDR\ \ \ \ =\ 11,}
+\DoxyCodeLine{00074\ \ \ NIOS2\_EXCEPTION\_TLB\_MISS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 12,}
+\DoxyCodeLine{00075\ \ \ NIOS2\_EXCEPTION\_TLB\_EXECUTE\_PERM\_VIOLATION\ \ \ =\ 13,}
+\DoxyCodeLine{00076\ \ \ NIOS2\_EXCEPTION\_TLB\_READ\_PERM\_VIOLATION\ \ \ \ \ \ =\ 14,}
+\DoxyCodeLine{00077\ \ \ NIOS2\_EXCEPTION\_TLB\_WRITE\_PERM\_VIOLATION\ \ \ \ \ =\ 15,}
+\DoxyCodeLine{00078\ \ \ NIOS2\_EXCEPTION\_MPU\_INST\_REGION\_VIOLATION\ \ \ \ =\ 16,}
+\DoxyCodeLine{00079\ \ \ NIOS2\_EXCEPTION\_MPU\_DATA\_REGION\_VIOLATION\ \ \ \ =\ 17,}
+\DoxyCodeLine{00080\ \ \ NIOS2\_EXCEPTION\_ECC\_TLB\_ERR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 18,}
+\DoxyCodeLine{00081\ \ \ NIOS2\_EXCEPTION\_ECC\_FETCH\_ERR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 19,}
+\DoxyCodeLine{00082\ \ \ NIOS2\_EXCEPTION\_ECC\_REGISTER\_FILE\_ERR\ \ \ \ \ \ \ \ =\ 20,}
+\DoxyCodeLine{00083\ \ \ NIOS2\_EXCEPTION\_ECC\_DATA\_ERR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 21,}
+\DoxyCodeLine{00084\ \ \ NIOS2\_EXCEPTION\_ECC\_DATA\_CACHE\_WRITEBACK\_ERR\ =\ 22}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ alt\_exception\_cause\_e\ alt\_exception\_cause;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ These\ define\ valid\ return\ values\ for\ a\ user-\/defined\ instruction-\/generated}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *\ exception\ handler.\ The\ handler\ should\ return\ one\ of\ these\ to\ indicate}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ whether\ to\ re-\/issue\ the\ instruction\ that\ triggered\ the\ exception,\ or\ to}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ skip\ it.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{enum}\ alt\_exception\_result\_e\ \{}
+\DoxyCodeLine{00095\ \ \ NIOS2\_EXCEPTION\_RETURN\_REISSUE\_INST\ =\ 0,}
+\DoxyCodeLine{00096\ \ \ NIOS2\_EXCEPTION\_RETURN\_SKIP\_INST\ \ \ \ =\ 1}
+\DoxyCodeLine{00097\ \};}
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ alt\_exception\_result\_e\ alt\_exception\_result;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *\ alt\_instruction\_exception\_register()\ can\ be\ used\ to\ register\ an\ exception}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *\ handler\ for\ instruction-\/generated\ exceptions\ that\ are\ not\ handled\ by\ the}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *\ built-\/in\ exception\ handler\ (i.e.\ for\ interrupts).}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ The\ registry\ API\ is\ optionally\ enabled\ through\ the\ "{}Enable}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ Instruction-\/related\ Exception\ API"{}\ HAL\ BSP\ setting,\ which\ will}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ define\ the\ macro\ below.}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#ifdef\ ALT\_INCLUDE\_INSTRUCTION\_RELATED\_EXCEPTION\_API}}
+\DoxyCodeLine{00110\ \textcolor{keywordtype}{void}\ alt\_instruction\_exception\_register\ (}
+\DoxyCodeLine{00111\ \ \ alt\_exception\_result\ (*exception\_handler)(}
+\DoxyCodeLine{00112\ \ \ \ \ alt\_exception\_cause\ cause,}
+\DoxyCodeLine{00113\ \ \ \ \ alt\_u32\ exception\_pc,}
+\DoxyCodeLine{00114\ \ \ \ \ alt\_u32\ bad\_addr)\ );}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*ALT\_INCLUDE\_INSTRUCTION\_RELATED\_EXCEPTION\_API\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ alt\_exception\_cause\_generated\_bad\_addr()\ indicates\ whether\ a\ particular}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ exception\ cause\ value\ was\ from\ an\ exception-\/type\ that\ generated\ a\ valid}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ address\ in\ the\ BADADDR\ register.\ The\ contents\ of\ BADADDR\ is\ passed\ to}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *\ a\ user-\/registered\ exception\ handler\ in\ all\ cases,\ whether\ valid\ or\ not.}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ This\ routine\ should\ be\ called\ to\ validate\ the\ bad\_addr\ argument\ to}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *\ your\ exception\ handler.}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ Note\ that\ this\ routine\ will\ return\ false\ (0)\ for\ causes\ }}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ NIOS2\_EXCEPTION\_TLB\_MISS\ and\ NIOS2\_EXCEPTION\_ECC\_TLB\_ERR.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ You\ must\ read\ the\ TLBMISC.D\ field\ to\ determine\ if\ BADADDR}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ is\ valid\ for\ these\ (valid\ if\ TLBMISC.D\ =\ 1).}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00130\ \textcolor{keywordtype}{int}\ alt\_exception\_cause\_generated\_bad\_addr(alt\_exception\_cause\ cause);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ alt\_ecc\_fatal\_exception\_register()\ is\ called\ to\ register\ a\ handler\ to}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ service\ likely\ fatal\ ECC\ error\ exceptions.\ Likely\ the\ handler\ will}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ assume\ that\ correct\ execution\ of\ the\ running\ software\ is\ not\ possible}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ and\ re-\/initialize\ the\ processor\ (e.g.\ jump\ to\ reset\ address).}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ Passing\ null\ (0x0)\ in\ the\ handler\ argument\ will\ disable\ a\ previously-\/}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ registered\ handler.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ Note\ that\ if\ no\ handler\ is\ registered,\ just\ normal\ exception\ processing}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ occurs\ on\ a\ likely\ fatal\ ECC\ exception\ and\ the\ exception\ processing}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ code\ might\ trigger\ an\ infinite\ exception\ loop.}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ Note\ that\ the\ handler\ isn't\ a\ C\ function:\ it\ must\ be\ written\ in\ }}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ assembly-\/code\ because\ it\ doesn't\ support\ C\ language\ calling\ conventions}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ *\ and\ it\ can't\ return.}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *\ The\ handler\ code\ must\ be\ carefully\ written\ to\ avoid\ triggering}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ *\ another\ fatal\ ECC\ exception\ and\ creating\ an\ infinite\ exception\ loop.}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ *\ The\ handler\ must\ avoid\ reading\ registers\ in\ case\ the\ fatal\ ECC}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ error\ is\ a\ register\ file\ ECC\ error.}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *\ If\ a\ data\ cache\ is\ present,\ the\ handler\ must\ avoid\ instructions\ that}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *\ access\ the\ data\ cache\ in\ case\ the\ fatal\ ECC\ error\ is\ a\ data\ cache\ }}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ related\ ECC\ error.\ This\ includes\ cacheable\ load,\ cacheable\ store,\ }}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *\ non-\/cacheable\ store\ (because\ it\ looks\ in\ the\ data\ cache\ to\ update\ the}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ *\ data\ cache\ if\ it\ hits),\ and\ all\ data\ cache\ management\ instructions\ except}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *\ for\ INITD.}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{void}\ alt\_ecc\_fatal\_exception\_register(alt\_u32\ handler);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00163\ \}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_EXCEPTIONS\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

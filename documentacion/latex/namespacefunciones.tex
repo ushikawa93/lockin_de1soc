@@ -1,0 +1,53 @@
+\doxysection{funciones Namespace Reference}
+\hypertarget{namespacefunciones}{}\label{namespacefunciones}\index{funciones@{funciones}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacefunciones_ac13e4798cf8c6e8b7dcbe7632758026a}{Transferencia\+Teorica\+\_\+\+RC\+\_\+ideal}} (RL, C, f\+\_\+inicio=1000, f\+\_\+final=2000000, num=1000)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Created on Tue Mar 12 15:04:05 2024
+
+@author: MatiOliva
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacefunciones_ac13e4798cf8c6e8b7dcbe7632758026a}\label{namespacefunciones_ac13e4798cf8c6e8b7dcbe7632758026a} 
+\index{funciones@{funciones}!TransferenciaTeorica\_RC\_ideal@{TransferenciaTeorica\_RC\_ideal}}
+\index{TransferenciaTeorica\_RC\_ideal@{TransferenciaTeorica\_RC\_ideal}!funciones@{funciones}}
+\doxysubsubsection{\texorpdfstring{TransferenciaTeorica\_RC\_ideal()}{TransferenciaTeorica\_RC\_ideal()}}
+{\footnotesize\ttfamily funciones.\+Transferencia\+Teorica\+\_\+\+RC\+\_\+ideal (\begin{DoxyParamCaption}\item[{}]{RL,  }\item[{}]{C,  }\item[{}]{f\+\_\+inicio = {\ttfamily 1000},  }\item[{}]{f\+\_\+final = {\ttfamily 2000000},  }\item[{}]{num = {\ttfamily 1000} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Funcion para obtener la funcion de transferencia de un filtro RC diferencial ideal
+
+Uso:
+----------
+    f,H = TransferenciaTeorica_RC_ideal(RL,C,f_inicio,f_final,num)
+    
+    f: Frecuencias a las que esta calculada la transferencia
+    H: Transferencia (compleja) del sistema
+
+
+Parametros
+----------
+RL :                Parametro requerido
+    Descripción:    Resistencia del circuito
+    
+C :                 Parametro requerido
+    Descripción:    Capacidad del circuito
+    
+f_inicio :          Parametro opcional
+    Descripción:    Frecuencia de inicio de la transferencia
+                    Por default es: 1000 Hz
+                    
+f_final :           Parametro opcional
+    Descripción:    Frecuencia final de la transferencia
+                    Por default es: 2000000 Hz
+
+num :               Parametro opcional
+    Descripción:    Cantidad de puntos para calcular la transferencia
+                    Por default es: 1000\end{DoxyVerb}
+ 

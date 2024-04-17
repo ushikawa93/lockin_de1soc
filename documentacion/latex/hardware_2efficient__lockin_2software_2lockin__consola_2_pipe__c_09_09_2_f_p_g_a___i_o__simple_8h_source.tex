@@ -1,0 +1,66 @@
+\doxysection{FPGA\+\_\+\+IO\+\_\+simple.\+h}
+\hypertarget{hardware_2efficient__lockin_2software_2lockin__consola_2_pipe__c_09_09_2_f_p_g_a___i_o__simple_8h_source}{}\label{hardware_2efficient__lockin_2software_2lockin__consola_2_pipe__c_09_09_2_f_p_g_a___i_o__simple_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/lockin\_consola/Pipe\_c++/FPGA\_IO\_simple.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/lockin\_consola/Pipe\_c++/FPGA\_IO\_simple.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ Clase\ que\ controla\ las\ entradas\ y\ salidas\ de\ la\ FPGA.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Librerias\ para\ mmap\ y\ entradas/salidas}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <sys/mman.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}FPGA\_macros.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}PLL.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ uint8\_t;\ \ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_p_g_a___i_o__simple}{FPGA\_IO\_simple}}\{}
+\DoxyCodeLine{00016\ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mapeo\ general\ de\ /dev/mem/}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ virtual\_base;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *\ puntero\_a\_variable;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ fd;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_p_l_l}{PLL}}\ pll;\ \textcolor{comment}{//\ Esta\ es\ una\ clase\ aparte\ porque\ configura\ varios\ parametros}}
+\DoxyCodeLine{00023\ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_p_g_a___i_o__simple}{FPGA\_IO\_simple}}()}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mapeo\ en\ memoria\ el\ dispositivo\ /dev/mem/}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ fd\ =\ open(\ \textcolor{stringliteral}{"{}/dev/mem"{}},\ (\ O\_RDWR\ |\ O\_SYNC\ )\ )\ ;\ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ virtual\_base\ =\ mmap(\ NULL,\ HW\_REGS\_SPAN,\ (\ PROT\_READ\ |\ PROT\_WRITE\ ),\ MAP\_SHARED,\ fd,\ HW\_REGS\_BASE\ );}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_p_g_a___i_o__simple}{\string~FPGA\_IO\_simple}}()}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ munmap(\ virtual\_base,\ HW\_REGS\_SPAN\ );\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Escribe\ en\ la\ FPGA\ el\ valor\ VALUE\ en\ la\ direccion\ ADDRES\ +\ OFFSET}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ WriteFPGA(\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ ADDRESS,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ OFFSET,\ \textcolor{keywordtype}{int}\ value\ )}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ puntero\_a\_variable\ =\ (\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*)((uint8\_t*)virtual\_base\ +\ (\ (\ \textcolor{keywordtype}{unsigned}\ long\ \ )(\ ALT\_LWFPGASLVS\_OFST\ +\ ADDRESS\ )\ \&\ (\ \textcolor{keywordtype}{unsigned}\ long)(\ HW\_REGS\_MASK\ )\ )\ );}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ *(puntero\_a\_variable\ +\ OFFSET)\ =\ value;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lee\ de\ la\ FPGA\ un\ valor\ en\ la\ direccion\ ADDRESS\ +\ OFFST}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ ReadFPGA(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ ADDRESS,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ OFFSET)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ puntero\_a\_variable\ =\ (\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*)((uint8\_t*)virtual\_base\ +\ (\ (\ \textcolor{keywordtype}{unsigned}\ long\ \ )(\ ALT\_LWFPGASLVS\_OFST\ +\ ADDRESS\ )\ \&\ (\ \textcolor{keywordtype}{unsigned}\ long)(\ HW\_REGS\_MASK\ )\ )\ );}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(puntero\_a\_variable\ +\ OFFSET)\ ;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Configura\ la\ frecuencia\ del\ clock\ principal\ a\ la\ deseada\ (o\ lo\ mas\ cerca\ que\ pueda)}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ConfigurarPll(\textcolor{keywordtype}{int}\ value)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ puntero\_a\_variable\ =\ \ (\textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*)((uint8\_t*)virtual\_base\ +\ (\ (\ \textcolor{keywordtype}{unsigned}\ long\ \ )(\ ALT\_LWFPGASLVS\_OFST\ +\ PLL\_RECONFIGURAR\_BASE\ )\ \&\ (\ \textcolor{keywordtype}{unsigned}\ long)(\ HW\_REGS\_MASK\ )\ )\ );}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ pll.configurar\_pll\ (\ value\ ,\ puntero\_a\_variable\ )\ ;\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,171 @@
+\doxysection{sequencer\+\_\+defines.\+h}
+\hypertarget{experimental_2hps__isw__handoff_2procesador__hps__0_2sequencer__defines_8h_source}{}\label{experimental_2hps__isw__handoff_2procesador__hps__0_2sequencer__defines_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/hps\_isw\_handoff/procesador\_hps\_0/sequencer\_defines.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/hps\_isw\_handoff/procesador\_hps\_0/sequencer\_defines.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{Copyright\ (C)\ 2016\ Intel\ Corporation}}
+\DoxyCodeLine{00003\ \textcolor{comment}{All\ rights\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{SPDX-\/License-\/Identifier:\ \ \ \ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00008\ \textcolor{comment}{modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ *\ Neither\ the\ name\ of\ Altera\ Corporation\ nor\ the}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ names\ of\ its\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{}}
+\DoxyCodeLine{00018\ \textcolor{comment}{THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}\ AND}}
+\DoxyCodeLine{00019\ \textcolor{comment}{ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED}}
+\DoxyCodeLine{00020\ \textcolor{comment}{WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ ALTERA\ CORPORATION\ BE\ LIABLE\ FOR\ ANY}}
+\DoxyCodeLine{00022\ \textcolor{comment}{DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES}}
+\DoxyCodeLine{00023\ \textcolor{comment}{(INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;}}
+\DoxyCodeLine{00024\ \textcolor{comment}{LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND}}
+\DoxyCodeLine{00025\ \textcolor{comment}{ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00026\ \textcolor{comment}{(INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS}}
+\DoxyCodeLine{00027\ \textcolor{comment}{SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ \_SEQUENCER\_DEFINES\_H\_}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ \_SEQUENCER\_DEFINES\_H\_}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR1\_MIRR\ 0000000000000}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR1\_OCD\_ENABLE\ }}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR2\_MIRR\ 0000000010000}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR3\_MIRR\ 0000000000000}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR0\_CALIB\ }}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR0\_DLL\_RESET\_MIRR\ 0001011001000}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR0\_DLL\_RESET\ 0001100110000}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR0\_MIRR\ 0001001001001}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR0\ 0001000110001}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR1\ 0000000000000}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR2\ 0000000001000}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ AC\_ROM\_MR3\ 0000000000000}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ AC\_ROM\_USER\_ADD\_0\ 0\_0000\_0000\_0000}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ AC\_ROM\_USER\_ADD\_1\ 0\_0000\_0000\_1000}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ AFI\_CLK\_FREQ\ 301}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ AFI\_RATE\_RATIO\ 1}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ AP\_MODE\ 0}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ ARRIAVGZ\ 0}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ARRIAV\ 0}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ AVL\_CLK\_FREQ\ 61}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ BFM\_MODE\ 0}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ BURST2\ 0}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ CALIBRATE\_BIT\_SLIPS\ 0}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ CALIB\_LFIFO\_OFFSET\ 8}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ CALIB\_VFIFO\_OFFSET\ 6}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ CYCLONEV\ 1}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ DDR2\ 0}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ DDR3\ 1}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ DDRX\ 1}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ DM\_PINS\_ENABLED\ 1}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ENABLE\_ASSERT\ 0}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ENABLE\_BRINGUP\_DEBUGGING\ 0}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ENABLE\_DELAY\_CHAIN\_WRITE\ 0}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ENABLE\_DQS\_IN\_CENTERING\ 1}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ENABLE\_DQS\_OUT\_CENTERING\ 0}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ENABLE\_EXPORT\_SEQ\_DEBUG\_BRIDGE\ 0}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ENABLE\_INST\_ROM\_WRITE\ 1}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ENABLE\_MARGIN\_REPORT\_GEN\ 0}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ENABLE\_NON\_DESTRUCTIVE\_CALIB\ 0}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ENABLE\_NON\_DES\_CAL\_TEST\ 0}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ENABLE\_NON\_DES\_CAL\ 0}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ ENABLE\_SUPER\_QUICK\_CALIBRATION\ 0}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ENABLE\_TCL\_DEBUG\ 0}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ FAKE\_CAL\_FAIL\ 0}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ FIX\_READ\_LATENCY\ 8}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ FULL\_RATE\ 1}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ GUARANTEED\_READ\_BRINGUP\_TEST\ 0}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ HALF\_RATE\ 0}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ HARD\_PHY\ 1}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ HARD\_VFIFO\ 1}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ HCX\_COMPAT\_MODE\ 0}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ HHP\_HPS\_SIMULATION\ 0}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ HHP\_HPS\_VERIFICATION\ 0}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ HHP\_HPS\ 1}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ HPS\_HW\ 1}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ HR\_DDIO\_OUT\_HAS\_THREE\_REGS\ 0}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ IO\_DELAY\_PER\_DCHAIN\_TAP\ 25}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ IO\_DELAY\_PER\_DQS\_EN\_DCHAIN\_TAP\ 25}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ IO\_DELAY\_PER\_OPA\_TAP\ 416}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ IO\_DLL\_CHAIN\_LENGTH\ 8}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ IO\_DM\_OUT\_RESERVE\ 0}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ IO\_DQDQS\_OUT\_PHASE\_MAX\ 0}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ IO\_DQS\_EN\_DELAY\_MAX\ 31}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ IO\_DQS\_EN\_DELAY\_OFFSET\ 0}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ IO\_DQS\_EN\_PHASE\_MAX\ 7}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ IO\_DQS\_IN\_DELAY\_MAX\ 31}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ IO\_DQS\_IN\_RESERVE\ 4}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ IO\_DQS\_OUT\_RESERVE\ 4}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ IO\_DQ\_OUT\_RESERVE\ 0}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ IO\_IO\_IN\_DELAY\_MAX\ 31}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ IO\_IO\_OUT1\_DELAY\_MAX\ 31}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ IO\_IO\_OUT2\_DELAY\_MAX\ 0}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ IO\_SHIFT\_DQS\_EN\_WHEN\_SHIFT\_DQS\ 0}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ LPDDR1\ 0}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ LPDDR2\ 0}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ LRDIMM\ 0}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ MARGIN\_VARIATION\_TEST\ 0}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ MAX\_LATENCY\_COUNT\_WIDTH\ 5}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ MEM\_ADDR\_WIDTH\ 13}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ MRS\_MIRROR\_PING\_PONG\_ATSO\ 0}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ MULTIPLE\_AFI\_WLAT\ 0}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ NON\_DES\_CAL\ 0}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ NUM\_SHADOW\_REGS\ 1}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ QDRII\ 0}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ QUARTER\_RATE\ 0}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ RDIMM\ 0}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ READ\_AFTER\_WRITE\_CALIBRATION\ 1}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ READ\_VALID\_FIFO\_SIZE\ 16}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ REG\_FILE\_INIT\_SEQ\_SIGNATURE\ 0x555504ab}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ RLDRAM3\ 0}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ RLDRAMII\ 0}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ RLDRAMX\ 0}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ RUNTIME\_CAL\_REPORT\ 0}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_ADDRESS\_MIRRORING\ 0}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_ADDRESS\_WIDTH\ 13}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_BANK\_WIDTH\ 3}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_CHIP\_SELECT\_WIDTH\ 1}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_CLK\_EN\_WIDTH\ 1}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_CONTROL\_WIDTH\ 1}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_DATA\_MASK\_WIDTH\ 1}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_DATA\_WIDTH\ 8}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_DQ\_PER\_READ\_DQS\ 8}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ 8}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH\ 1}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH\ 1}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_NUMBER\_OF\_CS\_PER\_DIMM\ 1}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_NUMBER\_OF\_RANKS\ 1}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_ODT\_WIDTH\ 1}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_VIRTUAL\_GROUPS\_PER\_READ\_DQS\ 1}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MEM\_VIRTUAL\_GROUPS\_PER\_WRITE\_DQS\ 1}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MR0\_BL\ 1}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ RW\_MGR\_MR0\_CAS\_LATENCY\ 3}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ RW\_MGR\_TRUE\_MEM\_DATA\_MASK\_WIDTH\ 1}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ RW\_MGR\_WRITE\_TO\_DEBUG\_READ\ 1.0}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ SET\_FIX\_READ\_LATENCY\_ENABLE\ 0}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ SKEW\_CALIBRATION\ 0}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ SKIP\_PTAP\_0\_DQS\_EN\_CAL\ 1}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ STATIC\_FULL\_CALIBRATION\ 1}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ STATIC\_SIM\_FILESET\ 0}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ STATIC\_SKIP\_MEM\_INIT\ 0}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ STRATIXV\ 0}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ TINIT\_CNTR1\_VAL\ 32}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ TINIT\_CNTR2\_VAL\ 32}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ TINIT\_CNTR0\_VAL\ 74}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ TRACKING\_ERROR\_TEST\ 0}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ TRACKING\_WATCH\_TEST\ 0}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ TRESET\_CNTR1\_VAL\ 99}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ TRESET\_CNTR2\_VAL\ 10}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ TRESET\_CNTR0\_VAL\ 74}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ USE\_DQS\_TRACKING\ 1}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ USE\_SHADOW\_REGS\ 0}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#define\ USE\_USER\_RDIMM\_VALUE\ 0}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_SEQUENCER\_DEFINES\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

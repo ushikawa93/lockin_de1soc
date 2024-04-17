@@ -1,0 +1,81 @@
+\doxysection{alt\+\_\+syscall.\+h}
+\hypertarget{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2os_2alt__syscall_8h_source}{}\label{experimental_2software_2signal__procesing__bsp_2_h_a_l_2inc_2os_2alt__syscall_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/os/alt\_syscall.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin\_experimental/software/signal\_procesing\_bsp/HAL/inc/os/alt\_syscall.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_SYSCALL\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_ALT\_SYSCALL\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2003\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ The\ macros\ defined\ in\ this\ file\ are\ used\ to\ provide\ the\ function\ names\ used}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ for\ the\ HAL\ 'UNIX\ style'\ interface,\ e.g.\ read(),\ write()\ etc.\ }}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ Operating\ systems\ which\ are\ ported\ to\ the\ HAL\ can\ provide\ their\ own\ }}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ version\ of\ this\ file,\ which\ will\ be\ used\ in\ preference.\ This\ allows}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ the\ operating\ system\ to\ provide\ it's\ own\ implementation\ of\ the\ top\ level}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ system\ calls,\ while\ retaining\ the\ HAL\ functions\ under\ a\ different\ name,\ }}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ for\ example,\ alt\_read(),\ alt\_write()\ etc.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ALT\_CLOSE\ \ \ \ \ \ \ \ close}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ALT\_ENVIRON\ \ \ \ \ \ environ}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ ALT\_EXECVE\ \ \ \ \ \ \ execve}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ ALT\_EXIT\ \ \ \ \ \ \ \ \ \_exit}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ ALT\_FCNTL\ \ \ \ \ \ \ \ fcntl}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ALT\_FORK\ \ \ \ \ \ \ \ \ fork}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ ALT\_FSTAT\ \ \ \ \ \ \ \ fstat}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ALT\_GETPID\ \ \ \ \ \ \ getpid}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ALT\_GETTIMEOFDAY\ gettimeofday}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ALT\_IOCTL\ \ \ \ \ \ \ \ ioctl}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ALT\_ISATTY\ \ \ \ \ \ \ isatty}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ALT\_KILL\ \ \ \ \ \ \ \ \ kill}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ ALT\_LINK\ \ \ \ \ \ \ \ \ link}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ALT\_LSEEK\ \ \ \ \ \ \ \ lseek}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ALT\_OPEN\ \ \ \ \ \ \ \ \ open}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ ALT\_READ\ \ \ \ \ \ \ \ \ read}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ALT\_RENAME\ \ \ \ \ \ \ \_rename}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ALT\_SBRK\ \ \ \ \ \ \ \ \ sbrk}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ALT\_SETTIMEOFDAY\ settimeofday}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ALT\_STAT\ \ \ \ \ \ \ \ \ stat}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ALT\_UNLINK\ \ \ \ \ \ \ unlink}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ALT\_USLEEP\ \ \ \ \ \ \ usleep}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ALT\_WAIT\ \ \ \ \ \ \ \ \ wait}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ALT\_WRITE\ \ \ \ \ \ \ \ write}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ALT\_TIMES\ \ \ \ \ \ \ \ times}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_SYSCALL\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

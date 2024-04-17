@@ -1,0 +1,118 @@
+\doxysection{barrido\+\_\+en\+\_\+f\+\_\+carga\+RC Namespace Reference}
+\hypertarget{namespacebarrido__en__f__carga_r_c}{}\label{namespacebarrido__en__f__carga_r_c}\index{barrido\_en\_f\_cargaRC@{barrido\_en\_f\_cargaRC}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a649cb40743595f889a779802637f75eb}\label{namespacebarrido__en__f__carga_r_c_a649cb40743595f889a779802637f75eb} 
+int {\bfseries R} = 1e-\/9;
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_aa9caf5b5c6922cdb4a16124820a81ff5}\label{namespacebarrido__en__f__carga_r_c_aa9caf5b5c6922cdb4a16124820a81ff5} 
+int {\bfseries fc} = 1/(2\texorpdfstring{$\ast$}{*}math.\+pi\texorpdfstring{$\ast$}{*}R\texorpdfstring{$\ast$}{*}2\texorpdfstring{$\ast$}{*}C);
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a2a7f11beeb36493555d1d3845b5e41cd}\label{namespacebarrido__en__f__carga_r_c_a2a7f11beeb36493555d1d3845b5e41cd} 
+bool {\bfseries medir\+\_\+de1soc} = False;
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_acd1b515b1a44af20ceaf5a4a927ef809}\label{namespacebarrido__en__f__carga_r_c_acd1b515b1a44af20ceaf5a4a927ef809} 
+bool {\bfseries corregir} = False;
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a5a98886030e0b4b6a8da1dbc0f6065b9}\label{namespacebarrido__en__f__carga_r_c_a5a98886030e0b4b6a8da1dbc0f6065b9} 
+int {\bfseries M} = 64
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a3e4c4ee8245dd360be240cc4952339b8}\label{namespacebarrido__en__f__carga_r_c_a3e4c4ee8245dd360be240cc4952339b8} 
+int {\bfseries N} = 128
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a6be19c8068ffb8e48598e1fc27a68f84}\label{namespacebarrido__en__f__carga_r_c_a6be19c8068ffb8e48598e1fc27a68f84} 
+str {\bfseries nombre\+\_\+archivo\+\_\+de1soc} = "{}r680c1n\+\_\+de1soc\+\_\+3.\+dat"{}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_ad6609d346382e506420c063a2b276552}\label{namespacebarrido__en__f__carga_r_c_ad6609d346382e506420c063a2b276552} 
+str {\bfseries directorio\+\_\+de1soc} = "{}../datos\+\_\+adquiridos/r680c1n"{}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_ae697fd15adf57b5576ce94bf30d94176}\label{namespacebarrido__en__f__carga_r_c_ae697fd15adf57b5576ce94bf30d94176} 
+{\bfseries file\+\_\+path\+\_\+de1s0c} = os.\+path.\+join(directorio\+\_\+de1soc,nombre\+\_\+archivo\+\_\+de1soc)
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a514d6913103fd692aabe93674e3d64c8}\label{namespacebarrido__en__f__carga_r_c_a514d6913103fd692aabe93674e3d64c8} 
+int {\bfseries f\+\_\+start} = 10;
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a4dac4e4403966db4ac5fd4f83f8d67f2}\label{namespacebarrido__en__f__carga_r_c_a4dac4e4403966db4ac5fd4f83f8d67f2} 
+str {\bfseries ip\+\_\+de1soc} = "{}192.\+168.\+1.\+102"{}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_ab873ef7aee0aa510840376b263e10293}\label{namespacebarrido__en__f__carga_r_c_ab873ef7aee0aa510840376b263e10293} 
+{\bfseries li} = \mbox{\hyperlink{classde1soc__class_1_1de1soc__handler}{de1soc\+\_\+handler}}(ip\+\_\+de1soc);
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a92cfac47fc8583397d2490089aa5bd08}\label{namespacebarrido__en__f__carga_r_c_a92cfac47fc8583397d2490089aa5bd08} 
+{\bfseries data} = li.\+barrido\+\_\+lockin(f\+\_\+start, f\+\_\+stop, step,corregir,file\+\_\+path\+\_\+de1s0c);
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a03171b9031e225e2c8670001fa803605}\label{namespacebarrido__en__f__carga_r_c_a03171b9031e225e2c8670001fa803605} 
+{\bfseries file\+\_\+path} = os.\+path.\+join(directorio\+\_\+de1soc,nombre\+\_\+archivo\+\_\+de1soc)
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a04002e41d87d1663165dbee02344d983}\label{namespacebarrido__en__f__carga_r_c_a04002e41d87d1663165dbee02344d983} 
+list {\bfseries amplitudes} = \mbox{[}$\,$\mbox{]}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a1938ee497db52740048556739a260d34}\label{namespacebarrido__en__f__carga_r_c_a1938ee497db52740048556739a260d34} 
+list {\bfseries fases} = \mbox{[}$\,$\mbox{]}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a89fdc515d8a467cac27c036dd6db8421}\label{namespacebarrido__en__f__carga_r_c_a89fdc515d8a467cac27c036dd6db8421} 
+list {\bfseries frecuencias} = \mbox{[}$\,$\mbox{]}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a523deb1353f2a68365a783fa5880b5e1}\label{namespacebarrido__en__f__carga_r_c_a523deb1353f2a68365a783fa5880b5e1} 
+bool {\bfseries medir\+\_\+sr865} = True;
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a9c501dd8385355e3e952b548969d1317}\label{namespacebarrido__en__f__carga_r_c_a9c501dd8385355e3e952b548969d1317} 
+bool {\bfseries graficar\+\_\+sr865} = True;
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_adb04f89c5a3ba35ba5f945ef7bf361f7}\label{namespacebarrido__en__f__carga_r_c_adb04f89c5a3ba35ba5f945ef7bf361f7} 
+str {\bfseries nombre\+\_\+archivo\+\_\+sr865} = "{}r680c1n\+\_\+sr865.\+dat"{}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a3da93210e514db946d4ab7c190dfd5af}\label{namespacebarrido__en__f__carga_r_c_a3da93210e514db946d4ab7c190dfd5af} 
+str {\bfseries directorio\+\_\+sr865} = "{}../datos\+\_\+adquiridos/r680c1n"{}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a61d21ff0f845a845e14b60817d9f79b7}\label{namespacebarrido__en__f__carga_r_c_a61d21ff0f845a845e14b60817d9f79b7} 
+{\bfseries file\+\_\+path\+\_\+sr865} = os.\+path.\+join(directorio\+\_\+sr865,nombre\+\_\+archivo\+\_\+sr865)
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a409d7326e802a69cfe25db9ce5c88eea}\label{namespacebarrido__en__f__carga_r_c_a409d7326e802a69cfe25db9ce5c88eea} 
+str {\bfseries ip\+\_\+sr865} = \textquotesingle{}192.\+168.\+1.\+4\textquotesingle{}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a72806548740fc15a84b8d576eff4cc00}\label{namespacebarrido__en__f__carga_r_c_a72806548740fc15a84b8d576eff4cc00} 
+{\bfseries sr865\+\_\+inst} = \mbox{\hyperlink{classsr865__functions_1_1sr865}{sr865}}(ip\+\_\+sr865)
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a70a7c3a4bba8e2204b052a5981a5e939}\label{namespacebarrido__en__f__carga_r_c_a70a7c3a4bba8e2204b052a5981a5e939} 
+int {\bfseries tension\+\_\+referencia} = 500
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a5c3732dd6d94efc4e994048ede3b6013}\label{namespacebarrido__en__f__carga_r_c_a5c3732dd6d94efc4e994048ede3b6013} 
+{\bfseries data\+\_\+sr865} = sr865\+\_\+inst.\+barrido\+\_\+en\+\_\+f(tension\+\_\+referencia, f\+\_\+start, f\+\_\+stop, step,file\+\_\+path\+\_\+sr865)
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a31034c6257e4f20ad00e51b4c255a1fd}\label{namespacebarrido__en__f__carga_r_c_a31034c6257e4f20ad00e51b4c255a1fd} 
+{\bfseries data\+\_\+teorica} = \mbox{\hyperlink{namespacefunciones_ac13e4798cf8c6e8b7dcbe7632758026a}{funciones.\+Transferencia\+Teorica\+\_\+\+RC\+\_\+ideal}}(R,C,frecuencias\mbox{[}0\mbox{]},frecuencias\mbox{[}-\/1\mbox{]},len(data))
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a26ada9a21fc045448b1d8387df95015b}\label{namespacebarrido__en__f__carga_r_c_a26ada9a21fc045448b1d8387df95015b} 
+{\bfseries fig}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a6913a7fc992075c6ba1e9cca9f87e3e2}\label{namespacebarrido__en__f__carga_r_c_a6913a7fc992075c6ba1e9cca9f87e3e2} 
+{\bfseries axs}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a6b3bb5f4c08ba8a7daecac23b7e4c0af}\label{namespacebarrido__en__f__carga_r_c_a6b3bb5f4c08ba8a7daecac23b7e4c0af} 
+{\bfseries figsize}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_ab4814635f9ec060f39f22dc05035f19b}\label{namespacebarrido__en__f__carga_r_c_ab4814635f9ec060f39f22dc05035f19b} 
+{\bfseries marker}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_ac69bbe4cb300ee6da5d21f79594d1b6a}\label{namespacebarrido__en__f__carga_r_c_ac69bbe4cb300ee6da5d21f79594d1b6a} 
+{\bfseries linestyle}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a8153201a12bab3e7f74136bc4a103c0b}\label{namespacebarrido__en__f__carga_r_c_a8153201a12bab3e7f74136bc4a103c0b} 
+{\bfseries label}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_acb1ef90b46320441e1eb9927db2d6a0e}\label{namespacebarrido__en__f__carga_r_c_acb1ef90b46320441e1eb9927db2d6a0e} 
+list {\bfseries factor\+\_\+correccion} = amplitudes\mbox{[}0\mbox{]}/data\+\_\+sr865\mbox{[}\textquotesingle{}r\textquotesingle{}\mbox{]}\mbox{[}0\mbox{]}
+\item 
+\Hypertarget{namespacebarrido__en__f__carga_r_c_a6063720685ad9ff151c5fda25c8cc667}\label{namespacebarrido__en__f__carga_r_c_a6063720685ad9ff151c5fda25c8cc667} 
+{\bfseries pi}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Created on Tue Mar  5 15:21:56 2024
+
+@author: MatiOliva
+\end{DoxyVerb}
+ 

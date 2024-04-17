@@ -23,6 +23,8 @@ ip=${9:-192.168.1.101}
 
 
 scp -r ../program/barrido_en_f root@$ip:/root/Documents/de1soc_sw/shell_scripts/
+scp -r ../program/fpga_driver root@$ip:/root/Documents/de1soc_sw/shell_scripts/
+
 
 ssh root@$ip <<EOF
 
@@ -33,3 +35,5 @@ EOF
 
 #cd ../datos_adquiridos
 scp root@$ip:/root/Documents/de1soc_sw/shell_scripts/barrido_en_f/$nombre_archivo .
+
+#read -p "Presione cualquier tecla para salir..."

@@ -21,7 +21,7 @@
 #include <string.h>
 #include <cmath>
 
-#include "FPGA_de1soc.h"
+#include "../fpga_driver/FPGA_de1soc.h"
 
 
 using namespace std;
@@ -42,27 +42,17 @@ int main(int argc, char *argv[])
 	int fuente = atoi(argv[4]);
 	int modo = atoi(argv[5]);
     string nombre_archivo_salida = argv[6];
-
-
 	
 	FPGA_de1soc fpga;
+	int f_clk = 64;	// En MHz
 
-	/// Para el DDS COMPILER ////
-		// Para generar onda sinusoidal con el DDS compiler!
-		int f_clk = 50;
-		int f_dac_deseada = 500;
-		int B = 27; // Bits del acumulador de fase
-		int delta_phase = f_dac_deseada * pow(2,B)/(f_clk*1000000);	// Parametro para el dds compiler!
-		// DDS compiler incremento de fase
-		fpga.set_parameter(delta_phase,7);
+	M = f_clk*1000000 / f;	// Ya no lo obtengo de la linea de comandos (hay que cambiar despues eso)
 	
-	std::cout << "Iniciando medidas... " << std::endl;
+	std::cout << "Iniciando configuracion.. " << std::endl;
 	
 	// Configuracion...
-		double f_real = fpga.set_clk_from_frec_and_M(f,M);
-
-		// Prender led:
-		//fpga.set_parameter(1,9);
+		fpga.set_frec_clk(f_clk);
+		double f_real = fpga.set_frec_dds_compiler(f,f_clk*1000000);
 		
 		// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
 		fpga.set_parameter(fuente,0);
@@ -73,9 +63,6 @@ int main(int argc, char *argv[])
 		// Ciclos de promediacion CALI
 		fpga.set_parameter(1,2);	// Largo filtro MA
 		fpga.set_parameter(N,3);	// Promediacion coherente
-
-		// DDS compiler incremento de fase
-		fpga.set_parameter(delta_phase,7);
 		
 		// Ciclos de promediacion LI
 		fpga.set_parameter(N,6);
@@ -84,6 +71,7 @@ int main(int argc, char *argv[])
 		fpga.set_parameter(modo,5);
 	
 	// Cálculos
+	std::cout << "Iniciando medidas... " << std::endl;
 	fpga.Reiniciar();
 	fpga.Comenzar();
 	
@@ -92,10 +80,16 @@ int main(int argc, char *argv[])
 	// Resultados
 	long long int X = fpga.leer_resultado_64_bit(0);
 	long long int Y = fpga.leer_resultado_64_bit(1);
+
+	std::cout << "X: " << X << std::endl << "Y: " << Y << std::endl;
+
+	std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
 	
 	double r, phi, x, y;
     double amplitud_ref = 32767;
-	int div = M*N;
+	//int div = M*N;
+
+	int div = fpga.get_output_auxiliar(0);
 
     x = (double)X / div;
     y = (double)Y / div;
@@ -105,6 +99,8 @@ int main(int argc, char *argv[])
 
     std::cout << "r = " << r << std::endl;
     std::cout << "phi = " << phi << std::endl;
+
+	
 	
 	// Escribo archivo de salida:
 	

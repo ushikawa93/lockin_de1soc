@@ -1,0 +1,232 @@
+\doxysection{sequencer\+\_\+auto.\+h}
+\hypertarget{hps__isw__handoff_2procesador__hps__0_2sequencer__auto_8h_source}{}\label{hps__isw__handoff_2procesador__hps__0_2sequencer__auto_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/hps\_isw\_handoff/procesador\_hps\_0/sequencer\_auto.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/hps\_isw\_handoff/procesador\_hps\_0/sequencer\_auto.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{Copyright\ (C)\ 2017\ \ Intel\ Corporation.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{SPDX-\/License-\/Identifier:\ \ \ \ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00007\ \textcolor{comment}{modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ *\ Neither\ the\ name\ of\ Intel\ Corporation\ nor\ the}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ names\ of\ its\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}\ AND}}
+\DoxyCodeLine{00018\ \textcolor{comment}{ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED}}
+\DoxyCodeLine{00019\ \textcolor{comment}{WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE}}
+\DoxyCodeLine{00020\ \textcolor{comment}{DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ ALTERA\ CORPORATION\ BE\ LIABLE\ FOR\ ANY}}
+\DoxyCodeLine{00021\ \textcolor{comment}{DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES}}
+\DoxyCodeLine{00022\ \textcolor{comment}{(INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;}}
+\DoxyCodeLine{00023\ \textcolor{comment}{LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND}}
+\DoxyCodeLine{00024\ \textcolor{comment}{ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00025\ \textcolor{comment}{(INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS}}
+\DoxyCodeLine{00026\ \textcolor{comment}{SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs1\ 0x04}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs3\ 0x06}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_bank\_0\_col\_0\_nodata\_wl\_1\ 0x1C}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_act\_1\ 0x11}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_postdata\ 0x1A}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_act\_0\ 0x10}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_des\ 0x0D}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_init\_reset\_1\_cke\_0\ 0x01}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_data\ 0x19}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_init\_reset\_0\_cke\_0\ 0x00}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_read\_bank\_0\_1\_norden\ 0x22}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_pre\_all\ 0x12}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs0\_user\ 0x02}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs0\_dll\_reset\ 0x03}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_read\_bank\_0\_0\ 0x1D}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_bank\_0\_col\_1\ 0x16}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_read\_bank\_0\_1\ 0x1F}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_bank\_1\_col\_0\ 0x15}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_bank\_1\_col\_1\ 0x17}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_bank\_0\_col\_0\ 0x14}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_read\_bank\_1\_0\ 0x1E}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs1\_mirr\ 0x0A}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_read\_bank\_1\_1\ 0x20}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_des\_odt\_1\ 0x0E}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs0\_dll\_reset\_mirr\ 0x09}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_zqcl\ 0x07}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_predata\ 0x18}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs0\_user\_mirr\ 0x08}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_ref\ 0x13}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_nop\ 0x0F}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_rdimm\ 0x23}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs2\_mirr\ 0x0B}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_write\_bank\_0\_col\_0\_nodata\ 0x1B}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_read\_en\ 0x21}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs3\_mirr\ 0x0C}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ac\_mrs2\ 0x05}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs1\ 0x10090000}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs3\ 0x100B0000}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_bank\_0\_col\_0\_nodata\_wl\_1\ 0x18980000}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_act\_1\ 0x106B0000}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_postdata\ 0x38780000}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_act\_0\ 0x10680000}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_des\ 0x30780000}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_init\_reset\_1\_cke\_0\ 0x20780000}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_data\ 0x3CF80000}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_init\_reset\_0\_cke\_0\ 0x20700000}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_read\_bank\_0\_1\_norden\ 0x10580008}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_pre\_all\ 0x10280400}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs0\_user\ 0x10080231}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs0\_dll\_reset\ 0x10080330}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_read\_bank\_0\_0\ 0x13580000}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_bank\_0\_col\_1\ 0x1C980008}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_read\_bank\_0\_1\ 0x13580008}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_bank\_1\_col\_0\ 0x1C9B0000}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_bank\_1\_col\_1\ 0x1C9B0008}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_bank\_0\_col\_0\ 0x1C980000}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_read\_bank\_1\_0\ 0x135B0000}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs1\_mirr\ 0x100A0000}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_read\_bank\_1\_1\ 0x135B0008}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_des\_odt\_1\ 0x38780000}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs0\_dll\_reset\_mirr\ 0x100802C8}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_zqcl\ 0x10380400}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_predata\ 0x38F80000}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs0\_user\_mirr\ 0x10080249}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_ref\ 0x10480000}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_nop\ 0x30780000}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_rdimm\ 0x10780000}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs2\_mirr\ 0x10090010}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_write\_bank\_0\_col\_0\_nodata\ 0x18180000}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_read\_en\ 0x33780000}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs3\_mirr\ 0x100B0000}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ac\_mrs2\ 0x100A0008}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00102\ \textcolor{comment}{Copyright\ (C)\ 2017\ \ Intel\ Corporation.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00103\ \textcolor{comment}{}}
+\DoxyCodeLine{00104\ \textcolor{comment}{SPDX-\/License-\/Identifier:\ \ \ \ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00105\ \textcolor{comment}{}}
+\DoxyCodeLine{00106\ \textcolor{comment}{Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00107\ \textcolor{comment}{modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ *\ Neither\ the\ name\ of\ Intel\ Corporation\ nor\ the}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ \ names\ of\ its\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ \ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00116\ \textcolor{comment}{}}
+\DoxyCodeLine{00117\ \textcolor{comment}{THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}\ AND}}
+\DoxyCodeLine{00118\ \textcolor{comment}{ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED}}
+\DoxyCodeLine{00119\ \textcolor{comment}{WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE}}
+\DoxyCodeLine{00120\ \textcolor{comment}{DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ ALTERA\ CORPORATION\ BE\ LIABLE\ FOR\ ANY}}
+\DoxyCodeLine{00121\ \textcolor{comment}{DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES}}
+\DoxyCodeLine{00122\ \textcolor{comment}{(INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;}}
+\DoxyCodeLine{00123\ \textcolor{comment}{LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND}}
+\DoxyCodeLine{00124\ \textcolor{comment}{ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00125\ \textcolor{comment}{(INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS}}
+\DoxyCodeLine{00126\ \textcolor{comment}{SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_READ\_B2B\_WAIT2\ 0x6B}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_BANK\_0\_WAIT\ 0x32}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_REFRESH\_ALL\ 0x14}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ZQCL\ 0x06}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_BANK\_0\_NOP\ 0x23}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_BANK\_0\_DQS\ 0x24}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ACTIVATE\_0\_AND\_1\ 0x0D}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS2\_MIRR\ 0x0A}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_INIT\_RESET\_0\_CKE\_0\ 0x6F}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_DM\_BANK\_0\_WAIT\ 0x46}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ACTIVATE\_1\ 0x0F}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS2\ 0x04}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_DM\_BANK\_0\_WL\_1\ 0x35}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS1\ 0x03}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_IDLE\_LOOP1\ 0x7B}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_GUARANTEED\_WRITE\_WAIT2\ 0x19}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS3\ 0x05}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_IDLE\_LOOP2\ 0x7A}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_GUARANTEED\_WRITE\_WAIT1\ 0x1F}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_BANK\_0\_DATA\ 0x25}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_GUARANTEED\_WRITE\_WAIT3\ 0x1D}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_RDIMM\_CMD\ 0x79}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_DM\_BANK\_0\_NOP\ 0x37}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_GUARANTEED\_WRITE\_WAIT0\ 0x1B}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_DM\_BANK\_0\_DATA\ 0x39}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_GUARANTEED\_READ\_CONT\ 0x54}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_REFRESH\_DELAY\ 0x15}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS3\_MIRR\ 0x0B}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_IDLE\ 0x00}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_READ\_B2B\ 0x59}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_DM\_BANK\_0\_DQS\ 0x38}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_GUARANTEED\_WRITE\ 0x18}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_PRECHARGE\_ALL\ 0x12}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_SGLE\_READ\ 0x7D}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS0\_USER\_MIRR\ 0x0C}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_RETURN\ 0x01}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_DM\_BANK\_0\ 0x36}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS0\_USER\ 0x07}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_GUARANTEED\_READ\ 0x4C}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS0\_DLL\_RESET\_MIRR\ 0x08}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_INIT\_RESET\_1\_CKE\_0\ 0x74}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ACTIVATE\_0\_AND\_1\_WAIT2\ 0x10}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_BANK\_0\_WL\_1\ 0x21}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS0\_DLL\_RESET\ 0x02}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_ACTIVATE\_0\_AND\_1\_WAIT1\ 0x0E}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_LFSR\_WR\_RD\_BANK\_0\ 0x22}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CLEAR\_DQS\_ENABLE\ 0x49}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_MRS1\_MIRR\ 0x09}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_READ\_B2B\_WAIT1\ 0x61}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_READ\_B2B\_WAIT2\ 0x00C680}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_BANK\_0\_WAIT\ 0x00A680}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_REFRESH\_ALL\ 0x000980}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ZQCL\ 0x008380}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_BANK\_0\_NOP\ 0x00E700}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_BANK\_0\_DQS\ 0x000C00}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ACTIVATE\_0\_AND\_1\ 0x000800}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS2\_MIRR\ 0x008580}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_INIT\_RESET\_0\_CKE\_0\ 0x000000}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_DM\_BANK\_0\_WAIT\ 0x00A680}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ACTIVATE\_1\ 0x000880}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS2\ 0x008280}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_DM\_BANK\_0\_WL\_1\ 0x00CE00}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS1\ 0x008200}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_IDLE\_LOOP1\ 0x00A680}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_GUARANTEED\_WRITE\_WAIT2\ 0x00CCE8}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS3\ 0x008300}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_IDLE\_LOOP2\ 0x008680}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_GUARANTEED\_WRITE\_WAIT1\ 0x00AC88}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_BANK\_0\_DATA\ 0x020CE0}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_GUARANTEED\_WRITE\_WAIT3\ 0x00EC88}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_RDIMM\_CMD\ 0x009180}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_DM\_BANK\_0\_NOP\ 0x00E700}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_GUARANTEED\_WRITE\_WAIT0\ 0x008CE8}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_DM\_BANK\_0\_DATA\ 0x030CE0}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_GUARANTEED\_READ\_CONT\ 0x001168}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_REFRESH\_DELAY\ 0x00A680}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS3\_MIRR\ 0x008600}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_IDLE\ 0x080000}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_READ\_B2B\ 0x040E88}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_DM\_BANK\_0\_DQS\ 0x000C00}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_GUARANTEED\_WRITE\ 0x000B68}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_PRECHARGE\_ALL\ 0x000900}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_SGLE\_READ\ 0x040F08}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS0\_USER\_MIRR\ 0x008400}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_RETURN\ 0x080680}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_DM\_BANK\_0\ 0x00CD80}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS0\_USER\ 0x008100}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_GUARANTEED\_READ\ 0x001168}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS0\_DLL\_RESET\_MIRR\ 0x008480}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_INIT\_RESET\_1\_CKE\_0\ 0x000080}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ACTIVATE\_0\_AND\_1\_WAIT2\ 0x00A680}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_BANK\_0\_WL\_1\ 0x00CE00}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS0\_DLL\_RESET\ 0x008180}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_ACTIVATE\_0\_AND\_1\_WAIT1\ 0x008680}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_LFSR\_WR\_RD\_BANK\_0\ 0x00CD80}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_CLEAR\_DQS\_ENABLE\ 0x001158}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_MRS1\_MIRR\ 0x008500}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ \_\_RW\_MGR\_CONTENT\_READ\_B2B\_WAIT1\ 0x00A680}}
+\DoxyCodeLine{00226\ }
+
+\end{DoxyCode}

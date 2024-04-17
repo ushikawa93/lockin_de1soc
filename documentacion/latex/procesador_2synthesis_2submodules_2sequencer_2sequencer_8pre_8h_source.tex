@@ -1,0 +1,654 @@
+\doxysection{sequencer.\+pre.\+h}
+\hypertarget{procesador_2synthesis_2submodules_2sequencer_2sequencer_8pre_8h_source}{}\label{procesador_2synthesis_2submodules_2sequencer_2sequencer_8pre_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/procesador/synthesis/submodules/sequencer/sequencer.pre.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/procesador/synthesis/submodules/sequencer/sequencer.pre.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_SEQUENCER\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_SEQUENCER\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ Copyright\ Altera\ Corporation\ (C)\ 2012-\/2014.\ All\ rights\ reserved}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ SPDX-\/License-\/Identifier:\ \ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ \ *\ Neither\ the\ name\ of\ Altera\ Corporation\ nor\ the}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ names\ of\ its\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}\ AND}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ ALTERA\ CORPORATION\ BE\ LIABLE\ FOR\ ANY}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ ENABLE\_ASSERT}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ ERR\_IE\_TEXT\ "{}Internal\ Error:\ Sub-\/system:\ \%s,\ File:\ \%s,\ Line:\ \%d\(\backslash\)n\%s\%s"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ err\_report\_internal\_error\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ description,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ module,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file,\ \textcolor{keywordtype}{int}\ line);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ALTERA\_INTERNAL\_ERROR(string)\ \{err\_report\_internal\_error(string,\ "{}SEQ"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ exit(-\/1);\}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ALTERA\_ASSERT(condition)\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ if\ (!(condition))\ \{\ ALTERA\_INTERNAL\_ERROR(\#condition);\ \}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ALTERA\_INFO\_ASSERT(condition,text)\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ if\ (!(condition))\ \{\ ALTERA\_INTERNAL\_ERROR(text);\ \}}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ ALTERA\_ASSERT(condition)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ ALTERA\_INFO\_ASSERT(condition,text)}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ RLDRAMII}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ RW\_MGR\_NUM\_DM\_PER\_WRITE\_GROUP\ (1)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ RW\_MGR\_NUM\_TRUE\_DM\_PER\_WRITE\_GROUP\ (1)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ RW\_MGR\_NUM\_DM\_PER\_WRITE\_GROUP\ (RW\_MGR\_MEM\_DATA\_MASK\_WIDTH\ /\ RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ RW\_MGR\_NUM\_TRUE\_DM\_PER\_WRITE\_GROUP\ (RW\_MGR\_TRUE\_MEM\_DATA\_MASK\_WIDTH\ /\ RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ RW\_MGR\_NUM\_DQS\_PER\_WRITE\_GROUP\ (RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH\ /\ RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ NUM\_RANKS\_PER\_SHADOW\_REG\ (RW\_MGR\_MEM\_NUMBER\_OF\_RANKS\ /\ NUM\_SHADOW\_REGS)}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ RW\_MGR\_RUN\_SINGLE\_GROUP\ BASE\_RW\_MGR}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ RW\_MGR\_RUN\_ALL\_GROUPS\ BASE\_RW\_MGR\ +\ 0x0400}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ HARD\_PHY}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ RW\_MGR\_DI\_BASE\ (BASE\_RW\_MGR\ +\ 0x0020)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ RW\_MGR\_DI\_BASE\ (BASE\_RW\_MGR\ +\ 0x0010)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#if\ DDR3}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ DDR3\_MR1\_ODT\_MASK\ \ 0xFFFFFD99}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ DDR3\_MR2\_ODT\_MASK\ \ 0xFFFFF9FF}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ DDR3\_AC\_MIRR\_MASK\ \ 0x020A8}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#if\ LRDIMM}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ USER\ RTT\_NOM:\ bits\ \{4,3,2\}\ of\ the\ SPD\ =\ bits\ \{9,6,2\}\ of\ the\ MR}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ LRDIMM\_SPD\_MR\_RTT\_NOM(spd\_byte)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ (\ \ \ (((spd\_byte)\ \&\ (1\ <<\ 4))\ <<\ (9-\/4))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ |\ (((spd\_byte)\ \&\ (1\ <<\ 3))\ <<\ (6-\/3))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ |\ (((spd\_byte)\ \&\ (1\ <<\ 2))\ <<\ (2-\/2)))}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ USER\ RTT\_DRV:\ bits\ \{1,0\}\ of\ the\ SPD\ =\ bits\ \{5,1\}\ of\ the\ MR}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ LRDIMM\_SPD\_MR\_RTT\_DRV(spd\_byte)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ (\ \ \ (((spd\_byte)\ \&\ (1\ <<\ 1))\ <<\ (5-\/1))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ |\ (((spd\_byte)\ \&\ (1\ <<\ 0))\ <<\ (1-\/0)))}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ USER\ RTT\_WR:\ bits\ \{7,6\}\ of\ the\ SPD\ =\ bits\ \{10,9\}\ of\ the\ MR}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ LRDIMM\_SPD\_MR\_RTT\_WR(spd\_byte)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((spd\_byte)\ \&\ (3\ <<\ 6))\ <<\ (9-\/6))}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LRDIMM}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DDR3}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_CNTR\_0\ BASE\_RW\_MGR\ +\ 0x0800}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_CNTR\_1\ BASE\_RW\_MGR\ +\ 0x0804}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_CNTR\_2\ BASE\_RW\_MGR\ +\ 0x0808}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_CNTR\_3\ BASE\_RW\_MGR\ +\ 0x080C}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_JUMP\_ADD\_0\ BASE\_RW\_MGR\ +\ 0x0C00}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_JUMP\_ADD\_1\ BASE\_RW\_MGR\ +\ 0x0C04}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_JUMP\_ADD\_2\ BASE\_RW\_MGR\ +\ 0x0C08}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOAD\_JUMP\_ADD\_3\ BASE\_RW\_MGR\ +\ 0x0C0C}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ RW\_MGR\_RESET\_READ\_DATAPATH\ BASE\_RW\_MGR\ +\ 0x1000}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ RW\_MGR\_SOFT\_RESET\ BASE\_RW\_MGR\ +\ 0x2000}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ RW\_MGR\_SET\_CS\_AND\_ODT\_MASK\ BASE\_RW\_MGR\ +\ 0x1400}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ RW\_MGR\_SET\_ACTIVE\_RANK\ BASE\_RW\_MGR\ +\ 0x2400}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ RW\_MGR\_LOOPBACK\_MODE\ BASE\_RW\_MGR\ +\ 0x0200}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ RW\_MGR\_ENABLE\_REFRESH\ BASE\_RW\_MGR\ +\ 0x3000}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ RW\_MGR\_RANK\_NONE\ 0xFF}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ RW\_MGR\_RANK\_ALL\ 0x00}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ RW\_MGR\_ODT\_MODE\_OFF\ 0}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ RW\_MGR\_ODT\_MODE\_READ\_WRITE\ 1}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ NUM\_CALIB\_REPEAT\ \ \ \ 1}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ NUM\_READ\_TESTS\ \ \ \ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ NUM\_READ\_PB\_TESTS\ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ NUM\_WRITE\_TESTS\ \ \ \ \ \ \ \ \ 15}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ NUM\_WRITE\_PB\_TESTS\ \ \ \ \ \ 31}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ PASS\_ALL\_BITS\ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ PASS\_ONE\_BIT\ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{/*\ calibration\ stages\ */}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_NIL\ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_VFIFO\ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_WLEVEL\ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_LFIFO\ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_WRITES\ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_FULLTEST\ \ \ \ \ \ 5}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_REFRESH\ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_CAL\_SKIPPED\ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_CAL\_ABORTED\ \ \ \ \ \ \ 8}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ CAL\_STAGE\_VFIFO\_AFTER\_WRITES\ \ \ \ 9}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{comment}{/*\ calibration\ substages\ */}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_NIL\ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_GUARANTEED\_READ\ \ \ \ 1}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_DQS\_EN\_PHASE\ \ \ 2}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_VFIFO\_CENTER\ \ \ 3}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_WORKING\_DELAY\ \ 1}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_LAST\_WORKING\_DELAY\ 2}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_WLEVEL\_COPY\ \ \ \ 3}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_WRITES\_CENTER\ \ 1}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_READ\_LATENCY\ \ \ 1}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ CAL\_SUBSTAGE\_REFRESH\ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ MAX\_RANKS\ \ \ \ \ \ \ \ \ \ \ (RW\_MGR\_MEM\_NUMBER\_OF\_RANKS)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ MAX\_DQS\ \ \ \ \ \ \ \ \ \ \ \ \ (RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH\ >\ RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH\ ?\ RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH\ :\ RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ MAX\_DQ\ \ \ \ \ \ \ \ \ \ \ \ \ \ (RW\_MGR\_MEM\_DATA\_WIDTH)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ MAX\_DM\ \ \ \ \ \ \ \ \ \ \ \ \ \ (RW\_MGR\_MEM\_DATA\_MASK\_WIDTH)}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{comment}{/*\ length\ of\ VFIFO,\ from\ SW\_MACROS\ */}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ VFIFO\_SIZE\ \ \ \ \ \ \ \ \ \ (READ\_VALID\_FIFO\_SIZE)}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{comment}{/*\ Memory\ for\ data\ transfer\ between\ TCL\ scripts\ and\ NIOS.}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *\ -\/\ First\ word\ is\ a\ command\ request.}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ *\ -\/\ The\ remaining\ words\ are\ part\ of\ the\ transfer.}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{comment}{/*\ Define\ the\ base\ address\ of\ each\ manager.\ */}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{comment}{/*\ MarkW:\ how\ should\ these\ base\ addresses\ be\ done\ for\ A-\/V?\ */}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ BASE\_PTR\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEQUENCER\_PTR\_MGR\_INST\_BASE}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#if\ HARD\_PHY}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ BASE\_PHY\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00088000)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ BASE\_RW\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00090000)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ BASE\_DATA\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00098000)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ BASE\_PHY\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEQUENCER\_PHY\_MGR\_INST\_BASE}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ BASE\_RW\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEQUENCER\_RW\_MGR\_INST\_BASE}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ BASE\_DATA\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEQUENCER\_DATA\_MGR\_INST\_BASE}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ BASE\_SCC\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEQUENCER\_SCC\_MGR\_INST\_BASE}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ BASE\_REG\_FILE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEQUENCER\_REG\_FILE\_INST\_BASE}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ BASE\_TIMER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEQUENCER\_TIMER\_INST\_BASE}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ BASE\_MMR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x000C0000)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ BASE\_TRK\_MGR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x000D0000)}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{comment}{/*\ Register\ file\ addresses.\ */}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ REG\_FILE\_SIGNATURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0000)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ REG\_FILE\_DEBUG\_DATA\_ADDR\ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0004)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ REG\_FILE\_CUR\_STAGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0008)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ REG\_FILE\_FOM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x000C)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ REG\_FILE\_FAILING\_STAGE\ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0010)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ REG\_FILE\_DEBUG1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0014)}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ REG\_FILE\_DEBUG2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0018)}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#if\ TRACKING\_WATCH\_TEST\ ||\ TRACKING\_ERROR\_TEST}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ REG\_FILE\_TRK\_SAMPLE\_CHECK\ \ \ (BASE\_REG\_FILE\ +\ 0x003C)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#elif\ MARGIN\_VARIATION\_TEST}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ IO\_DQS\_EN\_DELAY\_OFFSET\ \ \ \ \ \ (IORD\_32DIRECT(BASE\_REG\_FILE\ +\ 0x003C,\ 0))}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ REG\_FILE\_DTAPS\_PER\_PTAP\ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x001C)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ REG\_FILE\_TRK\_SAMPLE\_COUNT\ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0020)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ REG\_FILE\_TRK\_LONGIDLE\ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0024)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ REG\_FILE\_DELAYS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0028)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ REG\_FILE\_TRK\_RW\_MGR\_ADDR\ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x002C)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ REG\_FILE\_TRK\_READ\_DQS\_WIDTH\ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0030)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ REG\_FILE\_TRK\_RFSH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_REG\_FILE\ +\ 0x0034)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ CTRL\_CONFIG\_REG\ \ \ \ \ \ \ \ \ (BASE\_MMR\ \ \ \ \ \ +\ 0x0000)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00217\ \textcolor{comment}{/*\ Tracking\ slave\ addresses.\ */}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ TRK\_DTAPS\_PER\_PTAP\ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x0000)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ TRK\_SAMPLE\_COUNT\ \ \ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x0004)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ TRK\_LONGIDLE\ \ \ \ \ \ \ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x0008)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#define\ TRK\_DELAYS\ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x000C)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ TRK\_RW\_MGR\_ADDR\ \ \ \ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x0010)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ TRK\_READ\_DQS\_WIDTH\ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x0014)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ TRK\_RFSH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x0018)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ TRK\_STALL\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x001C)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ TRK\_V\_POINTER\ \ \ \ \ \ \ \ \ \ (BASE\_TRK\_MGR\ +\ 0x0020)}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ TRK\_STALL\_REQ\_VAL\ \ \ \ \ \ (0x1)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#define\ TRK\_STALL\_ACKED\_VAL\ \ \ \ (0x80000000\ |\ TRK\_STALL\_REQ\_VAL)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ HHP\_HPS}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{comment}{/*\ PHY\ manager\ configuration\ registers.\ */}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_PHY\_RLAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4000)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_RESET\_MEM\_STBL\ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4004)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_MUX\_SEL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4008)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CAL\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x400c)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CAL\_DEBUG\_INFO\ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4010)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_VFIFO\_RD\_EN\_OVRD\ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4014)}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#if\ CALIBRATE\_BIT\_SLIPS}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_FR\_SHIFT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4020)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#if\ MULTIPLE\_AFI\_WLAT}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_AFI\_WLAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4020\ +\ 4*RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_AFI\_WLAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4018)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_AFI\_WLAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x4018)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_AFI\_RLAT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x401c)}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CAL\_RESET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CAL\_SUCCESS\ \ \ \ \ \ \ \ \ (1)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CAL\_FAIL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (2)}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{comment}{/*\ PHY\ manager\ command\ addresses.\ */}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CMD\_INC\_VFIFO\_FR\ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0000)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CMD\_INC\_VFIFO\_HR\ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0004)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CMD\_INC\_VFIFO\_HARD\_PHY\ \ (BASE\_PHY\_MGR\ +\ 0x0004)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CMD\_FIFO\_RESET\ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0008)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CMD\_INC\_VFIFO\_FR\_HR\ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x000C)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CMD\_INC\_VFIFO\_QR\ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0010)}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{comment}{/*\ PHY\ manager\ parameters.\ */}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_MAX\_RLAT\_WIDTH\ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0000)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_MAX\_AFI\_WLAT\_WIDTH\ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0004)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_MAX\_AFI\_RLAT\_WIDTH\ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0008)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CALIB\_SKIP\_STEPS\ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x000c)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CALIB\_VFIFO\_OFFSET\ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0010)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_CALIB\_LFIFO\_OFFSET\ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0014)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_RDIMM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0018)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_MEM\_T\_WL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x001c)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#define\ PHY\_MGR\_MEM\_T\_RL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_PHY\_MGR\ +\ 0x0020)}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{comment}{/*\ Data\ Manager\ */}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_DRAM\_CFG\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0000)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_MEM\_T\_WL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0004)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_MEM\_T\_ADD\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0008)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_MEM\_T\_RL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x000C)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_MEM\_T\_RFC\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0010)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_MEM\_T\_REFI\ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0014)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_MEM\_T\_WR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0018)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_MEM\_T\_MRD\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x001C)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_COL\_WIDTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0020)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_ROW\_WIDTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0024)}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_BANK\_WIDTH\ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0028)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_CS\_WIDTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x002C)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_ITF\_WIDTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0030)}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ DATA\_MGR\_DVC\_WIDTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_DATA\_MGR\ +\ 0x0034)}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#if\ HARD\_PHY}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ \ \ \#define\ MEM\_T\_WL\_ADD\ DATA\_MGR\_MEM\_T\_WL}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ \ \ \#define\ MEM\_T\_RL\_ADD\ DATA\_MGR\_MEM\_T\_RL}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ \ \ \#define\ MEM\_T\_WL\_ADD\ PHY\_MGR\_MEM\_T\_WL}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\ \ \ \ \#define\ MEM\_T\_RL\_ADD\ PHY\_MGR\_MEM\_T\_RL}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_DELAY\_LOOPS\ \ \ \ \ \ \ \ \ \ (1\ <<\ 0)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_ALL\_BITS\_CHK\ \ \ \ \ \ \ \ \ (1\ <<\ 1)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_DELAY\_SWEEPS\ \ \ \ \ \ \ \ \ (1\ <<\ 2)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_VFIFO\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 3)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_LFIFO\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 4)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_WLEVEL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 5)}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_WRITES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 6)}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_FULL\_TEST\ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 7)}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#define\ CALIB\_SKIP\_ALL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (CALIB\_SKIP\_VFIFO\ |\ CALIB\_SKIP\_LFIFO\ |\ CALIB\_SKIP\_WLEVEL\ |\ CALIB\_SKIP\_WRITES\ |\ CALIB\_SKIP\_FULL\_TEST)}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#define\ CALIB\_IN\_RTL\_SIM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 8)}}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \textcolor{comment}{/*\ Scan\ chain\ manager\ command\ addresses\ */}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_IN\_DELAY(group,\ delay)\ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQS\_IN\_DELAY,\ (group)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_EN\_DELAY(group,\ delay)\ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQS\_EN\_DELAY,\ (group)\ <<\ 2,\ (delay)\ +\ IO\_DQS\_EN\_DELAY\_OFFSET)\ }}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_EN\_PHASE(group,\ phase)\ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQS\_EN\_PHASE,\ (group)\ <<\ 2,\ phase)\ }}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQDQS\_OUT\_PHASE(group,\ phase)\ IOWR\_32DIRECT(SCC\_MGR\_DQDQS\_OUT\_PHASE,\ (group)\ <<\ 2,\ phase)\ }}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_OCT\_OUT1\_DELAY(group,\ delay)\ \ IOWR\_32DIRECT(SCC\_MGR\_OCT\_OUT1\_DELAY,\ (group)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_OCT\_OUT2\_DELAY(group,\ delay)\ \ }}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_OCT\_OUT2\_DELAY(group,\ delay)\ \ IOWR\_32DIRECT(SCC\_MGR\_OCT\_OUT2\_DELAY,\ (group)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_BYPASS(group,\ bypass)\ \ \ \ \ }}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_BYPASS(group,\ bypass)\ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQS\_BYPASS,\ (group)\ <<\ 2,\ bypass)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQ\_OUT1\_DELAY(pin,\ delay)\ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_OUT1\_DELAY,\ (pin)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQ\_OUT2\_DELAY(pin,\ delay)\ \ \ \ \ }}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQ\_OUT2\_DELAY(pin,\ delay)\ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_OUT2\_DELAY,\ (pin)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQ\_IN\_DELAY(pin,\ delay)\ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_IN\_DELAY,\ (pin)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQ\_BYPASS(pin,\ bypass)\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQ\_BYPASS(pin,\ bypass)\ \ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQ\_BYPASS,\ (pin)\ <<\ 2,\ bypass)}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_RFIFO\_MODE(pin,\ mode)\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_RFIFO\_MODE(pin,\ mode)\ \ \ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_RFIFO\_MODE,\ (pin)\ <<\ 2,\ mode)}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_HHP\_EXTRAS(value)\ \ \ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_HHP\_GLOBALS,\ SCC\_MGR\_HHP\_EXTRAS\_OFFSET,\ value)}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_HHP\_DQSE\_MAP(value)\ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_HHP\_GLOBALS,\ SCC\_MGR\_HHP\_DQSE\_MAP\_OFFSET,\ value)}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_HHP\_EXTRAS(value)\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_HHP\_DQSE\_MAP(value)\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_IO\_OUT1\_DELAY(delay)\ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_OUT1\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS)\ <<\ 2,\ delay)}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_IO\_OUT2\_DELAY(delay)\ \ }}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_IO\_OUT2\_DELAY(delay)\ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_OUT2\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS)\ <<\ 2,\ delay)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DQS\_IO\_IN\_DELAY(delay)\ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_IN\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DM\_IO\_OUT1\_DELAY(pin,\ delay)\ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_OUT1\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2,\ delay)}}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DM\_IO\_OUT2\_DELAY(pin,\ delay)\ \ }}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DM\_IO\_OUT2\_DELAY(pin,\ delay)\ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_OUT2\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2,\ delay)}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DM\_IO\_IN\_DELAY(pin,\ delay)\ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_IO\_IN\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2,\ delay)\ }}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DM\_BYPASS(pin,\ bypass)\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#define\ WRITE\_SCC\_DM\_BYPASS(pin,\ bypass)\ \ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQ\_BYPASS,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2,\ bypass)}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_IN\_DELAY(group)\ \ \ \ IORD\_32DIRECT(SCC\_MGR\_DQS\_IN\_DELAY,\ (group)\ <<\ 2)\ }}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_EN\_DELAY(group)\ \ \ \ (IORD\_32DIRECT(SCC\_MGR\_DQS\_EN\_DELAY,\ (group)\ <<\ 2)\ -\/\ IO\_DQS\_EN\_DELAY\_OFFSET)}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_EN\_PHASE(group)\ \ \ \ IORD\_32DIRECT(SCC\_MGR\_DQS\_EN\_PHASE,\ (group)\ <<\ 2)\ }}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQDQS\_OUT\_PHASE(group)\ IORD\_32DIRECT(SCC\_MGR\_DQDQS\_OUT\_PHASE,\ (group)\ <<\ 2)\ }}
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\#define\ READ\_SCC\_OCT\_OUT1\_DELAY(group)\ \ IORD\_32DIRECT(SCC\_MGR\_OCT\_OUT1\_DELAY,\ (group\ *\ RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH\ /\ RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH)\ <<\ 2)}}
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\#define\ READ\_SCC\_OCT\_OUT2\_DELAY(group)\ \ 0}}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#define\ READ\_SCC\_OCT\_OUT2\_DELAY(group)\ \ IORD\_32DIRECT(SCC\_MGR\_OCT\_OUT2\_DELAY,\ (group\ *\ RW\_MGR\_MEM\_IF\_READ\_DQS\_WIDTH\ /\ RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH)\ <<\ 2)}}
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_BYPASS(group)\ \ \ \ \ \ 0}}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_BYPASS(group)\ \ \ \ \ \ IORD\_32DIRECT(SCC\_MGR\_DQS\_BYPASS,\ (group)\ <<\ 2)}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_BYPASS(group)\ \ \ \ \ \ 0}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_BYPASS(group)\ \ \ \ \ \ IORD\_32DIRECT(SCC\_MGR\_DQS\_BYPASS,\ (group)\ <<\ 2)}}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQ\_OUT1\_DELAY(pin)\ \ \ \ \ IORD\_32DIRECT(SCC\_MGR\_IO\_OUT1\_DELAY,\ (pin)\ <<\ 2)}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQ\_OUT2\_DELAY(pin)\ \ \ \ \ 0}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQ\_OUT2\_DELAY(pin)\ \ \ \ \ IORD\_32DIRECT(SCC\_MGR\_IO\_OUT2\_DELAY,\ (pin)\ <<\ 2)}}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQ\_IN\_DELAY(pin)\ \ \ \ \ \ \ IORD\_32DIRECT(SCC\_MGR\_IO\_IN\_DELAY,\ (pin)\ <<\ 2)}}
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQ\_BYPASS(pin)\ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQ\_BYPASS(pin)\ \ \ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQ\_BYPASS,\ (pin)\ <<\ 2)}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\#define\ READ\_SCC\_RFIFO\_MODE(pin)\ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#define\ READ\_SCC\_RFIFO\_MODE(pin)\ \ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_RFIFO\_MODE,\ (pin)\ <<\ 2)}}
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_IO\_OUT1\_DELAY()\ \ \ \ IORD\_32DIRECT(SCC\_MGR\_IO\_OUT1\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS)\ <<\ 2)}}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_IO\_OUT2\_DELAY()\ \ \ \ 0}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_IO\_OUT2\_DELAY()\ \ \ \ IORD\_32DIRECT(SCC\_MGR\_IO\_OUT2\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS)\ <<\ 2)}}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DQS\_IO\_IN\_DELAY()\ \ IORD\_32DIRECT(SCC\_MGR\_IO\_IN\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS)\ <<\ 2)\ }}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DM\_IO\_OUT1\_DELAY(pin)\ \ IORD\_32DIRECT(SCC\_MGR\_IO\_OUT1\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2)}}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DM\_IO\_OUT2\_DELAY(pin)\ \ 0}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DM\_IO\_OUT2\_DELAY(pin)\ \ IORD\_32DIRECT(SCC\_MGR\_IO\_OUT2\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2)}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DM\_IO\_IN\_DELAY(pin)\ \ \ \ IORD\_32DIRECT(SCC\_MGR\_IO\_IN\_DELAY,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2)}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DM\_BYPASS(pin)\ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#define\ READ\_SCC\_DM\_BYPASS(pin)\ \ \ \ \ \ \ \ \ IOWR\_32DIRECT(SCC\_MGR\_DQ\_BYPASS,\ (RW\_MGR\_MEM\_DQ\_PER\_WRITE\_DQS\ +\ 1\ +\ pin)\ <<\ 2)}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_GROUP\_COUNTER\ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0000)}}
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQS\_IN\_DELAY\ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0100)}}
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQS\_EN\_PHASE\ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0200)}}
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQS\_EN\_DELAY\ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0300)}}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQDQS\_OUT\_PHASE\ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0400)}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_OCT\_OUT1\_DELAY\ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0500)}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#if\ !HHP\_HPS}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_OCT\_OUT2\_DELAY\ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0600)}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_IO\_OUT1\_DELAY\ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0700)}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#if\ !HHP\_HPS}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_IO\_OUT2\_DELAY\ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0800)}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_IO\_IN\_DELAY\ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0900)}}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\#if\ !HHP\_HPS}}
+\DoxyCodeLine{00463\ \textcolor{comment}{/*\ ACV-\/specific\ commands\ */}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQS\_BYPASS\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0A00)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQ\_BYPASS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0B00)}}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_RFIFO\_MODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0C00)}}
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\#if\ HHP\_HPS}}
+\DoxyCodeLine{00470\ \textcolor{comment}{/*\ HHP-\/HPS-\/specific\ versions\ of\ some\ commands\ */}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQS\_EN\_DELAY\_GATE\ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0600)}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_IO\_OE\_DELAY\ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0800)}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_HHP\_GLOBALS\ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0A00)}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_HHP\_RFILE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0B00)}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \textcolor{comment}{/*\ HHP-\/HPS-\/specific\ values\ */}}
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_HHP\_EXTRAS\_OFFSET\ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_HHP\_DQSE\_MAP\_OFFSET\ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQS\_ENA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0E00)}}
+\DoxyCodeLine{00482\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQS\_IO\_ENA\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0E04)}}
+\DoxyCodeLine{00483\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DQ\_ENA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0E08)}}
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_DM\_ENA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0E0C)}}
+\DoxyCodeLine{00485\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_UPD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0E20)}}
+\DoxyCodeLine{00486\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_ACTIVE\_RANK\ \ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0E40)}}
+\DoxyCodeLine{00487\ \textcolor{preprocessor}{\#define\ SCC\_MGR\_AFI\_CAL\_INIT\ \ \ \ \ \ \ \ \ \ \ \ (BASE\_SCC\_MGR\ +\ 0x0D00)}}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \textcolor{comment}{//\ PHY\ Debug\ mode\ flag\ constants}}
+\DoxyCodeLine{00490\ \textcolor{preprocessor}{\#define\ PHY\_DEBUG\_IN\_DEBUG\_MODE\ 0x00000001}}
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#define\ PHY\_DEBUG\_ENABLE\_CAL\_RPT\ 0x00000002}}
+\DoxyCodeLine{00492\ \textcolor{preprocessor}{\#define\ PHY\_DEBUG\_ENABLE\_MARGIN\_RPT\ 0x00000004}}
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#define\ PHY\_DEBUG\_SWEEP\_ALL\_GROUPS\ 0x00000008}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#define\ PHY\_DEBUG\_DISABLE\_GUARANTEED\_READ\ 0x00000010}}
+\DoxyCodeLine{00495\ \textcolor{preprocessor}{\#define\ PHY\_DEBUG\_ENABLE\_NON\_DESTRUCTIVE\_CALIBRATION\ 0x00000020}}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \textcolor{comment}{//\ Init\ and\ Reset\ delay\ constants\ -\/\ Only\ use\ if\ defined\ by\ sequencer\_defines.h,}}
+\DoxyCodeLine{00498\ \textcolor{comment}{//\ otherwise,\ revert\ to\ defaults}}
+\DoxyCodeLine{00499\ \textcolor{comment}{//\ Default\ for\ Tinit\ =\ (0+1)\ *\ ((202+1)\ *\ (2\ *\ 131\ +\ 1)\ +\ 1)\ =\ 53532\ =\ 200.75us\ @\ 266MHz}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\#ifdef\ TINIT\_CNTR0\_VAL}}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TINIT\_CNTR0\_VAL\ TINIT\_CNTR0\_VAL}}
+\DoxyCodeLine{00502\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TINIT\_CNTR0\_VAL\ 0}}
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#ifdef\ TINIT\_CNTR1\_VAL}}
+\DoxyCodeLine{00507\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TINIT\_CNTR1\_VAL\ TINIT\_CNTR1\_VAL}}
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TINIT\_CNTR1\_VAL\ 202}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \textcolor{preprocessor}{\#ifdef\ TINIT\_CNTR2\_VAL}}
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TINIT\_CNTR2\_VAL\ TINIT\_CNTR2\_VAL}}
+\DoxyCodeLine{00514\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TINIT\_CNTR2\_VAL\ 131}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \textcolor{comment}{//\ Default\ for\ Treset\ =\ (2+1)\ *\ ((252+1)\ *\ (2\ *\ 131\ +\ 1)\ +\ 1)\ =\ 133563\ =\ 500.86us\ @\ 266MHz}}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#ifdef\ TRESET\_CNTR0\_VAL}}
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TRESET\_CNTR0\_VAL\ TRESET\_CNTR0\_VAL}}
+\DoxyCodeLine{00522\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TRESET\_CNTR0\_VAL\ 2}}
+\DoxyCodeLine{00524\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00526\ \textcolor{preprocessor}{\#ifdef\ TRESET\_CNTR1\_VAL}}
+\DoxyCodeLine{00527\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TRESET\_CNTR1\_VAL\ TRESET\_CNTR1\_VAL}}
+\DoxyCodeLine{00528\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TRESET\_CNTR1\_VAL\ 252}}
+\DoxyCodeLine{00530\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\#ifdef\ TRESET\_CNTR2\_VAL}}
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TRESET\_CNTR2\_VAL\ TRESET\_CNTR2\_VAL}}
+\DoxyCodeLine{00534\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00535\ \textcolor{preprocessor}{\ \ \ \#define\ SEQ\_TRESET\_CNTR2\_VAL\ 131}}
+\DoxyCodeLine{00536\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \textcolor{comment}{/*\ Bitfield\ type\ changes\ depending\ on\ protocol\ */}}
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\#if\ QDRII}}
+\DoxyCodeLine{00542\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ t\_btfld;}
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00544\ \textcolor{keyword}{typedef}\ alt\_u32\ t\_btfld;}
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \textcolor{preprocessor}{\#define\ RW\_MGR\_INST\_ROM\_WRITE\ BASE\_RW\_MGR\ +\ 0x1800}}
+\DoxyCodeLine{00548\ \textcolor{preprocessor}{\#define\ RW\_MGR\_AC\_ROM\_WRITE\ BASE\_RW\_MGR\ +\ 0x1C00}}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00550\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ alt\_u32\ inst\_rom\_init\_size;}
+\DoxyCodeLine{00551\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ alt\_u32\ inst\_rom\_init[];}
+\DoxyCodeLine{00552\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ alt\_u32\ ac\_rom\_init\_size;}
+\DoxyCodeLine{00553\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ alt\_u32\ ac\_rom\_init[];}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00557\ \textcolor{comment}{/*\ parameter\ variable\ holder\ */}}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparam__type}{param\_type}}\ \{}
+\DoxyCodeLine{00560\ \ \ \ \ t\_btfld\ dm\_correct\_mask;}
+\DoxyCodeLine{00561\ \ \ \ \ t\_btfld\ read\_correct\_mask;}
+\DoxyCodeLine{00562\ \ \ \ \ t\_btfld\ read\_correct\_mask\_vg;}
+\DoxyCodeLine{00563\ \ \ \ \ t\_btfld\ write\_correct\_mask;}
+\DoxyCodeLine{00564\ \ \ \ \ t\_btfld\ write\_correct\_mask\_vg;\ \ }
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{comment}{/*\ set\ a\ particular\ entry\ to\ 1\ if\ we\ need\ to\ skip\ a\ particular\ rank\ */}}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \ \ \ \ alt\_u32\ skip\_ranks[MAX\_RANKS];}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{comment}{/*\ set\ a\ particular\ entry\ to\ 1\ if\ we\ need\ to\ skip\ a\ particular\ group\ */}}
+\DoxyCodeLine{00571\ }
+\DoxyCodeLine{00572\ \ \ \ \ alt\_u32\ skip\_groups;}
+\DoxyCodeLine{00573\ \ \ \ \ }
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{comment}{/*\ set\ a\ particular\ entry\ to\ 1\ if\ the\ shadow\ register\ (which\ represents\ a\ set\ of\ ranks)\ needs\ to\ be\ skipped\ */}}
+\DoxyCodeLine{00575\ \ \ \ \ }
+\DoxyCodeLine{00576\ \ \ \ \ alt\_u32\ skip\_shadow\_regs[NUM\_SHADOW\_REGS];}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \}\ \mbox{\hyperlink{structparam__type}{param\_t}};}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \textcolor{comment}{/*\ global\ variable\ holder\ */}}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgbl__type}{gbl\_type}}\ \{}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \ \ \ \ alt\_u32\ phy\_debug\_mode\_flags;}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \ \ \ \ \textcolor{comment}{/*\ current\ read\ latency\ */}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \ \ \ \ alt\_u32\ curr\_read\_lat;}
+\DoxyCodeLine{00590\ \ \ \ \ }
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{comment}{/*\ current\ write\ latency\ */}}
+\DoxyCodeLine{00592\ \ \ \ \ }
+\DoxyCodeLine{00593\ \ \ \ \ alt\_u32\ curr\_write\_lat;}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{comment}{/*\ error\ code\ */}}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ \ \ \ \ alt\_u32\ error\_substage;}
+\DoxyCodeLine{00598\ \ \ \ \ alt\_u32\ error\_stage;}
+\DoxyCodeLine{00599\ \ \ \ \ alt\_u32\ error\_group;}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{comment}{/*\ figure-\/of-\/merit\ in,\ figure-\/of-\/merit\ out\ */}}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00603\ \ \ \ \ alt\_u32\ fom\_in;}
+\DoxyCodeLine{00604\ \ \ \ \ alt\_u32\ fom\_out;}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00606\ \ \ \ \ \textcolor{comment}{//USER\ Number\ of\ RW\ Mgr\ NOP\ cycles\ between\ write\ command\ and\ write\ data}}
+\DoxyCodeLine{00607\ \textcolor{preprocessor}{\#if\ MULTIPLE\_AFI\_WLAT}}
+\DoxyCodeLine{00608\ \ \ \ \ alt\_u32\ rw\_wl\_nop\_cycles\_per\_group[RW\_MGR\_MEM\_IF\_WRITE\_DQS\_WIDTH];}
+\DoxyCodeLine{00609\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00610\ \ \ \ \ alt\_u32\ rw\_wl\_nop\_cycles;}
+\DoxyCodeLine{00611\ \}\ \mbox{\hyperlink{structgbl__type}{gbl\_t}};}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \textcolor{comment}{//\ External\ global\ variables}}
+\DoxyCodeLine{00614\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structgbl__type}{gbl\_t}}\ *gbl;}
+\DoxyCodeLine{00615\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structparam__type}{param\_t}}\ *param;}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \textcolor{comment}{//\ External\ functions}}
+\DoxyCodeLine{00618\ alt\_u32\ rw\_mgr\_mem\_calibrate\_full\_test\ (alt\_u32\ min\_correct,\ t\_btfld\ *bit\_chk,\ alt\_u32\ test\_dm);}
+\DoxyCodeLine{00619\ \textcolor{preprocessor}{\#if\ ENABLE\_NON\_DES\_CAL}}
+\DoxyCodeLine{00620\ \textcolor{keyword}{extern}\ alt\_u32\ run\_mem\_calibrate\ (alt\_u32\ enable\_non\_des\_c);}
+\DoxyCodeLine{00621\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00622\ \textcolor{keyword}{extern}\ alt\_u32\ run\_mem\_calibrate\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00623\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00624\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rw\_mgr\_mem\_calibrate\_eye\_diag\_aid\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00625\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rw\_mgr\_load\_mrs\_calib\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00626\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rw\_mgr\_load\_mrs\_exec\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00627\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rw\_mgr\_mem\_initialize\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00628\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rw\_mgr\_mem\_dll\_lock\_wait(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00629\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dq\_in\_delay\ (alt\_u32\ write\_group,\ alt\_u32\ dq\_in\_group,\ alt\_u32\ delay);}
+\DoxyCodeLine{00630\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dq\_out1\_delay\ (alt\_u32\ write\_group,\ alt\_u32\ dq\_in\_group,\ alt\_u32\ delay);}
+\DoxyCodeLine{00631\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dq\_out2\_delay\ (alt\_u32\ write\_group,\ alt\_u32\ dq\_in\_group,\ alt\_u32\ delay);}
+\DoxyCodeLine{00632\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_load\_dq\ (alt\_u32\ dq\_in\_group);}
+\DoxyCodeLine{00633\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dqs\_bus\_in\_delay\ (alt\_u32\ read\_group,\ alt\_u32\ delay);}
+\DoxyCodeLine{00634\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_load\_dqs\ (alt\_u32\ dqs);}
+\DoxyCodeLine{00635\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_group\_dqs\_io\_and\_oct\_out1\_gradual\ (alt\_u32\ write\_group,\ alt\_u32\ delay);}
+\DoxyCodeLine{00636\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_group\_dqs\_io\_and\_oct\_out2\_gradual\ (alt\_u32\ write\_group,\ alt\_u32\ delay);}
+\DoxyCodeLine{00637\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dqs\_en\_delay\_all\_ranks\ (alt\_u32\ read\_group,\ alt\_u32\ delay);}
+\DoxyCodeLine{00638\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dqs\_en\_phase\_all\_ranks\ (alt\_u32\ read\_group,\ alt\_u32\ phase);}
+\DoxyCodeLine{00639\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dqdqs\_output\_phase\_all\_ranks\ (alt\_u32\ write\_group,\ alt\_u32\ phase);}
+\DoxyCodeLine{00640\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dm\_out1\_delay\ (alt\_u32\ write\_group,\ alt\_u32\ dm,\ alt\_u32\ delay);}
+\DoxyCodeLine{00641\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_set\_dm\_out2\_delay\ (alt\_u32\ write\_group,\ alt\_u32\ dm,\ alt\_u32\ delay);}
+\DoxyCodeLine{00642\ \textcolor{keyword}{extern}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scc\_mgr\_load\_dm\ (alt\_u32\ dm);}
+\DoxyCodeLine{00643\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rw\_mgr\_incr\_vfifo\_auto(alt\_u32\ grp);}
+\DoxyCodeLine{00644\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rw\_mgr\_decr\_vfifo\_auto(alt\_u32\ grp);}
+\DoxyCodeLine{00645\ \textcolor{preprocessor}{\#if\ HPS\_HW}}
+\DoxyCodeLine{00646\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ sdram\_calibration(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00647\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00648\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

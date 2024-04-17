@@ -727,7 +727,7 @@
   <parameter name="channelWidth" value="0" />
   <parameter name="deviceFamilyString" value="Cyclone V" />
   <parameter name="errorWidth" value="0" />
-  <parameter name="fifoDepth" value="2048" />
+  <parameter name="fifoDepth" value="8192" />
   <parameter name="fifoInputInterfaceOptions" value="AVALONST_SINK" />
   <parameter name="fifoOutputInterfaceOptions" value="AVALONMM_READ" />
   <parameter name="showHiddenFeatures" value="false" />
@@ -752,7 +752,7 @@
   <parameter name="channelWidth" value="0" />
   <parameter name="deviceFamilyString" value="Cyclone V" />
   <parameter name="errorWidth" value="0" />
-  <parameter name="fifoDepth" value="2048" />
+  <parameter name="fifoDepth" value="16" />
   <parameter name="fifoInputInterfaceOptions" value="AVALONST_SINK" />
   <parameter name="fifoOutputInterfaceOptions" value="AVALONMM_READ" />
   <parameter name="showHiddenFeatures" value="false" />
@@ -777,7 +777,7 @@
   <parameter name="channelWidth" value="0" />
   <parameter name="deviceFamilyString" value="Cyclone V" />
   <parameter name="errorWidth" value="0" />
-  <parameter name="fifoDepth" value="2048" />
+  <parameter name="fifoDepth" value="16" />
   <parameter name="fifoInputInterfaceOptions" value="AVALONST_SINK" />
   <parameter name="fifoOutputInterfaceOptions" value="AVALONMM_READ" />
   <parameter name="showHiddenFeatures" value="false" />
@@ -802,7 +802,7 @@
   <parameter name="channelWidth" value="0" />
   <parameter name="deviceFamilyString" value="Cyclone V" />
   <parameter name="errorWidth" value="0" />
-  <parameter name="fifoDepth" value="2048" />
+  <parameter name="fifoDepth" value="8192" />
   <parameter name="fifoInputInterfaceOptions" value="AVALONST_SINK" />
   <parameter name="fifoOutputInterfaceOptions" value="AVALONMM_READ" />
   <parameter name="showHiddenFeatures" value="false" />
@@ -827,7 +827,7 @@
   <parameter name="channelWidth" value="0" />
   <parameter name="deviceFamilyString" value="Cyclone V" />
   <parameter name="errorWidth" value="0" />
-  <parameter name="fifoDepth" value="2048" />
+  <parameter name="fifoDepth" value="16" />
   <parameter name="fifoInputInterfaceOptions" value="AVALONST_SINK" />
   <parameter name="fifoOutputInterfaceOptions" value="AVALONMM_READ" />
   <parameter name="showHiddenFeatures" value="false" />
@@ -852,7 +852,7 @@
   <parameter name="channelWidth" value="0" />
   <parameter name="deviceFamilyString" value="Cyclone V" />
   <parameter name="errorWidth" value="0" />
-  <parameter name="fifoDepth" value="2048" />
+  <parameter name="fifoDepth" value="16" />
   <parameter name="fifoInputInterfaceOptions" value="AVALONST_SINK" />
   <parameter name="fifoOutputInterfaceOptions" value="AVALONMM_READ" />
   <parameter name="showHiddenFeatures" value="false" />
@@ -1418,7 +1418,7 @@
    name="jtag_uart_0"
    kind="altera_avalon_jtag_uart"
    version="17.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
   <parameter name="clkFreq" value="50000000" />
@@ -1437,7 +1437,7 @@
    name="nios2_gen2_0"
    kind="altera_nios2_gen2"
    version="17.1"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
@@ -1924,9 +1924,9 @@
    name="program_memory"
    kind="altera_avalon_onchip_memory2"
    version="17.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">$${FILENAME}_program_memory</parameter>
+  <parameter name="autoInitializationFileName">procesador_program_memory</parameter>
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />

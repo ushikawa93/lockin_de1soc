@@ -1,0 +1,251 @@
+\doxysection{alt\+\_\+irq.\+h}
+\hypertarget{software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__irq_8h_source}{}\label{software_2signal__procesing__bsp_2_h_a_l_2inc_2sys_2alt__irq_8h_source}\index{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_irq.h@{C:/Users/MatiOliva/Documents/00-\/lockin\_de1soc/hardware/efficient\_lockin/software/signal\_procesing\_bsp/HAL/inc/sys/alt\_irq.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_ALT\_IRQ\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_ALT\_IRQ\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ License\ Agreement\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ Copyright\ (c)\ 2009\ Altera\ Corporation,\ San\ Jose,\ California,\ USA.\ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ \ \ \ \ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ \ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ \ \ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ \ \ \ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:\ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ \ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ \ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ \ \ \ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ \ \ \ \ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ DEALINGS\ IN\ THE\ SOFTWARE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ This\ agreement\ shall\ be\ governed\ in\ all\ respects\ by\ the\ laws\ of\ the\ State\ \ \ *}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ of\ California\ and\ by\ the\ laws\ of\ the\ United\ States\ of\ America.\ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ alt\_irq.h\ is\ the\ Nios\ II\ specific\ implementation\ of\ the\ interrupt\ controller\ }}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ interface.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ Nios\ II\ includes\ optional\ support\ for\ an\ external\ interrupt\ controller.\ }}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ When\ an\ external\ controller\ is\ present,\ the\ "{}Enhanced"{}\ interrupt\ API}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ must\ be\ used\ to\ manage\ individual\ interrupts.\ The\ enhanced\ API\ also}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ supports\ the\ processor's\ internal\ interrupt\ controller.\ Certain\ API}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ members\ are\ accessible\ from\ either\ the\ "{}legacy"{}\ or\ "{}enhanced"{}\ interrpt}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ API.\ }}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ Regardless\ of\ which\ API\ is\ in\ use,\ this\ file\ should\ be\ included\ by}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ application\ code\ and\ device\ drivers\ that\ register\ ISRs\ or\ manage\ interrpts.}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <errno.h>}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}nios2.h"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}alt\_types.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}system.h"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00056\ \{}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ Macros\ used\ by\ alt\_irq\_enabled}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ALT\_IRQ\_ENABLED\ \ 1}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ALT\_IRQ\_DISABLED\ 0\ \ }}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ }}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ Number\ of\ available\ interrupts\ in\ internal\ interrupt\ controller.}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ALT\_NIRQ\ NIOS2\_NIRQ}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ Used\ by\ alt\_irq\_disable\_all()\ and\ alt\_irq\_enable\_all().}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ alt\_irq\_context;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ ISR\ Prototype\ */}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#ifdef\ ALT\_ENHANCED\_INTERRUPT\_API\_PRESENT}}
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ void\ (*alt\_isr\_func)(\textcolor{keywordtype}{void}*\ isr\_context);}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{typedef}\ void\ (*alt\_isr\_func)(\textcolor{keywordtype}{void}*\ isr\_context,\ alt\_u32\ id);}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ The\ following\ protypes\ and\ routines\ are\ supported\ by\ both}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ the\ enhanced\ and\ legacy\ interrupt\ APIs}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00086\ \ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ alt\_irq\_enabled\ can\ be\ called\ to\ determine\ if\ the\ processor's\ global}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ interrupt\ enable\ is\ asserted.\ The\ return\ value\ is\ zero\ if\ interrupts\ }}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *\ are\ disabled,\ and\ non-\/zero\ otherwise.}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ Whether\ the\ internal\ or\ external\ interrupt\ controller\ is\ present,\ }}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ individual\ interrupts\ may\ still\ be\ disabled.\ Use\ the\ other\ API\ to\ query}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ a\ specific\ interrupt.\ }}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{int}\ ALT\_ALWAYS\_INLINE\ alt\_irq\_enabled\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{int}\ status;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ NIOS2\_READ\_STATUS\ (status);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordflow}{return}\ status\ \&\ NIOS2\_STATUS\_PIE\_MSK;\ }
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ alt\_irq\_disable\_all()\ }}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ This\ routine\ inhibits\ all\ interrupts\ by\ negating\ the\ status\ register\ PIE\ }}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *\ bit.\ It\ returns\ the\ previous\ contents\ of\ the\ CPU\ status\ register\ (IRQ\ }}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ *\ context)\ which\ can\ be\ used\ to\ restore\ the\ status\ register\ PIE\ bit\ to\ its\ }}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *\ state\ before\ this\ routine\ was\ called.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00113\ \textcolor{keyword}{static}\ ALT\_INLINE\ alt\_irq\_context\ ALT\_ALWAYS\_INLINE\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ alt\_irq\_disable\_all\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00115\ \{}
+\DoxyCodeLine{00116\ \ \ alt\_irq\_context\ context;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ NIOS2\_READ\_STATUS\ (context);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ NIOS2\_WRITE\_STATUS\ (context\ \&\ \string~NIOS2\_STATUS\_PIE\_MSK);}
+\DoxyCodeLine{00121\ \ \ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordflow}{return}\ context;}
+\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ alt\_irq\_enable\_all()\ }}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ Enable\ all\ interrupts\ that\ were\ previously\ disabled\ by\ alt\_irq\_disable\_all()}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *\ This\ routine\ accepts\ a\ context\ to\ restore\ the\ CPU\ status\ register\ PIE\ bit}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ to\ the\ state\ prior\ to\ a\ call\ to\ alt\_irq\_disable\_all().}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ In\ the\ case\ of\ nested\ calls\ to\ alt\_irq\_disable\_all()/alt\_irq\_enable\_all(),\ }}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ this\ means\ that\ alt\_irq\_enable\_all()\ does\ not\ necessarily\ re-\/enable}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ interrupts.}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ This\ routine\ will\ perform\ a\ read-\/modify-\/write\ sequence\ to\ restore\ only}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ status.PIE\ if\ the\ processor\ is\ configured\ with\ options\ that\ add\ additional\ }}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ writeable\ status\ register\ bits.\ These\ include\ the\ MMU,\ MPU,\ the\ enhanced\ }}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *\ interrupt\ controller\ port,\ and\ shadow\ registers.\ Otherwise,\ as\ a\ performance}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ enhancement,\ status\ is\ overwritten\ with\ the\ prior\ context.\ }}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00143\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{void}\ ALT\_ALWAYS\_INLINE\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ alt\_irq\_enable\_all\ (alt\_irq\_context\ context)}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#if\ (NIOS2\_NUM\_OF\_SHADOW\_REG\_SETS\ >\ 0)\ ||\ (defined\ NIOS2\_EIC\_PRESENT)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ \ \ (defined\ NIOS2\_MMU\_PRESENT)\ ||\ (defined\ NIOS2\_MPU\_PRESENT)}}
+\DoxyCodeLine{00148\ \ \ alt\_irq\_context\ status;}
+\DoxyCodeLine{00149\ \ \ }
+\DoxyCodeLine{00150\ \ \ NIOS2\_READ\_STATUS\ (status);}
+\DoxyCodeLine{00151\ \ \ }
+\DoxyCodeLine{00152\ \ \ status\ \&=\ \string~NIOS2\_STATUS\_PIE\_MSK;}
+\DoxyCodeLine{00153\ \ \ status\ |=\ (context\ \&\ NIOS2\_STATUS\_PIE\_MSK);}
+\DoxyCodeLine{00154\ \ \ }
+\DoxyCodeLine{00155\ \ \ NIOS2\_WRITE\_STATUS\ (status);}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00157\ \ \ NIOS2\_WRITE\_STATUS\ (context);}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ *\ The\ function\ alt\_irq\_init()\ is\ defined\ within\ the\ auto-\/generated\ file}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ *\ alt\_sys\_init.c.\ This\ function\ calls\ the\ initilization\ macros\ for\ all}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ *\ interrupt\ controllers\ in\ the\ system\ at\ config\ time,\ before\ any\ other}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ non-\/interrupt\ controller\ driver\ is\ initialized.}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ The\ "{}base"{}\ parameter\ is\ ignored\ and\ only\ present\ for\ backwards-\/compatibility.}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *\ It\ is\ recommended\ that\ NULL\ is\ passed\ in\ for\ the\ "{}base"{}\ parameter.}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00170\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ alt\_irq\_init\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ base);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ *\ alt\_irq\_cpu\_enable\_interrupts()\ enables\ the\ CPU\ to\ start\ taking\ interrupts.}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00175\ \textcolor{keyword}{static}\ ALT\_INLINE\ \textcolor{keywordtype}{void}\ ALT\_ALWAYS\_INLINE\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ alt\_irq\_cpu\_enable\_interrupts\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00177\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ NIOS2\_WRITE\_STATUS(NIOS2\_STATUS\_PIE\_MSK}
+\DoxyCodeLine{00179\ \#\textcolor{keywordflow}{if}\ defined(NIOS2\_EIC\_PRESENT)\ \&\&\ (NIOS2\_NUM\_OF\_SHADOW\_REG\_SETS\ >\ 0)}
+\DoxyCodeLine{00180\ \ \ \ \ |\ NIOS2\_STATUS\_RSIE\_MSK}
+\DoxyCodeLine{00181\ \#endif\ \ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00183\ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ *\ Prototypes\ for\ the\ enhanced\ interrupt\ API.}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#ifdef\ ALT\_ENHANCED\_INTERRUPT\_API\_PRESENT}}
+\DoxyCodeLine{00190\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ *\ alt\_ic\_isr\_register()\ can\ be\ used\ to\ register\ an\ interrupt\ handler.\ If\ the}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ *\ function\ is\ succesful,\ then\ the\ requested\ interrupt\ will\ be\ enabled\ upon\ }}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ *\ return.}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00195\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ alt\_ic\_isr\_register(alt\_u32\ ic\_id,}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_u32\ irq,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alt\_isr\_func\ isr,}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *isr\_context,}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *flags);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{comment}{/*\ }}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ *\ alt\_ic\_irq\_enable()\ and\ alt\_ic\_irq\_disable()\ enable/disable\ a\ specific\ }}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ *\ interrupt\ by\ using\ IRQ\ port\ and\ interrupt\ controller\ instance.}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{int}\ alt\_ic\_irq\_enable\ (alt\_u32\ ic\_id,\ alt\_u32\ irq);}
+\DoxyCodeLine{00206\ \textcolor{keywordtype}{int}\ alt\_ic\_irq\_disable(alt\_u32\ ic\_id,\ alt\_u32\ irq);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \textcolor{comment}{/*\ }}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ *\ alt\_ic\_irq\_enabled()\ indicates\ whether\ a\ specific\ interrupt,\ as}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ specified\ by\ IRQ\ port\ and\ interrupt\ controller\ instance\ is\ enabled.}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ */}\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00212\ alt\_u32\ alt\_ic\_irq\_enabled(alt\_u32\ ic\_id,\ alt\_u32\ irq);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#else\ }}
+\DoxyCodeLine{00215\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ *\ Prototypes\ for\ the\ legacy\ interrupt\ API.}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#include\ "{}priv/alt\_legacy\_irq.h"{}}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ *\ alt\_irq\_pending()\ returns\ a\ bit\ list\ of\ the\ current\ pending\ interrupts.}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ *\ This\ is\ used\ by\ alt\_irq\_handler()\ to\ determine\ which\ registered\ interrupt}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ *\ handlers\ should\ be\ called.}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *\ This\ routine\ is\ only\ available\ for\ the\ Nios\ II\ internal\ interrupt}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ *\ controller.}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#ifndef\ NIOS2\_EIC\_PRESENT}}
+\DoxyCodeLine{00231\ \textcolor{keyword}{static}\ ALT\_INLINE\ alt\_u32\ ALT\_ALWAYS\_INLINE\ alt\_irq\_pending\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00232\ \{}
+\DoxyCodeLine{00233\ \ \ alt\_u32\ active;}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ NIOS2\_READ\_IPENDING\ (active);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordflow}{return}\ active;}
+\DoxyCodeLine{00238\ \}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00242\ \}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ALT\_IRQ\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
