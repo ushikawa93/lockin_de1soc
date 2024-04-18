@@ -1,5 +1,5 @@
 Flow report for signal_processing_template
-Wed Apr 17 20:06:06 2024
+Thu Apr 18 18:39:25 2024
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,18 +40,18 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Wed Apr 17 20:06:06 2024       ;
+; Flow Status                     ; Successful - Thu Apr 18 18:39:25 2024       ;
 ; Quartus Prime Version           ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                   ; signal_processing_template                  ;
 ; Top-level Entity Name           ; efficient_lockin                            ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 5,660 / 32,070 ( 18 % )                     ;
-; Total registers                 ; 8401                                        ;
+; Logic utilization (in ALMs)     ; 5,681 / 32,070 ( 18 % )                     ;
+; Total registers                 ; 8490                                        ;
 ; Total pins                      ; 158 / 457 ( 35 % )                          ;
 ; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 2,623,488 / 4,065,280 ( 65 % )              ;
+; Total block memory bits         ; 2,623,884 / 4,065,280 ( 65 % )              ;
 ; Total DSP Blocks                ; 12 / 87 ( 14 % )                            ;
 ; Total HSSI RX PCSs              ; 0                                           ;
 ; Total HSSI PMA RX Deserializers ; 0                                           ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+----------------------------+
 ; Option            ; Setting                    ;
 +-------------------+----------------------------+
-; Start date & time ; 04/17/2024 19:54:32        ;
+; Start date & time ; 04/18/2024 18:27:42        ;
 ; Main task         ; Compilation                ;
 ; Revision Name     ; signal_processing_template ;
 +-------------------+----------------------------+
@@ -78,7 +78,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------+--------------------------------------------------------------------------+----------------------------+--------------------------------+----------------+
 ; Assignment Name                       ; Value                                                                    ; Default Value              ; Entity Name                    ; Section Id     ;
 +---------------------------------------+--------------------------------------------------------------------------+----------------------------+--------------------------------+----------------+
-; COMPILER_SIGNATURE_ID                 ; 85621097339.171339446816080                                              ; --                         ; --                             ; --             ;
+; COMPILER_SIGNATURE_ID                 ; 85621097339.171347565712776                                              ; --                         ; --                             ; --             ;
 ; ECO_REGENERATE_REPORT                 ; On                                                                       ; Off                        ; --                             ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                ; Verilog Hdl                                                              ; --                         ; --                             ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                   ; ModelSim-Altera (Verilog)                                                ; <None>                     ; --                             ; --             ;
@@ -164,12 +164,12 @@ refer to the applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:01:32     ; 1.5                     ; 5265 MB             ; 00:02:02                           ;
-; Fitter                    ; 00:05:40     ; 1.1                     ; 7126 MB             ; 00:10:03                           ;
-; Assembler                 ; 00:00:17     ; 1.0                     ; 5009 MB             ; 00:00:17                           ;
-; TimeQuest Timing Analyzer ; 00:01:14     ; 1.5                     ; 5805 MB             ; 00:01:37                           ;
-; EDA Netlist Writer        ; 00:00:10     ; 1.0                     ; 5105 MB             ; 00:00:10                           ;
-; Total                     ; 00:08:53     ; --                      ; --                  ; 00:14:09                           ;
+; Analysis & Synthesis      ; 00:01:43     ; 1.4                     ; 5327 MB             ; 00:02:04                           ;
+; Fitter                    ; 00:05:41     ; 1.1                     ; 7123 MB             ; 00:09:39                           ;
+; Assembler                 ; 00:00:19     ; 1.0                     ; 5006 MB             ; 00:00:18                           ;
+; TimeQuest Timing Analyzer ; 00:01:05     ; 1.5                     ; 5817 MB             ; 00:01:28                           ;
+; EDA Netlist Writer        ; 00:00:10     ; 1.0                     ; 5109 MB             ; 00:00:09                           ;
+; Total                     ; 00:08:58     ; --                      ; --                  ; 00:13:38                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

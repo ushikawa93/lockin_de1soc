@@ -17,19 +17,19 @@ plot = False
 li = de1soc_handler(ip)
 
 #frecuencias= list(range(800,1201,25))
-frecuencias=[400000]
+frecuencias=[2000000]
 
 r = []
-N = 2   #Con N=1 sigue haciendo cosas raras en CALI
+N = 10   #Con N=1 sigue haciendo cosas raras en CALI
 
 
-f_externa = 200000;
+f_externa = 500000;
 
 for f in frecuencias:
 
     li.set_f(f)
     li.set_N(N)
-    li.set_modo_procesamiento(ModoProcesamiento.CALI)
+    li.set_modo_procesamiento(ModoProcesamiento.LI)
     li.set_fuente(FuenteDatos.ADC_HS)
     
     data=li.measure_lockin(False)

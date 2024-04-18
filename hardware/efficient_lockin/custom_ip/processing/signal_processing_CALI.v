@@ -195,7 +195,7 @@ prom_coherente_pipelined_con_sync promC(
 
 // Como la promediacion coherente tiene dos etapas de pipeline se me desfasa dos ciclos la referencia_externa...
 // Con este delay lo arreglo!..
-
+/*
 reg signed [31:0] ref_sen_aux,ref_sen_con_delay,ref_cos_aux,ref_cos_con_delay;
 reg ref_valid_con_delay,ref_valid_aux;
 
@@ -212,59 +212,56 @@ begin
 	ref_valid_con_delay <= ref_valid_aux;
 
 end
-
+*/
 
 // ESTO ES UNA MEJOR FORMA DE HACER LO DE ARRIBA PERO POR AHORA NO ANDA.....
-/*
+
 
 wire signed [31:0] ref_sen_con_delay,ref_cos_con_delay;
-wire ref_valid_con_delay;
+wire ref_sen_valid_con_delay,ref_cos_valid_con_delay,ref_valid_con_delay;
 
 
 delay_axi_streaming #(
 	
-	.delay(12),
+	.delay(2),
 	.width(32)
-	
-	
-) delay_ref_sen
-(
+
+) delay_ref_sen(
 	
 	.clk(clk),
    .reset_n(reset_n),
-   .bypass_n(0),
+   .bypass(0),
 
    .data_in(referencia_externa_sen),
    .data_in_valid(referencia_externa_valid),
     
    .data_out(ref_sen_con_delay),
-   .data_out_valid(ref_valid_con_delay)	
+   .data_out_valid(ref_sen_valid_con_delay)	
 
 
 );
 
-delay_axi_streaming #(
+delay_axi_streaming#(
 	
-	.delay(12),
+	.delay(2),
 	.width(32)
-	
-	
-) delay_ref_cos
-(
+
+) delay_ref_cos(
 	
 	.clk(clk),
    .reset_n(reset_n),
-   .bypass_n(0),
+   .bypass(0),
 
    .data_in(referencia_externa_cos),
    .data_in_valid(referencia_externa_valid),
     
    .data_out(ref_cos_con_delay),
-   .data_out_valid()	
+   .data_out_valid(ref_cos_valid_con_delay)	
 
 
 );
-*/
+
+assign ref_valid_con_delay = ref_sen_valid_con_delay && ref_cos_valid_con_delay;
 
 
 //////// Entradas de LIA ///////

@@ -4,7 +4,35 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "LED[2]",
+					"name" : "LED[0]",
+					"strict" : false
+				},
+				{
+					"name" : "LED[3]",
+					"strict" : false
+				},
+				{
+					"name" : "ADC_CLK_A",
+					"strict" : false
+				},
+				{
+					"name" : "ADC_CLK_B",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_CLK_A",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_WRT_A",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_CLK_B",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_WRT_B",
 					"strict" : false
 				},
 				{
@@ -132,35 +160,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "LED[0]",
-					"strict" : false
-				},
-				{
-					"name" : "LED[3]",
-					"strict" : false
-				},
-				{
-					"name" : "ADC_CLK_A",
-					"strict" : false
-				},
-				{
-					"name" : "ADC_CLK_B",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_CLK_A",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_WRT_A",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_CLK_B",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_WRT_B",
+					"name" : "LED[2]",
 					"strict" : false
 				},
 				{

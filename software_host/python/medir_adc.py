@@ -12,7 +12,7 @@ from de1soc_class import FuenteDatos
 import matplotlib.pyplot as plt
 
 
-ip = "192.168.1.103"
+ip = "192.168.1.2"
 N_promediacion = 1;
 
 # Para generar una sinusoide:

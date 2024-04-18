@@ -474,6 +474,62 @@ dds_compiler_module #(
 );
 
 
+///////// SI USO EL ADC TENGO QUE RETRASAR LAS REFERENCIAS EXTERNAS PARA ACOMODARLAS CON EL DAC ///////
+
+wire signed [31:0] sen_dds_compiler_ca_coupled_con_delay,cos_dds_compiler_ca_coupled_con_delay;
+wire ref_sen_valid_con_delay,ref_cos_valid_con_delay,ref_valid_con_delay;
+
+
+delay_axi_streaming #(
+	
+	.delay(12),
+	.width(32)
+
+) delay_ref_sen(
+	
+	.clk(clk),
+   .reset_n(reset_n),
+   .bypass(0),
+
+   .data_in(sen_dds_compiler_ca_coupled),
+   .data_in_valid(dds_compiler_valid),
+    
+   .data_out(sen_dds_compiler_ca_coupled_con_delay),
+   .data_out_valid(ref_sen_valid_con_delay)	
+
+
+);
+
+delay_axi_streaming#(
+	
+	.delay(12),
+	.width(32)
+
+) delay_ref_cos(
+	
+	.clk(clk),
+   .reset_n(reset_n),
+   .bypass(0),
+
+   .data_in(cos_dds_compiler_ca_coupled),
+   .data_in_valid(dds_compiler_valid),
+    
+   .data_out(cos_dds_compiler_ca_coupled_con_delay),
+   .data_out_valid(ref_cos_valid_con_delay)	
+
+
+);
+
+assign ref_valid_con_delay = ref_sen_valid_con_delay && ref_cos_valid_con_delay;
+
+
+
+wire signed [31:0] referencia_sen = (fuente_procesamiento == simulacion )? sen_dds_compiler_ca_coupled : (fuente_procesamiento == adc_hs)? sen_dds_compiler_ca_coupled_con_delay : 0  ;
+wire signed [31:0] referencia_cos = (fuente_procesamiento == simulacion )? cos_dds_compiler_ca_coupled : (fuente_procesamiento == adc_hs)? cos_dds_compiler_ca_coupled_con_delay : 0  ;
+wire referencia_valid =  (fuente_procesamiento == simulacion )? dds_compiler_valid : (fuente_procesamiento == adc_hs)? ref_valid_con_delay : 0  ;
+
+
+
 ////////////////////////////////////////////////
 // ============= Interfaz de control  =============
 ////////////////////////////////////////////////
@@ -674,9 +730,9 @@ signal_processing_CALI signal_processing_CALI_inst(
 	
 	.referencia_externa(1),
 	.sync(start_referencia),
-	.referencia_externa_sen(sen_dds_compiler_ca_coupled),
-	.referencia_externa_cos(cos_dds_compiler_ca_coupled),
-	.referencia_externa_valid(dds_compiler_valid),
+	.referencia_externa_sen(referencia_sen),
+	.referencia_externa_cos(referencia_cos),
+	.referencia_externa_valid(referencia_valid),
 	
 	
 	.data_in(data_in_procesamiento),
@@ -729,9 +785,9 @@ signal_processing_LI signal_processing_LI_inst(
 	
 	.referencia_externa(1),
 	.sync(start_referencia),
-	.referencia_externa_sen(sen_dds_compiler_ca_coupled),
-	.referencia_externa_cos(cos_dds_compiler_ca_coupled),
-	.referencia_externa_valid(dds_compiler_valid),
+	.referencia_externa_sen(referencia_sen),
+	.referencia_externa_cos(referencia_cos),
+	.referencia_externa_valid(referencia_valid),
 	
 	.data_in(data_in_procesamiento),
 	.data_in_valid(data_in_procesamiento_valid),

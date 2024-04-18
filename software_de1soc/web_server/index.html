@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botón</title>
+	<link rel="stylesheet" href="mvp.css">
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+</head>
+<body>
+    
+    <header>
+        <h2>Lock-in en DE1-SoC</h2>
+        <p> <button id="BotonIniciar" onclick="ejecutar()">Iniciar calculo</button>  <button id="Boton_f">Cambiar frecuencia</button> </p>
+    </header>
+
+
+
+    <script>      
+    
+        var i = true;
+        function ejecutar()
+        {                     
+
+            var nombre = document.getElementById("BotonIniciar");
+            nombre.textContent = (i)? "Prendido": "Apagado";
+            i = !i;  
+
+        }
+
+    </script>
+
+
+</body>
+</html>
