@@ -6,6 +6,7 @@
     <title>Botón</title>
 	<link rel="stylesheet" href="mvp.css">
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     
@@ -19,6 +20,7 @@
     <script>      
     
         var i = true;
+        var serverIP = window.location.hostname; // Obtiene la dirección IP del servidor
         function ejecutar()
         {                     
 
@@ -26,7 +28,12 @@
             nombre.textContent = (i)? "Prendido": "Apagado";
             i = !i;  
 
+            $.get("http://" + serverIP + ":8080/toggle", function(data, status){
+
+            });
+
         }
+
 
     </script>
 

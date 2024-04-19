@@ -1,33 +1,31 @@
-const http = require('http');
-const exec = require('child_process').exec;
+var http = require('http');
+var fs = require('fs');
+var execFile = require('child_process').execFile;
 
+var led_state = 0;
 
-const port = 3000;
-
-const server = http.createServer((req, res) => {
-    if (req.url === '/toggle_led') {
-        // Ejecutar el programa en C++
-        exec('./var/www/html/toggle_led 1', (error, stdout, stderr) => {
-            if (error) {
-                console.error(`Error al ejecutar el programa en C++: ${error.message}`);
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('Error al ejecutar el programa en C++.');
-            } else {
-                if (stderr) {
-                    console.error(`Error de salida estándar del programa en C++: ${stderr}`);
-                }
-                console.log(`Salida estándar del programa en C++: ${stdout}`);
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end('Programa en C++ ejecutado correctamente. Node');
-            }
+// Crear servidor HTTP
+http.createServer(function (req, res) {
+    // Verificar la ruta de la solicitud
+    if (req.url === '/toggle') {
+        // Si la ruta es /toggle, ejecutar el comando para activar el LED
+        var child = execFile("/var/www/html/toggle_led", [led_state], function (error, stdout, stderr) {
+            // Manejar errores, si es necesario
+            console.log("Here is the complete output of the program: ");
+            console.log(stdout);
         });
+        led_state = (led_state==0)? 1:0;
+        // Enviar respuesta al cliente
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('LED activated\n');
     } else {
-        // Ruta no encontrada
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('Ruta no encontrada.');
+        // Si la ruta no coincide con /toggle, enviar el archivo HTML al cliente
+        fs.readFile('index.html', function(err, data) {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write(data);
+            res.end();
+        });
     }
-});
+}).listen(8080);
 
-server.listen(port, () => {
-    console.log(`Servidor web escuchando en http://localhost:${port}`);
-});
+console.log('Servidor iniciado en http://localhost:8080/');
