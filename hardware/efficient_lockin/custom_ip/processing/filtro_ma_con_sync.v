@@ -46,6 +46,7 @@ reg signed [63:0] data_in_reg;
     always @ (posedge clock) data_in_reg <= (!reset_n)? 0: $signed(data);
     
 reg data_valid_reg; always @ (posedge clock) data_valid_reg <= (!reset_n)? 0: data_valid;
+reg start_signal_reg; always @ (posedge clock) start_signal_reg <= (!reset_n)? 0: start_signal;
 
 always @ (posedge clock or negedge reset_n)
 begin
@@ -99,7 +100,7 @@ begin
         if(start_count >= 1+ignore_cycles)
             start <= 1;
         
-        if(start_signal && !finish)
+        if(start_signal_reg && !finish)
         begin
             start_count <= start_count + 1;            
             finish_1 <= (start_count == N+ignore_cycles)? 1:0;

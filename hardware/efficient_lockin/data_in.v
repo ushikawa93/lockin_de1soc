@@ -64,6 +64,7 @@ module data_in(
 	// Simulacion
 	output simulation_data_valid,
 	output [31:0] simulation_data,
+	output [31:0] noise,
 	
 	// ADC highspeed
 	output	[13:0] data_canal_a,
@@ -93,6 +94,8 @@ data_source data_sim(
 	.simulation_noise(simulation_noise_bits),
 	.ptos_x_ciclo(ptos_x_ciclo_sim),
 	.seleccion_ruido(metodo_ruido),
+	
+	.noise(noise),
 	
 	// Salida avalon streaming
 	.data_valid(simulation_data_valid),

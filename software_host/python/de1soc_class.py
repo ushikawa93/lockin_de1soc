@@ -17,7 +17,7 @@ class de1soc_handler:
         self.set_IP(ip_)
         self.set_fuente(FuenteDatos.SIM)
         self.set_modo_procesamiento(ModoProcesamiento.LI)
-        self.M = 32 #NO IMPORTA
+        self.set_sim_noise(0)
         
     def barrido_lockin(self,f_inicial,f_final,f_step,corregir,file_path):
                 
@@ -39,7 +39,7 @@ class de1soc_handler:
         
         script_path = os.path.join("..\shell_scripts", "measure_lockin.sh")
         command = (
-            f"{script_path} {self.M} {self.N} {self.f} {self.fuente.value} {self.modo.value} {file} {self.ip}"
+            f"{script_path} {self.sim_noise} {self.N} {self.f} {self.fuente.value} {self.modo.value} {file} {self.ip}"
         )
         
         self.proceso(command)
@@ -52,7 +52,7 @@ class de1soc_handler:
         
         script_path = os.path.join("..\shell_scripts", "adquirir.sh")
         command = (
-            f"{script_path} {self.M} {self.N} {self.f} {ciclos2display} {file} {self.ip}"
+            f"{script_path} {self.sim_noise} {self.N} {self.f} {ciclos2display} {file} {self.ip}"
         )
         
         de1soc_handler.proceso(command)
@@ -64,6 +64,9 @@ class de1soc_handler:
             self.ip = ip_
             return True
         return False
+    
+    def set_sim_noise(self,noise):
+        self.sim_noise = noise;
     
     def is_valid_IP(self, ip_):
         num_fields = 0
@@ -238,7 +241,7 @@ class de1soc_handler:
     def proceso(comando):
         print(f"Comando enviado a FPGA: {comando}")
         my_env = os.environ.copy()
-        my_env["HOME"] = "C:\\Users\\MatiOliva"
+        my_env["HOME"] = "C:\\Users\\mati9"
         subprocess.run(comando, shell=True,env=my_env)
 
 class FuenteDatos(Enum):

@@ -8,10 +8,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "LED[3]",
-					"strict" : false
-				},
-				{
 					"name" : "ADC_CLK_A",
 					"strict" : false
 				},
@@ -33,6 +29,26 @@
 				},
 				{
 					"name" : "DAC_WRT_B",
+					"strict" : false
+				},
+				{
+					"name" : "adc_cs_n",
+					"strict" : false
+				},
+				{
+					"name" : "adc_sclk",
+					"strict" : false
+				},
+				{
+					"name" : "adc_din",
+					"strict" : false
+				},
+				{
+					"name" : "LED[2]",
+					"strict" : false
+				},
+				{
+					"name" : "LED[3]",
 					"strict" : false
 				},
 				{
@@ -145,22 +161,6 @@
 				},
 				{
 					"name" : "DAC_DB[13]",
-					"strict" : false
-				},
-				{
-					"name" : "adc_cs_n",
-					"strict" : false
-				},
-				{
-					"name" : "adc_sclk",
-					"strict" : false
-				},
-				{
-					"name" : "adc_din",
-					"strict" : false
-				},
-				{
-					"name" : "LED[2]",
 					"strict" : false
 				},
 				{

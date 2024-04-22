@@ -22,18 +22,18 @@ nombre_archivo=${8:-datos_test.dat}
 ip=${9:-192.168.1.101}
 
 
-scp -r ../program/barrido_en_f root@$ip:/root/Documents/de1soc_sw/shell_scripts/
-scp -r ../program/fpga_driver root@$ip:/root/Documents/de1soc_sw/shell_scripts/
+scp -r ../cpp/barrido_en_f root@$ip:/root/Documents/de1soc_sw/cpp/
+scp -r ../cpp/fpga_driver root@$ip:/root/Documents/de1soc_sw/cpp/
 
 
 ssh root@$ip <<EOF
 
-	cd /root/Documents/de1soc_sw/shell_scripts/barrido_en_f/
+	cd /root/Documents/de1soc_sw/cpp/barrido_en_f/
 	make
 	./barrido_f $M $N $fuente $modo $f_inicial $f_final $f_step $nombre_archivo 
 EOF
 
 #cd ../datos_adquiridos
-scp root@$ip:/root/Documents/de1soc_sw/shell_scripts/barrido_en_f/$nombre_archivo .
+scp root@$ip:/root/Documents/de1soc_sw/cpp/barrido_en_f/$nombre_archivo .
 
 #read -p "Presione cualquier tecla para salir..."

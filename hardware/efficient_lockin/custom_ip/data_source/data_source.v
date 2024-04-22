@@ -15,6 +15,8 @@ module data_source(
 	output reg data_valid,
 	output signed [31:0] data,
 	
+	output [31:0] noise,
+
 	// Salidas auxiliares
 	output zero_cross,
 	output reg lfsr_cicled
@@ -168,6 +170,11 @@ begin
 		lfsr_cicled = !lfsr_cicled;
 end
 
+//=======================================================
+// Exporto el ruido solo tambien (me sirve para otras cosas)
+//=======================================================
 
+
+assign noise = noise_reg;
 
 endmodule

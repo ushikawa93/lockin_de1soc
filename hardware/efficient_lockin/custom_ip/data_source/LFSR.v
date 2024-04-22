@@ -34,7 +34,9 @@ module LFSR #(parameter NUM_BITS)
   reg              r_XNOR;
   
   reg [7:0] counter; initial counter = 0;
- 
+  
+   //parameter NEW_DATA_EVERY_N_CLKS = NUM_BITS; // Con esto tiene buena aleatoriedad pero falla si queremos que se actualize mas rapido
+	parameter NEW_DATA_EVERY_N_CLKS = 1;
  
   // Purpose: Load up LFSR with Seed if Data Valid (DV) pulse is detected.
   // Othewise just run LFSR when enabled.
@@ -46,13 +48,13 @@ module LFSR #(parameter NUM_BITS)
             r_LFSR <= i_Seed_Data;
           else
 			 begin
-				counter <= (counter == (NUM_BITS-1) ) ? 0 : counter + 1;
+				counter <= (counter == (NEW_DATA_EVERY_N_CLKS-1) ) ? 0 : counter + 1;
             r_LFSR <= {r_LFSR[NUM_BITS-1:1], r_XNOR};
 			 end
 		  end
     end
 	 
-	 assign o_LFSR_valid  = (counter == (NUM_BITS-1) ) ? 1:0;
+	 assign o_LFSR_valid  = (counter == (NEW_DATA_EVERY_N_CLKS-1) ) ? 1:0;
  
   // Create Feedback Polynomials.  Based on Application Note:
   // http://www.xilinx.com/support/documentation/application_notes/xapp052.pdf

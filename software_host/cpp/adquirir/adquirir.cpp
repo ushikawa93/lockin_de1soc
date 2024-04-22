@@ -6,7 +6,7 @@
 ///// ================================================================================= /////
 /*
 	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> adquirir M | N | frecuencia | ciclos2display | nombre_archivo 
+		-> adquirir sim_noise | N | frecuencia | ciclos2display | nombre_archivo 
 		
 */
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     }
 
     // Obtener los parámetros de la línea de comandos
-    int M = atoi(argv[1]);
+    int sim_noise = atoi(argv[1]);
     int N = atoi(argv[2]);
     int f = atoi(argv[3]);
 	int ciclos2display = atoi(argv[4]);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
 	int f_clk = 64;	// En MHz
 
-	M = f_clk*1000000  / f;	// Ya no lo obtengo de la linea de comandos (hay que cambiar despues eso)
+	int M = f_clk*1000000  / f;	// Ya no lo obtengo de la linea de comandos (hay que cambiar despues eso)
 	
 	std::cout << "Iniciando configuracion... " << std::endl;
 	
@@ -65,6 +65,9 @@ int main(int argc, char *argv[])
 		// Ciclos de promediacion CALI
 		fpga.set_parameter(1,2);	// Largo filtro MA
 		fpga.set_parameter(N,3);	// Promediacion coherente
+
+		// Bits de ruido para simulacion
+		fpga.set_parameter(sim_noise,4);
 		
 		// Ciclos de promediacion LI
 		fpga.set_parameter(N,6);
@@ -88,8 +91,9 @@ int main(int argc, char *argv[])
 		cerr << "Error al abrir el archivo de salida." << endl;
 		return 1;
 	}
-
 	
+	
+
 	for (int i=0;i<ciclos2display*M;i++)
     {           
 		archivo_salida << fpga.LeerFIFO32individual(1) << ",";

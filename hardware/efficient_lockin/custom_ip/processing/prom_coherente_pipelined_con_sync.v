@@ -51,6 +51,7 @@ reg data_out_valid_reg;
 
 reg signed [31:0] data_in_reg; always @ (posedge clk) data_in_reg <= (!reset_n)? 0: data_in;
 reg data_valid_reg; always @ (posedge clk) data_valid_reg <= (!reset_n)? 0: data_in_valid;
+reg sync_reg; always @ (posedge clk) sync_reg <= (!reset_n)? 0: sync;
 
 //=======================================================
 // Algoritmo principal
@@ -78,7 +79,7 @@ begin
 		if ( (data_valid_reg) )
 		begin
 		
-			if (sync)
+			if (sync_reg)
 			begin
 				start <= 1;
 				index <= 0;
@@ -153,7 +154,7 @@ begin
 	data_out_valid_n_1 <= data_in_valid;
 	
 	//sync_aux <= sync;
-	sync_out_n_1 <= sync;
+	sync_out_n_1 <= sync_reg;
 
 end
 

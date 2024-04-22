@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lockin en DE1-SoC</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+</head>
+
+<body>    
+    <header>
+        <h2>Lockin en DE1-SoC</h2>
+        <section>
+            <aside>
+                <label for="frecuencia">Frecuencia:</label>
+                <input type="text" id="frecuencia" name="frecuencia" value="100000">
+                
+                <label for="N">N:</label>
+                <input type="text" id="N" name="N" value="1">
+            </aside>
+            <aside> 
+                <label for="noise">Ruido:</label>
+                <input type="text" id="noise" name="noise" value="5">
+
+                <label for="fuente">Fuente:</label>
+                <input type="text" id="fuente" name="fuente" value="2">
+
+                <label for="modo">Modo:</label>
+                <input type="text" id="modo" name="modo" value="1">
+                
+            </aside>
+        </section>
+        <section>
+            <aside> 
+                <button id="IniciarLockin" onclick="iniciar()">Iniciar</button>
+            </aside>
+            <aside>     
+                <label id="R"></label>
+                <label id="PHI"></label>
+            </aside>       
+        </section>
+    </header>
+
+    
+
+    <script>      
+        var serverIP = window.location.hostname; // Obtiene la dirección IP del servidor
+        
+        function iniciar() {
+            // Obtener los valores de los campos de entrada
+            var noise = document.getElementById("noise").value;
+            var N = document.getElementById("N").value;
+            var frecuencia = document.getElementById("frecuencia").value;
+            var fuente = document.getElementById("fuente").value;
+            var modo = document.getElementById("modo").value;
+
+            // Enviar los valores al servidor
+            $.get("http://" + serverIP + ":8080/iniciar_lockin", {
+                noise: noise,
+                N: N,
+                frecuencia: frecuencia,
+                fuente: fuente,
+                modo: modo
+            }, function(data, status) {
+                // Manejar la respuesta del servidor
+                var amplitud_label = document.getElementById("R");
+                var fase_label = document.getElementById("PHI");
+
+                // Verificar si los datos recibidos tienen los atributos R y phi
+                if (data.hasOwnProperty("r") && data.hasOwnProperty("phi")) {
+                    // Actualizar el contenido de los elementos HTML con los valores recibidos
+                    amplitud_label.textContent = "R : " + data.r;
+                    fase_label.textContent = "PHI : " + data.phi;
+                } else {
+                    console.error("Los datos recibidos del servidor son incorrectos o faltan atributos.");
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("Error en la solicitud AJAX:", errorThrown);
+            });
+        }
+    </script>
+</body>
+</html>

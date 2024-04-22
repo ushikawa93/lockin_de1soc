@@ -18,12 +18,14 @@ N_promediacion = 1;
 # Para generar una sinusoide:
 f = 400000;
 
+
 display_ciclos = 2;
 
 li = de1soc_handler(ip);
 li.set_N(N_promediacion)
 li.set_f(f);
-li.set_fuente(FuenteDatos.SIM)
+li.set_fuente(FuenteDatos.ADC_HS)
+li.set_sim_noise(12);
 
 medidas = [valor / N_promediacion for valor in li.get_adc(display_ciclos)]
 

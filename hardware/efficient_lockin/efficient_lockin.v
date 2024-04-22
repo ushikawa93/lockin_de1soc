@@ -476,13 +476,16 @@ dds_compiler_module #(
 
 ///////// SI USO EL ADC TENGO QUE RETRASAR LAS REFERENCIAS EXTERNAS PARA ACOMODARLAS CON EL DAC ///////
 
+/*
+
 wire signed [31:0] sen_dds_compiler_ca_coupled_con_delay,cos_dds_compiler_ca_coupled_con_delay;
 wire ref_sen_valid_con_delay,ref_cos_valid_con_delay,ref_valid_con_delay;
 
 
+
 delay_axi_streaming #(
 	
-	.delay(12),
+	.delay(10),
 	.width(32)
 
 ) delay_ref_sen(
@@ -502,7 +505,7 @@ delay_axi_streaming #(
 
 delay_axi_streaming#(
 	
-	.delay(12),
+	.delay(10),
 	.width(32)
 
 ) delay_ref_cos(
@@ -527,8 +530,12 @@ assign ref_valid_con_delay = ref_sen_valid_con_delay && ref_cos_valid_con_delay;
 wire signed [31:0] referencia_sen = (fuente_procesamiento == simulacion )? sen_dds_compiler_ca_coupled : (fuente_procesamiento == adc_hs)? sen_dds_compiler_ca_coupled_con_delay : 0  ;
 wire signed [31:0] referencia_cos = (fuente_procesamiento == simulacion )? cos_dds_compiler_ca_coupled : (fuente_procesamiento == adc_hs)? cos_dds_compiler_ca_coupled_con_delay : 0  ;
 wire referencia_valid =  (fuente_procesamiento == simulacion )? dds_compiler_valid : (fuente_procesamiento == adc_hs)? ref_valid_con_delay : 0  ;
+*/
 
 
+wire signed [31:0] referencia_sen = sen_dds_compiler_ca_coupled;
+wire signed [31:0] referencia_cos = cos_dds_compiler_ca_coupled;
+wire referencia_valid = dds_compiler_valid;
 
 ////////////////////////////////////////////////
 // ============= Interfaz de control  =============
@@ -642,10 +649,10 @@ data_in data(
 	.f_muestreo_2308(1000),
 	.sel_ch_2308(0),	
 	
-	// Salida avalon streaming simulacion
-	
+	// Salida avalon streaming simulacion	
 	.simulation_data_valid(datos_simulados_old_valid),
 	.simulation_data(datos_simulados_old),
+	.noise(noise),
 	
 	// Salida avalon streaming ADC
 	.data_canal_a(data_canal_a),
@@ -699,10 +706,12 @@ data_in data(
 
 parameter dds_in_data_sim = 1;
 
+wire [31:0] noise;
+
 wire [31:0] datos_simulados_old;
 wire datos_simulados_old_valid;
 
-wire [31:0] datos_simulados = (dds_in_data_sim)? sen_dds_compiler_14b : datos_simulados_old;
+wire [31:0] datos_simulados = (dds_in_data_sim)? ( sen_dds_compiler_14b + noise ): datos_simulados_old;
 wire datos_simulados_valid = (dds_in_data_sim)? dds_compiler_valid : datos_simulados_old_valid;
 
 ///// Salidas de los ADC HS ////////
@@ -719,6 +728,13 @@ wire data_adc_2308_valid;
 // ====== Procesamiento de señal CA-LI  =========
 ////////////////////////////////////////////////
 
+//// Sincronizacion:
+// Por algun motivo para que sean iguales hay que atrasarle el sync a el lockin puro (nada muy grave...)
+
+reg sync_reg; always @ (posedge clk_custom) sync_reg <= start_referencia;
+
+wire sync_cali = start_referencia;
+wire sync_li = sync_reg;
 
 signal_processing_CALI signal_processing_CALI_inst(
 
@@ -729,7 +745,7 @@ signal_processing_CALI signal_processing_CALI_inst(
 	.bypass(0),
 	
 	.referencia_externa(1),
-	.sync(start_referencia),
+	.sync(sync_cali),
 	.referencia_externa_sen(referencia_sen),
 	.referencia_externa_cos(referencia_cos),
 	.referencia_externa_valid(referencia_valid),
@@ -784,7 +800,7 @@ signal_processing_LI signal_processing_LI_inst(
 	.bypass(0),
 	
 	.referencia_externa(1),
-	.sync(start_referencia),
+	.sync(sync_li),
 	.referencia_externa_sen(referencia_sen),
 	.referencia_externa_cos(referencia_cos),
 	.referencia_externa_valid(referencia_valid),

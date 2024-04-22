@@ -6,12 +6,12 @@
 #
 # Script para medir con el lockin en la FPGA, guardar resultados en un archivo y enviarlos de nuevo a la PC 
 
-# Uso -> measure_lockin.sh  M | N | frecuencia | fuente | modo | NOMBRE_ARCHIVO_SALIDA | ip
+# Uso -> measure_lockin.sh  sim_noise | N | frecuencia | fuente | modo | NOMBRE_ARCHIVO_SALIDA | ip
 
-# Uso del programa -> measure_lockin M | N | frecuencia | fuente | modo | NOMBRE_ARCHIVO_SALIDA 
+# Uso del programa -> measure_lockin sim_noise | N | frecuencia | fuente | modo | NOMBRE_ARCHIVO_SALIDA 
 
 
-M=${1:-32}
+sim_noise=${1:-0}
 N=${2:-1}
 frecuencia=${3:-100000}
 fuente=${4:-1}
@@ -20,18 +20,18 @@ nombre_archivo=${6:-datos_test.dat}
 ip=${7:-192.168.1.101}
 
 
-scp -r ../program/measure_lockin root@$ip:/root/Documents/de1soc_sw/shell_scripts/
-scp -r ../program/fpga_driver root@$ip:/root/Documents/de1soc_sw/shell_scripts/
+scp -r ../cpp/measure_lockin root@$ip:/root/Documents/de1soc_sw/cpp/
+scp -r ../cpp/fpga_driver root@$ip:/root/Documents/de1soc_sw/cpp/
 
 
 ssh root@$ip <<EOF
 
-	cd /root/Documents/de1soc_sw/shell_scripts/measure_lockin/
+	cd /root/Documents/de1soc_sw/cpp/measure_lockin/
 	make
-	./measure_li $M $N $frecuencia $fuente $modo $nombre_archivo 
+	./measure_li $sim_noise $N $frecuencia $fuente $modo $nombre_archivo 
 EOF
 
 cd ../datos_adquiridos
-scp root@$ip:/root/Documents/de1soc_sw/shell_scripts/measure_lockin/$nombre_archivo .
+scp root@$ip:/root/Documents/de1soc_sw/cpp/measure_lockin/$nombre_archivo .
 
 read -p "Presione cualquier tecla para salir..."

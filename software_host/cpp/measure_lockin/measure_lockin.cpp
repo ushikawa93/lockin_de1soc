@@ -6,7 +6,7 @@
 ///// ================================================================================= /////
 /*
 	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> measure_lockin M | N | frecuencia | fuente | modo | nombre_archivo 
+		-> measure_lockin  sim_noise | N | frecuencia | fuente | modo | nombre_archivo 
 		
 */
 
@@ -31,22 +31,26 @@ int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
     if (argc != 7) {
-        cerr << "Uso: measure_lockin M N frecuencia fuente modo nombre_archivo" << endl;
+        cerr << "Uso: measure_lockin sim_noise N frecuencia fuente modo nombre_archivo" << endl;
         return 1;
     }
 
     // Obtener los parámetros de la línea de comandos
-    int M = atoi(argv[1]);
+    int sim_noise = atoi(argv[1]);
     int N = atoi(argv[2]);
     int f = atoi(argv[3]);
 	int fuente = atoi(argv[4]);
 	int modo = atoi(argv[5]);
     string nombre_archivo_salida = argv[6];
+
+	bool print_adc = true;
+	int fifo2print = 1;
+	int ciclos2display = 2;
 	
 	FPGA_de1soc fpga;
 	int f_clk = 64;	// En MHz
 
-	M = f_clk*1000000 / f;	// Ya no lo obtengo de la linea de comandos (hay que cambiar despues eso)
+	int M = f_clk*1000000 / f;	// Ya no lo obtengo de la linea de comandos (de hecho no cumple ningun rol)
 	
 	std::cout << "Iniciando configuracion.. " << std::endl;
 	
@@ -63,12 +67,15 @@ int main(int argc, char *argv[])
 		// Ciclos de promediacion CALI
 		fpga.set_parameter(1,2);	// Largo filtro MA
 		fpga.set_parameter(N,3);	// Promediacion coherente
+
+		// Ruido en simulacion
+		fpga.set_parameter(sim_noise,4);
 		
 		// Ciclos de promediacion LI
 		fpga.set_parameter(N,6);
 		
 		// Modo de procesamiento --> { CALI = 0, LI = 1 };
-		fpga.set_parameter(modo,5);
+		fpga.set_parameter(1,5);
 	
 	// Cálculos
 	std::cout << "Iniciando medidas... " << std::endl;
@@ -76,7 +83,7 @@ int main(int argc, char *argv[])
 	fpga.Comenzar();
 	
 	
-	std::cout << "Resultados: " << std::endl;
+	std::cout << "\nResultados LI: " << std::endl;
 	// Resultados
 	long long int X = fpga.leer_resultado_64_bit(0);
 	long long int Y = fpga.leer_resultado_64_bit(1);
@@ -99,6 +106,28 @@ int main(int argc, char *argv[])
 
     std::cout << "r = " << r << std::endl;
     std::cout << "phi = " << phi << std::endl;
+
+			fpga.set_parameter(0,5);
+			/////// REPTIO PARA CALI ///// (despues borrar!)
+			std::cout << "\nResultados CALI: " << std::endl;
+			// Resultados
+			X = fpga.leer_resultado_64_bit(0);
+			Y = fpga.leer_resultado_64_bit(1);
+
+			std::cout << "X: " << X << std::endl << "Y: " << Y << std::endl;
+
+			std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
+			
+			div = fpga.get_output_auxiliar(0);
+
+			x = (double)X / div;
+			y = (double)Y / div;
+			
+			r = sqrt(pow(x, 2) + pow(y, 2)) * 2 / amplitud_ref;
+			phi = atan2(y, x) * 180 / 3.1415;
+
+			std::cout << "r = " << r << std::endl;
+			std::cout << "phi = " << phi << std::endl;
 
 	
 	
@@ -123,6 +152,29 @@ int main(int argc, char *argv[])
 
 		// Cierra el archivo de salida
 		archivo_salida.close();
+
+
+	// Adicionalmente escribo los contenidos del ADC...
+	if(print_adc)
+	{
+		string nombre = "datos_adc.dat";
+
+		// Abre el archivo de salida para escritura
+		ofstream archivo_salida(nombre);
+		if (!archivo_salida.is_open()) {
+			cerr << "Error al abrir el archivo de salida." << endl;
+			return 1;
+		}		
+
+		for (int i=0;i<ciclos2display*M;i++)
+		{           
+			archivo_salida << fpga.LeerFIFO32individual(fifo2print) << ",";
+		}     
+		
+		// Cierra el archivo de salida
+		archivo_salida.close();
+	}
+	
 
     return 0;
 }
