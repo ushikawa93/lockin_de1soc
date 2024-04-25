@@ -6,31 +6,42 @@
     <title>Lockin en DE1-SoC</title>
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
 
 <body>    
     <header>
         <h2>Lockin en DE1-SoC</h2>
-        <section>
+        <section>            
+            <aside> 
+
+                <label for="fuente">Fuente:</label>
+                <select id="fuente" name="fuente" onchange="habilitarSetRuido()">
+                    <option value="1" selected> ADC </option>
+                    <option value="2">Simulación interna </option>
+                </select>
+              
+
+                <label for="modo">Tipo de procesamiento:</label>
+                <select id="modo" name="modo">
+                    <option value="0" selected> CALI </option>
+                    <option value="1"> LI</option>
+                </select>
+
+
+                <label for="noise">Ruido [bits]:</label>
+                <input type="text" id="noise" name="noise" value="5">
+                
+            </aside>
             <aside>
-                <label for="frecuencia">Frecuencia:</label>
+                <label for="frecuencia"> Frecuencia [Hz]:</label>
                 <input type="text" id="frecuencia" name="frecuencia" value="100000">
                 
                 <label for="N">N:</label>
                 <input type="text" id="N" name="N" value="1">
             </aside>
-            <aside> 
-                <label for="noise">Ruido:</label>
-                <input type="text" id="noise" name="noise" value="5">
 
-                <label for="fuente">Fuente:</label>
-                <input type="text" id="fuente" name="fuente" value="2">
-
-                <label for="modo">Modo:</label>
-                <input type="text" id="modo" name="modo" value="1">
-                
-            </aside>
         </section>
         <section>
             <aside> 
@@ -42,11 +53,16 @@
             </aside>       
         </section>
     </header>
+    <main>
+        <canvas id="myChart"></canvas>
+        <script src="script.js"></script> <!-- Aquí irá tu script de JavaScript -->
+    </main>
 
     
 
     <script>      
         var serverIP = window.location.hostname; // Obtiene la dirección IP del servidor
+        habilitarSetRuido();
         
         function iniciar() {
             // Obtener los valores de los campos de entrada
@@ -80,6 +96,95 @@
                 console.error("Error en la solicitud AJAX:", errorThrown);
             });
         }
+
+        function habilitarSetRuido() {
+            var fuenteSelect = document.getElementById("fuente");
+            var noiseInput = document.getElementById("noise");
+
+            if (fuenteSelect.value === "2") {  // Si la opción seleccionada es "Simulación interna en FPGA"
+            noiseInput.disabled = false;     // Habilitar el campo "noise"
+            } else {
+            noiseInput.disabled = true;      // Deshabilitar el campo "noise" para otras opciones
+            }
+        }
+
+
+         
+
+
+        ////////////////////// TEST PARA GRAFICAR COSAS ////////////////////
+
+        document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [], // Aquí irán las etiquetas de tiempo (si es necesario)
+                datasets: [{
+                    label: 'Señal 1',
+                    data: [], // Aquí irán los datos de la señal 1
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 1
+                }, {
+                    label: 'Señal 2',
+                    data: [], // Aquí irán los datos de la señal 2
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Función para actualizar el gráfico
+        function updateChart() {
+        // Aquí realizarías una llamada AJAX para obtener los nuevos datos
+        // y luego actualizarías el gráfico con esos datos
+        // Por ahora, simplemente generaremos datos aleatorios
+
+        var newData1 = Math.random() * 10;
+        var newData2 = Math.random() * 10;
+
+        // Limpiar las etiquetas para evitar que el gráfico se llene de etiquetas
+        if (chart.data.datasets[0].data.length > 10) {
+            chart.data.datasets[0].data.shift(); // Elimina la muestra más antigua de la señal 1
+            chart.data.datasets[1].data.shift(); // Elimina la muestra más antigua de la señal 2
+        }
+
+        // Agregar nuevos datos al gráfico
+        chart.data.datasets[0].data.push(newData1);
+        chart.data.datasets[1].data.push(newData2);
+
+        // Limpiar las etiquetas para evitar que el gráfico se llene de etiquetas
+        if (chart.data.labels.length > 10) {
+            chart.data.labels.shift();
+        }
+
+        // Agregar nueva etiqueta de tiempo (si es necesario)
+        var currentTime = new Date();
+        var timeLabel = currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds();
+        chart.data.labels.push(timeLabel);
+
+        // Actualizar el gráfico
+        chart.update();
+
+        // Llamar a esta función nuevamente en 1 segundo
+        setTimeout(updateChart, 1000);
+    }
+
+    // Iniciar la actualización del gráfico
+    updateChart();
+    });
+
     </script>
 </body>
 </html>

@@ -146,9 +146,14 @@ wire [15:0] M = parameter_0_reg;
 wire [15:0] N_ma = parameter_1_reg;
 wire [15:0] N_ca = parameter_2_reg;
 
+
+
 ////////////////////////////////////////////////
 // =========== Promediacion coherente  =============
 ////////////////////////////////////////////////
+
+wire bypass_ca = (N_ca == 1);
+
 
 //////// Entradas de promC ///////
 wire data_in_promC_valid;
@@ -174,6 +179,7 @@ prom_coherente_pipelined_con_sync promC(
 	.frames_prom_coherente(N_ca),
 	
 	.sync(sync),
+	.bypass(bypass_ca),
 	
 	// Entrada avalon streaming
 	.data_in_valid(data_in_promC_valid),
@@ -195,27 +201,6 @@ prom_coherente_pipelined_con_sync promC(
 
 // Como la promediacion coherente tiene dos etapas de pipeline se me desfasa dos ciclos la referencia_externa...
 // Con este delay lo arreglo!..
-/*
-reg signed [31:0] ref_sen_aux,ref_sen_con_delay,ref_cos_aux,ref_cos_con_delay;
-reg ref_valid_con_delay,ref_valid_aux;
-
-always @ (posedge clk)
-begin
-
-	ref_sen_aux <= referencia_externa_sen;
-	ref_sen_con_delay <= ref_sen_aux;
-		
-	ref_cos_aux <= referencia_externa_cos;
-	ref_cos_con_delay <= ref_cos_aux;
-	
-	ref_valid_aux <= referencia_externa_valid;
-	ref_valid_con_delay <= ref_valid_aux;
-
-end
-*/
-
-// ESTO ES UNA MEJOR FORMA DE HACER LO DE ARRIBA PERO POR AHORA NO ANDA.....
-
 
 wire signed [31:0] ref_sen_con_delay,ref_cos_con_delay;
 wire ref_sen_valid_con_delay,ref_cos_valid_con_delay,ref_valid_con_delay;
@@ -230,7 +215,7 @@ delay_axi_streaming #(
 	
 	.clk(clk),
    .reset_n(reset_n),
-   .bypass(0),
+   .bypass(bypass_ca),
 
    .data_in(referencia_externa_sen),
    .data_in_valid(referencia_externa_valid),
@@ -250,7 +235,7 @@ delay_axi_streaming#(
 	
 	.clk(clk),
    .reset_n(reset_n),
-   .bypass(0),
+   .bypass(bypass_ca),
 
    .data_in(referencia_externa_cos),
    .data_in_valid(referencia_externa_valid),

@@ -17,6 +17,7 @@ frecuencia=${3:-100000}
 ciclos2display=${4:-4}
 nombre_archivo=${5:-datos_test.dat}
 ip=${6:-192.168.1.101}
+fifo2read=${7:-0}
 
 
 scp -r ../cpp/adquirir root@$ip:/root/Documents/de1soc_sw/cpp/
@@ -27,7 +28,7 @@ ssh root@$ip <<EOF
 
 	cd /root/Documents/de1soc_sw/cpp/adquirir/
 	make
-	./adquirir $sim_noise $N $frecuencia $ciclos2display $nombre_archivo
+	./adquirir $sim_noise $N $frecuencia $ciclos2display $nombre_archivo $fifo2read
 EOF
 
 cd ../datos_adquiridos

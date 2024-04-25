@@ -20,8 +20,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <cmath>
-
 #include "../fpga_driver/FPGA_de1soc.h"
+
 
 
 using namespace std;
@@ -41,140 +41,102 @@ int main(int argc, char *argv[])
     int f = atoi(argv[3]);
 	int fuente = atoi(argv[4]);
 	int modo = atoi(argv[5]);
+	bool Covertir2volt = true;
     string nombre_archivo_salida = argv[6];
-
-	bool print_adc = true;
-	int fifo2print = 1;
-	int ciclos2display = 2;
 	
 	FPGA_de1soc fpga;
 	int f_clk = 64;	// En MHz
-
-	int M = f_clk*1000000 / f;	// Ya no lo obtengo de la linea de comandos (de hecho no cumple ningun rol)
+	int M = f_clk*1000000 / f;	// Ya no cumple muchas funciones...
 	
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	/////////////////// =============== Configuracion  ==============/////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+
 	std::cout << "Iniciando configuracion.. " << std::endl;
+	fpga.set_frec_clk(f_clk);
+	double f_real = fpga.set_frec_dds_compiler(f,f_clk*1000000);
 	
-	// Configuracion...
-		fpga.set_frec_clk(f_clk);
-		double f_real = fpga.set_frec_dds_compiler(f,f_clk*1000000);
+	// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
+	fpga.set_parameter(fuente,0);
 		
-		// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
-		fpga.set_parameter(fuente,0);
-			
-		// Puntos por ciclo	
-		fpga.set_parameter(M,1);
-		
-		// Ciclos de promediacion CALI
-		fpga.set_parameter(1,2);	// Largo filtro MA
-		fpga.set_parameter(N,3);	// Promediacion coherente
+	// Puntos por ciclo	
+	fpga.set_parameter(M,1);
+	
+	// Ciclos de promediacion CALI
+	fpga.set_parameter(1,2);	// Largo filtro MA
+	fpga.set_parameter(N,3);	// Promediacion coherente
 
-		// Ruido en simulacion
-		fpga.set_parameter(sim_noise,4);
+	// Ruido en simulacion
+	fpga.set_parameter(sim_noise,4);
 		
-		// Ciclos de promediacion LI
-		fpga.set_parameter(N,6);
+	// Ciclos de promediacion LI
+	fpga.set_parameter(N,6);
 		
-		// Modo de procesamiento --> { CALI = 0, LI = 1 };
-		fpga.set_parameter(1,5);
+	// Modo de procesamiento --> { CALI = 0, LI = 1 };
+	fpga.set_parameter(1,5);
 	
-	// Cálculos
+	//////////////////////////////////////////////////////////////////////////////////
+	/////////////////// ================== Calculos  ================/////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+
+
 	std::cout << "Iniciando medidas... " << std::endl;
 	fpga.Reiniciar();
 	fpga.Comenzar();
-	
-	
+		
+	/////// Resultados LI /////
 	std::cout << "\nResultados LI: " << std::endl;
-	// Resultados
-	long long int X = fpga.leer_resultado_64_bit(0);
-	long long int Y = fpga.leer_resultado_64_bit(1);
 
-	std::cout << "X: " << X << std::endl << "Y: " << Y << std::endl;
+	long long int X_li = fpga.leer_resultado_64_bit(0);
+	long long int Y_li = fpga.leer_resultado_64_bit(1);
+	int div_li = fpga.get_output_auxiliar(0);
 
+	std::cout << "X: " << X_li << std::endl << "Y: " << Y_li << std::endl;
 	std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
+
+	FPGA_de1soc::resultados results_li = FPGA_de1soc::get_resultados_from_xy (X_li,Y_li,div_li,Covertir2volt);
+
+	std::cout << "r = " << results_li.r << std::endl;
+	std::cout << "phi = " << results_li.phi << std::endl;
+
+
+	/////// Resultados CALI /////
+	fpga.set_parameter(0,5);
+	std::cout << "\nResultados CALI: " << std::endl;
 	
-	double r, phi, x, y;
-    double amplitud_ref = 32767;
-	//int div = M*N;
+	long long int X_cali = fpga.leer_resultado_64_bit(0);
+	long long int Y_cali = fpga.leer_resultado_64_bit(1);
+	int div_cali = fpga.get_output_auxiliar(0);
 
-	int div = fpga.get_output_auxiliar(0);
+	std::cout << "X: " << X_cali << std::endl << "Y: " << Y_cali << std::endl;
+	std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
 
-    x = (double)X / div;
-    y = (double)Y / div;
-	
-	r = sqrt(pow(x, 2) + pow(y, 2)) * 2 / amplitud_ref;
-    phi = atan2(y, x) * 180 / 3.1415;
+	FPGA_de1soc::resultados results_cali = FPGA_de1soc::get_resultados_from_xy (X_cali,Y_cali,div_cali,Covertir2volt);
 
-    std::cout << "r = " << r << std::endl;
-    std::cout << "phi = " << phi << std::endl;
-
-			fpga.set_parameter(0,5);
-			/////// REPTIO PARA CALI ///// (despues borrar!)
-			std::cout << "\nResultados CALI: " << std::endl;
-			// Resultados
-			X = fpga.leer_resultado_64_bit(0);
-			Y = fpga.leer_resultado_64_bit(1);
-
-			std::cout << "X: " << X << std::endl << "Y: " << Y << std::endl;
-
-			std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
-			
-			div = fpga.get_output_auxiliar(0);
-
-			x = (double)X / div;
-			y = (double)Y / div;
-			
-			r = sqrt(pow(x, 2) + pow(y, 2)) * 2 / amplitud_ref;
-			phi = atan2(y, x) * 180 / 3.1415;
-
-			std::cout << "r = " << r << std::endl;
-			std::cout << "phi = " << phi << std::endl;
-
+	std::cout << "r = " << results_cali.r << std::endl;
+	std::cout << "phi = " << results_cali.phi << std::endl;
 	
 	
-	// Escribo archivo de salida:
-	
-		// Abre el archivo de salida para escritura
-		ofstream archivo_salida(nombre_archivo_salida);
-		if (!archivo_salida.is_open()) {
-			cerr << "Error al abrir el archivo de salida." << endl;
-			return 1;
-		}
-
-		// Escribe los valores de r y phi en el archivo de salida
-		archivo_salida << "f = " << f_real << endl;
-		archivo_salida << "M = " << M << endl;
-		archivo_salida << "N = " << N << endl << endl;
-		
-		archivo_salida << "x = " << x << endl;
-		archivo_salida << "y = " << y << endl;
-		archivo_salida << "r = " << r << endl;
-		archivo_salida << "phi = " << phi << endl;
-
-		// Cierra el archivo de salida
-		archivo_salida.close();
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////// =============== Archivo salida  ===============/////////////////
+	////////////////////////////////////////////////////////////////////////////////////
 
 
-	// Adicionalmente escribo los contenidos del ADC...
-	if(print_adc)
-	{
-		string nombre = "datos_adc.dat";
-
-		// Abre el archivo de salida para escritura
-		ofstream archivo_salida(nombre);
-		if (!archivo_salida.is_open()) {
-			cerr << "Error al abrir el archivo de salida." << endl;
-			return 1;
-		}		
-
-		for (int i=0;i<ciclos2display*M;i++)
-		{           
-			archivo_salida << fpga.LeerFIFO32individual(fifo2print) << ",";
-		}     
-		
-		// Cierra el archivo de salida
-		archivo_salida.close();
+	ofstream archivo_salida(nombre_archivo_salida);
+	if (!archivo_salida.is_open()) {
+		cerr << "Error al abrir el archivo de salida." << endl;
+		return 1;
 	}
+
+	FPGA_de1soc::resultados results = (modo == 0)? results_cali : results_li;
 	
+	// Escribe los valores de r y phi en el archivo de salida
+	archivo_salida << "f = " << f_real << endl << "M = " << M << endl << "N = " << N << endl << endl;	
+	archivo_salida << "x = " << results.x << endl << "y = " << results.y << endl << "r = " << results.r << endl << "phi = " << results.phi << endl;
+
+	// Cierra el archivo de salida
+	archivo_salida.close();
 
     return 0;
 }

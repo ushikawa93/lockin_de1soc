@@ -46,13 +46,13 @@ class de1soc_handler:
         file_path = os.path.join("..\datos_adquiridos",file)
         return self.leer_archivo_lockin(file_path,corregir);
     
-    def get_adc(self,ciclos2display):
+    def get_adc(self,ciclos2display,fifo2read):
         
         file = "datos_adc.dat"        
         
         script_path = os.path.join("..\shell_scripts", "adquirir.sh")
         command = (
-            f"{script_path} {self.sim_noise} {self.N} {self.f} {ciclos2display} {file} {self.ip}"
+            f"{script_path} {self.sim_noise} {self.N} {self.f} {ciclos2display} {file} {self.ip} {fifo2read}"
         )
         
         de1soc_handler.proceso(command)
@@ -241,7 +241,7 @@ class de1soc_handler:
     def proceso(comando):
         print(f"Comando enviado a FPGA: {comando}")
         my_env = os.environ.copy()
-        my_env["HOME"] = "C:\\Users\\mati9"
+        my_env["HOME"] = "C:\\Users\\MatiOliva"
         subprocess.run(comando, shell=True,env=my_env)
 
 class FuenteDatos(Enum):

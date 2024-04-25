@@ -9,6 +9,9 @@
 #include <cstdlib>
 #include <cmath>
 
+#define amplitud_ref 32767;
+
+
 //using namespace std;
 
 class FPGA_de1soc {
@@ -212,6 +215,33 @@ class FPGA_de1soc {
 			//return 0;			
 		}
 
+		static double cuentas2volt(double cuentas) 
+		{
+			double factor = 125e-6;	// Medido empíricamente
+			return factor * cuentas;
+   		}
+
+		struct resultados {
+        	double x, y, r, phi;
+    	};
+
+		static resultados get_resultados_from_xy (long long int X, long long int Y, int div, bool convert2volt)
+		{
+			resultados result;
+
+			result.x = (double)X / div;
+			result.y = (double)Y / div;
+			
+			result.r = sqrt(pow(result.x, 2) + pow(result.y, 2)) * 2 / amplitud_ref;
+			result.phi = atan2(result.y, result.x) * 180 / 3.1415;
+
+			if(convert2volt){
+				result.r = cuentas2volt(result.r);
+			}
+
+			return result;
+
+		}
 
 		long long * leer_FIFO_64_bit(int fifo)
 		{	

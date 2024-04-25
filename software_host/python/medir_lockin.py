@@ -13,17 +13,16 @@ from de1soc_class import ModoProcesamiento
 ip = "192.168.1.2"
 li = de1soc_handler(ip)
 
-
 #frecuencias= list(range(800,1201,25))
-frecuencias=[200000]
+frecuencias=[1000000]
 
 r = []
-N = 1
+N = 10
 
 
 for f in frecuencias:
 
-    li.set_sim_noise(12)
+    li.set_sim_noise(0)
     li.set_f(f)
     li.set_N(N)
     li.set_modo_procesamiento(ModoProcesamiento.LI)
@@ -32,7 +31,3 @@ for f in frecuencias:
     data=li.measure_lockin(False)
     r.append(data['r']);
     print(f" -> f: {data['f']} \n -> R: {data['r']} \n -> phi: {data['phi']}")
-
-
-    
-    

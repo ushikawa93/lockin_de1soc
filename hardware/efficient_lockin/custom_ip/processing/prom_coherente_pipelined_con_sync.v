@@ -12,6 +12,7 @@ module prom_coherente_pipelined_con_sync(
 	input [15:0] frames_prom_coherente,
 	
 	input sync,
+	input bypass,
 	
 	// Entrada avalon streaming
 	input data_in_valid,
@@ -137,31 +138,9 @@ begin
 end
 
 
-// Cuando N=1 la cosa no tiene que hacer nada, solo debe retrasar la señal dos ciclos de reloj para simular el pipeline
-// Queda medio feo hacerlo asi pero es lo mas rapido para salir del paso...
-
-reg signed [31:0]  data_out_reg_n_1,data_aux;
-reg data_out_valid_n_1,data_valid_aux;
-reg sync_aux,sync_out_n_1;
-
-always @ (posedge clk)
-begin
-
-	//data_aux <= data_in_reg;
-	data_out_reg_n_1 <= data_in_reg;
-	
-	//data_valid_aux <= data_in_valid;
-	data_out_valid_n_1 <= data_in_valid;
-	
-	//sync_aux <= sync;
-	sync_out_n_1 <= sync_reg;
-
-end
-
-
-assign sync_out = (N==1)? sync_out_n_1 : sync_out_reg;
-assign data_out = (N==1)? data_out_reg_n_1 : data_out_reg; 
-assign data_out_valid = (N==1)? data_out_valid_n_1 : data_out_valid_reg;
+assign sync_out = (bypass==1)? sync_reg : sync_out_reg;
+assign data_out = (bypass==1)? data_in : data_out_reg; 
+assign data_out_valid = (bypass==1)? data_in_valid : data_out_valid_reg;
 
 endmodule
 

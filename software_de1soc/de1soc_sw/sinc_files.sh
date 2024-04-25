@@ -27,7 +27,7 @@ fi
 
 # Destino en el servidor remoto
 remote_user="root"
-remote_ip="192.168.1.101"
+remote_ip="192.168.1.2"
 
 
 # Ejecutar el comando scp

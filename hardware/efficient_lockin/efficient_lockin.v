@@ -69,10 +69,9 @@ module efficient_lockin(
 
 
 
-
-////////////////////////////////////////////////
-// ============= Ruteo de las señales  =============
-////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////// =============== Ruteo de las señales  ==============/////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
 // Posibilidades...
 parameter adc_2308 = 0;
@@ -83,7 +82,9 @@ parameter procesada_2 = 4;
 parameter avgd_signal = 5;
 parameter dds_compiler_sen = 6;
 parameter dds_compiler_cos = 7;
-parameter open = 8;
+parameter referencia_seno = 8;
+parameter referencia_coseno = 9;
+parameter open = 10;
 
 
 // Fuentes de señal para cada etapa del proceso
@@ -91,8 +92,8 @@ parameter open = 8;
 wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
 
 parameter fuente_dac = dds_compiler_sen ;	// En realidad sería desde una look up table (parametro dentro del modulo)
-parameter fuente_fifo0_32bit = avgd_signal;
-parameter fuente_fifo1_32bit = adc_hs;
+parameter fuente_fifo0_32bit = adc_hs;
+parameter fuente_fifo1_32bit = referencia_seno;
 parameter fuente_fifo0_64bit = procesada_1;
 parameter fuente_fifo1_64bit = procesada_2;
 
@@ -100,446 +101,170 @@ parameter fuente_fifo1_64bit = procesada_2;
 
 wire [31:0] data_adc_hs = (SW[0] == 0)? data_canal_b: data_canal_a;
 
-wire [31:0] data_in_procesamiento = (fuente_procesamiento == adc_2308)? data_adc_2308 : ((fuente_procesamiento == adc_hs)? data_adc_hs : ((fuente_procesamiento == simulacion)? datos_simulados : 0)); 
-wire data_in_procesamiento_valid = (fuente_procesamiento == adc_2308)? data_adc_2308_valid : ((fuente_procesamiento == adc_hs)? data_adc_valid : ((fuente_procesamiento == simulacion)? datos_simulados_valid : 0)); 
+wire [31:0] data_in_procesamiento = (fuente_procesamiento == adc_2308)? data_adc_2308 : 
+												(fuente_procesamiento == adc_hs)? data_adc_hs : 
+												(fuente_procesamiento == simulacion)? datos_simulados : 0;
+												
+wire data_in_procesamiento_valid =  (fuente_procesamiento == adc_2308)? data_adc_2308_valid : 
+												(fuente_procesamiento == adc_hs)? data_adc_valid : 
+												(fuente_procesamiento == simulacion)? datos_simulados_valid : 0; 
 
 
 ///////////////////////// Entradas del DAC ////////////////////////////////////:
 
-reg [31:0] data_in_dac;
-reg data_in_dac_valid;
+wire [31:0] data_in_dac = aux_dac[32:1];
+wire data_in_dac_valid = aux_dac[0];
 
-always @ (fuente_dac)
-begin
-	
-	case (fuente_dac)
-	
-		adc_2308:
-		begin
-			data_in_dac = data_adc_2308;
-			data_in_dac_valid = data_adc_2308_valid;
-		end
-		
-		adc_hs:
-		begin
-			data_in_dac = data_adc_hs;
-			data_in_dac_valid = data_adc_valid;
-		end
-		
-		simulacion:
-		begin
-			data_in_dac = datos_simulados;
-			data_in_dac_valid = datos_simulados_valid;
-		end
-		
-		procesada_1:
-		begin
-			data_in_dac = data_procesada1;
-			data_in_dac_valid = data_procesada1_valid;
-		end
-		
-		procesada_2:
-		begin
-			data_in_dac = data_procesada2;
-			data_in_dac_valid = data_procesada2_valid;
-		end
-		
-		avgd_signal:
-		begin
-			data_in_dac = data_promc;
-			data_in_dac_valid = data_promc_valid;
-		end	
-		
-		dds_compiler_sen:
-		begin
-			data_in_dac = sen_dds_compiler_14b; // Porque el DAC es de 14 bits
-			data_in_dac_valid = dds_compiler_valid;	
-		end
-		
-		dds_compiler_cos:
-		begin
-			data_in_dac = cos_dds_compiler_14b;
-			data_in_dac_valid = dds_compiler_valid;	
-		end
-		
-		open:
-		begin
-			data_in_dac = 0;
-			data_in_dac_valid = 0;
-		end
-	endcase
 
-end
-
+wire [32:0] aux_dac	= 	(fuente_dac == adc_2308) ? {data_adc_2308,data_adc_2308_valid} :
+								(fuente_dac == adc_hs) ? {data_adc_hs,data_adc_valid} :
+								(fuente_dac == simulacion) ? {datos_simulados,datos_simulados_valid} :
+								(fuente_dac == procesada_1) ? {data_procesada1,data_procesada1_valid} :
+								(fuente_dac == procesada_2) ? {data_procesada2,data_procesada2_valid} :
+								(fuente_dac == avgd_signal) ? {data_promc,data_promc_valid} :
+								(fuente_dac == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
+								(fuente_dac == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
+								(fuente_dac == referencia_seno) ? {referencia_sen,referencia_valid} :
+								(fuente_dac == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
 
 
 ///////////////////////// Entrada de memorias FIFO ////////////////////////////////////:
 
-
-reg [31:0] data_in_fifo0_32bit,				data_in_fifo1_32bit;
-
-reg [63:0] data_in_fifo0_64bit,				data_in_fifo1_64bit;
-
-reg 		  data_in_fifo0_32bit_valid,		data_in_fifo1_32bit_valid,		data_in_fifo0_64bit_valid,		data_in_fifo1_64bit_valid;
-
-always @ (fuente_fifo0_32bit)
-begin
-	
-	case (fuente_fifo0_32bit)
-	
-		adc_2308:
-		begin
-			data_in_fifo0_32bit = data_adc_2308;
-			data_in_fifo0_32bit_valid = data_adc_2308_valid;
-		end
-		
-		adc_hs:
-		begin
-			data_in_fifo0_32bit = data_adc_hs;
-			data_in_fifo0_32bit_valid = data_adc_valid;
-		end
-		
-		simulacion:
-		begin
-			data_in_fifo0_32bit = datos_simulados;
-			data_in_fifo0_32bit_valid = datos_simulados_valid;
-		end
-		
-		procesada_1:
-		begin
-			data_in_fifo0_32bit = data_procesada1;
-			data_in_fifo0_32bit_valid = data_procesada1_valid;
-		end
-		
-		procesada_2:
-		begin
-			data_in_fifo0_32bit = data_procesada2;
-			data_in_fifo0_32bit_valid = data_procesada2_valid;
-		end
-		
-		avgd_signal:
-		begin
-			data_in_fifo0_32bit = data_promc;
-			data_in_fifo0_32bit_valid = data_promc_valid;
-		end	
-		
-		dds_compiler_sen:
-		begin
-			data_in_fifo0_32bit = sen_dds_compiler_ca_coupled;
-			data_in_fifo0_32bit_valid = dds_compiler_valid;	
-		end
-		
-		dds_compiler_cos:
-		begin
-			data_in_fifo0_32bit = cos_dds_compiler_ca_coupled;
-			data_in_fifo0_32bit_valid = dds_compiler_valid;	
-		end
-		
-		open:
-		begin
-			data_in_fifo0_32bit = 0;
-			data_in_fifo0_32bit_valid = 0;
-		end
-	endcase
-
-end
+wire [31:0] data_in_fifo0_32bit = aux_fifo0_32b [32:1];
+wire data_in_fifo0_32bit_valid = aux_fifo0_32b[0];
 
 
-always @ (fuente_fifo1_32bit)
-begin
-	
-	case (fuente_fifo1_32bit)
-	
-		adc_2308:
-		begin
-			data_in_fifo1_32bit = data_adc_2308;
-			data_in_fifo1_32bit_valid = data_adc_2308_valid;
-		end
-		
-		adc_hs:
-		begin
-			data_in_fifo1_32bit = data_adc_hs;
-			data_in_fifo1_32bit_valid = data_adc_valid;
-		end
-		
-		simulacion:
-		begin
-			data_in_fifo1_32bit = datos_simulados;
-			data_in_fifo1_32bit_valid = datos_simulados_valid;
-		end
-		
-		procesada_1:
-		begin
-			data_in_fifo1_32bit = data_procesada1;
-			data_in_fifo1_32bit_valid = data_procesada1_valid;
-		end
-		
-		procesada_2:
-		begin
-			data_in_fifo1_32bit = data_procesada2;
-			data_in_fifo1_32bit_valid = data_procesada2_valid;
-		end
-		
-		avgd_signal:
-		begin
-			data_in_fifo1_32bit = data_promc;
-			data_in_fifo1_32bit_valid = data_promc_valid;
-		end	
-		
-		dds_compiler_sen:
-		begin
-			data_in_fifo1_32bit = sen_dds_compiler_ca_coupled;
-			data_in_fifo1_32bit_valid = dds_compiler_valid;	
-		end
-		
-		dds_compiler_cos:
-		begin
-			data_in_fifo1_32bit = cos_dds_compiler_ca_coupled;
-			data_in_fifo1_32bit_valid = dds_compiler_valid;	
-		end
-		
-					
-		open:
-		begin
-			data_in_fifo1_32bit = 0;
-			data_in_fifo1_32bit_valid = 0;
-		end
-	endcase
-
-end
+wire [32:0] aux_fifo0_32b = (fuente_fifo0_32bit == adc_2308) ? {data_adc_2308,data_adc_2308_valid} :
+									 (fuente_fifo0_32bit == adc_hs) ? {data_adc_hs,data_adc_valid} :
+									 (fuente_fifo0_32bit == simulacion) ? {datos_simulados,datos_simulados_valid} :
+									 (fuente_fifo0_32bit == procesada_1) ? {data_procesada1,data_procesada1_valid} :
+									 (fuente_fifo0_32bit == procesada_2) ? {data_procesada2,data_procesada2_valid} :
+									 (fuente_fifo0_32bit == avgd_signal) ? {data_promc,data_promc_valid} :
+									 (fuente_fifo0_32bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo0_32bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo0_32bit == referencia_seno) ? {referencia_sen,referencia_valid} :
+									 (fuente_fifo0_32bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+									 
+									 
+wire [31:0] data_in_fifo1_32bit = aux_fifo1_32b [32:1];
+wire data_in_fifo1_32bit_valid = aux_fifo1_32b[0];
 
 
-always @ (fuente_fifo0_64bit)
-begin
-	
-	case (fuente_fifo0_64bit)
-	
-		adc_2308:
-		begin
-			data_in_fifo0_64bit = data_adc_2308;
-			data_in_fifo0_64bit_valid = data_adc_2308_valid;
-		end
-		
-		adc_hs:
-		begin
-			data_in_fifo0_64bit = data_adc_hs;
-			data_in_fifo0_64bit_valid = data_adc_valid;
-		end
-		
-		simulacion:
-		begin
-			data_in_fifo0_64bit = datos_simulados;
-			data_in_fifo0_64bit_valid = datos_simulados_valid;
-		end
-		
-		procesada_1:
-		begin
-			data_in_fifo0_64bit = data_procesada1;
-			data_in_fifo0_64bit_valid = data_procesada1_valid;
-		end
-		
-		procesada_2:
-		begin
-			data_in_fifo0_64bit = data_procesada2;
-			data_in_fifo0_64bit_valid = data_procesada2_valid;
-		end
-		
-		avgd_signal:
-		begin
-			data_in_fifo0_64bit = data_promc;
-			data_in_fifo0_64bit_valid = data_promc_valid;
-		end	
-		
-		dds_compiler_sen:
-		begin
-			data_in_fifo0_64bit = sen_dds_compiler_ca_coupled;
-			data_in_fifo0_64bit_valid = dds_compiler_valid;	
-		end
-				
-		dds_compiler_cos:
-		begin
-			data_in_fifo0_64bit = cos_dds_compiler_ca_coupled;
-			data_in_fifo0_64bit_valid = dds_compiler_valid;	
-		end
-		
-		open:
-		begin
-			data_in_fifo0_64bit = 0;
-			data_in_fifo0_64bit_valid = 0;
-		end
-	endcase
-
-end
-
-always @ (fuente_fifo1_64bit)
-begin
-	
-	case (fuente_fifo1_64bit)
-	
-		adc_2308:
-		begin
-			data_in_fifo1_64bit = data_adc_2308;
-			data_in_fifo1_64bit_valid = data_adc_2308_valid;
-		end
-		
-		adc_hs:
-		begin
-			data_in_fifo1_64bit = data_adc_hs;
-			data_in_fifo1_64bit_valid = data_adc_valid;
-		end
-		
-		simulacion:
-		begin
-			data_in_fifo1_64bit = datos_simulados;
-			data_in_fifo1_64bit_valid = datos_simulados_valid;
-		end
-		
-		procesada_1:
-		begin
-			data_in_fifo1_64bit = data_procesada1;
-			data_in_fifo1_64bit_valid = data_procesada1_valid;
-		end
-		
-		procesada_2:
-		begin
-			data_in_fifo1_64bit = data_procesada2;
-			data_in_fifo1_64bit_valid = data_procesada2_valid;
-		end
-		
-		avgd_signal:
-		begin
-			data_in_fifo1_64bit = data_promc;
-			data_in_fifo1_64bit_valid = data_promc_valid;
-		end	
-		
-		dds_compiler_sen:
-		begin
-			data_in_fifo1_64bit = sen_dds_compiler_ca_coupled;
-			data_in_fifo1_64bit_valid = dds_compiler_valid;	
-		end
-		
-		dds_compiler_cos:
-		begin
-			data_in_fifo1_64bit = cos_dds_compiler_ca_coupled;
-			data_in_fifo1_64bit_valid = dds_compiler_valid;	
-		end
-		
-		
-		open:
-		begin
-			data_in_fifo1_64bit = 0;
-			data_in_fifo1_64bit_valid = 0;
-		end
-	endcase
-
-end
+wire [32:0] aux_fifo1_32b = (fuente_fifo1_32bit == adc_2308) ? {data_adc_2308,data_adc_2308_valid} :
+									 (fuente_fifo1_32bit == adc_hs) ? {data_adc_hs,data_adc_valid} :
+									 (fuente_fifo1_32bit == simulacion) ? {datos_simulados,datos_simulados_valid} :
+									 (fuente_fifo1_32bit == procesada_1) ? {data_procesada1,data_procesada1_valid} :
+									 (fuente_fifo1_32bit == procesada_2) ? {data_procesada2,data_procesada2_valid} :
+									 (fuente_fifo1_32bit == avgd_signal) ? {data_promc,data_promc_valid} :
+									 (fuente_fifo1_32bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo1_32bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo1_32bit == referencia_seno) ? {referencia_sen,referencia_valid} :
+									 (fuente_fifo1_32bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+									 
+wire [63:0] data_in_fifo0_64bit = aux_fifo0_64b [64:1];
+wire data_in_fifo0_64bit_valid = aux_fifo0_64b[0];
 
 
+wire [64:0] aux_fifo0_64b = (fuente_fifo0_64bit == adc_2308) ? {data_adc_2308,data_adc_2308_valid} :
+									 (fuente_fifo0_64bit == adc_hs) ? {data_adc_hs,data_adc_valid} :
+									 (fuente_fifo0_64bit == simulacion) ? {datos_simulados,datos_simulados_valid} :
+									 (fuente_fifo0_64bit == procesada_1) ? {data_procesada1,data_procesada1_valid} :
+									 (fuente_fifo0_64bit == procesada_2) ? {data_procesada2,data_procesada2_valid} :
+									 (fuente_fifo0_64bit == avgd_signal) ? {data_promc,data_promc_valid} :
+									 (fuente_fifo0_64bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo0_64bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo0_64bit == referencia_seno) ? {referencia_sen,referencia_valid} :
+									 (fuente_fifo0_64bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+									 
+wire [63:0] data_in_fifo1_64bit = aux_fifo1_64b [64:1];
+wire data_in_fifo1_64bit_valid = aux_fifo1_64b[0];
 
 
-////////////////////////////////////////////////
-// =============== DDS compiler 	=========
-////////////////////////////////////////////////
+wire [64:0] aux_fifo1_64b = (fuente_fifo1_64bit == adc_2308) ? {data_adc_2308,data_adc_2308_valid} :
+									 (fuente_fifo1_64bit == adc_hs) ? {data_adc_hs,data_adc_valid} :
+									 (fuente_fifo1_64bit == simulacion) ? {datos_simulados,datos_simulados_valid} :
+									 (fuente_fifo1_64bit == procesada_1) ? {data_procesada1,data_procesada1_valid} :
+									 (fuente_fifo1_64bit == procesada_2) ? {data_procesada2,data_procesada2_valid} :
+									 (fuente_fifo1_64bit == avgd_signal) ? {data_promc,data_promc_valid} :
+									 (fuente_fifo1_64bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo1_64bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
+									 (fuente_fifo1_64bit == referencia_seno) ? {referencia_sen,referencia_valid} :
+									 (fuente_fifo1_64bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+
+									 
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////// =============== DDS compiler  ==============/////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////									 
+
 
 //// En Proceso... mejor forma de generar ondas sinusoidales ////
 
-parameter B_dds_signals = 16;
-parameter dds_mean_value = 2**(B_dds_signals-1)-1;	//Es muy desprolijo que esto este aca...
-
-wire [31:0] sen_dds_compiler,cos_dds_compiler;
-wire signed [31:0] sen_dds_compiler_ca_coupled = sen_dds_compiler - dds_mean_value ;
-wire signed [31:0] cos_dds_compiler_ca_coupled = cos_dds_compiler - dds_mean_value ;
-
-wire signed [31:0] sen_dds_compiler_14b = sen_dds_compiler[(B_dds_signals-1):(B_dds_signals-14)];
-wire signed [31:0] cos_dds_compiler_14b = cos_dds_compiler[(B_dds_signals-1):(B_dds_signals-14)];
-
-wire dds_compiler_valid;
-wire start_referencia;
-
-dds_compiler_module #(	
-	.B_out(B_dds_signals)
-) generador_sinusoidal
-(
-	.clk(clk_custom),
-	.reset_n(reset_n),
-	.enable(enable),
-	
-	
-	.incremento_fase(delta_phase),	 // round(f_deseada * 2^B_acumulador/f_clk);
-	
-	.zero_cross(start_referencia),
-	.data_out_seno(sen_dds_compiler),
-	.data_out_coseno(cos_dds_compiler),
-	.data_out_valid(dds_compiler_valid)
-);
+parameter B_dds_dac = 14;
+parameter B_dds_ref = 16;
 
 
-///////// SI USO EL ADC TENGO QUE RETRASAR LAS REFERENCIAS EXTERNAS PARA ACOMODARLAS CON EL DAC ///////
-
-/*
-
-wire signed [31:0] sen_dds_compiler_ca_coupled_con_delay,cos_dds_compiler_ca_coupled_con_delay;
-wire ref_sen_valid_con_delay,ref_cos_valid_con_delay,ref_valid_con_delay;
-
-
-
-delay_axi_streaming #(
-	
-	.delay(10),
-	.width(32)
-
-) delay_ref_sen(
-	
-	.clk(clk),
-   .reset_n(reset_n),
-   .bypass(0),
-
-   .data_in(sen_dds_compiler_ca_coupled),
-   .data_in_valid(dds_compiler_valid),
-    
-   .data_out(sen_dds_compiler_ca_coupled_con_delay),
-   .data_out_valid(ref_sen_valid_con_delay)	
-
-
-);
-
-delay_axi_streaming#(
-	
-	.delay(10),
-	.width(32)
-
-) delay_ref_cos(
-	
-	.clk(clk),
-   .reset_n(reset_n),
-   .bypass(0),
-
-   .data_in(cos_dds_compiler_ca_coupled),
-   .data_in_valid(dds_compiler_valid),
-    
-   .data_out(cos_dds_compiler_ca_coupled_con_delay),
-   .data_out_valid(ref_cos_valid_con_delay)	
-
-
-);
-
-assign ref_valid_con_delay = ref_sen_valid_con_delay && ref_cos_valid_con_delay;
-
-
-
-wire signed [31:0] referencia_sen = (fuente_procesamiento == simulacion )? sen_dds_compiler_ca_coupled : (fuente_procesamiento == adc_hs)? sen_dds_compiler_ca_coupled_con_delay : 0  ;
-wire signed [31:0] referencia_cos = (fuente_procesamiento == simulacion )? cos_dds_compiler_ca_coupled : (fuente_procesamiento == adc_hs)? cos_dds_compiler_ca_coupled_con_delay : 0  ;
-wire referencia_valid =  (fuente_procesamiento == simulacion )? dds_compiler_valid : (fuente_procesamiento == adc_hs)? ref_valid_con_delay : 0  ;
-*/
-
+wire signed [31:0] sen_dds_compiler_ca_coupled = $signed (sen_ca_aux) ;
+wire signed [31:0] cos_dds_compiler_ca_coupled = $signed (cos_ca_aux) ;
 
 wire signed [31:0] referencia_sen = sen_dds_compiler_ca_coupled;
 wire signed [31:0] referencia_cos = cos_dds_compiler_ca_coupled;
-wire referencia_valid = dds_compiler_valid;
 
-////////////////////////////////////////////////
-// ============= Interfaz de control  =============
-////////////////////////////////////////////////
+
+wire signed [B_dds_ref-1:0] sen_ca_aux,cos_ca_aux;
+
+wire signed [31:0] sen_dds_compiler_14b ;
+wire signed [31:0] cos_dds_compiler_14b ;
+
+wire dds_compiler_valid,referencia_valid,sync_referencias;
+
+
+dds_compiler_module #(	
+	.B_out(B_dds_dac)
+) generador_sinusoidal_para_dac
+(
+	.clk(clk_custom),
+	.reset_n(reset_n),
+	.enable(enable),	
+	
+	.incremento_fase(delta_phase),	 // round(f_deseada * 2^B_acumulador/f_clk);
+	
+	.data_out_seno(sen_dds_compiler_14b),
+	.data_out_coseno(cos_dds_compiler_14b),	
+	
+	.data_out_valid(dds_compiler_valid)
+	
+);
+
+wire enable_ref = (fuente_procesamiento == simulacion)? enable : (enable && data_in_procesamiento_valid);
+
+
+dds_compiler_module #(	
+	.B_out(B_dds_ref)
+) generador_sinusoidal_para_referencias
+(
+	.clk(clk_custom),
+	.reset_n(reset_n),
+	.enable(enable_ref),	
+	
+	.incremento_fase(delta_phase),	 // round(f_deseada * 2^B_acumulador/f_clk);
+	
+	.zero_cross(sync_referencias),
+	
+	.data_out_seno_ca_coupled(sen_ca_aux),
+	.data_out_coseno_ca_coupled(cos_ca_aux),	
+	
+	.data_out_valid(referencia_valid)
+	
+);
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////// =============== Interfaz de control  ==============/////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 wire enable;
 	assign enable = enable_from_control && ready_to_calculate;
@@ -622,11 +347,9 @@ control nios (
 		
 );
 
-
-////////////////////////////////////////////////
-// ====== Interfaz de datos de entrada  =========
-////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////// =============== Interfaz de datos de entrada  ==============/////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 data_in data(
 
@@ -724,16 +447,18 @@ wire [31:0] data_adc_2308;
 wire data_adc_2308_valid;
 
 
-////////////////////////////////////////////////
-// ====== Procesamiento de señal CA-LI  =========
-////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////// =============== Procesamiento de señal CA-LI  ==============/////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 //// Sincronizacion:
 // Por algun motivo para que sean iguales hay que atrasarle el sync a el lockin puro (nada muy grave...)
 
-reg sync_reg; always @ (posedge clk_custom) sync_reg <= start_referencia;
+reg sync_reg; always @ (posedge clk_custom) sync_reg <= sync_referencias;
 
-wire sync_cali = start_referencia;
+wire sync_cali = sync_referencias;
 wire sync_li = sync_reg;
 
 signal_processing_CALI signal_processing_CALI_inst(
@@ -786,9 +511,10 @@ wire data_promc_valid;
 wire sync_avgd_signal;
 
 
-////////////////////////////////////////////////
-// ====== Procesamiento de señal LI  =========
-////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////// =============== Procesamiento de señal LI  ==============////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 signal_processing_LI signal_processing_LI_inst(
@@ -834,9 +560,10 @@ wire [31:0] n_datos_promediados;
 
 
 
-/////////////////////////////////////////////////////////////////////////////
-// ====== Ruteo señales de procesamiento segun seleccion_resultado  =========
-/////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////// ========== Ruteo señales de procesamiento segun seleccion_resultado  ==========//////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 ///// Salidas de procesamiento ////////
 wire [63:0] data_procesada1 = (seleccion_resultado == 0)?  data_procesada1_CALI: data_procesada1_LI;
@@ -846,10 +573,10 @@ wire data_procesada2_valid = (seleccion_resultado == 0)?  data_procesada2_CALI_v
 wire ready_to_calculate = ready_to_calculate_LI && ready_to_calculate_CALI;
 wire calculo_finalizado = calculo_finalizado_LI && calculo_finalizado_CALI;
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+////// ========== Contador para ver si clk anda  ==========///////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////
-// ====== Contador para ver si clk anda  =========
-////////////////////////////////////////////////
 
 reg [31:0] count;
 always @ (posedge clk_custom)
@@ -859,10 +586,9 @@ end
 
 assign LED[0] = ( count > (65000000 >> 1) );
 
-
-////////////////////////////////////////////////
-// ====== Algunos LED para ver cositas  =========
-////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+////// ========== Algunos LED para ver cositas   ==========///////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 assign LED[3] = led_test;
 

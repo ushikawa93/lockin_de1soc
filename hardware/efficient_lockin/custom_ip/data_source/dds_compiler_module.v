@@ -23,16 +23,22 @@ module dds_compiler_module #(
 	
 	output [B_out-1:0] data_out_seno,
 	output [B_out-1:0] data_out_coseno,
-	output data_out_valid
-
+	output data_out_valid,
+	
+	output signed [B_out-1:0] data_out_seno_ca_coupled,
+	output signed [B_out-1:0] data_out_coseno_ca_coupled
 );
 
+
+parameter mean_value = 2**(B_out-1)-1;	
+
 reg [B_out-1:0] data_out_seno_reg,data_out_cos_reg;
-reg data_out_valid_reg;
+reg data_out_valid_reg,data_out_ca_coupled_valid_reg;
 
 reg [B_acumulador-1:0] acumulador_fase,acumulador_fase_reg;
 wire [B_depth_lu_table-1:0] acumulador_fase_truncado;
 
+reg signed [B_out-1:0] data_out_seno_ca_coupled_reg,data_out_coseno_ca_coupled_reg;
 
 always @ (posedge clk)
 begin
@@ -42,6 +48,7 @@ begin
 	
 		acumulador_fase <= 0;
 		acumulador_fase_reg <= 0;
+		
 		data_out_valid_reg <= 0;
 	
 	end
@@ -50,10 +57,15 @@ begin
 	
 		acumulador_fase <= acumulador_fase + incremento_fase;
 		acumulador_fase_reg  <= acumulador_fase;
+		
 		data_out_seno_reg <= sen[(B_lu_table-1) : (B_lu_table - B_out)];	// Tomo los B_out digitos mas significativos del dato
 		data_out_cos_reg <= cos[(B_lu_table-1) : (B_lu_table - B_out)];	// Tomo los B_out digitos mas significativos del dato
+		
+		data_out_seno_ca_coupled_reg <= sen[(B_lu_table-1) : (B_lu_table - B_out)] - mean_value;
+		data_out_coseno_ca_coupled_reg <= cos[(B_lu_table-1) : (B_lu_table - B_out)] - mean_value;
+		
 		data_out_valid_reg <= 1;
-
+		
 	end
 
 end
@@ -83,6 +95,10 @@ lu_table #(
 assign data_out_seno = data_out_seno_reg;
 assign data_out_coseno = data_out_cos_reg;
 assign data_out_valid = data_out_valid_reg;
+
+assign data_out_seno_ca_coupled = data_out_seno_ca_coupled_reg;
+assign data_out_coseno_ca_coupled = data_out_coseno_ca_coupled_reg;
+
 
 assign zero_cross = ((acumulador_fase_reg > acumulador_fase) );
 
