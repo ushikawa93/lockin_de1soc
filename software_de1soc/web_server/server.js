@@ -3,14 +3,18 @@ var execFile = require('child_process').execFile;
 const url = require('url');
 const fs = require('fs');
 
+var nombre_archivo_lockin = "/var/www/html/lockin/test_web.dat";
+var nombre_archivo_adc = "/var/www/html/lockin/adc_web.dat"
+
 var noise = 5;
 var N = 1;
 var frecuencia = 100000;
 var fuente = 2;
 var modo = 1;
-var nombre_archivo = "/var/www/html/lockin/test_web.dat";
+var frec_clk = 20;
+var ciclos2display = 2;
 
-var buttonPressCount = 0; // Contador para almacenar la cantidad de veces que se ha presionado el botón
+var buttonPressCount = 0; 
 
 
 
@@ -27,21 +31,31 @@ http.createServer(function (req, res) {
         console.log('Calculando...');
 
         // Obtener los valores de los parámetros de la solicitud
-        const noise = queryObject.noise;
-        const N = queryObject.N;
-        const frecuencia = queryObject.frecuencia;
-        const fuente = queryObject.fuente;
-        const modo = queryObject.modo;
+        noise = queryObject.noise;
+        N = queryObject.N;
+        frecuencia = queryObject.frecuencia;
+        fuente = queryObject.fuente;
+        modo = queryObject.modo;
+        frec_clk = queryObject.f_clk;
 
         // Ejecutar el comando para activar/desactivar el LED con los valores de los parámetros
-        execFile("/root/Documents/de1soc_sw/cpp/measure_lockin/measure_li", [noise, N, frecuencia, fuente, modo, nombre_archivo], function (error, stdout, stderr) {
+        execFile("/root/Documents/de1soc_sw/cpp/measure_lockin/measure_li", [
+            noise, 
+            N, 
+            frecuencia, 
+            fuente, 
+            modo, 
+            nombre_archivo_lockin,
+            frec_clk], 
+            
+            function (error, stdout, stderr) {
             if (error) {
                 console.error('Error al ejecutar el comando:', error);
                 res.statusCode = 500;
                 res.end('Internal Server Error');
             } else {
                 // Leer el contenido del archivo test_web.dat línea por línea
-                fs.readFile(nombre_archivo, 'utf8', (err, data) => {
+                fs.readFile(nombre_archivo_lockin, 'utf8', (err, data) => {
                     if (err) {
                         console.error('Error al leer el archivo:', err);
                         res.statusCode = 500;
@@ -67,7 +81,60 @@ http.createServer(function (req, res) {
                 });
             }
         });
-    } 
+    }        
+    else if (parsedUrl.pathname === '/datos_adc'){        
+
+        // ./adquirir $sim_noise $N $frecuencia $ciclos2display $nombre_archivo 
+        frecuencia = queryObject.frec;
+        ciclos2display = queryObject.ciclos2display;
+        frec_clk = queryObject.f_clk;        
+        fuente = queryObject.fuente; 
+        noise = queryObject.noise;
+        N = queryObject.N;
+
+        execFile("/root/Documents/de1soc_sw/cpp/adquirir2/adquirir2", [
+            noise, 
+            N, 
+            frecuencia, 
+            ciclos2display, 
+            nombre_archivo_adc,
+            frec_clk,
+            fuente], 
+            
+            function (error, stdout, stderr) {
+            if (error) {
+                console.error('Error al ejecutar el comando:', error);
+                res.statusCode = 500;
+                res.end('Internal Server Error');
+            } else {
+                // Leer el contenido del archivo test_web.dat línea por línea
+                fs.readFile(nombre_archivo_adc, 'utf8', (err, data) => {
+                    if (err) {
+                        console.error('Error al leer el archivo:', err);
+                        res.statusCode = 500;
+                        res.end('Internal Server Error');
+                    } else {
+
+                        const lines = data.split('\n');
+
+                        // Verificar si hay al menos dos líneas en el archivo
+                        if (lines.length >= 2) {
+                            // Obtener los datos de la primera línea
+                            const data1 = lines[0].split(',');
+                            
+                            // Obtener los datos de la segunda línea
+                            const data2 = lines[1].split(',');
+                                                
+                            // Enviar la respuesta como JSON al cliente
+                            res.setHeader('Content-Type', 'application/json');
+                            res.end(JSON.stringify({ data1 , data2 }));  
+                    } 
+                    }
+                });
+            }
+        });
+          
+    }  
     else if (parsedUrl.pathname === '/toggle' && queryObject.led_state !== undefined) {
         const ledState = parseInt(queryObject.led_state); // Obtener el valor de led_state
 

@@ -84,7 +84,8 @@ parameter dds_compiler_sen = 6;
 parameter dds_compiler_cos = 7;
 parameter referencia_seno = 8;
 parameter referencia_coseno = 9;
-parameter open = 10;
+parameter datos_procesamiento = 10;
+parameter open = 11;
 
 
 // Fuentes de señal para cada etapa del proceso
@@ -92,8 +93,10 @@ parameter open = 10;
 wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
 
 parameter fuente_dac = dds_compiler_sen ;	// En realidad sería desde una look up table (parametro dentro del modulo)
-parameter fuente_fifo0_32bit = adc_hs;
+
+parameter fuente_fifo0_32bit = datos_procesamiento;
 parameter fuente_fifo1_32bit = referencia_seno;
+
 parameter fuente_fifo0_64bit = procesada_1;
 parameter fuente_fifo1_64bit = procesada_2;
 
@@ -102,12 +105,27 @@ parameter fuente_fifo1_64bit = procesada_2;
 wire [31:0] data_adc_hs = (SW[0] == 0)? data_canal_b: data_canal_a;
 
 wire [31:0] data_in_procesamiento = (fuente_procesamiento == adc_2308)? data_adc_2308 : 
-												(fuente_procesamiento == adc_hs)? data_adc_hs : 
+												(fuente_procesamiento == adc_hs)? data_adc_hs_reg : 
 												(fuente_procesamiento == simulacion)? datos_simulados : 0;
 												
 wire data_in_procesamiento_valid =  (fuente_procesamiento == adc_2308)? data_adc_2308_valid : 
-												(fuente_procesamiento == adc_hs)? data_adc_valid : 
+												(fuente_procesamiento == adc_hs)? data_adc_hs_valid_reg : 
 												(fuente_procesamiento == simulacion)? datos_simulados_valid : 0; 
+												
+
+// Prueba medio desprolija para sincronizar referencia y data_in_procesamiento...
+	
+reg [31:0] data_adc_hs_reg;
+reg data_adc_hs_valid_reg;
+
+always @ (posedge clk_custom)
+begin
+
+	data_adc_hs_reg <= data_adc_hs;
+	data_adc_hs_valid_reg <= data_adc_valid;
+
+end
+	
 
 
 ///////////////////////// Entradas del DAC ////////////////////////////////////:
@@ -125,8 +143,8 @@ wire [32:0] aux_dac	= 	(fuente_dac == adc_2308) ? {data_adc_2308,data_adc_2308_v
 								(fuente_dac == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
 								(fuente_dac == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
 								(fuente_dac == referencia_seno) ? {referencia_sen,referencia_valid} :
-								(fuente_dac == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
-
+								(fuente_dac == referencia_coseno) ? {referencia_cos,referencia_valid} :
+								(fuente_dac == datos_procesamiento) ? {data_in_procesamiento,data_in_procesamiento_valid} : 0;
 
 ///////////////////////// Entrada de memorias FIFO ////////////////////////////////////:
 
@@ -143,7 +161,8 @@ wire [32:0] aux_fifo0_32b = (fuente_fifo0_32bit == adc_2308) ? {data_adc_2308,da
 									 (fuente_fifo0_32bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo0_32bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo0_32bit == referencia_seno) ? {referencia_sen,referencia_valid} :
-									 (fuente_fifo0_32bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+									 (fuente_fifo0_32bit == referencia_coseno) ? {referencia_cos,referencia_valid} :
+									 (fuente_fifo0_32bit == datos_procesamiento) ? {data_in_procesamiento,data_in_procesamiento_valid} : 0;
 									 
 									 
 wire [31:0] data_in_fifo1_32bit = aux_fifo1_32b [32:1];
@@ -159,7 +178,9 @@ wire [32:0] aux_fifo1_32b = (fuente_fifo1_32bit == adc_2308) ? {data_adc_2308,da
 									 (fuente_fifo1_32bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo1_32bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo1_32bit == referencia_seno) ? {referencia_sen,referencia_valid} :
-									 (fuente_fifo1_32bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+									 (fuente_fifo1_32bit == referencia_coseno) ? {referencia_cos,referencia_valid} :
+									 (fuente_fifo1_32bit == datos_procesamiento) ? {data_in_procesamiento,data_in_procesamiento_valid} : 0;
+
 									 
 wire [63:0] data_in_fifo0_64bit = aux_fifo0_64b [64:1];
 wire data_in_fifo0_64bit_valid = aux_fifo0_64b[0];
@@ -174,7 +195,9 @@ wire [64:0] aux_fifo0_64b = (fuente_fifo0_64bit == adc_2308) ? {data_adc_2308,da
 									 (fuente_fifo0_64bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo0_64bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo0_64bit == referencia_seno) ? {referencia_sen,referencia_valid} :
-									 (fuente_fifo0_64bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+									 (fuente_fifo0_64bit == referencia_coseno) ? {referencia_cos,referencia_valid} :
+									 (fuente_fifo0_64bit == datos_procesamiento) ? {data_in_procesamiento,data_in_procesamiento_valid} : 0;
+
 									 
 wire [63:0] data_in_fifo1_64bit = aux_fifo1_64b [64:1];
 wire data_in_fifo1_64bit_valid = aux_fifo1_64b[0];
@@ -189,7 +212,9 @@ wire [64:0] aux_fifo1_64b = (fuente_fifo1_64bit == adc_2308) ? {data_adc_2308,da
 									 (fuente_fifo1_64bit == dds_compiler_sen) ? {sen_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo1_64bit == dds_compiler_cos) ? {cos_dds_compiler_14b,dds_compiler_valid} :
 									 (fuente_fifo1_64bit == referencia_seno) ? {referencia_sen,referencia_valid} :
-									 (fuente_fifo1_64bit == referencia_coseno) ? {referencia_cos,referencia_valid} : 0;
+									 (fuente_fifo1_64bit == referencia_coseno) ? {referencia_cos,referencia_valid} :
+									 (fuente_fifo1_64bit == datos_procesamiento) ? {data_in_procesamiento,data_in_procesamiento_valid} : 0;
+
 
 									 
 
@@ -236,7 +261,7 @@ dds_compiler_module #(
 	
 );
 
-wire enable_ref = (fuente_procesamiento == simulacion)? enable : (enable && data_in_procesamiento_valid);
+wire enable_ref = (fuente_procesamiento == simulacion)? enable : data_adc_valid;
 
 
 dds_compiler_module #(	
@@ -350,6 +375,9 @@ control nios (
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////// =============== Interfaz de datos de entrada  ==============/////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 data_in data(
 

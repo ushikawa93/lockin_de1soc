@@ -45,7 +45,7 @@ reg 	data_valid_reg;
 //reg en_reg; always @ (posedge CLK_65) en_reg <= (!reset_n)? 0: enable;
 
 
-always @ (posedge CLK_65) 
+always @ (posedge CLK_65 or negedge reset_n) 
 begin
 
 	if(!reset_n)
@@ -55,15 +55,17 @@ begin
 		data_valid_reg <= 0;
 	
 	end
-	else if (enable)
+	else
 	begin			
 		r_ADC_DA <= ADC_DA;
 		r_ADC_DB <= ADC_DB;
-		data_valid_reg <= 1;	
-	end
-	else
-		data_valid_reg <= 0;	
 		
+		if (enable)	
+			data_valid_reg <= 1;	
+		else
+			data_valid_reg <= 0;	
+	end
+	
 end
 
 

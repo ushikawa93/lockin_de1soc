@@ -80,7 +80,7 @@ end
 // y ahi la cosa deja de calcular...
 
 reg [31:0] start_count;
-parameter ignore_cycles = 0;
+parameter ignore_cycles = 1;
 
 always @ (posedge clock or negedge reset_n)
 begin

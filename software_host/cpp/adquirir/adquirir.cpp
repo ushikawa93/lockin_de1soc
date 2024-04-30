@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
     if (argc != 7) {
-        cerr << "Uso: adquirir M N frecuencia ciclos2display nombre_archivo " << endl;
+        cerr << "Uso: adquirir sim_noise N frecuencia ciclos2display nombre_archivo " << endl;
         return 1;
     }
 

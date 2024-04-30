@@ -6,7 +6,7 @@ module dds_compiler_module #(
 	parameter B_acumulador = 27,	// Esto es ceil(log2(f_clk/res_f))
 	
 	parameter B_out = 16,							// bits de la señal de salida
-	parameter B_depth_lu_table = 12,				// B_depth_lu_table = ceil (S/6)	(Con esto se logra un S=70 dB (spurious free dinamic range) )
+	parameter B_depth_lu_table = 14,				// B_depth_lu_table = ceil (S/6)	(Con 12 esto se logra un S=70 dB (spurious free dinamic range) )
 	parameter B_lu_table = 16						// Bits de cuantizacion de la LU table
 	
 )

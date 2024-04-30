@@ -1,5 +1,5 @@
 Flow report for signal_processing_template
-Thu Apr 25 17:44:16 2024
+Mon Apr 29 17:43:51 2024
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,15 +40,15 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Thu Apr 25 17:44:16 2024       ;
+; Flow Status                     ; Successful - Mon Apr 29 17:43:51 2024       ;
 ; Quartus Prime Version           ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                   ; signal_processing_template                  ;
 ; Top-level Entity Name           ; efficient_lockin                            ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 6,014 / 32,070 ( 19 % )                     ;
-; Total registers                 ; 8596                                        ;
+; Logic utilization (in ALMs)     ; 7,788 / 32,070 ( 24 % )                     ;
+; Total registers                 ; 8663                                        ;
 ; Total pins                      ; 158 / 457 ( 35 % )                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 2,623,488 / 4,065,280 ( 65 % )              ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+----------------------------+
 ; Option            ; Setting                    ;
 +-------------------+----------------------------+
-; Start date & time ; 04/25/2024 17:29:25        ;
+; Start date & time ; 04/29/2024 17:06:50        ;
 ; Main task         ; Compilation                ;
 ; Revision Name     ; signal_processing_template ;
 +-------------------+----------------------------+
@@ -78,7 +78,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------+--------------------------------------------------------------------------+----------------------------+--------------------------------+----------------+
 ; Assignment Name                       ; Value                                                                    ; Default Value              ; Entity Name                    ; Section Id     ;
 +---------------------------------------+--------------------------------------------------------------------------+----------------------------+--------------------------------+----------------+
-; COMPILER_SIGNATURE_ID                 ; 85621097339.171407695914296                                              ; --                         ; --                             ; --             ;
+; COMPILER_SIGNATURE_ID                 ; 31264773218378.171442119605660                                           ; --                         ; --                             ; --             ;
 ; ECO_REGENERATE_REPORT                 ; On                                                                       ; Off                        ; --                             ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                ; Verilog Hdl                                                              ; --                         ; --                             ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                   ; ModelSim-Altera (Verilog)                                                ; <None>                     ; --                             ; --             ;
@@ -164,12 +164,12 @@ refer to the applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:02:01     ; 1.5                     ; 5260 MB             ; 00:02:31                           ;
-; Fitter                    ; 00:07:43     ; 1.1                     ; 7150 MB             ; 00:11:30                           ;
-; Assembler                 ; 00:00:26     ; 1.0                     ; 5016 MB             ; 00:00:22                           ;
-; TimeQuest Timing Analyzer ; 00:01:27     ; 1.5                     ; 5810 MB             ; 00:01:48                           ;
-; EDA Netlist Writer        ; 00:00:11     ; 1.0                     ; 5112 MB             ; 00:00:11                           ;
-; Total                     ; 00:11:48     ; --                      ; --                  ; 00:16:22                           ;
+; Analysis & Synthesis      ; 00:05:22     ; 1.4                     ; 5387 MB             ; 00:05:51                           ;
+; Fitter                    ; 00:21:03     ; 1.1                     ; 7148 MB             ; 00:21:29                           ;
+; Assembler                 ; 00:01:25     ; 1.0                     ; 5039 MB             ; 00:00:52                           ;
+; TimeQuest Timing Analyzer ; 00:03:53     ; 1.5                     ; 5819 MB             ; 00:03:39                           ;
+; EDA Netlist Writer        ; 00:00:43     ; 1.0                     ; 5146 MB             ; 00:00:33                           ;
+; Total                     ; 00:32:26     ; --                      ; --                  ; 00:32:24                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -178,11 +178,11 @@ refer to the applicable agreement for further details.
 +---------------------------+------------------+------------+------------+----------------+
 ; Module Name               ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +---------------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis      ; DESKTOP-BRUHM76  ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter                    ; DESKTOP-BRUHM76  ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler                 ; DESKTOP-BRUHM76  ; Windows 10 ; 10.0       ; x86_64         ;
-; TimeQuest Timing Analyzer ; DESKTOP-BRUHM76  ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer        ; DESKTOP-BRUHM76  ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis      ; DESKTOP-TN92N90  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter                    ; DESKTOP-TN92N90  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler                 ; DESKTOP-TN92N90  ; Windows 10 ; 10.0       ; x86_64         ;
+; TimeQuest Timing Analyzer ; DESKTOP-TN92N90  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer        ; DESKTOP-TN92N90  ; Windows 10 ; 10.0       ; x86_64         ;
 +---------------------------+------------------+------------+------------+----------------+
 
 

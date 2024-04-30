@@ -98,16 +98,19 @@ assign dato_dac = (LU_table) ? dato_dac_lu_table : digital_data_in_reg;
 assign data_dac_valid = (LU_table) ? dato_dac_lu_table_valid : digital_data_in_valid_reg;
 
 reg [31:0] dato_dac_reg;
+reg dato_dac_valid_reg;
 	
 	always @ (posedge CLK_65)
 	begin
 		if(!reset_n)
 		begin
 			dato_dac_reg <= nivel_idle;
+			dato_dac_valid_reg <= 0;
 		end
-		if(digital_data_in_valid_reg)
+		else
 		begin
 			dato_dac_reg <= dato_dac;
+			dato_dac_valid_reg <= data_dac_valid;
 		end
 				
 	end
@@ -133,8 +136,8 @@ assign  DAC_CLK_A = CLK_65; 	    //PLL Clock to DAC_A
 
 assign  POWER_ON  = 1;            //Disable OSC_SMA
 
-assign  DAC_DA = (data_dac_valid)? dato_dac : dato_dac_reg ; 
-assign  DAC_DB = (data_dac_valid)? dato_dac : dato_dac_reg ; 
+assign  DAC_DA = dato_dac_reg ; 
+assign  DAC_DB = dato_dac_reg ; 
 
 
 
@@ -142,7 +145,6 @@ assign  DAC_DB = (data_dac_valid)? dato_dac : dato_dac_reg ;
 //  Circuiteria del data_valid
 //=======================================================
 
-wire data_valid_adc;
 
 //Desde el data_valid del source necesito 1 ciclo para que se acomode el DAC, y
 //el ADC necesita un rato para acomodarse (En total hay "delay" ciclos de reloj con cosas que no tienen sentido)
@@ -154,7 +156,7 @@ reg [15:0] counter_pipeline;
 always @ (posedge CLK_65)
 	if(!reset_n)
 		counter_pipeline <= 0;
-	else if(data_dac_valid)
+	else if(dato_dac_valid_reg)
 		counter_pipeline <= (counter_pipeline == delay)? counter_pipeline : counter_pipeline + 1;
 
 
@@ -162,7 +164,7 @@ always @ (posedge CLK_65)
 //  Salidas
 //=======================================================
 
-assign data_valid_dac_export = (data_dac_valid && (counter_pipeline == delay));
+assign data_valid_dac_export = (dato_dac_valid_reg && (counter_pipeline == delay));
 
 
 endmodule

@@ -243,6 +243,28 @@ class FPGA_de1soc {
 
 		}
 
+		static resultados get_resultados_from_xy_64M (long long int X, long long int Y, int div, bool convert2volt, int f)
+		{
+			int f_clk = 64000000;
+			int M = f_clk / f;
+			float correccion_fase = 1.5 * 360/(float)M;
+
+			resultados result;
+
+			result.x = (double)X / div;
+			result.y = (double)Y / div;
+			
+			result.r = sqrt(pow(result.x, 2) + pow(result.y, 2)) * 2 / amplitud_ref;
+			result.phi = atan2(result.y, result.x) * 180 / 3.1415 + correccion_fase;
+
+			if(convert2volt){
+				result.r = cuentas2volt(result.r);
+			}
+
+			return result;
+
+		}
+
 		long long * leer_FIFO_64_bit(int fifo)
 		{	
 			if(calculos_disponibles)

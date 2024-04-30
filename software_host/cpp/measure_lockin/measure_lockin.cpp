@@ -30,7 +30,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
-    if (argc != 7) {
+    if ((argc != 7)&&(argc != 8) ){
         cerr << "Uso: measure_lockin sim_noise N frecuencia fuente modo nombre_archivo" << endl;
         return 1;
     }
@@ -47,6 +47,11 @@ int main(int argc, char *argv[])
 	FPGA_de1soc fpga;
 	int f_clk = 64;	// En MHz
 	int M = f_clk*1000000 / f;	// Ya no cumple muchas funciones...
+
+	if (argc == 8)
+	{
+		f_clk = atoi(argv[7]);
+	}
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////
@@ -95,11 +100,18 @@ int main(int argc, char *argv[])
 	std::cout << "X: " << X_li << std::endl << "Y: " << Y_li << std::endl;
 	std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
 
-	FPGA_de1soc::resultados results_li = FPGA_de1soc::get_resultados_from_xy (X_li,Y_li,div_li,Covertir2volt);
+	FPGA_de1soc::resultados results_li;
+	if(f_clk == 64)
+	{
+		results_li = FPGA_de1soc::get_resultados_from_xy_64M (X_li,Y_li,div_li,Covertir2volt,f);
+	}
+	else
+	{
+		results_li = FPGA_de1soc::get_resultados_from_xy (X_li,Y_li,div_li,Covertir2volt);
+	}
 
 	std::cout << "r = " << results_li.r << std::endl;
 	std::cout << "phi = " << results_li.phi << std::endl;
-
 
 	/////// Resultados CALI /////
 	fpga.set_parameter(0,5);
@@ -112,7 +124,15 @@ int main(int argc, char *argv[])
 	std::cout << "X: " << X_cali << std::endl << "Y: " << Y_cali << std::endl;
 	std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
 
-	FPGA_de1soc::resultados results_cali = FPGA_de1soc::get_resultados_from_xy (X_cali,Y_cali,div_cali,Covertir2volt);
+	FPGA_de1soc::resultados results_cali;
+	if(f_clk == 64)
+	{
+		results_cali = FPGA_de1soc::get_resultados_from_xy_64M (X_li,Y_li,div_li,Covertir2volt,f);
+	}
+	else
+	{
+		results_cali = FPGA_de1soc::get_resultados_from_xy (X_cali,Y_cali,div_cali,Covertir2volt);
+	}
 
 	std::cout << "r = " << results_cali.r << std::endl;
 	std::cout << "phi = " << results_cali.phi << std::endl;
@@ -137,6 +157,8 @@ int main(int argc, char *argv[])
 
 	// Cierra el archivo de salida
 	archivo_salida.close();
+
+	fpga.Terminar();
 
     return 0;
 }

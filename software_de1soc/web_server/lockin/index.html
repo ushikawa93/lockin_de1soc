@@ -40,6 +40,13 @@
                 
                 <label for="N">N:</label>
                 <input type="text" id="N" name="N" value="1">
+
+                <label for="ciclos2display">Mostrar en grafico [ciclos]:</label>
+                <input type="text" id="ciclos2display" name="ciclos2display" value="1">
+
+                <label for="frecuencia_clk"> Frecuencia del reloj [MHz]:</label>
+                <input type="text" id="frecuencia_clk" name="frecuencia_clk" value="10">
+
             </aside>
 
         </section>
@@ -54,14 +61,17 @@
         </section>
     </header>
     <main>
+        <header><h2> Señales involucradas 
+        <button id="HabilitarOsciloscopio" onclick="habilitarOSC()">Iniciar</button></h2></header>
         <canvas id="myChart"></canvas>
-        <script src="script.js"></script> <!-- Aquí irá tu script de JavaScript -->
+       
     </main>
 
     
 
     <script>      
         var serverIP = window.location.hostname; // Obtiene la dirección IP del servidor
+        var habilitar_oscilosocpio = false;
         habilitarSetRuido();
         
         function iniciar() {
@@ -71,6 +81,7 @@
             var frecuencia = document.getElementById("frecuencia").value;
             var fuente = document.getElementById("fuente").value;
             var modo = document.getElementById("modo").value;
+            var frecuencia_clk = document.getElementById("frecuencia_clk").value;
 
             // Enviar los valores al servidor
             $.get("http://" + serverIP + ":8080/iniciar_lockin", {
@@ -78,7 +89,8 @@
                 N: N,
                 frecuencia: frecuencia,
                 fuente: fuente,
-                modo: modo
+                modo: modo,
+                f_clk : frecuencia_clk
             }, function(data, status) {
                 // Manejar la respuesta del servidor
                 var amplitud_label = document.getElementById("R");
@@ -108,82 +120,108 @@
             }
         }
 
+        function habilitarOSC() {
+            habilitar_oscilosocpio = !habilitar_oscilosocpio; // Cambiar el estado del osciloscopio
 
-         
+            var habilitar_button = document.getElementById("HabilitarOsciloscopio");
 
+            habilitar_button.textContent = (habilitar_oscilosocpio)? "Detener" : "Iniciar";
 
-        ////////////////////// TEST PARA GRAFICAR COSAS ////////////////////
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [], // Aquí irán las etiquetas de tiempo (si es necesario)
-                datasets: [{
-                    label: 'Señal 1',
-                    data: [], // Aquí irán los datos de la señal 1
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderWidth: 1
-                }, {
-                    label: 'Señal 2',
-                    data: [], // Aquí irán los datos de la señal 2
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [], // Aquí irán las etiquetas de tiempo (si es necesario)
+                    datasets: [{
+                        label: 'FIFO 0 (ADC)',
+                        data: [], // Aquí irán los datos de la señal 1
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 1
+                    }, {
+                        label: 'FIFO 1 (Referencia)',
+                        data: [], // Aquí irán los datos de la señal 2
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1
                     }]
+                },                
+            });
+
+            // Función para actualizar el gráfico
+            function updateChart() {
+                if (habilitar_oscilosocpio) {
+
+                    var frec = document.getElementById("frecuencia").value;
+                    var ciclos2display = document.getElementById("ciclos2display").value;
+                    var f_clk = document.getElementById("frecuencia_clk").value;
+                    var fuente = document.getElementById("fuente").value;
+                    var noise = document.getElementById("noise").value;
+                    var N = document.getElementById("N").value;
+                 
+                    $.get("http://" + serverIP + ":8080/datos_adc", {
+                        frec : frec, 
+                        ciclos2display : ciclos2display , 
+                        f_clk : f_clk , 
+                        fuente: fuente ,
+                        noise: noise,
+                        N : N
+                    } ,function(data, status) {
+                        // Obtener los datos de data1 y data2
+                        var newData1 = data.data1;
+                        var newData2 = data.data2;
+
+                        // Limpiar los datasets y etiquetas del gráfico
+                        chart.data.datasets[0].data = [];
+                        chart.data.datasets[1].data = [];
+                        chart.data.labels = [];
+
+                        // Escalo las señales para verlas juntas NO ANDA
+                        
+                        var maxData1 = Math.max(...newData1);
+                        var minData1 = Math.min(...newData1);
+                        var median1 = (maxData1 + minData1) / 2;
+
+                        var maxData2 = Math.max(...newData2);
+                        var minData2 = Math.min(...newData2);
+                        var median2 = (maxData2 + minData2) / 2;                        
+                        
+                        var data_escalada = newData1.map(value => (value-median1)*((maxData2-minData2) / (maxData1-minData1)) );
+                        // Agregar todos los nuevos datos al gráfico
+                        chart.data.datasets[0].data = data_escalada; 
+                        chart.data.datasets[1].data = newData2; 
+
+                        // Agregar etiquetas de tiempo para cada punto de datos
+                        for (var i = 0; i < newData1.length-1; i++) {
+                            // Crear etiquetas de tiempo para cada punto de datos
+                            var timeLabel = i;
+
+                            // Agregar etiquetas de tiempo al array de etiquetas del gráfico
+                            chart.data.labels.push(timeLabel);
+                        }
+
+                        // Actualizar el gráfico
+                        chart.update();
+                    });
                 }
+                else{
+
+                    chart.data.datasets[0].data = [];
+                    chart.data.datasets[1].data = [];
+                    chart.data.labels = [];
+                    //chart.update();
+                }
+
+                // Llamar a esta función nuevamente en 1 segundo
+                setTimeout(updateChart, 1000);
             }
+
+            // Iniciar la actualización del gráfico
+            updateChart();
         });
-
-        // Función para actualizar el gráfico
-        function updateChart() {
-        // Aquí realizarías una llamada AJAX para obtener los nuevos datos
-        // y luego actualizarías el gráfico con esos datos
-        // Por ahora, simplemente generaremos datos aleatorios
-
-        var newData1 = Math.random() * 10;
-        var newData2 = Math.random() * 10;
-
-        // Limpiar las etiquetas para evitar que el gráfico se llene de etiquetas
-        if (chart.data.datasets[0].data.length > 10) {
-            chart.data.datasets[0].data.shift(); // Elimina la muestra más antigua de la señal 1
-            chart.data.datasets[1].data.shift(); // Elimina la muestra más antigua de la señal 2
-        }
-
-        // Agregar nuevos datos al gráfico
-        chart.data.datasets[0].data.push(newData1);
-        chart.data.datasets[1].data.push(newData2);
-
-        // Limpiar las etiquetas para evitar que el gráfico se llene de etiquetas
-        if (chart.data.labels.length > 10) {
-            chart.data.labels.shift();
-        }
-
-        // Agregar nueva etiqueta de tiempo (si es necesario)
-        var currentTime = new Date();
-        var timeLabel = currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds();
-        chart.data.labels.push(timeLabel);
-
-        // Actualizar el gráfico
-        chart.update();
-
-        // Llamar a esta función nuevamente en 1 segundo
-        setTimeout(updateChart, 1000);
-    }
-
-    // Iniciar la actualización del gráfico
-    updateChart();
-    });
 
     </script>
 </body>

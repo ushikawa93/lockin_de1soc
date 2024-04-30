@@ -4,7 +4,23 @@
 			"name" : "Top",
 			"pins" : [
 				{
+					"name" : "LED[0]",
+					"strict" : false
+				},
+				{
 					"name" : "LED[2]",
+					"strict" : false
+				},
+				{
+					"name" : "ADC_CLK_A",
+					"strict" : false
+				},
+				{
+					"name" : "ADC_CLK_B",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_CLK_A",
 					"strict" : false
 				},
 				{
@@ -64,6 +80,14 @@
 					"strict" : false
 				},
 				{
+					"name" : "DAC_WRT_A",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_CLK_B",
+					"strict" : false
+				},
+				{
 					"name" : "DAC_DB[0]",
 					"strict" : false
 				},
@@ -120,6 +144,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "DAC_WRT_B",
+					"strict" : false
+				},
+				{
 					"name" : "adc_cs_n",
 					"strict" : false
 				},
@@ -129,34 +157,6 @@
 				},
 				{
 					"name" : "adc_din",
-					"strict" : false
-				},
-				{
-					"name" : "LED[0]",
-					"strict" : false
-				},
-				{
-					"name" : "ADC_CLK_A",
-					"strict" : false
-				},
-				{
-					"name" : "ADC_CLK_B",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_CLK_A",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_WRT_A",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_CLK_B",
-					"strict" : false
-				},
-				{
-					"name" : "DAC_WRT_B",
 					"strict" : false
 				},
 				{
@@ -180,15 +180,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[0]",
-					"strict" : false
-				},
-				{
 					"name" : "ADC_DB[0]",
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[1]",
+					"name" : "ADC_DA[0]",
+					"strict" : false
+				},
+				{
+					"name" : "adc_dout",
 					"strict" : false
 				},
 				{
@@ -196,7 +196,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[2]",
+					"name" : "ADC_DA[1]",
 					"strict" : false
 				},
 				{
@@ -204,7 +204,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[3]",
+					"name" : "ADC_DA[2]",
 					"strict" : false
 				},
 				{
@@ -212,7 +212,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[4]",
+					"name" : "ADC_DA[3]",
 					"strict" : false
 				},
 				{
@@ -220,7 +220,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[5]",
+					"name" : "ADC_DA[4]",
 					"strict" : false
 				},
 				{
@@ -228,7 +228,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[6]",
+					"name" : "ADC_DA[5]",
 					"strict" : false
 				},
 				{
@@ -236,7 +236,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[7]",
+					"name" : "ADC_DA[6]",
 					"strict" : false
 				},
 				{
@@ -244,7 +244,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[8]",
+					"name" : "ADC_DA[7]",
 					"strict" : false
 				},
 				{
@@ -252,7 +252,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[9]",
+					"name" : "ADC_DA[8]",
 					"strict" : false
 				},
 				{
@@ -260,7 +260,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[10]",
+					"name" : "ADC_DA[9]",
 					"strict" : false
 				},
 				{
@@ -268,7 +268,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[11]",
+					"name" : "ADC_DA[10]",
 					"strict" : false
 				},
 				{
@@ -276,7 +276,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[12]",
+					"name" : "ADC_DA[11]",
 					"strict" : false
 				},
 				{
@@ -284,7 +284,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_DA[13]",
+					"name" : "ADC_DA[12]",
 					"strict" : false
 				},
 				{
@@ -292,7 +292,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "adc_dout",
+					"name" : "ADC_DA[13]",
 					"strict" : false
 				}
 			]

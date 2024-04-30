@@ -1,7 +1,7 @@
 
 module lu_table #(
 
-	parameter B_depth_lu_table = 12,
+	parameter B_depth_lu_table = 14,
 	parameter B_lu_table = 16
 
 )
@@ -26,8 +26,19 @@ parameter v_medio = 2**(B_lu_table-1)-1;
 
 reg [B_lu_table-1:0] lu_table [0:depth_LU_table/4];	// Uso solo 1/4 de la tabla y hago alguna magia para ahorrar espacio
 
-	initial	$readmemh("LU_Tables/x4096_16b_cuarto_de_tabla.mem",lu_table);
-
+	
+initial	
+begin
+		if (B_depth_lu_table == 12) $readmemh("LU_Tables/x4096_16b_cuarto_de_tabla.mem",lu_table);
+		
+		else if(B_depth_lu_table == 14) $readmemh("LU_Tables/x16384_16b_cuarto_de_tabla.mem",lu_table);
+		
+		else $readmemh("LU_Tables/x4096_16b_cuarto_de_tabla.mem",lu_table);	// Nunca deberia llegar aca
+end
+	
+	
+		
+		
 wire [B_depth_lu_table-1:0]  address_sen,address_cos;
 
 
