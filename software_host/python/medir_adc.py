@@ -19,7 +19,7 @@ N_promediacion = 1;
 f = 1000000;
 
 
-display_ciclos = ;
+display_ciclos = 2;
 fifo2read = 0;
 
 li = de1soc_handler(ip);

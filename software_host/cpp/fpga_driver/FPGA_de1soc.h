@@ -345,6 +345,49 @@ class FPGA_de1soc {
 			}
 		}
 
+
+		static resultados get_resultados_from_xy (long long int X, long long int Y, int div, bool convert2volt, int f, int f_clk)
+		{
+			int M = (double)f_clk*1000000 / f;
+
+			float correccion_fase = get_desfasaje(f_clk) * 360 / (float)M;
+
+			resultados result;
+
+			result.x = (double)X / div;
+			result.y = (double)Y / div;
+			
+			result.r = sqrt(pow(result.x, 2) + pow(result.y, 2)) * 2 / amplitud_ref;
+			result.phi = atan2(result.y, result.x) * 180 / 3.1415 - correccion_fase;
+
+			if(convert2volt){
+				result.r = cuentas2volt(result.r);
+			}
+
+			return result;
+
+		}
+
+
+		// Medidos empíricamente, es cuantos ciclos de reloj se desfasa la señal para cada frecuencia del clock!
+		static double get_desfasaje(int f_clk)
+		{
+			if (f_clk <1 || f_clk > 64){return 1;}
+
+			double desfasajes [64]= {    0.00021904, -0.000352334, -0.00417584, 0.00825695, 0.0172617, -0.0129016,
+										-0.0275598, -0.0446989, 0.0666098, 0.0556357, -0.0625196, -0.0286357,
+										-0.0306936, -0.155561, -0.135655, -0.109491, -0.0254541, 0.117017, 0.238627,
+										0.186582, 0.0237678, 0.0199821, 0.0302326, 0.0235692, -0.00306756, -0.0516347,
+										-0.130975, -0.243543, -0.362178, -0.479231, -0.571257, -0.642422, -0.690277,
+										-0.72263, -0.737825, -0.748777, -0.761161, -0.783811, -0.831092, -0.920886,
+										-1.03199, -1.08487, -1.05856, -1.00044, -0.960705, -0.944474, -0.943235,
+										-0.954533, -0.973869, -0.995993, -1.02962, -1.06285, -1.0985, -1.13623,
+										-1.1744, -1.22326, -1.25324, -1.29196, -1.33044, -1.36949, -1.41127,
+										-1.45294, -1.47838, -1.50672};
+			return desfasajes[f_clk-1];
+		}
+
+
 		// OBSOLETO si genero las ondas sinusoidales con el DDS compliler
 		// Setea la frec de muestreo (cambia frec_clk y divisor del clock)
 		// frecuencia debe estar en Hz 

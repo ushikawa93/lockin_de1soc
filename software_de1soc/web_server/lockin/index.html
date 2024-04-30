@@ -21,17 +21,24 @@
                     <option value="1" selected> ADC </option>
                     <option value="2">Simulación interna </option>
                 </select>
-              
+
+
+                <label for="noise">Ruido [bits]:</label>
+                <input type="text" id="noise" name="noise" value="5">
+
 
                 <label for="modo">Tipo de procesamiento:</label>
                 <select id="modo" name="modo">
                     <option value="0" selected> CALI </option>
                     <option value="1"> LI</option>
                 </select>
+              
+                <label for="corregir">Corregir fase?</label>
+                <select id="corregir" name="corregir">
+                    <option value="0"> NO </option>
+                    <option value="1" selected> SI </option>
+                </select>
 
-
-                <label for="noise">Ruido [bits]:</label>
-                <input type="text" id="noise" name="noise" value="5">
                 
             </aside>
             <aside>
@@ -82,6 +89,7 @@
             var fuente = document.getElementById("fuente").value;
             var modo = document.getElementById("modo").value;
             var frecuencia_clk = document.getElementById("frecuencia_clk").value;
+            var corregir_fase = document.getElementById("corregir").value;
 
             // Enviar los valores al servidor
             $.get("http://" + serverIP + ":8080/iniciar_lockin", {
@@ -90,7 +98,8 @@
                 frecuencia: frecuencia,
                 fuente: fuente,
                 modo: modo,
-                f_clk : frecuencia_clk
+                f_clk : frecuencia_clk,
+                corregir_fase : corregir_fase
             }, function(data, status) {
                 // Manejar la respuesta del servidor
                 var amplitud_label = document.getElementById("R");

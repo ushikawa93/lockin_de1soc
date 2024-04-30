@@ -30,7 +30,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
-    if ((argc != 7)&&(argc != 8) ){
+    if ((argc != 7)&&(argc != 8) && (argc != 9)){
         cerr << "Uso: measure_lockin sim_noise N frecuencia fuente modo nombre_archivo" << endl;
         return 1;
     }
@@ -41,10 +41,14 @@ int main(int argc, char *argv[])
     int f = atoi(argv[3]);
 	int fuente = atoi(argv[4]);
 	int modo = atoi(argv[5]);
-	bool Covertir2volt = true;
+	
     string nombre_archivo_salida = argv[6];
 	
 	FPGA_de1soc fpga;
+
+	bool corregir_fase = true;
+	bool Covertir2volt = true;
+
 	int f_clk = 64;	// En MHz
 	int M = f_clk*1000000 / f;	// Ya no cumple muchas funciones...
 
@@ -52,6 +56,13 @@ int main(int argc, char *argv[])
 	{
 		f_clk = atoi(argv[7]);
 	}
+	if (argc == 9)
+	{
+		f_clk = atoi(argv[7]);
+		corregir_fase = (atoi(argv[8]) == 1)? true:false;
+	}
+
+	if(fuente == 2 ){corregir_fase = false;}
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////
@@ -101,9 +112,9 @@ int main(int argc, char *argv[])
 	std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
 
 	FPGA_de1soc::resultados results_li;
-	if(f_clk == 64)
+	if(corregir_fase)
 	{
-		results_li = FPGA_de1soc::get_resultados_from_xy_64M (X_li,Y_li,div_li,Covertir2volt,f);
+		results_li = FPGA_de1soc::get_resultados_from_xy (X_li,Y_li,div_li,Covertir2volt,f,f_clk);
 	}
 	else
 	{
@@ -125,9 +136,9 @@ int main(int argc, char *argv[])
 	std::cout << "Muestras promediadas: " << fpga.get_output_auxiliar(0) << std::endl;
 
 	FPGA_de1soc::resultados results_cali;
-	if(f_clk == 64)
+	if(corregir_fase)
 	{
-		results_cali = FPGA_de1soc::get_resultados_from_xy_64M (X_li,Y_li,div_li,Covertir2volt,f);
+		results_cali = FPGA_de1soc::get_resultados_from_xy (X_li,Y_li,div_li,Covertir2volt,f,f_clk);
 	}
 	else
 	{

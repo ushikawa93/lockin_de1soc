@@ -13,6 +13,7 @@ var fuente = 2;
 var modo = 1;
 var frec_clk = 20;
 var ciclos2display = 2;
+var corregir_fase = 1;
 
 var buttonPressCount = 0; 
 
@@ -37,6 +38,7 @@ http.createServer(function (req, res) {
         fuente = queryObject.fuente;
         modo = queryObject.modo;
         frec_clk = queryObject.f_clk;
+        corregir_fase = queryObject.corregir_fase;
 
         // Ejecutar el comando para activar/desactivar el LED con los valores de los parámetros
         execFile("/root/Documents/de1soc_sw/cpp/measure_lockin/measure_li", [
@@ -46,7 +48,8 @@ http.createServer(function (req, res) {
             fuente, 
             modo, 
             nombre_archivo_lockin,
-            frec_clk], 
+            frec_clk,
+            corregir_fase], 
             
             function (error, stdout, stderr) {
             if (error) {

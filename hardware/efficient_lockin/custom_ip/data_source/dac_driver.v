@@ -107,7 +107,8 @@ reg dato_dac_valid_reg;
 			dato_dac_reg <= nivel_idle;
 			dato_dac_valid_reg <= 0;
 		end
-		else
+		
+		else if (data_dac_valid)
 		begin
 			dato_dac_reg <= dato_dac;
 			dato_dac_valid_reg <= data_dac_valid;
