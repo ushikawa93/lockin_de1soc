@@ -69,8 +69,18 @@
     </header>
     <main>
         <header><h2> Señales involucradas 
-        <button id="HabilitarOsciloscopio" onclick="habilitarOSC()">Iniciar</button></h2></header>
+        <button id="HabilitarOsciloscopio" onclick="habilitarOSC()">Iniciar</button> </h2></header>           
+        
+        <section>      
         <canvas id="myChart"></canvas>
+        </section>      
+        <section> 
+        <label for="escalar">Ver señales en misma escala?</label>
+            <select id="escalar" name="escalar">
+                <option value="0">NO</option>
+                <option value="1" selected>SI</option>
+            </select>
+        </section> 
        
     </main>
 
@@ -170,6 +180,7 @@
                     var fuente = document.getElementById("fuente").value;
                     var noise = document.getElementById("noise").value;
                     var N = document.getElementById("N").value;
+                    var escalar = document.getElementById("escalar").value;
                  
                     $.get("http://" + serverIP + ":8080/datos_adc", {
                         frec : frec, 
@@ -200,7 +211,7 @@
                         
                         var data_escalada = newData1.map(value => (value-median1)*((maxData2-minData2) / (maxData1-minData1)) );
                         // Agregar todos los nuevos datos al gráfico
-                        chart.data.datasets[0].data = data_escalada; 
+                        chart.data.datasets[0].data = (escalar==1)? data_escalada : newData1; 
                         chart.data.datasets[1].data = newData2; 
 
                         // Agregar etiquetas de tiempo para cada punto de datos

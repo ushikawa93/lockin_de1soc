@@ -7,19 +7,27 @@ Created on Tue Mar  5 15:21:56 2024
 
 from de1soc_class import de1soc_handler
 import matplotlib.pyplot as plt
+from de1soc_class import FuenteDatos
+from de1soc_class import ModoProcesamiento
 
 
 ip = "192.168.1.2"
 
 li = de1soc_handler(ip);
-li.set_M(32)
+
+
+li.set_f_clk(10);
 li.set_N(32)
+li.set_modo_procesamiento(ModoProcesamiento.LI)
+li.set_fuente(FuenteDatos.ADC_HS)
 
-f_start = 10
-f_stop = 40000
-step = 10
 
-data=li.barrido_lockin(f_start, f_stop, step,False);
+f_start = 10000
+f_stop = 1000000
+step = 1000
+corrregir_fase = True;
+
+data=li.barrido_lockin(f_start, f_stop, step,corrregir_fase);
 
 
 # Lista para almacenar las amplitudes obtenidas para cada frecuencia ensayada

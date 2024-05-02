@@ -6,7 +6,7 @@ JedecChain;
 	P ActionCode(Ign)
 		Device PartName(SOCVHPS) MfrSpec(OpMask(0));
 	P ActionCode(Cfg)
-		Device PartName(5CSEMA5F31) Path("C:/Users/mati9/Documents/01-lockin_de1soc/hardware/efficient_lockin/output_files/") File("efficient_lockin_estable_error_de_medio_ciclo_delay10.sof") MfrSpec(OpMask(1));
+		Device PartName(5CSEMA5F31) Path("C:/Users/MatiOliva/Documents/00-lockin_de1soc/hardware/efficient_lockin/output_files/") File("signal_processing_template.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

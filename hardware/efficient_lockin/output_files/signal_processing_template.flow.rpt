@@ -1,5 +1,5 @@
 Flow report for signal_processing_template
-Tue Apr 30 13:16:09 2024
+Thu May 02 13:33:48 2024
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,15 +40,15 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Tue Apr 30 13:16:09 2024       ;
+; Flow Status                     ; Successful - Thu May 02 13:33:48 2024       ;
 ; Quartus Prime Version           ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                   ; signal_processing_template                  ;
 ; Top-level Entity Name           ; efficient_lockin                            ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 7,829 / 32,070 ( 24 % )                     ;
-; Total registers                 ; 8684                                        ;
+; Logic utilization (in ALMs)     ; 7,793 / 32,070 ( 24 % )                     ;
+; Total registers                 ; 8727                                        ;
 ; Total pins                      ; 158 / 457 ( 35 % )                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 2,623,488 / 4,065,280 ( 65 % )              ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+----------------------------+
 ; Option            ; Setting                    ;
 +-------------------+----------------------------+
-; Start date & time ; 04/30/2024 13:03:22        ;
+; Start date & time ; 05/02/2024 13:21:39        ;
 ; Main task         ; Compilation                ;
 ; Revision Name     ; signal_processing_template ;
 +-------------------+----------------------------+
@@ -78,7 +78,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------+--------------------------------------------------------------------------+----------------------------+--------------------------------+----------------+
 ; Assignment Name                       ; Value                                                                    ; Default Value              ; Entity Name                    ; Section Id     ;
 +---------------------------------------+--------------------------------------------------------------------------+----------------------------+--------------------------------+----------------+
-; COMPILER_SIGNATURE_ID                 ; 85621097339.171449299612212                                              ; --                         ; --                             ; --             ;
+; COMPILER_SIGNATURE_ID                 ; 85621097339.171466689511880                                              ; --                         ; --                             ; --             ;
 ; ECO_REGENERATE_REPORT                 ; On                                                                       ; Off                        ; --                             ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                ; Verilog Hdl                                                              ; --                         ; --                             ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                   ; ModelSim-Altera (Verilog)                                                ; <None>                     ; --                             ; --             ;
@@ -164,12 +164,12 @@ refer to the applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:02:03     ; 1.4                     ; 5473 MB             ; 00:02:27                           ;
-; Fitter                    ; 00:06:26     ; 1.1                     ; 7184 MB             ; 00:10:47                           ;
-; Assembler                 ; 00:00:21     ; 1.0                     ; 5030 MB             ; 00:00:19                           ;
-; TimeQuest Timing Analyzer ; 00:01:05     ; 1.5                     ; 5850 MB             ; 00:01:31                           ;
-; EDA Netlist Writer        ; 00:00:11     ; 1.0                     ; 5134 MB             ; 00:00:11                           ;
-; Total                     ; 00:10:06     ; --                      ; --                  ; 00:15:15                           ;
+; Analysis & Synthesis      ; 00:01:46     ; 1.4                     ; 5437 MB             ; 00:02:19                           ;
+; Fitter                    ; 00:06:04     ; 1.1                     ; 7152 MB             ; 00:10:38                           ;
+; Assembler                 ; 00:00:19     ; 1.0                     ; 5034 MB             ; 00:00:19                           ;
+; TimeQuest Timing Analyzer ; 00:01:07     ; 1.5                     ; 5850 MB             ; 00:01:35                           ;
+; EDA Netlist Writer        ; 00:00:11     ; 1.0                     ; 5138 MB             ; 00:00:11                           ;
+; Total                     ; 00:09:27     ; --                      ; --                  ; 00:15:02                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

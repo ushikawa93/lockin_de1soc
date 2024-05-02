@@ -10,7 +10,11 @@ import os
 from enum import Enum
 
 class de1soc_handler:
-
+    
+    """ ------------------------------------- """
+    """ ------------ Constructor ------------ """
+    """ ------------------------------------- """
+    
     def __init__(self, ip_):
         self.set_f(1000000)
         self.set_N(1)
@@ -18,21 +22,92 @@ class de1soc_handler:
         self.set_fuente(FuenteDatos.SIM)
         self.set_modo_procesamiento(ModoProcesamiento.LI)
         self.set_sim_noise(0)
+        self.set_f_clk(64);
         
-    def barrido_lockin(self,f_inicial,f_final,f_step,corregir,file_path):
-                
-        file_aux = "datos_barrido_aux.dat"
+    
+    
+    """ ------------------------------------------ """
+    """ ------------ Geters y setters ------------ """
+    """ ------------------------------------------ """
+        
+    def set_IP(self, ip_):
+        if self.is_valid_IP(ip_):
+            self.ip = ip_
+            return True
+        return False
+    
+    def set_sim_noise(self,noise):
+        self.sim_noise = noise;
+    
+        
+    def set_f(self, valor_f):
+        if(valor_f <= 32000000 and valor_f >= 0.5):
+            self.f = valor_f
+        else:
+            self.f = 100000
+            
+    def set_f_clk(self,valor_f):
+        if(valor_f >= 1 and valor_f < 65):
+            self.f_clk = valor_f;
+        else:
+            self.f_clk = 64;
 
-        script_path = os.path.join("..\shell_scripts", "barrido_en_f.sh")
+
+    def set_N(self, valor_N):
+        self.N = valor_N
+        
+    def set_fuente(self,fuente):
+        if(isinstance(fuente,FuenteDatos)):
+            self.fuente = fuente
+       
+    def set_modo_procesamiento(self,modo):
+        if(isinstance(modo,ModoProcesamiento)):
+            self.modo = modo    
+    
+        
+    
+    
+    
+    """ ---------------------------------------------------- """    
+    """ ------------ Obtener resultados del ADC ------------ """
+    """ ---------------------------------------------------- """
+    
+    def get_adc(self,ciclos2display,fifo2read):
+         
+        file = "datos_adc.dat"        
+         
+        script_path = os.path.join("..\shell_scripts", "adquirir.sh")
         command = (
-            f"{script_path} {self.M} {self.N} {self.fuente.value} {self.modo.value} {f_inicial} {f_final} {f_step} {file_aux} {self.ip}"
-        )        
-
-        self.proceso(command)        
-        self.eliminar_duplicados_por_f(file_aux, file_path)
-        os.remove(file_aux)
-        return self.leer_archivo_barrido(file_path,corregir,self.M);
+            f"{script_path} {self.sim_noise} {self.N} {self.f} {ciclos2display} {file} {self.ip} {fifo2read}"
+        )
+         
+        de1soc_handler.proceso(command)
+        file_path = os.path.join("..\datos_adquiridos",file)
+        return self.leer_archivo_adc(file_path);
+    
+    @staticmethod
+    def leer_archivo_adc(nombre_archivo):
+        # Lista para almacenar los valores
+        valores = []
         
+        # Abrir el archivo y leer los valores línea por línea
+        with open(nombre_archivo, "r") as archivo:
+            for linea in archivo:
+                # Eliminar cualquier carácter de espacio en blanco alrededor del valor y dividir la línea en valores individuales
+                valores_linea = linea.strip().split(",")
+                # Convertir cada valor a un número de punto flotante y agregarlo a la lista de valores
+                for valor in valores_linea:
+                    if valor:  # Ignorar valores vacíos
+                        valores.append(float(de1soc_handler.cuentas2volt(float(valor),True)))
+                        
+        return valores;
+        
+    
+    
+    """ ------------------------------------------------------- """
+    """ ------------ Obtener resultados del Lockin ------------ """
+    """ ------------------------------------------------------- """
+    
     def measure_lockin(self,corregir):
                 
         file = "datos.dat"
@@ -45,82 +120,6 @@ class de1soc_handler:
         self.proceso(command)
         file_path = os.path.join("..\datos_adquiridos",file)
         return self.leer_archivo_lockin(file_path,corregir);
-    
-    def get_adc(self,ciclos2display,fifo2read):
-        
-        file = "datos_adc.dat"        
-        
-        script_path = os.path.join("..\shell_scripts", "adquirir.sh")
-        command = (
-            f"{script_path} {self.sim_noise} {self.N} {self.f} {ciclos2display} {file} {self.ip} {fifo2read}"
-        )
-        
-        de1soc_handler.proceso(command)
-        file_path = os.path.join("..\datos_adquiridos",file)
-        return self.leer_archivo_adc(file_path);
-        
-    def set_IP(self, ip_):
-        if self.is_valid_IP(ip_):
-            self.ip = ip_
-            return True
-        return False
-    
-    def set_sim_noise(self,noise):
-        self.sim_noise = noise;
-    
-    def is_valid_IP(self, ip_):
-        num_fields = 0
-        ip_stream = ip_.split('.')
-        for field in ip_stream:
-            if not field or len(field) > 3 or not field.isdigit():
-                return False
-
-            field_value = int(field)
-            if field_value < 0 or field_value > 255:
-                return False
-
-            num_fields += 1
-
-        return num_fields == 4
-    
-    def set_f(self, valor_f):
-        if(valor_f <= 32000000 and valor_f >= 0.5):
-            self.f = valor_f
-        else:
-            self.f = 100000
-
-
-    def set_N(self, valor_N):
-        self.N = valor_N
-        
-    def set_fuente(self,fuente):
-        if(isinstance(fuente,FuenteDatos)):
-            self.fuente = fuente
-       
-    def set_modo_procesamiento(self,modo):
-        if(isinstance(modo,ModoProcesamiento)):
-            self.modo = modo
-        
-    @staticmethod
-    def cuentas2volt(cuentas,desafectar_v_medio):
-        #factor = 125e-6;
-        #valor_medio=0
-        factor=1;valor_medio=0;
-        if desafectar_v_medio:
-            return factor*(cuentas-valor_medio);
-        return factor*cuentas;
-    
-    @staticmethod
-    def corregir_etapa_analogica(medida,M):
-        
-        correccion = de1soc_handler.encontrar_medida_mas_cercana("transferencias_sin_carga/barrido_sin_carga_M32.dat",medida['f']);
-         
-        r0=7429.145285;
-        r = medida['r'] * r0 / correccion['r'] 
-        phi = medida['phi'] - correccion['phi']
-        
-        return {'f': medida['f'], 'r': r, 'phi': phi}
-        
     
     @staticmethod
     def leer_archivo_lockin(nombre_archivo,corregir):
@@ -158,26 +157,28 @@ class de1soc_handler:
                 phi=correccion['phi']
 
        return {'f': f, 'M':M, 'N':N, 'x':x, 'y':y, 'r':r, 'phi':phi}
+   
+    
+   
+    """ ------------------------------------------------------- """
+    """ ------------ Barrido en frecuencia lockin ------------- """
+    """ ------------------------------------------------------- """
+    
+    
+    def barrido_lockin(self,f_inicial,f_final,f_step,corregir,file_name="datos_barrido.dat"):
+                
+
+        script_path = os.path.join("..\shell_scripts", "barrido_en_f.sh")
+        command = (
+            f"{script_path} {self.f_clk} {self.N} {self.fuente.value} {self.modo.value} {f_inicial} {f_final} {f_step} {file_name} {corregir*1} {self.ip}"
+        )
+
+        self.proceso(command) 
+        return self.leer_archivo_barrido(os.path.join("..\datos_adquiridos",file_name));
+    
     
     @staticmethod
-    def leer_archivo_adc(nombre_archivo):
-        # Lista para almacenar los valores
-        valores = []
-        
-        # Abrir el archivo y leer los valores línea por línea
-        with open(nombre_archivo, "r") as archivo:
-            for linea in archivo:
-                # Eliminar cualquier carácter de espacio en blanco alrededor del valor y dividir la línea en valores individuales
-                valores_linea = linea.strip().split(",")
-                # Convertir cada valor a un número de punto flotante y agregarlo a la lista de valores
-                for valor in valores_linea:
-                    if valor:  # Ignorar valores vacíos
-                        valores.append(float(de1soc_handler.cuentas2volt(float(valor),True)))
-                        
-        return valores;
-    
-    @staticmethod
-    def leer_archivo_barrido(nombre_archivo,corregir,M):
+    def leer_archivo_barrido(nombre_archivo):
         datos = []
         with open(nombre_archivo, 'r') as archivo:
            
@@ -188,54 +189,28 @@ class de1soc_handler:
             for line in lines[4:]:
                 valores = line.strip().split(',')
                 f = float(valores[0])
-                r = de1soc_handler.cuentas2volt(float(valores[3]))
+                r = float(valores[3])
                 phi = float(valores[4])
                 dato= {'f': f, 'r': r, 'phi': phi}
-                if(corregir == True):                
-                    dato_corregido = de1soc_handler.corregir_etapa_analogica(dato,M)
-                    datos.append(dato_corregido)
-                else:
-                    datos.append(dato)
+                datos.append(dato)                
             
             return datos
+  
+    
+  
+    """ ------------------------------------------------------- """
+    """ ------------------ Funciones auxiliares --------------- """
+    """ ------------------------------------------------------- """   
     
     @staticmethod
-    def eliminar_duplicados_por_f(archivo_entrada, archivo_salida):
-        f_set = set()
-    
-        with open(archivo_entrada, 'r') as entrada, open(archivo_salida, 'w') as salida:
-            lines = entrada.readlines()
-            salida.write(lines[0]);
-            salida.write(lines[1]);
-            salida.write(lines[2]);
-            salida.write(lines[3]);
-            for linea in lines[4:]:
-                partes = linea.strip().split(',')
-                f = float(partes[0])
-                if f not in f_set:
-                    salida.write(linea)
-                    f_set.add(f)
-                    
-    @staticmethod
-    def encontrar_medida_mas_cercana(archivo_entrada, f_deseado):
-        mejor_linea = None
-        mejor_diferencia = float('inf')
-    
-        with open(archivo_entrada, 'r') as archivo:
-            lineas=archivo.readlines();
-            for linea in lineas[4:]:
-                partes = linea.strip().split(',')
-                f_actual = float(partes[0])
-                diferencia = abs(f_deseado - f_actual)
-                if diferencia < mejor_diferencia:
-                    mejor_linea = linea
-                    mejor_diferencia = diferencia
-                    
-        partes=mejor_linea.split(',');
-        f = float(partes[0])
-        r = float(partes[3])
-        phi = float(partes[4])
-        return {'f': f, 'r': r, 'phi': phi}
+    def cuentas2volt(cuentas,desafectar_v_medio):
+        #factor = 125e-6;
+        #valor_medio=0
+        factor=1;valor_medio=0;
+        if desafectar_v_medio:
+            return factor*(cuentas-valor_medio);
+        return factor*cuentas; 
+        
     
     @staticmethod
     def proceso(comando):
@@ -243,6 +218,28 @@ class de1soc_handler:
         my_env = os.environ.copy()
         my_env["HOME"] = "C:\\Users\\MatiOliva"
         subprocess.run(comando, shell=True,env=my_env)
+        
+    def is_valid_IP(self, ip_):
+        num_fields = 0
+        ip_stream = ip_.split('.')
+        for field in ip_stream:
+            if not field or len(field) > 3 or not field.isdigit():
+                return False
+
+            field_value = int(field)
+            if field_value < 0 or field_value > 255:
+                return False
+
+            num_fields += 1
+
+        return num_fields == 4
+    
+    
+
+
+""" ------------------------------------------------------- """
+""" -------------- Enumeraciones auxiliares --------------- """
+""" ------------------------------------------------------- """   
 
 class FuenteDatos(Enum):
     ADC_2308 = 0

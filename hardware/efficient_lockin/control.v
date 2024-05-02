@@ -99,7 +99,7 @@ module control (
 // Custom clock afectado por el PLL y el divisor del reloj
 assign clk_custom = clk_post_divisor;
 
-wire reset_from_control_reg;
+wire reset_from_control_reg,enable_wire;
 assign reset_from_control = reset_from_control_reg;
 
 
@@ -108,17 +108,17 @@ assign reset_from_control = reset_from_control_reg;
 /////////////////////////////////////////////////
 
 procesador nios2 (
-        .clk_clk                             (clk),                             //                       clk.clk
-        .clk_custom_in_clk                   (clk_post_divisor),                   //             clk_custom_in.clk
+        .clk_clk                             (clk),                             	//                       clk.clk
+        .clk_custom_in_clk                   (clk_post_divisor),                 //             clk_custom_in.clk
         .clk_custom_out_clk                  (clk_pre_divisor),                  //            clk_custom_out.clk
         
-		  .enable_export                       (enable),                       //                    enable.export
-        .divisor_clock_export                (divisor_clk),                 //             divisor_clock.export
-		  .finalizacion_export                 (calculo_finalizado),                  //              finalizacion.export
+		  .enable_export                       (enable_wire),                      //                    enable.export
+        .divisor_clock_export                (divisor_clk),                 		//             divisor_clock.export
+		  .finalizacion_export                 (calculo_finalizado),               //              finalizacion.export
 	  
-		  .reset_reset_n                       (reset_n),                       //                     reset.reset_n
-        .reset_fifos_reset                   (reset_from_control_reg),                   //               reset_fifos.reset
-        .reset_op_export                     (reset_from_control_reg),                     //                  reset_op.export
+		  .reset_reset_n                       (reset_n),                       	//                     reset.reset_n
+        .reset_fifos_reset                   (reset_from_control_reg),           //               reset_fifos.reset
+        .reset_op_export                     (reset_from_control_reg),           //                  reset_op.export
        
 		  .fifo0_64_bit_down_in_valid          (result_0_64_bit_valid),          //      fifo0_64_bit_down_in.valid
         .fifo0_64_bit_down_in_data           (result_0_64_bit[31:0]),           //                          .data
@@ -242,7 +242,14 @@ procesador nios2 (
 
 	 );
 
+reg enable_reg;
+
+always @ (posedge clk_post_divisor)
+begin
+	enable_reg <= enable_wire;
+end
 	 
+assign enable = enable_reg;
 	 
 	 
 /////////////////////////////////////////////////
