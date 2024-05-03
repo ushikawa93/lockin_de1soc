@@ -5,7 +5,9 @@ const fs = require('fs');
 
 var nombre_archivo_lockin = "/var/www/html/lockin/test_web.dat";
 var nombre_archivo_adc = "/var/www/html/lockin/adc_web.dat"
+var nombre_archivo_barrido = "/var/www/html/lockin/barrido_web.dat"
 
+// Lockin y ADC
 var noise = 5;
 var N = 1;
 var frecuencia = 100000;
@@ -14,6 +16,11 @@ var modo = 1;
 var frec_clk = 20;
 var ciclos2display = 2;
 var corregir_fase = 1;
+
+// Barrido en frecuencia
+var f_inicial = 100000;
+var f_final = 1000000
+var f_step = 100000;
 
 var buttonPressCount = 0; 
 
@@ -138,6 +145,55 @@ http.createServer(function (req, res) {
         });
           
     }  
+    else if (parsedUrl.pathname === '/barrido_lockin'){        
+
+        f_clk = queryObject.f_clk;  
+        N = queryObject.N;
+        fuente = queryObject.fuente;
+        modo = queryObject.modo;
+        f_inicial = queryObject.f_inicial;
+        f_final = queryObject.f_final;
+        f_step = queryObject.f_step;
+        corregir_fase = queryObject.corregir_fase;
+
+
+        execFile("/root/Documents/de1soc_sw/cpp/barrido_en_f/barrido_f", [
+            f_clk, 
+            N, 
+            fuente, 
+            modo, 
+            f_inicial, 
+            f_final,
+            f_step,
+            nombre_archivo_barrido,
+            corregir_fase], 
+            
+            function (error, stdout, stderr) {
+            if (error) {
+                console.error('Error al ejecutar el comando:', error);
+                res.statusCode = 500;
+                res.end('Internal Server Error');
+            } else {
+                // Leer el contenido del archivo test_web.dat línea por línea
+                fs.readFile(nombre_archivo_barrido, 'utf8', (err, data) => {
+                    if (err) {
+                        console.error('Error al leer el archivo:', err);
+                        res.statusCode = 500;
+                        res.end('Internal Server Error');
+                    } else {
+                        // Si se lee correctamente, responde con el contenido del archivo
+                        res.writeHead(200, {'Content-Type': 'text/plain'});
+                        res.end(data);
+                    }
+                });
+            }
+            
+        });
+
+
+
+
+    }
     else if (parsedUrl.pathname === '/toggle' && queryObject.led_state !== undefined) {
         const ledState = parseInt(queryObject.led_state); // Obtener el valor de led_state
 
