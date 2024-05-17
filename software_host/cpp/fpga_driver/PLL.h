@@ -25,6 +25,8 @@ double PLL::configurar_pll(int frec_deseada,volatile unsigned long*pll_reconfig)
 
 	struct Pll_parameters pll = calculatePll_parameters(frec_deseada,50);
 
+	printf("%d,%d,%d",pll.M,pll.N,pll.C);
+
 	setM(pll.M,pll_reconfig);
 	setN(pll.N,pll_reconfig);
 	setC(pll.C,0,pll_reconfig);
