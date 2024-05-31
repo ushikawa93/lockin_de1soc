@@ -155,6 +155,7 @@ http.createServer(function (req, res) {
         f_final = queryObject.f_final;
         f_step = queryObject.f_step;
         corregir_fase = queryObject.corregir_fase;
+        noise = queryObject.noise;
 
 
         execFile("/root/Documents/de1soc_sw/cpp/barrido_en_f/barrido_f", [
@@ -166,7 +167,8 @@ http.createServer(function (req, res) {
             f_final,
             f_step,
             nombre_archivo_barrido,
-            corregir_fase], 
+            corregir_fase,
+            noise], 
             
             function (error, stdout, stderr) {
             if (error) {

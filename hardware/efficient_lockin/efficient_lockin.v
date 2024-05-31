@@ -130,7 +130,7 @@ end
 
 ///////////////////////// Entradas del DAC ////////////////////////////////////:
 
-wire [31:0] data_in_dac = aux_dac[32:1];
+wire [31:0] data_in_dac = aux_dac[32:1] >> atenuacion_dac;
 wire data_in_dac_valid = aux_dac[0];
 
 
@@ -311,6 +311,7 @@ wire [31:0] N_ma_CALI;
 wire [31:0] N_ca_CALI;
 wire [31:0] N_LI;
 wire [31:0] delta_phase;
+wire [31:0] atenuacion_dac;
 wire seleccion_resultado;
 
 
@@ -333,7 +334,9 @@ control nios (
 	 .parameter_out_5				(seleccion_resultado),
 	 .parameter_out_6				(N_LI),
 	 .parameter_out_7				(delta_phase),
-	 .parameter_out_9				(led_test),
+	 .parameter_out_9 			(atenuacion_dac),
+	 .parameter_out_10				(led_test),
+	 
 	 
 	 .parameter_in_0				(n_datos_promediados),
 	 

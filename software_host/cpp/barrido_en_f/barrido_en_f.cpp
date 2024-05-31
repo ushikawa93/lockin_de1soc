@@ -34,8 +34,8 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
-    if (argc != 10) {
-        cerr << "Uso barrido_en_f f_clk N fuente modo f_inicial f_final f_step nombre_archivo corregir_fase" << endl;
+    if (argc != 11) {
+        cerr << "Uso barrido_en_f f_clk N fuente modo f_inicial f_final f_step nombre_archivo corregir_fase sim_noise" << endl;
         return 1;
     }
 
@@ -53,6 +53,9 @@ int main(int argc, char *argv[])
     string nombre_archivo_salida = argv[8];
 	bool corregir_fase = (atoi(argv[9])==1)? true:false;
 
+	int sim_noise = atoi(argv[10]);
+
+
 	bool Covertir2volt = true;
 
 	FPGA_de1soc fpga;
@@ -67,6 +70,9 @@ int main(int argc, char *argv[])
 		// Ciclos de promediacion CALI
 		fpga.set_parameter(1,2);	// Largo filtro MA
 		fpga.set_parameter(N,3);	// Promediacion coherente
+
+		// Ruido en simulacion
+		fpga.set_parameter(sim_noise,4);
 		
 		// Ciclos de promediacion LI
 		fpga.set_parameter(N,6);

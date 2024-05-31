@@ -361,6 +361,7 @@ set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios|nios2|hps_0|hps_io|bord
 set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst
 set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst|pll0|fbout
 set_location_assignment PIN_AF14 -to clk
+set_global_assignment -name VERILOG_FILE custom_ip/processing/decimator.v
 set_global_assignment -name VERILOG_FILE custom_ip/processing/filtro_ma_con_sync.v
 set_global_assignment -name VERILOG_FILE custom_ip/data_source/lu_table.v
 set_global_assignment -name VERILOG_FILE custom_ip/data_source/dds_compiler_module.v

@@ -49,6 +49,8 @@ int main(int argc, char *argv[])
 	int f_clk = 64;	// En MHz
 	int M = f_clk*1000000  / f;	// Ya no lo obtengo de la linea de comandos (hay que cambiar despues eso)
 
+	int atenuacion_dac = 2;	// Atenuacion de la señal de salida
+
 
 	FPGA_de1soc fpga;	
 	
@@ -76,6 +78,10 @@ int main(int argc, char *argv[])
 		
 	// Modo de procesamiento --> { CALI = 0, LI = 1 };
 	fpga.set_parameter(modo,5);
+
+	// Atenuacion de la señal de salida
+	fpga.set_parameter(atenuacion_dac,10);
+
 	
 	// Cálculos
 	std::cout << "Iniciando medidas... " << std::endl;
