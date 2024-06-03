@@ -6,7 +6,7 @@
 ///// ================================================================================= /////
 /*
 	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> barrido_en_f M | N | fuente | modo | f_inicial | f_final | f_step | nombre_archivo 
+		-> barrido_en_f f_clk N fuente modo f_inicial f_final f_step nombre_archivo corregir_fase sim_noise 
 		
 */
 
@@ -24,6 +24,7 @@
 #include <iomanip> 
 #include <chrono>
 #include <thread>
+#include <chrono>
 
 #include "../fpga_driver/FPGA_de1soc.h"
 
@@ -97,6 +98,7 @@ int main(int argc, char *argv[])
 	{
 		double f_real = fpga.set_frec_dds_compiler(f,f_clk*1000000);
 		fpga.Reiniciar();
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		fpga.Comenzar();
 		
 		std::cout << "Resultados: " << std::endl;
@@ -124,6 +126,8 @@ int main(int argc, char *argv[])
         phi_values.push_back(results_li.phi); // Guardar el valor de phi en el vector phi_values.
 		x_values.push_back(results_li.x);
 		y_values.push_back(results_li.y); 
+
+		fpga.Terminar();
 	}
 	
 	

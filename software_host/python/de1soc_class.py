@@ -52,7 +52,6 @@ class de1soc_handler:
         else:
             self.f_clk = 64;
 
-
     def set_N(self, valor_N):
         self.N = valor_N
         
@@ -62,8 +61,7 @@ class de1soc_handler:
        
     def set_modo_procesamiento(self,modo):
         if(isinstance(modo,ModoProcesamiento)):
-            self.modo = modo    
-    
+            self.modo = modo      
         
     
     
@@ -78,7 +76,7 @@ class de1soc_handler:
          
         script_path = os.path.join("..\shell_scripts", "adquirir.sh")
         command = (
-            f"{script_path} {self.sim_noise} {self.N} {self.f} {ciclos2display} {file} {self.ip} {fifo2read}"
+            f"{script_path} {self.N} {self.f} {ciclos2display} {file} {fifo2read} {self.ip} "
         )
          
         de1soc_handler.proceso(command)
@@ -170,7 +168,7 @@ class de1soc_handler:
 
         script_path = os.path.join("..\shell_scripts", "barrido_en_f.sh")
         command = (
-            f"{script_path} {self.f_clk} {self.N} {self.fuente.value} {self.modo.value} {f_inicial} {f_final} {f_step} {file_name} {corregir*1} {self.ip}"
+            f"{script_path} {self.f_clk} {self.N} {self.fuente.value} {self.modo.value} {f_inicial} {f_final} {f_step} {file_name} {corregir*1} {self.sim_noise} {self.ip}"
         )
 
         self.proceso(command) 

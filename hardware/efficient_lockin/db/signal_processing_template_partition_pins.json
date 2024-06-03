@@ -148,6 +148,14 @@
 					"strict" : false
 				},
 				{
+					"name" : "watch",
+					"strict" : false
+				},
+				{
+					"name" : "LED[3]",
+					"strict" : false
+				},
+				{
 					"name" : "adc_cs_n",
 					"strict" : false
 				},
@@ -157,14 +165,6 @@
 				},
 				{
 					"name" : "adc_din",
-					"strict" : false
-				},
-				{
-					"name" : "watch",
-					"strict" : false
-				},
-				{
-					"name" : "LED[3]",
 					"strict" : false
 				},
 				{

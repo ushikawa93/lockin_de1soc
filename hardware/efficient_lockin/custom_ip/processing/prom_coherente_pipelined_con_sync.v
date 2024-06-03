@@ -52,7 +52,6 @@ reg data_out_valid_reg;
 
 reg signed [31:0] data_in_reg; always @ (posedge clk) data_in_reg <= (!reset_n)? 0: data_in;
 reg data_valid_reg; always @ (posedge clk) data_valid_reg <= (!reset_n)? 0: data_in_valid;
-reg sync_reg; always @ (posedge clk) sync_reg <= (!reset_n)? 0: sync;
 
 //=======================================================
 // Algoritmo principal
@@ -80,7 +79,7 @@ begin
 		if ( (data_valid_reg) )
 		begin
 		
-			if (sync_reg)
+			if (sync)
 			begin
 				start <= 1;
 				index <= 0;
@@ -88,7 +87,7 @@ begin
 				sync_out_reg <= ((frames_promediados == N-1)? 1 : 0);
 			end else
 			begin
-				index <= index+1;
+				index <= (start)? index+1 : 0;
 				sync_out_reg <= 0;
 			end
 			
@@ -98,19 +97,12 @@ begin
 				index_retrasado <= index;		
 			
 				// 1 etapa datos anteriores
-				// Si ya termine de promediar lo que quiero me olvido del dato anterior!
-				data_reg <= data_in_reg;
-				data_anterior <= ((frames_promediados == N) || (frames_promediados == 0) )? 0 : buffer [index];	
+				data_reg <= data_in_reg;				
+				data_anterior <= ((frames_promediados == N) || (frames_promediados == 0) )? 0 : buffer [index];	// Si ya termine de promediar lo que quiero me olvido del dato anterior!
 			
 				// 2 etapa dato nuevos
 				buffer[index_retrasado] <= data_anterior + data_reg;
-				
-				
-				// Este flag señala cuantos ciclos voy promediando
-				//frames_promediados <= 	(frames_promediados < N)? 
-				//								( ( index == (M-1)) ? frames_promediados+1 : frames_promediados ) :
-				//								( ( index == (M-1)) ? 1 : N );
-													
+								
 
 				// Si termine de promediar lo que quiero habilito la salida por un rato...
 				if ((frames_promediados == N) )	//habilitar salida	
@@ -138,7 +130,7 @@ begin
 end
 
 
-assign sync_out = (bypass==1)? sync_reg : sync_out_reg;
+assign sync_out = (bypass==1)? sync : sync_out_reg;
 assign data_out = (bypass==1)? data_in : data_out_reg; 
 assign data_out_valid = (bypass==1)? data_in_valid : data_out_valid_reg;
 

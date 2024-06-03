@@ -92,10 +92,10 @@ parameter open = 11;
 
 wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
 
-parameter fuente_dac = dds_compiler_sen ;	// En realidad sería desde una look up table (parametro dentro del modulo)
+parameter fuente_dac = dds_compiler_sen ;	
 
 parameter fuente_fifo0_32bit = datos_procesamiento;
-parameter fuente_fifo1_32bit = referencia_seno;
+parameter fuente_fifo1_32bit = avgd_signal;
 
 parameter fuente_fifo0_64bit = procesada_1;
 parameter fuente_fifo1_64bit = procesada_2;
@@ -484,13 +484,7 @@ wire data_adc_2308_valid;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//// Sincronizacion:
-// Por algun motivo para que sean iguales hay que atrasarle el sync a el lockin puro (nada muy grave...)
-
-reg sync_reg; always @ (posedge clk_custom) sync_reg <= sync_referencias;
-
 wire sync_cali = sync_referencias;
-wire sync_li = sync_reg;
 
 signal_processing_CALI signal_processing_CALI_inst(
 
@@ -546,7 +540,7 @@ wire sync_avgd_signal;
 ////////////// =============== Procesamiento de señal LI  ==============////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+wire sync_li = sync_referencias;
 
 signal_processing_LI signal_processing_LI_inst(
 
@@ -601,8 +595,8 @@ wire [63:0] data_procesada1 = (seleccion_resultado == 0)?  data_procesada1_CALI:
 wire [63:0] data_procesada2 = (seleccion_resultado == 0)?  data_procesada2_CALI: data_procesada2_LI;
 wire data_procesada1_valid = (seleccion_resultado == 0)?  data_procesada1_CALI_valid: data_procesada1_LI_valid;
 wire data_procesada2_valid = (seleccion_resultado == 0)?  data_procesada2_CALI_valid: data_procesada2_LI_valid;
-wire ready_to_calculate = ready_to_calculate_LI && ready_to_calculate_CALI;
-wire calculo_finalizado = calculo_finalizado_LI && calculo_finalizado_CALI;
+wire ready_to_calculate = (seleccion_resultado == 0)? ready_to_calculate_CALI : ready_to_calculate_LI;
+wire calculo_finalizado = (seleccion_resultado == 0)? calculo_finalizado_CALI : calculo_finalizado_LI;
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 ////// ========== Contador para ver si clk anda  ==========///////////////////////////////////

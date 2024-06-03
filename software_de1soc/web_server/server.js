@@ -102,12 +102,12 @@ http.createServer(function (req, res) {
         noise = queryObject.noise;
         N = queryObject.N;
 
-        execFile("/root/Documents/de1soc_sw/cpp/adquirir2/adquirir2", [
-            noise, 
+        execFile("/root/Documents/de1soc_sw/cpp/adquirir2/adquirir2", [             
             N, 
             frecuencia, 
             ciclos2display, 
             nombre_archivo_adc,
+            noise,
             frec_clk,
             fuente], 
             

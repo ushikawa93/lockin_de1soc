@@ -16,14 +16,14 @@ ip = "192.168.1.2"
 li = de1soc_handler(ip);
 
 
-li.set_f_clk(10);
+li.set_f_clk(64);
 li.set_N(32)
-li.set_modo_procesamiento(ModoProcesamiento.LI)
+li.set_modo_procesamiento(ModoProcesamiento.CALI)
 li.set_fuente(FuenteDatos.ADC_HS)
 
 
 f_start = 10000
-f_stop = 1000000
+f_stop = 2000000
 step = 1000
 corrregir_fase = True;
 

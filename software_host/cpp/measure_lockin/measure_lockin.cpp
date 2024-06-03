@@ -6,7 +6,7 @@
 ///// ================================================================================= /////
 /*
 	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> measure_lockin  sim_noise | N | frecuencia | fuente | modo | nombre_archivo 
+		-> measure_lockin sim_noise N frecuencia fuente modo nombre_archivo [f_clk corregir_fase](opcional)
 		
 */
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
     if ((argc != 7)&&(argc != 8) && (argc != 9)){
-        cerr << "Uso: measure_lockin sim_noise N frecuencia fuente modo nombre_archivo" << endl;
+        cerr << "Uso: measure_lockin sim_noise N frecuencia fuente modo nombre_archivo [f_clk corregir_fase](opcional)" << endl;
         return 1;
     }
 

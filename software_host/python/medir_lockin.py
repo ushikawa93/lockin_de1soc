@@ -14,10 +14,10 @@ ip = "192.168.1.2"
 li = de1soc_handler(ip)
 
 #frecuencias= list(range(800,1201,25))
-frecuencias=[1000000]
+frecuencias=[260000]
 
 r = []
-N = 10
+N = 16
 
 
 for f in frecuencias:
@@ -26,8 +26,9 @@ for f in frecuencias:
     li.set_f(f)
     li.set_N(N)
     li.set_modo_procesamiento(ModoProcesamiento.LI)
-    li.set_fuente(FuenteDatos.ADC_HS)
+    li.set_fuente(FuenteDatos.SIM)
     
     data=li.measure_lockin(False)
     r.append(data['r']);
     print(f" -> f: {data['f']} \n -> R: {data['r']} \n -> phi: {data['phi']}")
+

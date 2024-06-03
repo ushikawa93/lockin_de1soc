@@ -6,7 +6,7 @@
 ///// ================================================================================= /////
 /*
 	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> adquirir sim_noise | N | frecuencia | ciclos2display | nombre_archivo 
+		-> adquirir N frecuencia ciclos2display nombre_archivo fifo2read
 		
 */
 
@@ -30,24 +30,23 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
-    if (argc != 7) {
-        cerr << "Uso: adquirir sim_noise N frecuencia ciclos2display nombre_archivo " << endl;
+    if (argc != 6) {
+        cerr << "Uso: adquirir N frecuencia ciclos2display nombre_archivo fifo2read" << endl;
         return 1;
     }
 
     // Obtener los parámetros de la línea de comandos
-    int sim_noise = atoi(argv[1]);
-    int N = atoi(argv[2]);
-    int f = atoi(argv[3]);
-	int ciclos2display = atoi(argv[4]);
-	string nombre_archivo_salida = argv[5];
-	int fifo2read = atoi(argv[6]);
+    int N = atoi(argv[1]);
+    int f = atoi(argv[2]);
+	int ciclos2display = atoi(argv[3]);
+	string nombre_archivo_salida = argv[4];
+	int fifo2read = atoi(argv[5]);
 	
 	int fuente = 1;
 	int modo = 1;
 
 	int f_clk = 64;	// En MHz
-	int M = f_clk*1000000  / f;	// Ya no lo obtengo de la linea de comandos (hay que cambiar despues eso)
+	int M = f_clk*1000000  / f;	
 
 	int atenuacion_dac = 2;	// Atenuacion de la señal de salida
 
@@ -69,9 +68,6 @@ int main(int argc, char *argv[])
 	// Ciclos de promediacion CALI
 	fpga.set_parameter(1,2);	// Largo filtro MA
 	fpga.set_parameter(N,3);	// Promediacion coherente
-
-	// Bits de ruido para simulacion
-	fpga.set_parameter(sim_noise,4);
 		
 	// Ciclos de promediacion LI
 	fpga.set_parameter(N,6);

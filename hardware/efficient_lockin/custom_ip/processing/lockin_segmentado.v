@@ -70,6 +70,10 @@ wire signed [63:0] data_out_seno;
 wire signed [63:0] data_out_coseno;
 wire data_valid_multiplicacion;
 
+reg sync_reg;
+
+always @ (posedge clock) sync_reg <= sync;
+
 
 //=======================================================
 // Filtros pasabajos
@@ -90,7 +94,7 @@ filtro_ma_con_sync filtro_fase(
 	.data_valid(data_valid_multiplicacion),
 	.data(data_out_seno),	
 	
-	.start_signal(sync),
+	.start_signal(sync_reg),
 	
 	// Interfaz avalon streaming de salida
 	.data_out(data_out_fase),
@@ -120,7 +124,7 @@ filtro_ma_con_sync filtro_cuadratura(
 	.data_valid(data_valid_multiplicacion),
 	.data(data_out_coseno),
 	
-	.start_signal(sync),
+	.start_signal(sync_reg),
 	
 	// Interfaz avalon streaming de salida
 	.data_out(data_out_cuad),

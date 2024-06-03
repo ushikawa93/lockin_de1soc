@@ -20,7 +20,8 @@ f_final=${6:-20000}
 f_step=${7:-5000}
 nombre_archivo=${8:-datos_test.dat}
 corregir_fase=${9,-1}
-ip=${10:-192.168.1.101}
+sim_noise=${10,-1}
+ip=${11:-192.168.1.101}
 
 
 scp -r ../cpp/barrido_en_f root@$ip:/root/Documents/de1soc_sw/cpp/
@@ -31,7 +32,7 @@ ssh root@$ip <<EOF
 
 	cd /root/Documents/de1soc_sw/cpp/barrido_en_f/
 	make
-	./barrido_f $f_clk $N $fuente $modo $f_inicial $f_final $f_step $nombre_archivo $corregir_fase
+	./barrido_f $f_clk $N $fuente $modo $f_inicial $f_final $f_step $nombre_archivo $corregir_fase $sim_noise
 EOF
 
 #cd ../datos_adquiridos

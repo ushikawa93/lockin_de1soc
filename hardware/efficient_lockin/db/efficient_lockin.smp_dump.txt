@@ -170,6 +170,13 @@ state.ST_COMP_TRANS 1 0 0 1
 state.ST_UNCOMP_TRANS 1 0 1 0 
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
+State Machine - |efficient_lockin|control:nios|procesador:nios2|procesador_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:fifo1_32_bit_out_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
+Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
+state.ST_IDLE 0 0 0 0 
+state.ST_COMP_TRANS 1 0 0 1 
+state.ST_UNCOMP_TRANS 1 0 1 0 
+state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
+
 State Machine - |efficient_lockin|control:nios|procesador:nios2|procesador_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:fifo0_64_bit_up_out_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
 Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
 state.ST_IDLE 0 0 0 0 
@@ -192,13 +199,6 @@ state.ST_UNCOMP_TRANS 1 0 1 0
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
 State Machine - |efficient_lockin|control:nios|procesador:nios2|procesador_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:fifo1_64_bit_down_out_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
-Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
-state.ST_IDLE 0 0 0 0 
-state.ST_COMP_TRANS 1 0 0 1 
-state.ST_UNCOMP_TRANS 1 0 1 0 
-state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
-
-State Machine - |efficient_lockin|control:nios|procesador:nios2|procesador_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:fifo1_32_bit_out_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
 Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
 state.ST_IDLE 0 0 0 0 
 state.ST_COMP_TRANS 1 0 0 1 

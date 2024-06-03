@@ -6,7 +6,7 @@
 ///// ================================================================================= /////
 /*
 	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> adquirir sim_noise | N | frecuencia | ciclos2display | nombre_archivo 
+		-> adquirir2 N frecuencia ciclos2display nombre_archivo [sim_noise f_clk fuente](opcional)
 		
 */
 
@@ -31,28 +31,36 @@ int main(int argc, char *argv[])
 {
     // Verificar que se proporcionen los argumentos necesarios
     if ((argc != 6)&&(argc != 7)&&(argc != 8)) {
-        cerr << "Uso: adquirir sim_noise N frecuencia ciclos2display nombre_archivo " << endl;
+        cerr << "Uso: adquirir2 N frecuencia ciclos2display nombre_archivo [sim_noise f_clk fuente](opcional)  " << endl;
         return 1;
     }
 
     // Obtener los parámetros de la línea de comandos
-    int sim_noise = atoi(argv[1]);
-    int N = atoi(argv[2]);
-    int f = atoi(argv[3]);
-	int ciclos2display = atoi(argv[4]);
-	string nombre_archivo_salida = argv[5];
+
+    int N = atoi(argv[1]);
+    int f = atoi(argv[2]);
+	int ciclos2display = atoi(argv[3]);
+	string nombre_archivo_salida = argv[4];
 
 	int fuente = 1;
 	int modo = 1;	
+	int sim_noise = 0;
 	
 	int f_clk = 64;	// En MHz
 
+	if(argc == 6)
+	{
+		sim_noise = atoi(argv[5]);
+	}
+
 	if (argc == 7)
 	{
+		sim_noise = atoi(argv[5]);
 		f_clk = atoi(argv[6]);
 	}
 	else if (argc == 8)
-	{		
+	{	
+		sim_noise = atoi(argv[5]);
 		f_clk = atoi(argv[6]);
 		fuente = atoi(argv[7]);
 	}
