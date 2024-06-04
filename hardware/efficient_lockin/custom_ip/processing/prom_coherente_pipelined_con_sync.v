@@ -39,11 +39,11 @@ wire [15:0] N; assign N=frames_prom_coherente;	// Frames promediados coherenteme
 							
 							
 reg [15:0] index,frames_promediados; 
-reg [15:0] index_retrasado,index_clean; 
+reg [15:0] index_1,index_2,index_clean; 
 reg start,sync_out_reg;
 
 reg signed [31:0] buffer [0:buf_tam-1];
-reg signed [31:0] data_reg,data_anterior,data_out_reg;
+reg signed [31:0] data_reg,data_anterior,data_nueva,data_out_reg;
 
 reg data_out_valid_reg;
 
@@ -65,7 +65,7 @@ begin
 	begin 
 	
 		data_out_valid_reg <= 0;
-		index<=0;index_retrasado<=0;index_clean<=0;
+		index<=0;index_1<=0;index_2<=0;index_clean<=0;
 		frames_promediados<=0;			
 		data_reg<=0;data_out_reg<=0;
 		data_anterior<=0;		
@@ -93,16 +93,19 @@ begin
 			
 			if(start)
 			begin
-				// Indice para la otra etapa del pipeline
-				index_retrasado <= index;		
+				// Indices para las otras etapas del pipeline
+				index_1 <= index;
+				index_2 <= index_1;
 			
 				// 1 etapa datos anteriores
 				data_reg <= data_in_reg;				
 				data_anterior <= ((frames_promediados == N) || (frames_promediados == 0) )? 0 : buffer [index];	// Si ya termine de promediar lo que quiero me olvido del dato anterior!
 			
 				// 2 etapa dato nuevos
-				buffer[index_retrasado] <= data_anterior + data_reg;
-								
+				data_nueva <= data_anterior + data_reg;
+				
+				// 3 etapa guardo datos nuevos
+				buffer[index_2] <= data_nueva;				
 
 				// Si termine de promediar lo que quiero habilito la salida por un rato...
 				if ((frames_promediados == N) )	//habilitar salida	

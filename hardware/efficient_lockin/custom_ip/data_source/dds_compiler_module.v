@@ -7,7 +7,9 @@ module dds_compiler_module #(
 	
 	parameter B_out = 16,							// bits de la señal de salida
 	parameter B_depth_lu_table = 14,				// B_depth_lu_table = ceil (S/6)	(Con 12 esto se logra un S=70 dB (spurious free dinamic range) )
-	parameter B_lu_table = 16						// Bits de cuantizacion de la LU table
+	parameter B_lu_table = 16,						// Bits de cuantizacion de la LU table
+	
+	parameter return2zero = 0
 	
 )
 
@@ -54,8 +56,15 @@ begin
 	end
 	else if(enable)
 	begin
-	
-		acumulador_fase <= acumulador_fase + incremento_fase;
+		
+		if(return2zero== 1)
+			if( (acumulador_fase + incremento_fase) < acumulador_fase)
+				acumulador_fase <= 0;
+			else
+				acumulador_fase <= acumulador_fase + incremento_fase;			
+		else
+			acumulador_fase <= acumulador_fase + incremento_fase;
+			
 		acumulador_fase_reg  <= acumulador_fase;
 		
 		data_out_seno_reg <= sen[(B_lu_table-1) : (B_lu_table - B_out)];	// Tomo los B_out digitos mas significativos del dato
