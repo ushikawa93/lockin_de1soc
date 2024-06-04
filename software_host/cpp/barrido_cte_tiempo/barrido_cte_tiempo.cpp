@@ -78,8 +78,6 @@ int main(int argc, char *argv[])
 	// Modo de procesamiento --> { CALI = 0, LI = 1 };
 	fpga.set_parameter(modo,5);
 
-
-
 	// Definir vectores para almacenar f, r y phi.
     std::vector<double> N_values;
     std::vector<double> mean_r_values;
@@ -87,6 +85,7 @@ int main(int argc, char *argv[])
 
 	for (int i = N_inicial; i < N_final; i ++)
 	{
+		system("clear");
 		std::cout << "Calculando N= " << i << std::endl;
 
 		// Ciclos de promediacion LI
@@ -96,7 +95,6 @@ int main(int argc, char *argv[])
 
 		for(int j = 1; j< iteraciones; j++)
 		{
-			std::cout << "iteracion= " << j << std::endl;
 			fpga.Reiniciar();
 			fpga.Comenzar();
 
@@ -148,7 +146,7 @@ int main(int argc, char *argv[])
 		// Escribe los valores de mean r y std r en el archivo de salida
 		archivo_salida << "Barrido de ctes de tiempo -> N_inicial:" << N_inicial << ", N_final:" << N_final;
 		archivo_salida << "Parametros -> f: " << frec << ",	Fuente: " << fuente << ", Ruido:" << sim_ruido << ", Frec clk: " << f_clk << ", Iteraciones: " << iteraciones << endl;
-		archivo_salida << "Formato -> N,std_r,mean_r" << endl << endl;
+		archivo_salida << "Formato -> N,mean_r,std_r" << endl << endl;
 
 		for (size_t i = 0; i < mean_r_values.size(); ++i) 
 		{

@@ -6,6 +6,7 @@ const fs = require('fs');
 var nombre_archivo_lockin = "/var/www/html/lockin/test_web.dat";
 var nombre_archivo_adc = "/var/www/html/lockin/adc_web.dat"
 var nombre_archivo_barrido = "/var/www/html/lockin/barrido_web.dat"
+var nombre_archivo_ruido = "/var/www/html/lockin/barrido_ruido_web.dat"
 
 // Lockin y ADC
 var noise = 5;
@@ -21,6 +22,11 @@ var corregir_fase = 1;
 var f_inicial = 100000;
 var f_final = 1000000
 var f_step = 100000;
+
+// Barrido de ruido
+var N_inicial = 1;
+var N_final = 32;
+var iteraciones = 100; 
 
 var buttonPressCount = 0; 
 
@@ -194,6 +200,50 @@ http.createServer(function (req, res) {
 
 
 
+
+    }
+    else if (parsedUrl.pathname === '/barrido_ruido'){        
+
+        console.log('Calculando barrido ruido...');
+
+        frecuencia = queryObject.frecuencia;
+        N_inicial = queryObject.N_inicial;
+        N_final = queryObject.N_final;
+        iteraciones = queryObject.iteraciones;
+        fuente = queryObject.fuente;
+        noise = queryObject.noise;
+
+        execFile("/root/Documents/de1soc_sw/cpp/barrido_cte_tiempo/barrido_cte_tiempo", [
+            frecuencia, 
+            N_inicial, 
+            N_final, 
+            iteraciones, 
+            fuente, 
+            noise,
+            nombre_archivo_ruido
+            ], 
+            
+            function (error, stdout, stderr) {
+            if (error) {
+                console.error('Error al ejecutar el comando:', error);
+                res.statusCode = 500;
+                res.end('Internal Server Error');
+            } else {
+                // Leer el contenido del archivo test_web.dat línea por línea
+                fs.readFile(nombre_archivo_ruido, 'utf8', (err, data) => {
+                    if (err) {
+                        console.error('Error al leer el archivo:', err);
+                        res.statusCode = 500;
+                        res.end('Internal Server Error');
+                    } else {
+                        // Si se lee correctamente, responde con el contenido del archivo
+                        res.writeHead(200, {'Content-Type': 'text/plain'});
+                        res.end(data);
+                    }
+                });
+            }
+            
+        });
 
     }
     else if (parsedUrl.pathname === '/toggle' && queryObject.led_state !== undefined) {

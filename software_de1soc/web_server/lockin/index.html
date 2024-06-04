@@ -52,9 +52,10 @@
 
     <div class="tab-container">
         <div class="tab active" onclick="openTab(event, 'tab1')">Lock in</div>
-        <div class="tab" onclick="openTab(event, 'tab2')">Señales involucradas</div>
+        <div class="tab" onclick="openTab(event, 'tab2')">Ver señales</div>
         <div class="tab" onclick="openTab(event, 'tab3')">Barrido en frecuencia</div>
         <div class="tab" onclick="openTab(event, 'tab4')">Funcion de transferencia</div>
+        <div class="tab" onclick="openTab(event, 'tab5')">Medidas de ruido</div>
     </div>
 
     <div id="tab1" class="tab-content active">
@@ -95,10 +96,7 @@
                 <input type="text" id="frecuencia" name="frecuencia" value="100000">
 
                 <label for="N">N:</label>
-                <input type="text" id="N" name="N" value="1">
-
-                <label for="ciclos2display">Mostrar en grafico [ciclos]:</label>
-                <input type="text" id="ciclos2display" name="ciclos2display" value="1">
+                <input type="text" id="N" name="N" value="1">               
 
                 <label for="frecuencia_clk"> Frecuencia del reloj [MHz]:</label>
                 <input type="text" id="frecuencia_clk" name="frecuencia_clk" value="64">
@@ -120,7 +118,6 @@
     </div>
 
 
-
     <div id="tab2" class="tab-content">
         <section id="signals">       
             <hr>               
@@ -140,8 +137,13 @@
                 </select>
             </aside>
             <aside>
+                <label for="ciclos2display">Mostrar en grafico [ciclos]:</label>
+                <input type="text" id="ciclos2display" name="ciclos2display" value="1">
+            </aside>
+            <aside>
                 <button id="HabilitarOsciloscopio" onclick="habilitarOSC()">Iniciar</button>
             </aside>
+            
         </section>
         </section>
     </div>
@@ -187,12 +189,52 @@
     </div>
 
     <div id="tab4" class="tab-content">
-    <section id="transferencias">
-        <header>
-            <h2> Funcion de transferencia </h2>
-            <canvas id="chart_transferencia_amplitud"></canvas>
-            <canvas id="chart_transferencia_fase"></canvas>
-    </header>
+        <section id="transferencias">
+            <header>
+                <h2> Funcion de transferencia </h2>
+                <canvas id="chart_transferencia_amplitud"></canvas>
+                <canvas id="chart_transferencia_fase"></canvas>
+            </header>
+        </section>
+    </div>
+
+    <div id="tab5" class="tab-content">
+    <section id="mediciones_de_ruido">          
+
+            <header>
+                <h2> Medidas de ruido </h2>
+            
+                <section>
+                    <aside>
+                        <label for="barrido_N_inicial"> N inicial</label>
+                        <input type="text" id="barrido_N_inicial" name="barrido_N_inicial" value="1">
+
+                        <label for="barrido_N_final"> N final</label>
+                        <input type="text" id="barrido_N_final" name="barrido_N_final" value="64">
+
+                        <label for="numero_iteraciones"> Numero de iteraciones</label>
+                        <input type="text" id="numero_iteraciones" name="numero_iteraciones" value="100">
+
+                       
+                    </aside>
+                    <aside>
+
+                        <label for="descargar_archivo_ruido">Descargar archivo?</label>
+                        <select id="descargar_archivo_ruido" name="descargar_archivo_ruido">
+                            <option value="0"> NO </option>
+                            <option value="1" selected> SI </option>
+                        </select>
+
+                        <label for="nombre_archivo_ruido"> Archivo de salida:</label>
+                        <input type="text" id="nombre_archivo_ruido" name="nombre_archivo_ruido" value="barrido_ruido.txt">
+
+                        <button id="BarridoRuido" onclick="barrido_ruido()">Iniciar</button>
+
+                    </aside>    
+                </section>          
+                <canvas id="chart_ruido_vs_N"></canvas>            
+        </header>
+            
 
     </section><br>
     </div>
@@ -272,7 +314,6 @@
                 console.error("Error en la solicitud AJAX:", errorThrown);
             });
         }
-
 
         // Funcion para habilitar el osciloscopio
         function habilitarOSC() {
@@ -424,10 +465,8 @@
                 // Llamar a la función para crear los gráficos
                 createCharts_barrido(data);
             });
-
             
         }
-
 
         // Graficar barrido en frecuencia
         function processData(data) {
@@ -542,6 +581,103 @@
         }
 
 
+        function processDataRuido(data) {
+            const lines = data.trim().split('\n');
+            const dataLines = lines.slice(4);
+            const parsedData = lines.map(line => {
+                const [N, mean_r, std_r] = line.split(',').map(Number);
+                return { N, mean_r, std_r };
+            });
+            return parsedData;
+        }
+
+        // Funcion para calculos de ruido
+        function barrido_ruido() {
+            // Obtener los valores de los campos de entrada
+            var N_inicial = document.getElementById("barrido_N_inicial").value;
+            var N_final = document.getElementById("barrido_N_final").value;
+            var nombre_archivo_ruido = document.getElementById("nombre_archivo_ruido").value;
+            var iteraciones = document.getElementById("numero_iteraciones").value;
+            var frecuencia = document.getElementById("frecuencia").value;
+            var fuente = document.getElementById("fuente").value;
+            var noise = document.getElementById("noise").value;
+
+            // Uso barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida
+
+            $.get("http://" + serverIP + ":8080/barrido_ruido", {
+                frecuencia: frecuencia,
+                N_inicial: N_inicial,
+                N_final: N_final,
+                iteraciones: iteraciones,
+                fuente: fuente,
+                noise: noise
+
+            }, function (data, status) {
+
+                var descargar = document.getElementById("descargar_archivo_ruido");
+
+                if(descargar.value == 1)
+                {
+                    // Crear un enlace de descarga
+                    var blob = new Blob([data], { type: 'text/plain' });
+                    var downloadLink = document.createElement('a');
+                    downloadLink.href = window.URL.createObjectURL(blob);
+                    downloadLink.download = nombre_archivo_ruido; // Nombre del archivo a descargar
+                    downloadLink.click();
+                }                                
+                // Llamar a la función para crear los gráficos
+                createCharts_noise(data);
+            });
+            
+        }
+
+        function createCharts_noise(data_ruido_in)
+        {
+            const data_ruido = processDataRuido(data_ruido_in);
+
+            const N = data_ruido.map(point => point.N);
+            const std_r = data_ruido.map(point => point.std_r);
+
+            const noiseCtx = document.getElementById('chart_ruido_vs_N').getContext('2d');
+
+            if (window.noiseChart) {
+            window.noiseChart.destroy();
+            }
+
+
+            window.noiseChart = new Chart(noiseCtx, {
+                
+                type: 'line',
+                data: {
+                    labels: N,
+                    datasets: [{
+                        label: 'Desviacion estándar',
+                        data: std_r,
+                        borderColor: 'blue',
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },           
+                options: {
+                    scales: {
+                        x: {
+                            //type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'N (constantes de tiempo)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Desviación estandar de las mediciones'
+                            }
+                        }
+                    }                   
+                }     
+            });        
+        }
 
     </script>
 
