@@ -1,5 +1,6 @@
 const http = require('http');
 var execFile = require('child_process').execFile;
+
 const url = require('url');
 const fs = require('fs');
 
@@ -150,7 +151,7 @@ http.createServer(function (req, res) {
             }
         });
           
-    }  
+    } 
     else if (parsedUrl.pathname === '/barrido_lockin'){        
 
         f_clk = queryObject.f_clk;  
@@ -162,8 +163,7 @@ http.createServer(function (req, res) {
         f_step = queryObject.f_step;
         corregir_fase = queryObject.corregir_fase;
         noise = queryObject.noise;
-
-
+    
         execFile("/root/Documents/de1soc_sw/cpp/barrido_en_f/barrido_f", [
             f_clk, 
             N, 
@@ -174,15 +174,15 @@ http.createServer(function (req, res) {
             f_step,
             nombre_archivo_barrido,
             corregir_fase,
-            noise], 
-            
-            function (error, stdout, stderr) {
-            if (error) {
-                console.error('Error al ejecutar el comando:', error);
-                res.statusCode = 500;
-                res.end('Internal Server Error');
-            } else {
-                // Leer el contenido del archivo test_web.dat línea por línea
+            noise], (error, stdout, stderr) => {
+                if (error) {
+                    console.error('Error al ejecutar el programa:', error);
+                    res.statusCode = 500;
+                    res.end('Internal Server Error');
+                    return;
+                }
+                
+                // Si el programa se ejecuta correctamente, leer el archivo
                 fs.readFile(nombre_archivo_barrido, 'utf8', (err, data) => {
                     if (err) {
                         console.error('Error al leer el archivo:', err);
@@ -195,57 +195,52 @@ http.createServer(function (req, res) {
                     }
                 });
             }
-            
-        });
-
-
-
-
+        );
     }
-    else if (parsedUrl.pathname === '/barrido_ruido'){        
-
-        console.log('Calculando barrido ruido...');
-
+    
+    else if (parsedUrl.pathname === '/barrido_ruido') {
+    
         frecuencia = queryObject.frecuencia;
         N_inicial = queryObject.N_inicial;
         N_final = queryObject.N_final;
         iteraciones = queryObject.iteraciones;
         fuente = queryObject.fuente;
-        noise = queryObject.noise;
+        noise = queryObject.noise;   
 
+           
         execFile("/root/Documents/de1soc_sw/cpp/barrido_cte_tiempo/barrido_cte_tiempo", [
-            frecuencia, 
-            N_inicial, 
-            N_final, 
-            iteraciones, 
-            fuente, 
+            frecuencia,
+            N_inicial,
+            N_final,
+            iteraciones,
+            fuente,
             noise,
             nombre_archivo_ruido
-            ], 
-            
-            function (error, stdout, stderr) {
+        ], (error, stdout, stderr) => {
+            console.log(stdout);
             if (error) {
-                console.error('Error al ejecutar el comando:', error);
+                console.error('Error al ejecutar el programa:', error);
                 res.statusCode = 500;
                 res.end('Internal Server Error');
-            } else {
-                // Leer el contenido del archivo test_web.dat línea por línea
-                fs.readFile(nombre_archivo_ruido, 'utf8', (err, data) => {
-                    if (err) {
-                        console.error('Error al leer el archivo:', err);
-                        res.statusCode = 500;
-                        res.end('Internal Server Error');
-                    } else {
-                        // Si se lee correctamente, responde con el contenido del archivo
-                        res.writeHead(200, {'Content-Type': 'text/plain'});
-                        res.end(data);
-                    }
-                });
+                return;
             }
-            
+    
+            // Si el programa se ejecuta correctamente, leer el archivo
+            fs.readFile(nombre_archivo_ruido, 'utf8', (err, data) => {
+                if (err) {
+                    console.error('Error al leer el archivo:', err);
+                    res.statusCode = 500;
+                    res.end('Internal Server Error');
+                } else {
+                    // Si se lee correctamente, responde con el contenido del archivo
+                    res.writeHead(200, { 'Content-Type': 'text/plain' });
+                    res.end(data);
+                    console.log("llegue hasta aca");
+                }
+            });
         });
-
     }
+    
     else if (parsedUrl.pathname === '/toggle' && queryObject.led_state !== undefined) {
         const ledState = parseInt(queryObject.led_state); // Obtener el valor de led_state
 

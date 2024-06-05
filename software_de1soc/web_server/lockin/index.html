@@ -52,11 +52,11 @@
 
     <div class="tab-container">
         <div class="tab active" onclick="openTab(event, 'tab1')">Lock in</div>
-        <div class="tab" onclick="openTab(event, 'tab2')">Ver señales</div>
-        <div class="tab" onclick="openTab(event, 'tab3')">Barrido en frecuencia</div>
-        <div class="tab" onclick="openTab(event, 'tab4')">Funcion de transferencia</div>
-        <div class="tab" onclick="openTab(event, 'tab5')">Medidas de ruido</div>
+        <div class="tab" onclick="openTab(event, 'tab2')">Barrido en frecuencia</div>
+        <div class="tab" onclick="openTab(event, 'tab3')">Medidas de ruido</div>
     </div>
+
+
 
     <div id="tab1" class="tab-content active">
         <header>
@@ -79,14 +79,14 @@
 
                 <label for="modo">Tipo de procesamiento:</label>
                 <select id="modo" name="modo">
-                    <option value="0" selected> CALI </option>
-                    <option value="1"> LI</option>
+                    <option value="0" CALI > </option>
+                    <option value="1" selected > LI </option>
                 </select>
 
                 <label for="corregir">Corregir fase?</label>
                 <select id="corregir" name="corregir">
-                    <option value="0"> NO </option>
-                    <option value="1" selected> SI </option>
+                    <option value="0" selected> NO </option>
+                    <option value="1" > SI </option>
                 </select>
 
 
@@ -114,20 +114,17 @@
                 <label id="PHI"></label>
             </aside>
 
-            </header>
-    </div>
-
-
-    <div id="tab2" class="tab-content">
-        <section id="signals">       
-            <hr>               
-            <header>      
-                <h2> Señales involucradas </h2>
+        </section>
+        <section>
+            <section id="signals">       
+                <hr>               
+                <header>      
+                    <h2> Señales involucradas </h2>                    
+                </header>           
                 <canvas id="myChart"></canvas>
-            </header>           
-
+           
         </section><br>
-
+    
         <section>
             <aside>
                 <label for="escalar">Ver señales en misma escala?</label>
@@ -143,12 +140,14 @@
             <aside>
                 <button id="HabilitarOsciloscopio" onclick="habilitarOSC()">Iniciar</button>
             </aside>
-            
+                
         </section>
-        </section>
+
     </div>
 
-    <div id="tab3" class="tab-content">
+
+
+    <div id="tab2" class="tab-content">
         <section id="barrido">
             <header>
                 
@@ -168,8 +167,8 @@
 
                         <label for="descargar">Descargar archivo?</label>
                         <select id="descargar" name="descargar">
-                            <option value="0"> NO </option>
-                            <option value="1" selected> SI </option>
+                            <option value="0" selected> NO </option>
+                            <option value="1" > SI </option>
                         </select>
 
                         <label for="nombre_archivo_barrido"> Archivo de salida:</label>
@@ -186,20 +185,20 @@
         <section>
             <button id="BarridoFrec" onclick="barrido()">Iniciar barrido</button>
         </section>
-    </div>
-
-    <div id="tab4" class="tab-content">
         <section id="transferencias">
             <header>
+                <hr>
                 <h2> Funcion de transferencia </h2>
                 <canvas id="chart_transferencia_amplitud"></canvas>
                 <canvas id="chart_transferencia_fase"></canvas>
             </header>
         </section>
+
     </div>
 
-    <div id="tab5" class="tab-content">
-    <section id="mediciones_de_ruido">          
+
+    <div id="tab3" class="tab-content">
+        <section id="mediciones_de_ruido">          
 
             <header>
                 <h2> Medidas de ruido </h2>
@@ -221,8 +220,8 @@
 
                         <label for="descargar_archivo_ruido">Descargar archivo?</label>
                         <select id="descargar_archivo_ruido" name="descargar_archivo_ruido">
-                            <option value="0"> NO </option>
-                            <option value="1" selected> SI </option>
+                            <option value="0" selected> NO </option>
+                            <option value="1" > SI </option>
                         </select>
 
                         <label for="nombre_archivo_ruido"> Archivo de salida:</label>
@@ -233,10 +232,9 @@
                     </aside>    
                 </section>          
                 <canvas id="chart_ruido_vs_N"></canvas>            
-        </header>
-            
+        </header>            
 
-    </section><br>
+        </section><br>
     </div>
 
 
@@ -424,6 +422,9 @@
         // Barrido en frecuencia -> recuperar TXT
         function barrido() {
 
+            var boton = document.getElementById('BarridoFrec');
+            boton.disabled = true;  // Deshabilitar el botón
+
             // Obtener los valores de los campos de entrada
 
             var f_clk = document.getElementById("frecuencia_clk").value;
@@ -464,6 +465,7 @@
                 }                                
                 // Llamar a la función para crear los gráficos
                 createCharts_barrido(data);
+                boton.disabled = false; 
             });
             
         }
@@ -593,6 +595,10 @@
 
         // Funcion para calculos de ruido
         function barrido_ruido() {
+
+            var boton = document.getElementById('BarridoRuido');
+            boton.disabled = true;  // Deshabilitar el botón
+
             // Obtener los valores de los campos de entrada
             var N_inicial = document.getElementById("barrido_N_inicial").value;
             var N_final = document.getElementById("barrido_N_final").value;
@@ -627,8 +633,8 @@
                 }                                
                 // Llamar a la función para crear los gráficos
                 createCharts_noise(data);
+                boton.disabled = false;
             });
-            
         }
 
         function createCharts_noise(data_ruido_in)
