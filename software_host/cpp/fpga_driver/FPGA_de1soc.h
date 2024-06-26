@@ -137,14 +137,24 @@ class FPGA_de1soc {
 		{
 			div_clk=div_clk_i;
 			fpga.WriteFPGA ( DIVISOR_CLOCK_BASE, 0,  div_clk );	
-		}
+		}		
 
-		float set_frec_dds_compiler(float f_deseada,float f_clk)
+		float set_frec_dds_compiler_ref(float f_deseada,float f_clk)
 		{
 			int B = 27; // Bits del acumulador de fase
 			int delta_phase = f_deseada * pow(2,B)/(f_clk);	// Parametro para el dds compiler!
 			// DDS compiler incremento de fase
 			set_parameter(delta_phase,7);
+
+			return (f_clk*delta_phase / pow(2,B));
+		}
+
+		float set_frec_dds_compiler_dac(float f_deseada,float f_clk)
+		{
+			int B = 27; // Bits del acumulador de fase
+			int delta_phase = f_deseada * pow(2,B)/(f_clk);	// Parametro para el dds compiler!
+			// DDS compiler incremento de fase
+			set_parameter(delta_phase,8);
 
 			return (f_clk*delta_phase / pow(2,B));
 		}

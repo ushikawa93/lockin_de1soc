@@ -57,7 +57,8 @@ int main(int argc, char *argv[])
 	
 	// Configuracion...
 	fpga.set_frec_clk(f_clk);
-	double f_real = fpga.set_frec_dds_compiler(f,f_clk*1000000);	
+	double f_real_dac = fpga.set_frec_dds_compiler_dac(f,f_clk*1000000);	
+	double f_real_ref = fpga.set_frec_dds_compiler_ref(f,f_clk*1000000);	
 			
 	// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
 	fpga.set_parameter(fuente,0);

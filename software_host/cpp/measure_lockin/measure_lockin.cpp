@@ -71,7 +71,8 @@ int main(int argc, char *argv[])
 
 	std::cout << "Iniciando configuracion.. " << std::endl;
 	fpga.set_frec_clk(f_clk);
-	double f_real = fpga.set_frec_dds_compiler(f,f_clk*1000000);
+	double f_real_dac = fpga.set_frec_dds_compiler_dac(f,f_clk*1000000);	
+	double f_real_ref = fpga.set_frec_dds_compiler_ref(f,f_clk*1000000);	
 	
 	// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
 	fpga.set_parameter(fuente,0);
@@ -163,7 +164,7 @@ int main(int argc, char *argv[])
 	FPGA_de1soc::resultados results = (modo == 0)? results_cali : results_li;
 	
 	// Escribe los valores de r y phi en el archivo de salida
-	archivo_salida << "f = " << f_real << endl << "M = " << M << endl << "N = " << N << endl << endl;	
+	archivo_salida << "f = " << f_real_ref << endl << "M = " << M << endl << "N = " << N << endl << endl;	
 	archivo_salida << "x = " << results.x << endl << "y = " << results.y << endl << "r = " << results.r << endl << "phi = " << results.phi << endl;
 
 	// Cierra el archivo de salida

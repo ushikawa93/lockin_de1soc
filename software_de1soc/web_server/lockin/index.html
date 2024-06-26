@@ -54,6 +54,7 @@
         <div class="tab active" onclick="openTab(event, 'tab1')">Lock in</div>
         <div class="tab" onclick="openTab(event, 'tab2')">Barrido en frecuencia</div>
         <div class="tab" onclick="openTab(event, 'tab3')">Medidas de ruido</div>
+        <div class="tab" onclick="openTab(event, 'tab4')">DEP (experimental)</div>
     </div>
 
 
@@ -93,13 +94,17 @@
             </aside>
             <aside>
                 <label for="frecuencia"> Frecuencia [Hz]:</label>
-                <input type="text" id="frecuencia" name="frecuencia" value="100000">
+                <input type="text" id="frecuencia" name="frecuencia" value="100000">               
 
                 <label for="N">N:</label>
                 <input type="text" id="N" name="N" value="1">               
 
                 <label for="frecuencia_clk"> Frecuencia del reloj [MHz]:</label>
                 <input type="text" id="frecuencia_clk" name="frecuencia_clk" value="64">
+
+                <br>
+                <label id="frecuencia_real"></label>
+                
 
             </aside>
 
@@ -124,7 +129,9 @@
                 <h2> Señales involucradas </h2>                    
                 <canvas id="myChart" style="width: 100%; height: 300px;"></canvas>
             </header> 
-        
+            <br>
+        </section>
+        <section>
             <aside>
                 <label for="escalar">Ver señales en misma escala?</label>
                 <select id="escalar" name="escalar">
@@ -230,8 +237,55 @@
 
                     </aside>    
                 </section>          
-                <canvas id="chart_ruido_vs_N"></canvas>            
-        </header>            
+                <canvas id="chart_ruido_vs_N"></canvas> 
+                <canvas id="chart_mean_vs_N"></canvas>            
+            </header>            
+
+        </section><br>
+    </div>
+
+    <div id="tab4" class="tab-content">
+        <section id="dep">          
+
+            <header>
+                <h2> Densidad espectral de potencia </h2>
+            
+                <section>
+                    <aside>
+                        <label for="dep_f_inicial"> f inicial</label>
+                        <input type="text" id="dep_f_inicial" name="dep_f_inicial" value="10000">
+
+                        <label for="dep_f_final"> f final</label>
+                        <input type="text" id="dep_f_final" name="dep_f_final" value="20000">
+
+                        <label for="dep_f_step"> Paso</label>
+                        <input type="text" id="dep_f_step" name="dep_f_step" value="100">
+
+                        <label for="numero_iteraciones_dep"> Numero de iteraciones</label>
+                        <input type="text" id="numero_iteraciones_dep" name="numero_iteraciones_dep" value="100">
+
+                       
+                    </aside>
+                    <aside>
+
+                        <label for="f_dac_dep"> F dac </label>
+                        <input type="text" id="f_dac_dep" name="f_dac_dep" value="15000">
+
+                        <label for="descargar_archivo_dep">Descargar archivo?</label>
+                        <select id="descargar_archivo_dep" name="descargar_archivo_dep">
+                            <option value="0" selected> NO </option>
+                            <option value="1" > SI </option>
+                        </select>
+
+                        <label for="nombre_archivo_dep"> Archivo de salida:</label>
+                        <input type="text" id="nombre_archivo_dep" name="nombre_archivo_dep" value="barrido_dep.txt">
+
+                        <button id="DEP" onclick="dep_iniciar()">Iniciar</button>
+
+                    </aside>    
+                </section>          
+                <canvas id="chart_dep"></canvas>           
+            </header>            
 
         </section><br>
     </div>
@@ -298,12 +352,14 @@
                 // Manejar la respuesta del servidor
                 var amplitud_label = document.getElementById("R");
                 var fase_label = document.getElementById("PHI");
+                var frecuencia_real_label = document.getElementById("frecuencia_real");
 
                 // Verificar si los datos recibidos tienen los atributos R y phi
                 if (data.hasOwnProperty("r") && data.hasOwnProperty("phi")) {
                     // Actualizar el contenido de los elementos HTML con los valores recibidos
                     amplitud_label.textContent = "R : " + data.r;
                     fase_label.textContent = "PHI : " + data.phi;
+                    frecuencia_real_label.textContent = "   (Frecuencia real: " + data.f + " Hz)";
                 } else {
                     console.error("Los datos recibidos del servidor son incorrectos o faltan atributos.");
                 }
@@ -507,7 +563,7 @@
                 data: {
                     labels: frequencies,
                     datasets: [{
-                        label: 'Magnitud (dB)',
+                        label: 'Magnitud (V)',
                         data: magnitudes,
                         borderColor: 'blue',
                         fill: false,
@@ -606,6 +662,7 @@
             var frecuencia = document.getElementById("frecuencia").value;
             var fuente = document.getElementById("fuente").value;
             var noise = document.getElementById("noise").value;
+            var f_clk = document.getElementById("frecuencia_clk").value;
 
             // Uso barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida
 
@@ -615,7 +672,8 @@
                 N_final: N_final,
                 iteraciones: iteraciones,
                 fuente: fuente,
-                noise: noise
+                noise: noise,
+                f_clk: f_clk
 
             }, function (data, status) {
 
@@ -642,11 +700,16 @@
 
             const N = data_ruido.map(point => point.N);
             const std_r = data_ruido.map(point => point.std_r);
+            const mean_r = data_ruido.map(point => point.mean_r);
 
             const noiseCtx = document.getElementById('chart_ruido_vs_N').getContext('2d');
+            const meanCtx = document.getElementById('chart_mean_vs_N').getContext('2d');
 
             if (window.noiseChart) {
             window.noiseChart.destroy();
+            }
+            if (window.meanChart) {
+            window.meanChart.destroy();
             }
 
 
@@ -682,8 +745,165 @@
                     }                   
                 }     
             });        
+
+
+            window.meanChart = new Chart(meanCtx, {
+                
+                type: 'line',
+                data: {
+                    labels: N,
+                    datasets: [{
+                        label: 'Valor promedio de mediciones',
+                        data: mean_r,
+                        borderColor: 'blue',
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },           
+                options: {
+                    scales: {
+                        x: {
+                            //type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'N (constantes de tiempo)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Media de las mediciones'
+                            }
+                        }
+                    }                   
+                }     
+            });        
+
+
+        }      
+
+        function dep_iniciar() 
+        {
+            var boton = document.getElementById('DEP');
+            boton.disabled = true;  // Deshabilitar el botón
+
+            // Obtener los valores de los campos de entrada
+            var f_inicial = document.getElementById("dep_f_inicial").value;
+            var f_final = document.getElementById("dep_f_final").value;
+            var f_step = document.getElementById("dep_f_step").value;
+            var f_dac = document.getElementById("f_dac_dep").value;
+
+            var nombre_archivo_dep = document.getElementById("nombre_archivo_dep").value;
+            var iteraciones = document.getElementById("numero_iteraciones_dep").value;
+
+            var fuente = document.getElementById("fuente").value;
+            var sim_noise = document.getElementById("noise").value;
+            var f_clk = document.getElementById("frecuencia_clk").value;
+            var N = document.getElementById("N").value;
+
+            // Uso calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise
+
+            $.get("http://" + serverIP + ":8080/calcular_dep", {
+                f_clk: f_clk,
+                N: N,
+                fuente:fuente,
+                f_dac: f_dac,
+                f_inicial: f_inicial,
+                f_final: f_final,
+                f_step : f_step,
+                iteraciones: iteraciones,
+                sim_noise:sim_noise               
+
+            }, function (data, status) {
+
+                var descargar = document.getElementById("descargar_archivo_dep");
+
+                if(descargar.value == 1)
+                {
+                    // Crear un enlace de descarga
+                    var blob = new Blob([data], { type: 'text/plain' });
+                    var downloadLink = document.createElement('a');
+                    downloadLink.href = window.URL.createObjectURL(blob);
+                    downloadLink.download = nombre_archivo_dep; // Nombre del archivo a descargar
+                    downloadLink.click();
+                }                                
+                // Llamar a la función para crear los gráficos
+                createCharts_dep(data,f_step);
+                boton.disabled = false;
+            });
+            
+        
         }
 
+        function processDataDEP(data) {
+            const lines = data.trim().split('\n');
+            const dataLines = lines.slice(4);
+            const parsedData = lines.map(line => {
+                const [f, mean_r, std_r] = line.split(',').map(Number);
+                return { f, mean_r, std_r };
+            });
+            return parsedData;
+        }
+       
+
+
+        function createCharts_dep(data_ruido_in, delta_f) {
+        // Suponiendo que processDataDEP devuelve un array de objetos con {f, mean_r, std_r}
+        const data_DEP = processDataDEP(data_ruido_in);
+
+        const f = data_DEP.map(point => point.f);
+        const std_r = data_DEP.map(point => point.std_r);
+        const mean_r = data_DEP.map(point => point.mean_r);
+
+        // Calcular la DEP para cada punto y convertir a dB
+        const DEP_dB = data_DEP.map(point => {
+            const potencia_signal = Math.pow(point.mean_r, 2);
+            const potencia_ruido = Math.pow(point.std_r, 2);
+            const potencia_total = potencia_signal + potencia_ruido;
+            const DEP = potencia_total / delta_f;
+            return 10 * Math.log10(DEP);
+        });
+
+        const depCTX = document.getElementById('chart_dep').getContext('2d');
+
+        // Destruir el gráfico anterior si existe
+        if (window.depChart) {
+            window.depChart.destroy();
+        }
+
+        // Crear un nuevo gráfico
+        window.depChart = new Chart(depCTX, {
+            type: 'line',
+            data: {
+                labels: f,
+                datasets: [{
+                    label: 'Densidad Espectral de Potencia (dB)',
+                    data: DEP_dB,
+                    borderColor: 'blue',
+                    fill: false,
+                    pointRadius: 3,
+                    pointHoverRadius: 5
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Frecuencia (Hz)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Densidad Espectral de Potencia (dB)'
+                        }
+                    }
+                }
+            }
+        });
+    }
     </script>
 
 </body>

@@ -75,9 +75,10 @@ int main(int argc, char *argv[])
 
         int f_signal = f_clk*1000000 / M;
 
-        double f_real = fpga.set_frec_dds_compiler(f_signal,f_clk*1000000);
+        double f_real_dac = fpga.set_frec_dds_compiler_dac(f_signal,f_clk*1000000);	
+	    double f_real_ref = fpga.set_frec_dds_compiler_ref(f_signal,f_clk*1000000);	
 
-        std::cout << "Calculando f_clk: " << f_clk << "MHz... f señal: " << f_real << std::endl;
+        std::cout << "Calculando f_clk: " << f_clk << "MHz... f señal: " << f_real_ref << std::endl;
 
         double f_clks_i [iteraciones];
         double fases_i [iteraciones];

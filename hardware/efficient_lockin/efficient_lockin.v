@@ -252,7 +252,7 @@ dds_compiler_module #(
 	.reset_n(reset_n),
 	.enable(enable),	
 	
-	.incremento_fase(delta_phase),	 // round(f_deseada * 2^B_acumulador/f_clk);
+	.incremento_fase(delta_phase_dac),	 // round(f_deseada * 2^B_acumulador/f_clk);
 	
 	.data_out_seno(sen_dds_compiler_14b),
 	.data_out_coseno(cos_dds_compiler_14b),	
@@ -272,7 +272,7 @@ dds_compiler_module #(
 	.reset_n(reset_n),
 	.enable(enable_ref),	
 	
-	.incremento_fase(delta_phase),	 // round(f_deseada * 2^B_acumulador/f_clk);
+	.incremento_fase(delta_phase_ref),	 // round(f_deseada * 2^B_acumulador/f_clk);
 	
 	.zero_cross(sync_referencias),
 	
@@ -310,7 +310,7 @@ wire [31:0] M;
 wire [31:0] N_ma_CALI;
 wire [31:0] N_ca_CALI;
 wire [31:0] N_LI;
-wire [31:0] delta_phase;
+wire [31:0] delta_phase_dac,delta_phase_ref;
 wire [31:0] atenuacion_dac;
 wire seleccion_resultado;
 
@@ -333,9 +333,10 @@ control nios (
 	 .parameter_out_4				(sim_noise),
 	 .parameter_out_5				(seleccion_resultado),
 	 .parameter_out_6				(N_LI),
-	 .parameter_out_7				(delta_phase),
+	 .parameter_out_7				(delta_phase_ref),
+	 .parameter_out_8				(delta_phase_dac),
 	 .parameter_out_9 			(atenuacion_dac),
-	 .parameter_out_10				(led_test),
+	 .parameter_out_10			(led_test),
 	 
 	 
 	 .parameter_in_0				(n_datos_promediados),

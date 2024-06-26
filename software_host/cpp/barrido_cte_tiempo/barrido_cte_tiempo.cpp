@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
 {
 
 	// Verificar que se proporcionen los argumentos necesarios
-    if (argc != 8) {
-        cerr << "Uso barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida" << endl;
+    if (argc != 9) {
+        cerr << "Uso barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida f_clk" << endl;
         return 1;
     }
 
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
 	std::cout << "Iniciando configuracion... " << std::endl;
 
-	int f_clk = 64;
+	
 	int frec = atoi(argv[1]);
 	int N_inicial = atoi(argv[2]);
 	int N_final = atoi(argv[3]);
@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
 	int fuente = atoi(argv[5]);
 	int sim_ruido = atoi(argv[6]);
 	string nombre_archivo_salida = argv[7];
+	int f_clk =  atoi(argv[8]);
 	int modo = 1;
 	bool Covertir2volt = true;
 	
@@ -71,7 +72,8 @@ int main(int argc, char *argv[])
 		fpga.set_frec_clk(f_clk);
 
 		// Frecuencia de operacion
-		double f_real = fpga.set_frec_dds_compiler(frec,f_clk*1000000);
+		double f_real_dac = fpga.set_frec_dds_compiler_dac(frec,f_clk*1000000);	
+		double f_real_ref = fpga.set_frec_dds_compiler_ref(frec,f_clk*1000000);	
 	
 
 	// Definir vectores para almacenar f, r y phi.
@@ -93,7 +95,7 @@ int main(int argc, char *argv[])
 
 		std::vector<double> r_values;
 
-		for(int j = 1; j< iteraciones; j++)
+		for(int j = 0; j< iteraciones; j++)
 		{
 			//std::cout << "tick: " << std::endl;
 			fpga.Reiniciar();
@@ -149,7 +151,7 @@ int main(int argc, char *argv[])
 
 		// Escribe los valores de mean r y std r en el archivo de salida
 		archivo_salida << "Barrido de ctes de tiempo -> N_inicial:" << N_inicial << ", N_final:" << N_final;
-		archivo_salida << "Parametros -> f: " << frec << ",	Fuente: " << fuente << ", Ruido:" << sim_ruido << ", Frec clk: " << f_clk << ", Iteraciones: " << iteraciones << endl;
+		archivo_salida << "Parametros -> f: " << f_real_ref << ",	Fuente: " << fuente << ", Ruido:" << sim_ruido << ", Frec clk: " << f_clk << ", Iteraciones: " << iteraciones << endl;
 		archivo_salida << "Formato -> N,mean_r,std_r" << endl << endl;
 	
 		for (size_t i = 0; i < mean_r_values.size(); ++i) 

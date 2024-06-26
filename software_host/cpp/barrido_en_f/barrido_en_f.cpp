@@ -93,10 +93,12 @@ int main(int argc, char *argv[])
 	std::vector<double> x_values;
     std::vector<double> y_values;
     std::vector<double> phi_values;
+	
 
 	for(f = f_inicial ; f <= f_final ; f = f+f_step)
 	{
-		double f_real = fpga.set_frec_dds_compiler(f,f_clk*1000000);
+		double f_real_dac = fpga.set_frec_dds_compiler_dac(f,f_clk*1000000);	
+		double f_real_ref = fpga.set_frec_dds_compiler_ref(f,f_clk*1000000);	
 		fpga.Reiniciar();
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		fpga.Comenzar();
@@ -119,9 +121,9 @@ int main(int argc, char *argv[])
 		
 		
 
-		std::cout << "f: " << f_real << "		r = " << results_li.r << "		phi = " << results_li.phi << std::endl;
+		std::cout << "f: " << f_real_ref << "		r = " << results_li.r << "		phi = " << results_li.phi << std::endl;
 
-		f_values.push_back(f_real); // Guardar el valor de f en el vector f_values.
+		f_values.push_back(f_real_ref); // Guardar el valor de f en el vector f_values.
         r_values.push_back(results_li.r); // Guardar el valor de r en el vector r_values.
         phi_values.push_back(results_li.phi); // Guardar el valor de phi en el vector phi_values.
 		x_values.push_back(results_li.x);

@@ -16,7 +16,7 @@ ip = "192.168.1.2"
 N_promediacion = 1;
 
 # Para generar una sinusoide:
-f = 1000000;
+f = 50000;
 
 
 display_ciclos = 2;
@@ -28,14 +28,15 @@ li.set_f(f);
 li.set_fuente(FuenteDatos.ADC_HS)
 li.set_sim_noise(12);
 
-medidas1 = [valor*31767/8192-31767 / N_promediacion for valor in li.get_adc(display_ciclos,fifo2read)]
+medidas1 = [(valor-8192)*125e-6 / N_promediacion for valor in li.get_adc(display_ciclos,fifo2read)]
 
+"""
 fifo2read = 1;
 
 medidas2 = [valor / N_promediacion for valor in li.get_adc(display_ciclos,fifo2read)]
-
+"""
 plt.plot(medidas1,marker='x');
-plt.plot(medidas2,marker='x');
+#plt.plot(medidas2,marker='x');
 plt.grid();
 plt.show();
 

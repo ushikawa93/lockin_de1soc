@@ -8,6 +8,7 @@ var nombre_archivo_lockin = "/var/www/html/lockin/test_web.dat";
 var nombre_archivo_adc = "/var/www/html/lockin/adc_web.dat"
 var nombre_archivo_barrido = "/var/www/html/lockin/barrido_web.dat"
 var nombre_archivo_ruido = "/var/www/html/lockin/barrido_ruido_web.dat"
+var nombre_archivo_dep = "/var/www/html/lockin/dep_web.dat"
 
 // Lockin y ADC
 var noise = 5;
@@ -28,6 +29,9 @@ var f_step = 100000;
 var N_inicial = 1;
 var N_final = 32;
 var iteraciones = 100; 
+
+// DEP
+var f_dac = 10000;
 
 var buttonPressCount = 0; 
 
@@ -206,6 +210,7 @@ http.createServer(function (req, res) {
         iteraciones = queryObject.iteraciones;
         fuente = queryObject.fuente;
         noise = queryObject.noise;   
+        frec_clk = queryObject.f_clk;
 
            
         execFile("/root/Documents/de1soc_sw/cpp/barrido_cte_tiempo/barrido_cte_tiempo", [
@@ -215,7 +220,8 @@ http.createServer(function (req, res) {
             iteraciones,
             fuente,
             noise,
-            nombre_archivo_ruido
+            nombre_archivo_ruido,
+            frec_clk
         ], (error, stdout, stderr) => {
             console.log(stdout);
             if (error) {
@@ -235,7 +241,57 @@ http.createServer(function (req, res) {
                     // Si se lee correctamente, responde con el contenido del archivo
                     res.writeHead(200, { 'Content-Type': 'text/plain' });
                     res.end(data);
-                    console.log("llegue hasta aca");
+                }
+            });
+        });
+    }
+
+    else if (parsedUrl.pathname === '/calcular_dep') {
+    
+        // Uso calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise
+
+        frec_clk = queryObject.f_clk;
+        N = queryObject.N;
+        fuente = queryObject.fuente;
+        f_dac = queryObject.f_dac;
+        f_inicial = queryObject.f_inicial;
+        f_final = queryObject.f_final;
+        f_step = queryObject.f_step;
+        iteraciones = queryObject.iteraciones;
+        noise = queryObject.noise;       
+        
+
+           
+        execFile("/root/Documents/de1soc_sw/cpp/calcular_dep/calcular_dep", [
+            frec_clk,
+            N,
+            fuente,
+            f_dac,
+            f_inicial,
+            f_final,
+            f_step,
+            nombre_archivo_dep,
+            iteraciones,
+            noise
+        ], (error, stdout, stderr) => {
+            console.log(stdout);
+            if (error) {
+                console.error('Error al ejecutar el programa:', error);
+                res.statusCode = 500;
+                res.end('Internal Server Error');
+                return;
+            }
+    
+            // Si el programa se ejecuta correctamente, leer el archivo
+            fs.readFile(nombre_archivo_dep, 'utf8', (err, data) => {
+                if (err) {
+                    console.error('Error al leer el archivo:', err);
+                    res.statusCode = 500;
+                    res.end('Internal Server Error');
+                } else {
+                    // Si se lee correctamente, responde con el contenido del archivo
+                    res.writeHead(200, { 'Content-Type': 'text/plain' });
+                    res.end(data);
                 }
             });
         });
