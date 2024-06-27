@@ -65,6 +65,7 @@ module data_in(
 	output simulation_data_valid,
 	output [31:0] simulation_data,
 	output [31:0] noise,
+	output sync_dat_simulada,
 	
 	// ADC highspeed
 	output	[13:0] data_canal_a,
@@ -101,7 +102,11 @@ data_source data_sim(
 	.data_valid(simulation_data_valid),
 	.data(simulation_data),
 	
+	.zero_cross(sync_dat_simulada)
+	
 );
+
+
 
 
 /////////////////////////////////////////////////

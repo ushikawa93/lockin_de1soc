@@ -23,57 +23,70 @@
 #include "../fpga_driver/FPGA_de1soc.h"
 
 
-
 using namespace std;
 
 
 int main(int argc, char *argv[])
 {
+	///// ================================================================================= /////
+	///// ============================ Seteo de parámetros ================================ /////
+	///// ================================================================================= /////
+
     // Verificar que se proporcionen los argumentos necesarios
-    if ((argc != 7)&&(argc != 8) && (argc != 9)){
-        cerr << "Uso: measure_lockin sim_noise N frecuencia fuente modo nombre_archivo [f_clk corregir_fase](opcional)" << endl;
+    if ((argc != 7)&&(argc != 8) && (argc != 9) && (argc != 11) ){
+        cerr << "Uso: measure_lockin sim_noise N frecuencia fuente modo nombre_archivo [f_clk corregir_fase {M modo_referencias}](opcional)" << endl;
         return 1;
     }
 
-    // Obtener los parámetros de la línea de comandos
+	/////// ========================== Parametros obligatorios ===================================== /////
     int sim_noise = atoi(argv[1]);
     int N = atoi(argv[2]);
     int f = atoi(argv[3]);
 	int fuente = atoi(argv[4]);
-	int modo = atoi(argv[5]);
-	
+	int modo = atoi(argv[5]);	
     string nombre_archivo_salida = argv[6];
 	
-	FPGA_de1soc fpga;
-
+	/////// ========================== Parametros opcionales ===================================== /////
 	bool corregir_fase = true;
-	bool Covertir2volt = true;
-
 	int f_clk = 64;	// En MHz
-	int M = f_clk*1000000 / f;	// Ya no cumple muchas funciones...
-
+	int M = f_clk*1000000 / f;
+	int ref_with_dds_compiler = 1;
+		
 	if (argc == 8)
 	{
 		f_clk = atoi(argv[7]);
 	}
-	if (argc == 9)
+	else if (argc == 9)
 	{
 		f_clk = atoi(argv[7]);
 		corregir_fase = (atoi(argv[8]) == 1)? true:false;
 	}
+	else if(argc == 11)
+	{
+		f_clk = atoi(argv[7]);
+		corregir_fase = (atoi(argv[8]) == 1)? true:false;
+		M = atoi(argv[9]);
+		ref_with_dds_compiler = atoi(argv[10]);
+	}
 
+	/////// ========================== Parametros fijos ===================================== /////
 	if(fuente == 2 ){corregir_fase = false;}
-	
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	/////////////////// =============== Configuracion  ==============/////////////////
-	//////////////////////////////////////////////////////////////////////////////////
+	bool Covertir2volt = true;
+
+
+
+	///// ================================================================================= /////
+	///// ============================ Configuracion ====================================== /////
+	///// ================================================================================= /////
+
+	FPGA_de1soc fpga;	
 
 	std::cout << "Iniciando configuracion.. " << std::endl;
-	fpga.set_frec_clk(f_clk);
-	double f_real_dac = fpga.set_frec_dds_compiler_dac(f,f_clk*1000000);	
-	double f_real_ref = fpga.set_frec_dds_compiler_ref(f,f_clk*1000000);	
-	
+
+	// Frecuencias de operacion (referencias dac y clock)
+	double f_real_ref = fpga.setFrecuenciaReferencias( ref_with_dds_compiler , f , f_clk , M);
+	double f_real_dac = fpga.setFrecuenciaDAC ( ref_with_dds_compiler, f , f_clk, M);
+
 	// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
 	fpga.set_parameter(fuente,0);
 		
@@ -86,23 +99,29 @@ int main(int argc, char *argv[])
 
 	// Ruido en simulacion
 	fpga.set_parameter(sim_noise,4);
+
+	// Modo de procesamiento --> { CALI = 0, LI = 1 }; // Primero veo con LI despues con CALI y exporto el que me pide arriba!
+	fpga.set_parameter(1,5);
 		
 	// Ciclos de promediacion LI
-	fpga.set_parameter(N,6);
-		
-	// Modo de procesamiento --> { CALI = 0, LI = 1 };
-	fpga.set_parameter(1,5);
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	/////////////////// ================== Calculos  ================/////////////////
-	//////////////////////////////////////////////////////////////////////////////////
+	fpga.set_parameter(N,6);		
 
+	// Modo de generacion de señales --> { LU_Table = 0, DDS_compiler = 1 }
+	fpga.set_parameter(ref_with_dds_compiler,9);
+
+
+
+
+
+	///// ================================================================================= /////
+	///// ============================ Calculos =========================================== /////
+	///// ================================================================================= /////
 
 	std::cout << "Iniciando medidas... " << std::endl;
 	fpga.Reiniciar();
 	fpga.Comenzar();
 		
-	/////// Resultados LI /////
+	/////// ========================== Resultados LI ===================================== /////
 	std::cout << "\nResultados LI: " << std::endl;
 
 	long long int X_li = fpga.leer_resultado_64_bit(0);
@@ -125,7 +144,7 @@ int main(int argc, char *argv[])
 	std::cout << "r = " << results_li.r << std::endl;
 	std::cout << "phi = " << results_li.phi << std::endl;
 
-	/////// Resultados CALI /////
+	/////// ========================= Resultados CALI ==================================== /////
 	fpga.set_parameter(0,5);
 	std::cout << "\nResultados CALI: " << std::endl;
 	
@@ -149,11 +168,15 @@ int main(int argc, char *argv[])
 	std::cout << "r = " << results_cali.r << std::endl;
 	std::cout << "phi = " << results_cali.phi << std::endl;
 	
-	
-	////////////////////////////////////////////////////////////////////////////////////
-	/////////////////// =============== Archivo salida  ===============/////////////////
-	////////////////////////////////////////////////////////////////////////////////////
 
+
+
+	
+	
+
+	///// ================================================================================= /////
+	///// ============================ Archivo salida ===================================== /////
+	///// ================================================================================= /////
 
 	ofstream archivo_salida(nombre_archivo_salida);
 	if (!archivo_salida.is_open()) {

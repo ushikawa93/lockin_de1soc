@@ -1,17 +1,17 @@
-Fitter Status : Successful - Mon Jun 24 13:19:47 2024
+Fitter Status : Successful - Thu Jun 27 17:27:06 2024
 Quartus Prime Version : 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 Revision Name : signal_processing_template
 Top-level Entity Name : efficient_lockin
 Family : Cyclone V
 Device : 5CSEMA5F31C6
 Timing Models : Final
-Logic utilization (in ALMs) : 7,956 / 32,070 ( 25 % )
-Total registers : 8886
+Logic utilization (in ALMs) : 10,413 / 32,070 ( 32 % )
+Total registers : 9153
 Total pins : 158 / 457 ( 35 % )
 Total virtual pins : 0
-Total block memory bits : 2,623,488 / 4,065,280 ( 65 % )
-Total RAM Blocks : 324 / 397 ( 82 % )
-Total DSP Blocks : 12 / 87 ( 14 % )
+Total block memory bits : 2,652,160 / 4,065,280 ( 65 % )
+Total RAM Blocks : 327 / 397 ( 82 % )
+Total DSP Blocks : 16 / 87 ( 18 % )
 Total HSSI RX PCSs : 0
 Total HSSI PMA RX Deserializers : 0
 Total HSSI TX PCSs : 0

@@ -14,10 +14,10 @@ ip = "192.168.1.2"
 li = de1soc_handler(ip)
 
 #frecuencias= list(range(800,1201,25))
-frecuencias=[260000]
+frecuencias=[10000]
 
 r = []
-N = 16
+N = 2
 
 
 for f in frecuencias:

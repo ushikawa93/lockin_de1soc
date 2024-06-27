@@ -88,6 +88,8 @@ parameter datos_procesamiento = 10;
 parameter open = 11;
 
 
+
+
 // Fuentes de señal para cada etapa del proceso
 
 wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
@@ -95,7 +97,7 @@ wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
 parameter fuente_dac = dds_compiler_sen ;	
 
 parameter fuente_fifo0_32bit = datos_procesamiento;
-parameter fuente_fifo1_32bit = avgd_signal;
+wire fuente_fifo1_32bit = (dds_in_data_sim) ? referencia_seno : avgd_signal;
 
 parameter fuente_fifo0_64bit = procesada_1;
 parameter fuente_fifo1_64bit = procesada_2;
@@ -130,7 +132,7 @@ end
 
 ///////////////////////// Entradas del DAC ////////////////////////////////////:
 
-wire [31:0] data_in_dac = aux_dac[32:1] >> atenuacion_dac;
+wire [31:0] data_in_dac = aux_dac[32:1];
 wire data_in_dac_valid = aux_dac[0];
 
 
@@ -311,8 +313,10 @@ wire [31:0] N_ma_CALI;
 wire [31:0] N_ca_CALI;
 wire [31:0] N_LI;
 wire [31:0] delta_phase_dac,delta_phase_ref;
-wire [31:0] atenuacion_dac;
 wire seleccion_resultado;
+
+// Este flag determina como controlo las referencias y el DAC!
+wire [31:0] dds_in_data_sim;
 
 
 control nios (
@@ -335,7 +339,7 @@ control nios (
 	 .parameter_out_6				(N_LI),
 	 .parameter_out_7				(delta_phase_ref),
 	 .parameter_out_8				(delta_phase_dac),
-	 .parameter_out_9 			(atenuacion_dac),
+	 .parameter_out_9 			(dds_in_data_sim),
 	 .parameter_out_10			(led_test),
 	 
 	 
@@ -408,6 +412,7 @@ data_in data(
 	.simulation_data_valid(datos_simulados_old_valid),
 	.simulation_data(datos_simulados_old),
 	.noise(noise),
+	.sync_dat_simulada(sync_dat_simulada),
 	
 	// Salida avalon streaming ADC
 	.data_canal_a(data_canal_a),
@@ -444,7 +449,7 @@ data_in data(
 	.SMA_DAC4(SMA_DAC4),
 	
 	// Entradas digitales para el DAC
-	.lu_table_input(0),
+	.lu_table_input(!dds_in_data_sim),
 	.digital_data_in(data_in_dac),
 	.digital_data_in_valid(data_in_dac_valid),
 	
@@ -459,15 +464,16 @@ data_in data(
 
 ////// Salidas de datos simulados //////
 
-parameter dds_in_data_sim = 1;
-
 wire [31:0] noise;
+
+wire sync_dat_simulada;
 
 wire [31:0] datos_simulados_old;
 wire datos_simulados_old_valid;
 
 wire [31:0] datos_simulados = (dds_in_data_sim)? ( sen_dds_compiler_14b + noise ): datos_simulados_old;
 wire datos_simulados_valid = (dds_in_data_sim)? dds_compiler_valid : datos_simulados_old_valid;
+wire sync_procesamiento = (dds_in_data_sim) ? sync_referencias : sync_dat_simulada;
 
 ///// Salidas de los ADC HS ////////
 wire [31:0] data_canal_a;
@@ -485,7 +491,7 @@ wire data_adc_2308_valid;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-wire sync_cali = sync_referencias;
+wire sync_cali = sync_procesamiento;
 
 signal_processing_CALI signal_processing_CALI_inst(
 
@@ -495,7 +501,7 @@ signal_processing_CALI signal_processing_CALI_inst(
 	
 	.bypass(0),
 	
-	.referencia_externa(1),
+	.referencia_externa(dds_in_data_sim),
 	.sync(sync_cali),
 	.referencia_externa_sen(referencia_sen),
 	.referencia_externa_cos(referencia_cos),
@@ -541,7 +547,7 @@ wire sync_avgd_signal;
 ////////////// =============== Procesamiento de señal LI  ==============////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-wire sync_li = sync_referencias;
+wire sync_li = sync_procesamiento;
 
 signal_processing_LI signal_processing_LI_inst(
 
@@ -551,7 +557,7 @@ signal_processing_LI signal_processing_LI_inst(
 	
 	.bypass(0),
 	
-	.referencia_externa(1),
+	.referencia_externa(dds_in_data_sim),
 	.sync(sync_li),
 	.referencia_externa_sen(referencia_sen),
 	.referencia_externa_cos(referencia_cos),
@@ -622,7 +628,7 @@ assign LED[2] = calculo_finalizado;
 
 assign LED[1] = 0;
 	 
-assign watch = sync_avgd_signal;
+assign watch = sync_procesamiento;
 
 endmodule
 	 

@@ -4,6 +4,22 @@
 			"name" : "Top",
 			"pins" : [
 				{
+					"name" : "LED[3]",
+					"strict" : false
+				},
+				{
+					"name" : "adc_cs_n",
+					"strict" : false
+				},
+				{
+					"name" : "adc_sclk",
+					"strict" : false
+				},
+				{
+					"name" : "adc_din",
+					"strict" : false
+				},
+				{
 					"name" : "LED[0]",
 					"strict" : false
 				},
@@ -152,22 +168,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "LED[3]",
-					"strict" : false
-				},
-				{
-					"name" : "adc_cs_n",
-					"strict" : false
-				},
-				{
-					"name" : "adc_sclk",
-					"strict" : false
-				},
-				{
-					"name" : "adc_din",
-					"strict" : false
-				},
-				{
 					"name" : "clk",
 					"strict" : false
 				},
@@ -185,10 +185,6 @@
 				},
 				{
 					"name" : "ADC_DA[0]",
-					"strict" : false
-				},
-				{
-					"name" : "adc_dout",
 					"strict" : false
 				},
 				{
@@ -293,6 +289,10 @@
 				},
 				{
 					"name" : "ADC_DA[13]",
+					"strict" : false
+				},
+				{
+					"name" : "adc_dout",
 					"strict" : false
 				}
 			]

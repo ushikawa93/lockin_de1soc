@@ -34,66 +34,103 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+
+	///// ================================================================================= /////
+	///// ============================ Seteo de parámetros ================================ /////
+	///// ================================================================================= /////
+
     // Verificar que se proporcionen los argumentos necesarios
-    if (argc != 11) {
-        cerr << "Uso calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise" << endl;
+    if ((argc != 11)&&(argc != 13)) {
+        cerr << "Uso calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise [{M modo_referencias}]" << endl;
         return 1;
     }
 
-    // Obtener los parámetros de la línea de comandos
+	/////// ========================== Parametros obligatorios ===================================== /////	
+
 	int f_clk = atoi(argv[1]);
-
     int N = atoi(argv[2]);
-	int fuente = atoi(argv[3]);	
-
+	int fuente = atoi(argv[3]);
 	int f_dac = atoi(argv[4]);
 	int f_inicial = atoi(argv[5]);
 	int f_final = atoi(argv[6]);
 	int f_step = atoi(argv[7]);
-
     string nombre_archivo_salida = argv[8];	
 	int iteraciones = atoi(argv[9]);
 	int sim_noise = atoi(argv[10]);
-	bool Covertir2volt = true;
 
-	FPGA_de1soc fpga;
+
+	/////// ========================== Parametros opcionales ===================================== /////
+	int M = f_clk*1000000 / f_inicial;
+	int ref_with_dds_compiler = 1;
+
+	if(argc == 13)
+	{
+		M = atoi(argv[11]);
+		ref_with_dds_compiler = atoi(argv[12]);
+	}
+
+
+	/////// ========================== Parametros fijos ===================================== /////	
+	bool Covertir2volt = true;
 	int modo = 1;
+  
+
+  
+
+
+	///// ================================================================================= /////
+	///// ============================ Configuracion ====================================== /////
+	///// ================================================================================= /////
+
+	FPGA_de1soc fpga;	
 
 	std::cout << "Iniciando medidas... " << std::endl;
 	
-	// Configuracion...
+
+	// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
+	fpga.set_parameter(fuente,0);
+
+	// Puntos por ciclo	
+	fpga.set_parameter(M,1);
+
+	// Ciclos de promediacion CALI
+	fpga.set_parameter(1,2);	// Largo filtro MA
+	fpga.set_parameter(N,3);	// Promediacion coherente
+
+	// Ruido en simulacion
+	fpga.set_parameter(sim_noise,4);
+
+	// Modo de procesamiento --> { CALI = 0, LI = 1 };
+	fpga.set_parameter(modo,5);
 		
-		// Fuente de los datos: --> { ADC_2308 = 0, ADC_HS = 1, SIM = 2  };
-		fpga.set_parameter(fuente,0);
-
-		// Ciclos de promediacion CALI
-		fpga.set_parameter(1,2);	// Largo filtro MA
-		fpga.set_parameter(N,3);	// Promediacion coherente
-
-		// Ruido en simulacion
-		fpga.set_parameter(sim_noise,4);
+	// Ciclos de promediacion LI
+	fpga.set_parameter(N,6);
 		
-		// Ciclos de promediacion LI
-		fpga.set_parameter(N,6);
-		
-		// Modo de procesamiento --> { CALI = 0, LI = 1 };
-		fpga.set_parameter(modo,5);
+	// Modo de generacion de señales --> { LU_Table = 0, DDS_compiler = 1 }
+	fpga.set_parameter(ref_with_dds_compiler,9);
 
-		// Frecuencia del reloj principal
-		fpga.set_frec_clk(f_clk);
 
-		double f_real_dac = fpga.set_frec_dds_compiler_dac(f_dac,f_clk*1000000);	
 
+
+
+	///// ================================================================================= /////
+	///// ============================ Calculos =========================================== /////
+	///// ================================================================================= /////
 
 	// Definir vectores para almacenar f, r y phi.
     std::vector<double> f_values;
     std::vector<double> mean_r_values;
     std::vector<double> std_r_values;
 
+	double f_real_dac = fpga.setFrecuenciaDAC ( ref_with_dds_compiler, f_dac , f_clk, M);
+
+
 	for (int f = f_inicial; f < f_final; f=f+f_step)
 	{
 
-		double f_real_ref = fpga.set_frec_dds_compiler_ref(f,f_clk*1000000);	
+		// Frecuencias de operacion (referencias dac y clock)
+		double f_real_ref = fpga.setFrecuenciaReferencias( ref_with_dds_compiler , f , f_clk , M);
+	
 		std::cout << "Calculando f: " << f << std::endl;	
 
 		std::vector<double> r_values;
@@ -137,29 +174,31 @@ int main(int argc, char *argv[])
 
 	}
 
-	// Escribo archivo de salida:
+	///// ================================================================================= /////
+	///// ============================ Archivo salida ===================================== /////
+	///// ================================================================================= /////
 	
-		// Abre el archivo de salida para escritura
-		ofstream archivo_salida(nombre_archivo_salida);
-		if (!archivo_salida.is_open()) {
-			cerr << "Error al abrir el archivo de salida." << endl;
-			return 1;
-		}
+	// Abre el archivo de salida para escritura
+	ofstream archivo_salida(nombre_archivo_salida);
+	if (!archivo_salida.is_open()) {
+		cerr << "Error al abrir el archivo de salida." << endl;
+		return 1;
+	}
 	
-	    archivo_salida << std::fixed << std::setprecision(12); 
+	archivo_salida << std::fixed << std::setprecision(12); 
 
-		// Escribe los valores de mean r y std r en el archivo de salida
-		archivo_salida << "DEP -> f_inicial:" << f_inicial << ", f_final:" << f_final;
-		archivo_salida << "Parametros -> Fuente: " << fuente << ", Ruido:" << sim_noise << ", Frec clk: " << f_clk << ", Iteraciones: " << iteraciones << endl;
-		archivo_salida << "Formato -> f,mean_r,std_r" << endl << endl;
+	// Escribe los valores de mean r y std r en el archivo de salida
+	archivo_salida << "DEP -> f_inicial:" << f_inicial << ", f_final:" << f_final;
+	archivo_salida << "Parametros -> Fuente: " << fuente << ", Ruido:" << sim_noise << ", Frec clk: " << f_clk << ", Iteraciones: " << iteraciones << endl;
+	archivo_salida << "Formato -> f,mean_r,std_r" << endl << endl;
 	
-		for (size_t i = 0; i < mean_r_values.size(); ++i) 
-		{
-        	archivo_salida << f_values[i] << "," << mean_r_values[i] << "," << std_r_values[i] << std::endl;
-    	}
+	for (size_t i = 0; i < mean_r_values.size(); ++i) 
+	{
+       	archivo_salida << f_values[i] << "," << mean_r_values[i] << "," << std_r_values[i] << std::endl;
+    }
 
-		// Cierra el archivo de salida
-		archivo_salida.close();
+	// Cierra el archivo de salida
+	archivo_salida.close();
 
     return 0;
 }

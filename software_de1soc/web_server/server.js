@@ -19,6 +19,8 @@ var modo = 1;
 var frec_clk = 20;
 var ciclos2display = 2;
 var corregir_fase = 1;
+var modo_referencias = 0;
+var M = 32;
 
 // Barrido en frecuencia
 var f_inicial = 100000;
@@ -57,6 +59,8 @@ http.createServer(function (req, res) {
         modo = queryObject.modo;
         frec_clk = queryObject.f_clk;
         corregir_fase = queryObject.corregir_fase;
+        M = queryObject.M;
+        modo_referencias = queryObject.modo_referencias;
 
         // Ejecutar el comando para activar/desactivar el LED con los valores de los parámetros
         execFile("/root/Documents/de1soc_sw/cpp/measure_lockin/measure_li", [
@@ -67,7 +71,9 @@ http.createServer(function (req, res) {
             modo, 
             nombre_archivo_lockin,
             frec_clk,
-            corregir_fase], 
+            corregir_fase,
+            M,
+            modo_referencias], 
             
             function (error, stdout, stderr) {
             if (error) {
@@ -112,6 +118,9 @@ http.createServer(function (req, res) {
         fuente = queryObject.fuente; 
         noise = queryObject.noise;
         N = queryObject.N;
+        M = queryObject.M;
+        modo_referencias = queryObject.modo_referencias;
+
 
         execFile("/root/Documents/de1soc_sw/cpp/adquirir2/adquirir2", [             
             N, 
@@ -120,7 +129,9 @@ http.createServer(function (req, res) {
             nombre_archivo_adc,
             noise,
             frec_clk,
-            fuente], 
+            fuente,
+            M,
+            modo_referencias], 
             
             function (error, stdout, stderr) {
             if (error) {
@@ -167,6 +178,9 @@ http.createServer(function (req, res) {
         f_step = queryObject.f_step;
         corregir_fase = queryObject.corregir_fase;
         noise = queryObject.noise;
+        M = queryObject.M;
+        modo_referencias = queryObject.modo_referencias;
+
     
         execFile("/root/Documents/de1soc_sw/cpp/barrido_en_f/barrido_f", [
             f_clk, 
@@ -178,7 +192,9 @@ http.createServer(function (req, res) {
             f_step,
             nombre_archivo_barrido,
             corregir_fase,
-            noise], (error, stdout, stderr) => {
+            noise,
+            M,
+            modo_referencias], (error, stdout, stderr) => {
                 if (error) {
                     console.error('Error al ejecutar el programa:', error);
                     res.statusCode = 500;
@@ -211,6 +227,9 @@ http.createServer(function (req, res) {
         fuente = queryObject.fuente;
         noise = queryObject.noise;   
         frec_clk = queryObject.f_clk;
+        M = queryObject.M;
+        modo_referencias = queryObject.modo_referencias;
+
 
            
         execFile("/root/Documents/de1soc_sw/cpp/barrido_cte_tiempo/barrido_cte_tiempo", [
@@ -221,7 +240,9 @@ http.createServer(function (req, res) {
             fuente,
             noise,
             nombre_archivo_ruido,
-            frec_clk
+            frec_clk,
+            M,
+            modo_referencias
         ], (error, stdout, stderr) => {
             console.log(stdout);
             if (error) {
@@ -259,7 +280,9 @@ http.createServer(function (req, res) {
         f_step = queryObject.f_step;
         iteraciones = queryObject.iteraciones;
         noise = queryObject.noise;       
-        
+        M = queryObject.M;
+        modo_referencias = queryObject.modo_referencias;
+
 
            
         execFile("/root/Documents/de1soc_sw/cpp/calcular_dep/calcular_dep", [
@@ -272,7 +295,9 @@ http.createServer(function (req, res) {
             f_step,
             nombre_archivo_dep,
             iteraciones,
-            noise
+            noise,
+            M,
+            modo_referencias
         ], (error, stdout, stderr) => {
             console.log(stdout);
             if (error) {

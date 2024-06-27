@@ -91,6 +91,7 @@ parameter atenuacion = 0;
 wire [15:0] M = ptos_x_ciclo;				// Puntos por ciclo de señal
 
 reg [15:0] interval;
+reg sync;
 			
 reg signed [15:0] buffer [0:2047];
 		 initial	$readmemh("LU_Tables/x2048_14b.mem",buffer);
@@ -101,7 +102,7 @@ reg signed [31:0] data_out_reg;
 
 reg [15:0] index,index_2;
 
-reg en_reg,data_valid_aux; 
+reg en_reg,data_valid_aux,data_valid_aux_2; 
 	always @ (posedge clock) 	en_reg <= enable;
 
 reg signed [31:0] noise_reg; 
@@ -122,24 +123,31 @@ begin
 	if(!reset_n) 
 	begin 
 		index <= 0; 
+		index_2 <= 0;
 		data_valid <= 0;
 		data_valid_aux<=0;
+		data_valid_aux_2<=0;
 		data_out_reg<=0; 
+		sync <= 0;
 	end
 	
 	else if(en_reg && ruido_valid) 
 	begin		
-		
-		index <= (index == (M-1))? 0: index+1 ;
-			
+	
 		// 1 etapa registro el indice
-		index_2 <= index*interval;
+		index <= (index == (M-1))? 0: index+1 ;
 		data_valid_aux <= 1;
+			
+		// 2 escalo el indice
+		index_2 <= index*interval;
+		data_valid_aux_2 <= 1;
+		
 		noise_reg <= (seleccion_ruido == 1)? dato_ruidoso_atenuado_gcl : dato_ruidoso_atenuado_lfsr;
 	
-		// 2 etapa saco el dato para afuera del modulo
+		// 3 etapa saco el dato para afuera del modulo
+		sync <= (index_2 == 0) && (data_valid_aux_2);
 		data_out_reg <= ((buffer[index_2]) >> atenuacion )  + noise_reg;			
-		data_valid <= data_valid_aux;
+		data_valid <= data_valid_aux_2;
 	end	
 	
 	else
@@ -151,8 +159,7 @@ end
 // Señalizacion de paso por cero del seno
 //=======================================================
 
-assign zero_cross = (index_2 == 0) && (en_reg) && (data_valid);
-
+assign zero_cross = sync;
 //=======================================================
 // Señalizacion de ciclo del LFSR
 //=======================================================

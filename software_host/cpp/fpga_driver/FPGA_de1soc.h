@@ -488,4 +488,36 @@ class FPGA_de1soc {
 			return (double)frec_final*1000000/(M*divisor_final);
 		}
 
+		double setFrecuenciaReferencias(int metodo, int frecuencia, int f_clk, int M)
+		{
+			// metodo = 1 es con dds compiler. Sino directamente dvidiendo el clk en M puntos
+
+			if(metodo == 1)
+			{
+				set_frec_clk(f_clk);
+				set_divisor_clock(1);
+				return set_frec_dds_compiler_ref(frecuencia,f_clk*1000000);						
+			}
+			else
+			{
+				return set_clk_from_frec_and_M(frecuencia,M);
+			}
+		}
+		double setFrecuenciaDAC(int metodo, int frecuencia, int f_clk, int M)
+		{
+			// metodo = 1 es con dds compiler. Sino directamente dvidiendo el clk en M puntos
+			// Si metodo == 0 no hay forma de generar un DAC de frecuencia distinta a la referencia
+			
+			if(metodo == 1)
+			{
+				set_frec_clk(f_clk);
+				set_divisor_clock(1);
+				return set_frec_dds_compiler_dac(frecuencia,f_clk*1000000);						
+			}
+			else
+			{
+				return set_clk_from_frec_and_M(frecuencia,M);
+			}
+		}
+
 };

@@ -22,7 +22,7 @@
 #include <cmath>
 #include "../fpga_driver/FPGA_de1soc.h"
 
-
+#define ref_with_dds_compiler 1
 
 using namespace std;
 double calcularPromedio(const double arreglo[], int longitud, double tolerancia) ;
@@ -55,10 +55,13 @@ int main(int argc, char *argv[])
 	// Modo de procesamiento --> { CALI = 0, LI = 1 };
 	fpga.set_parameter(0,5);
 
+    // Modo de generacion de señales --> { LU_Table = 0, DDS_compiler = 1 }
+	fpga.set_parameter(ref_with_dds_compiler,9);
 
-    //////////////////////////////////////////////////////////////////////////////////
-	/////////////////// ================== Calculos  ================/////////////////
-	//////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////////
+	/////////////////// ================== Calculos  ================ ///////////////////
+	/////////////////////////////////////////////////////////////////////////////////////
 	
     int M = 64;
     double f_clks [64];

@@ -80,15 +80,22 @@
 
                 <label for="modo">Tipo de procesamiento:</label>
                 <select id="modo" name="modo">
-                    <option value="0" CALI > </option>
+                    <option value="0" > CALI  </option>
                     <option value="1" selected > LI </option>
                 </select>
 
                 <label for="corregir">Corregir fase?</label>
                 <select id="corregir" name="corregir">
-                    <option value="0" selected> NO </option>
+                    <option value="0" selected > NO </option>
                     <option value="1" > SI </option>
                 </select>
+
+                <label for="modo_referencias">Generación de referencias:</label>
+                <select id="modo_referencias" name="modo_referencias" onchange="habilitarM()">
+                    <option value="1" selected> DDS Compiler </option>
+                    <option value="0"> M puntos de una LU table </option>
+                </select>
+
 
 
             </aside>
@@ -101,6 +108,11 @@
 
                 <label for="frecuencia_clk"> Frecuencia del reloj [MHz]:</label>
                 <input type="text" id="frecuencia_clk" name="frecuencia_clk" value="64">
+
+                
+                <label for="M_puntos">M:</label>
+                <input type="M_puntos" id="M_puntos" name="M_puntos" value="32">
+
 
                 <br>
                 <label id="frecuencia_real"></label>
@@ -252,13 +264,13 @@
             
                 <section>
                     <aside>
-                        <label for="dep_f_inicial"> f inicial</label>
+                        <label for="dep_f_inicial"> Frecuencia inicial [Hz]</label>
                         <input type="text" id="dep_f_inicial" name="dep_f_inicial" value="10000">
 
-                        <label for="dep_f_final"> f final</label>
+                        <label for="dep_f_final"> Frecuencia final [Hz]</label>
                         <input type="text" id="dep_f_final" name="dep_f_final" value="20000">
 
-                        <label for="dep_f_step"> Paso</label>
+                        <label for="dep_f_step"> Paso [Hz] </label>
                         <input type="text" id="dep_f_step" name="dep_f_step" value="100">
 
                         <label for="numero_iteraciones_dep"> Numero de iteraciones</label>
@@ -268,7 +280,7 @@
                     </aside>
                     <aside>
 
-                        <label for="f_dac_dep"> F dac </label>
+                        <label for="f_dac_dep"> Frecuencia DAC [Hz] </label>
                         <input type="text" id="f_dac_dep" name="f_dac_dep" value="15000">
 
                         <label for="descargar_archivo_dep">Descargar archivo?</label>
@@ -296,6 +308,7 @@
         var serverIP = window.location.hostname; // Obtiene la dirección IP del servidor
         var habilitar_oscilosocpio = false;
         habilitarSetRuido();
+        habilitarM();
 
         // Función para las pestañas:
         function openTab(evt, tabName) {
@@ -328,6 +341,23 @@
             }
         }
 
+        function habilitarM() {
+            var modo_referencias = document.getElementById("modo_referencias");
+            var M_puntos = document.getElementById("M_puntos");
+            var frec_clk_label = document.getElementById("frecuencia_clk");
+
+            if (modo_referencias.value === "0") {  // Si la opción seleccionada es "M puntos con una LU table"
+                M_puntos.disabled = false;     // Habilitar el campo "M"
+                //frec_clk_label.value = "F obj x M ";
+                frec_clk_label.disabled = true;
+                
+            } else {
+                M_puntos.disabled = true;      // Deshabilitar el campo "noise" para otras opciones
+                frec_clk_label.value = 64;
+                frec_clk_label.disabled = false;
+            }
+        }
+
         // Funcion para el lockin
         function iniciar() {
             // Obtener los valores de los campos de entrada
@@ -338,6 +368,8 @@
             var modo = document.getElementById("modo").value;
             var frecuencia_clk = document.getElementById("frecuencia_clk").value;
             var corregir_fase = document.getElementById("corregir").value;
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
 
             // Enviar los valores al servidor
             $.get("http://" + serverIP + ":8080/iniciar_lockin", {
@@ -347,7 +379,9 @@
                 fuente: fuente,
                 modo: modo,
                 f_clk: frecuencia_clk,
-                corregir_fase: corregir_fase
+                corregir_fase: corregir_fase,
+                M : M,
+                modo_referencias : modo_referencias 
             }, function (data, status) {
                 // Manejar la respuesta del servidor
                 var amplitud_label = document.getElementById("R");
@@ -412,6 +446,9 @@
                     var noise = document.getElementById("noise").value;
                     var N = document.getElementById("N").value;
                     var escalar = document.getElementById("escalar").value;
+                    var M = document.getElementById("M_puntos").value;
+                    var modo_referencias = document.getElementById("modo_referencias").value;
+
 
                     $.get("http://" + serverIP + ":8080/datos_adc", {
                         frec: frec,
@@ -419,7 +456,9 @@
                         f_clk: f_clk,
                         fuente: fuente,
                         noise: noise,
-                        N: N
+                        N: N,
+                        M : M,
+                        modo_referencias : modo_referencias 
                     }, function (data, status) {
                         // Obtener los datos de data1 y data2
                         var newData1 = data.data1;
@@ -474,6 +513,9 @@
             updateChart();
         });
 
+
+
+
         // Barrido en frecuencia -> recuperar TXT
         function barrido() {
 
@@ -492,6 +534,8 @@
             var f_step = document.getElementById("barrido_step").value;
             var nombre_archivo_barrido = document.getElementById("nombre_archivo_barrido").value;
             var noise = document.getElementById("noise").value;
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
 
             $.get("http://" + serverIP + ":8080/barrido_lockin", {
                 f_clk: f_clk,
@@ -503,7 +547,9 @@
                 f_step: f_step,
                 nombre_archivo_barrido: nombre_archivo_barrido,
                 corregir_fase: corregir_fase,
-                noise: noise
+                noise: noise,
+                M : M,
+                modo_referencias : modo_referencias 
 
             }, function (data, status) {
 
@@ -640,8 +686,8 @@
 
         function processDataRuido(data) {
             const lines = data.trim().split('\n');
-            const dataLines = lines.slice(4);
-            const parsedData = lines.map(line => {
+            const dataLines = lines.slice(3);
+            const parsedData = dataLines.map(line => {
                 const [N, mean_r, std_r] = line.split(',').map(Number);
                 return { N, mean_r, std_r };
             });
@@ -650,6 +696,9 @@
 
         // Funcion para calculos de ruido
         function barrido_ruido() {
+
+            var grafico_logaritmico = true;
+            var normalizar = true;
 
             var boton = document.getElementById('BarridoRuido');
             boton.disabled = true;  // Deshabilitar el botón
@@ -663,6 +712,8 @@
             var fuente = document.getElementById("fuente").value;
             var noise = document.getElementById("noise").value;
             var f_clk = document.getElementById("frecuencia_clk").value;
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
 
             // Uso barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida
 
@@ -673,7 +724,9 @@
                 iteraciones: iteraciones,
                 fuente: fuente,
                 noise: noise,
-                f_clk: f_clk
+                f_clk: f_clk,
+                M : M,
+                modo_referencias : modo_referencias
 
             }, function (data, status) {
 
@@ -689,32 +742,49 @@
                     downloadLink.click();
                 }                                
                 // Llamar a la función para crear los gráficos
-                createCharts_noise(data);
+                createCharts_noise(data,grafico_logaritmico,N_inicial,N_final,normalizar);
                 boton.disabled = false;
             });
         }
 
-        function createCharts_noise(data_ruido_in)
-        {
+        function createCharts_noise(data_ruido_in, isLogarithmic,minN,maxN,normalize) {
             const data_ruido = processDataRuido(data_ruido_in);
 
             const N = data_ruido.map(point => point.N);
-            const std_r = data_ruido.map(point => point.std_r);
+            var std_r = data_ruido.map(point => point.std_r);
             const mean_r = data_ruido.map(point => point.mean_r);
+
+            if (normalize) {
+                var maxStdR = Math.max(...std_r);
+                std_r = std_r.map(value => value / maxStdR);
+            }
 
             const noiseCtx = document.getElementById('chart_ruido_vs_N').getContext('2d');
             const meanCtx = document.getElementById('chart_mean_vs_N').getContext('2d');
 
             if (window.noiseChart) {
-            window.noiseChart.destroy();
+                window.noiseChart.destroy();
             }
             if (window.meanChart) {
-            window.meanChart.destroy();
+                window.meanChart.destroy();
             }
 
+            const xScaleConfig = {
+                type: isLogarithmic ? 'logarithmic' : 'linear',
+                title: {
+                    display: true,
+                    text: 'N (constantes de tiempo)'
+                },
+                min: Math.min(...N),
+                max: Math.max(...N),
+                ticks: {
+                    callback: function(value, index, values) {
+                        return Number(value.toString()); // Convierte los valores a números
+                    }
+                }
+            };
 
             window.noiseChart = new Chart(noiseCtx, {
-                
                 type: 'line',
                 data: {
                     labels: N,
@@ -726,29 +796,21 @@
                         pointRadius: 3,
                         pointHoverRadius: 5
                     }]
-                },           
+                },
                 options: {
                     scales: {
-                        x: {
-                            //type: 'logarithmic',
-                            title: {
-                                display: true,
-                                text: 'N (constantes de tiempo)'
-                            }
-                        },
+                        x: xScaleConfig,
                         y: {
                             title: {
                                 display: true,
                                 text: 'Desviación estandar de las mediciones'
                             }
                         }
-                    }                   
-                }     
-            });        
-
+                    }
+                }
+            });
 
             window.meanChart = new Chart(meanCtx, {
-                
                 type: 'line',
                 data: {
                     labels: N,
@@ -760,28 +822,21 @@
                         pointRadius: 3,
                         pointHoverRadius: 5
                     }]
-                },           
+                },
                 options: {
                     scales: {
-                        x: {
-                            //type: 'logarithmic',
-                            title: {
-                                display: true,
-                                text: 'N (constantes de tiempo)'
-                            }
-                        },
+                        x: xScaleConfig,
                         y: {
                             title: {
                                 display: true,
                                 text: 'Media de las mediciones'
                             }
                         }
-                    }                   
-                }     
-            });        
+                    }
+                }
+            });
+        }
 
-
-        }      
 
         function dep_iniciar() 
         {
@@ -802,6 +857,9 @@
             var f_clk = document.getElementById("frecuencia_clk").value;
             var N = document.getElementById("N").value;
 
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
+
             // Uso calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise
 
             $.get("http://" + serverIP + ":8080/calcular_dep", {
@@ -813,7 +871,9 @@
                 f_final: f_final,
                 f_step : f_step,
                 iteraciones: iteraciones,
-                sim_noise:sim_noise               
+                sim_noise:sim_noise,
+                M : M,
+                modo_referencias : modo_referencias               
 
             }, function (data, status) {
 
