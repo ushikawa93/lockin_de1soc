@@ -1,3 +1,9 @@
+///// ================================================================================= /////
+///// ============================ Servidor Lockin ==================================== /////
+///// ================================================================================= /////
+
+
+ /////// ====================== Variables generales ================================== /////	
 const http = require('http');
 var execFile = require('child_process').execFile;
 
@@ -39,7 +45,14 @@ var buttonPressCount = 0;
 
 
 
-http.createServer(function (req, res) {
+///// ================================================================================= /////
+///// ============================ Creo el servidor ==================================== /////
+///// ================================================================================= /////
+
+const server = http.createServer(function (req, res) {
+
+    req.setTimeout(3600000);
+
     // Configura los encabezados CORS para permitir solicitudes desde cualquier origen
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET');
@@ -47,6 +60,12 @@ http.createServer(function (req, res) {
 
     const parsedUrl = url.parse(req.url, true); // Parsear la URL para obtener los parámetros
     const queryObject = parsedUrl.query; // Obtener los parámetros de la URL
+
+
+    ///// ================================================================================= /////
+    ///// =================== Solicitud iniciar_lockin ==================================== /////
+    ///// ================================================================================= /////
+
 
     if (parsedUrl.pathname === '/iniciar_lockin' ) {
         console.log('Calculando...');
@@ -109,6 +128,14 @@ http.createServer(function (req, res) {
             }
         });
     }        
+
+
+
+
+    ///// ============================================================================ /////
+    ///// =================== Solicitud datos_adc ==================================== /////
+    ///// ============================================================================ /////
+
     else if (parsedUrl.pathname === '/datos_adc'){        
 
         // ./adquirir $sim_noise $N $frecuencia $ciclos2display $nombre_archivo 
@@ -167,6 +194,13 @@ http.createServer(function (req, res) {
         });
           
     } 
+
+
+
+    ///// ================================================================================= /////
+    ///// =================== Solicitud barrido_lockin ==================================== /////
+    ///// ================================================================================= /////
+
     else if (parsedUrl.pathname === '/barrido_lockin'){        
 
         f_clk = queryObject.f_clk;  
@@ -217,8 +251,15 @@ http.createServer(function (req, res) {
             }
         );
     }
+
+
     
-    else if (parsedUrl.pathname === '/barrido_ruido') {
+    ///// ================================================================================= /////
+    ///// =================== Solicitud barrido_ruido ==================================== /////
+    ///// ================================================================================= /////
+    
+    else if (parsedUrl.pathname === '/barrido_ruido') 
+    {
     
         frecuencia = queryObject.frecuencia;
         N_inicial = queryObject.N_inicial;
@@ -229,8 +270,6 @@ http.createServer(function (req, res) {
         frec_clk = queryObject.f_clk;
         M = queryObject.M;
         modo_referencias = queryObject.modo_referencias;
-
-
            
         execFile("/root/Documents/de1soc_sw/cpp/barrido_cte_tiempo/barrido_cte_tiempo", [
             frecuencia,
@@ -264,8 +303,15 @@ http.createServer(function (req, res) {
                     res.end(data);
                 }
             });
-        });
+        });   
+
     }
+
+
+
+    ///// ================================================================================= /////
+    ///// =================== Solicitud calcular_dep ==================================== /////
+    ///// ================================================================================= /////
 
     else if (parsedUrl.pathname === '/calcular_dep') {
     
@@ -321,7 +367,12 @@ http.createServer(function (req, res) {
             });
         });
     }
-    
+
+
+    ///// ================================================================================= /////
+    ///// =========================== Solicitud toggle ==================================== /////
+    ///// ================================================================================= /////
+
     else if (parsedUrl.pathname === '/toggle' && queryObject.led_state !== undefined) {
         const ledState = parseInt(queryObject.led_state); // Obtener el valor de led_state
 

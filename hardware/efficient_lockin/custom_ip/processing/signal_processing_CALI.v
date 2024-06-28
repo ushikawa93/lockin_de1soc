@@ -269,10 +269,12 @@ lockin_segmentado lock_in(
 	
 	// Referencia externa
 	.referencia_externa(referencia_externa),
-	.sync(sync_avgd_signal),
 	.referencia_externa_sen(ref_sen_con_delay),
 	.referencia_externa_cos(ref_cos_con_delay),
 	.referencia_externa_valid(ref_valid_con_delay),
+	
+	// Señal de sincronizacion
+	.sync(sync_avgd_signal),
 	
 	// Entrada avalon streaming
 	.data_valid(data_in_lia_valid),

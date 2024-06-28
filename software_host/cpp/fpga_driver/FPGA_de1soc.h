@@ -1,7 +1,8 @@
 
-/*
-	Clase que controla el comportamiento de la FPGA
-*/
+///// ================================================================================= /////
+///// ============= Clase que controla el comportamiento de la FPGA =================== /////
+///// ================================================================================= /////
+
 
 
 #include "FPGA_IO_simple.h"
@@ -16,24 +17,33 @@
 
 class FPGA_de1soc {
 
+	///// ================================================================================= /////
+	///// ======================= Atributos y funciones privadas ========================== /////
+	///// ================================================================================= /////
 	private:
 	
-		// Arreglos con los datos
+		/////// ==================== Arreglos con los datos  ==================== /////	
+
 		int fifo0_32_bit[BUFFER_SIZE_RAW];	
 		int fifo1_32_bit[BUFFER_SIZE_RAW];	
 
 		long long fifo0_64_bit[BUFFER_SIZE_RAW];
 		long long fifo1_64_bit[BUFFER_SIZE_RAW];
 
+		/////// ==================== Arreglos con los parametros  ==================== /////	
 		int parameters [N_parametros];
 		int PARAM_MACROS_ARRAY [10] = {PARAMETER_0,PARAMETER_1,PARAMETER_2,PARAMETER_3,PARAMETER_4,PARAMETER_5,PARAMETER_6,PARAMETER_7,PARAMETER_8,PARAMETER_9};
 		int SALIDAS_AUX_ARRAY [5] = {SALIDA_AUX_0,SALIDA_AUX_1,SALIDA_AUX_2,SALIDA_AUX_3,SALIDA_AUX_4 };
 
+		/////// ==================== Atributos generales  ==================== /////	
 		int frec_clk,div_clk;
 		bool calculos_disponibles;
+
+		/////// ============ La comunicacion con la fpga esta definida aca abajo  ================ /////	
 		FPGA_IO_simple fpga;
 
-		//--------------- Funciones de control -------------------------------//
+		/////// ============ Funciones de control  ================ /////	
+
 		// Funciones para controlar el flujo de datos en la FPGA. Las hago privadas para que
 		// el usuario no interactue directamente con ellas
 		void Iniciar()
@@ -51,17 +61,27 @@ class FPGA_de1soc {
 			while (fpga.ReadFPGA(FINALIZACION_BASE,0) == 0){}
 		}
 		
-		// Funcion para transformar "cuentas" del ADC en valores de tensión
-		double toVolt_ADC_HS(double tension)
-        {
-            double factor_conversion_a_volt = 1.93/(7423); //Medido con osciloscopio				
-            return tension * factor_conversion_a_volt;            
-        }       
-		
-		
+
+	///// ================================================================================= /////
+	///// ======================= Atributos y funciones publicas ========================== /////
+	///// ================================================================================= /////		
 	public:	
 
-		//--------------- Funciones de control -------------------------------//
+		
+		/////// ===================  Constructor  ================ /////
+		/////// ================================================== /////
+
+		// Inicializo la FPGA con 0s por defecto:
+		
+		FPGA_de1soc(){
+			int zero_arr[N_parametros] = { 0 }; 
+			set_N_parametros (N_parametros , zero_arr ); 	
+			calculos_disponibles=false;	
+		}
+		
+		/////// ============  Funciones de control  ================ /////	
+		/////// ==================================================== /////
+		
 		void Comenzar()
 		{
 			Iniciar();
@@ -84,25 +104,13 @@ class FPGA_de1soc {
 		}
 
 
-		//--------------- Funciones de parámetros -------------------------------//
-		// Inicializo la FPGA con 0s por defecto:
 		
-		FPGA_de1soc(){
-			int zero_arr[N_parametros] = { 0 }; 
-			set_N_parametros (N_parametros , zero_arr ); 	
-			calculos_disponibles=false;	
-		}
+		/////// ============  Funciones de parámetros  ================ /////	
+		/////// ======================================================= /////
 		
-		void set_N_parametros (int N, int* paramters_array)
-		{
-			for (int i = 0; i< N; i++)
-			{
-				set_parameter( *(paramters_array + i) , i  );
-			}
-		}
+		
 
-
-		// Setters de cada parametro configurable de la FPGA	
+		/////// ============  Setters de cada parametro configurable de la FPGA  ================ /////
 		void set_parameter(int value,int parameter_index){
 
 			parameters[parameter_index] = value;
@@ -126,6 +134,40 @@ class FPGA_de1soc {
 			}
 		}
 
+
+		/////// ============  Setter de muchos parametros juntos  ================ /////
+		void set_N_parametros (int N, int* paramters_array)
+		{
+			for (int i = 0; i< N; i++)
+			{
+				set_parameter( *(paramters_array + i) , i  );
+			}
+		}
+
+		/////// ============  Geters para que el programa ppal consulte el estado de la FPGA  ================ /////
+		int get_parameter(int parameter_index)
+		{
+			return (parameters[parameter_index]);
+		}
+
+		int get_output_auxiliar(int parameter_index)
+		{
+			return fpga.ReadFPGA(PARAMETERS_BASE,SALIDAS_AUX_ARRAY[parameter_index]);
+		}		
+
+		/////// ============  Controla LED  ================ /////
+		void switchLED(int state)
+		{
+			set_parameter(state,9);
+		}
+
+
+
+		
+		/////// ============  Funciones de clocks  ==================== /////	
+		/////// ======================================================= /////
+
+		/////// ============  Setea CLK  ================ /////
 		// La frecuencia debe estar en MHz!
 		void set_frec_clk (int frec_clk_i) 
 		{
@@ -133,12 +175,19 @@ class FPGA_de1soc {
 			fpga.ConfigurarPll ( frec_clk );	
 		}
 
+		////// ============  Setea div clock  ================ /////
 		void set_divisor_clock (int div_clk_i) 
 		{
 			div_clk=div_clk_i;
 			fpga.WriteFPGA ( DIVISOR_CLOCK_BASE, 0,  div_clk );	
 		}		
 
+
+
+		/////// ============  Funciones de dds compilers  ================ /////	
+		/////// ========================================================== /////
+
+		/////// ============  Setea frec de referencias en modo dds  ================ /////
 		float set_frec_dds_compiler_ref(float f_deseada,float f_clk)
 		{
 			int B = 27; // Bits del acumulador de fase
@@ -149,6 +198,7 @@ class FPGA_de1soc {
 			return (f_clk*delta_phase / pow(2,B));
 		}
 
+		/////// ============  Setea frec de dac en modo dds  ================ /////
 		float set_frec_dds_compiler_dac(float f_deseada,float f_clk)
 		{
 			int B = 27; // Bits del acumulador de fase
@@ -159,31 +209,22 @@ class FPGA_de1soc {
 			return (f_clk*delta_phase / pow(2,B));
 		}
 
-		void switchLED(int state)
-		{
-			set_parameter(state,9);
-		}
 
 
 
-		// Geters para que el programa ppal consulte el estado de la FPGA	
-		int get_parameter(int parameter_index)
-		{
-			return (parameters[parameter_index]);
-		}
 
-		// Geters para que el programa ppal consulte el estado de la FPGA	
-		int get_output_auxiliar(int parameter_index)
-		{
-			return fpga.ReadFPGA(PARAMETERS_BASE,SALIDAS_AUX_ARRAY[parameter_index]);
-		}
+		/////// ============  Funciones de resultados  ================ /////	
+		/////// ======================================================= /////
 
-		//------------------------ Funciones de resultados -------------------------------//
+		/////// ============  Estructura resultados  ================ /////
+		struct resultados {
+        	double x, y, r, phi;
+    	};
+
+		/////// ============  Leer FIFOS 32 bits  ================ /////
 		// Devuelve un puntero al arreglo que tiene guardado los datos de los FIFO de 32 bits
 		int * leer_FIFO_32_bit(int fifo)
-		{			
-			//if(calculos_disponibles)
-			//{
+		{				
 				int indice;
 				for(indice=0; indice < BUFFER_SIZE_RAW; indice++)
 				{
@@ -207,10 +248,11 @@ class FPGA_de1soc {
 				{
 					return fifo1_32_bit;
 				}
-			//}
 			return 0;		
 		}		
 
+
+		/////// ============  Leer Resultados 32 bits  ================ /////
 		int leer_resultado_32_bit(int fifo)
 		{
 			Esperar();
@@ -222,59 +264,9 @@ class FPGA_de1soc {
 				{
 					return (int)fpga.ReadFPGA( RESULT1_32_BIT_BASE,0 );
 				}			
-			//return 0;			
 		}
 
-		static double cuentas2volt(double cuentas) 
-		{
-			double factor = 125e-6;	// Medido empíricamente
-			return factor * cuentas;
-   		}
-
-		struct resultados {
-        	double x, y, r, phi;
-    	};
-
-		static resultados get_resultados_from_xy (long long int X, long long int Y, int div, bool convert2volt)
-		{
-			resultados result;
-
-			result.x = (double)X / div;
-			result.y = (double)Y / div;
-			
-			result.r = sqrt(pow(result.x, 2) + pow(result.y, 2)) * 2 / amplitud_ref;
-			result.phi = atan2(result.y, result.x) * 180 / 3.1415;
-
-			if(convert2volt){
-				result.r = cuentas2volt(result.r);
-			}
-
-			return result;
-
-		}
-
-		static resultados get_resultados_from_xy_64M (long long int X, long long int Y, int div, bool convert2volt, int f)
-		{
-			int f_clk = 64000000;
-			int M = f_clk / f;
-			float correccion_fase = 1.5 * 360/(float)M;
-
-			resultados result;
-
-			result.x = (double)X / div;
-			result.y = (double)Y / div;
-			
-			result.r = sqrt(pow(result.x, 2) + pow(result.y, 2)) * 2 / amplitud_ref;
-			result.phi = atan2(result.y, result.x) * 180 / 3.1415 + correccion_fase;
-
-			if(convert2volt){
-				result.r = cuentas2volt(result.r);
-			}
-
-			return result;
-
-		}
-
+		/////// ============  Leer FIFOS 64 bits  ================ /////
 		long long * leer_FIFO_64_bit(int fifo)
 		{	
 			if(calculos_disponibles)
@@ -308,7 +300,8 @@ class FPGA_de1soc {
 			}
 			return 0;			
 		}		
-
+		
+		/////// ============  Leer Resultados 64 bits  ================ /////
 		long long leer_resultado_64_bit(int fifo)
 		{
 			Esperar();
@@ -324,9 +317,10 @@ class FPGA_de1soc {
 					long long res_low = fpga.ReadFPGA( RESULT1_64_BIT_DOWN_BASE,0 );			
 					return (res_up << 32) | res_low ;
 				}			
-			//return 0;
 		}
 
+		
+		/////// ============  Leer ultimo valor de FIFO 32 bits  ================ /////
 		int LeerFIFO32individual(int fifo)
 		{
 			if(fifo == 0)
@@ -339,6 +333,7 @@ class FPGA_de1soc {
 			}
 		}
 
+		/////// ============  Leer ultimo valor de FIFO 64 bits  ================ /////
 		long long int LeerFIFO64individual(int fifo)
 		{
 			if(fifo == 0)
@@ -356,6 +351,40 @@ class FPGA_de1soc {
 		}
 
 
+
+
+
+
+		/////// ============  Funciones de resultados Estaticas  ================ /////	
+		/////// ================================================================= /////
+
+		/////// ============  Funcion para transformar "cuentas" del ADC en valores de tensión  ================ /////	
+		static double cuentas2volt(double cuentas) 
+		{
+			double factor = 125e-6;	// Medido empíricamente
+			return factor * cuentas;
+   		}
+
+		/////// ============  Convierte x,y en objeto de tipo resultados  ================ /////
+		static resultados get_resultados_from_xy (long long int X, long long int Y, int div, bool convert2volt)
+		{
+			resultados result;
+
+			result.x = (double)X / div;
+			result.y = (double)Y / div;
+			
+			result.r = sqrt(pow(result.x, 2) + pow(result.y, 2)) * 2 / amplitud_ref;
+			result.phi = atan2(result.y, result.x) * 180 / 3.1415;
+
+			if(convert2volt){
+				result.r = cuentas2volt(result.r);
+			}
+
+			return result;
+
+		}		
+
+		/////// ============  Convierte x,y en objeto de tipo resultados corrigiendo fase ================ /////
 		static resultados get_resultados_from_xy (long long int X, long long int Y, int div, bool convert2volt, int f, int f_clk)
 		{
 			int M = (double)f_clk*1000000 / f;
@@ -398,49 +427,11 @@ class FPGA_de1soc {
 		}
 
 
-		// OBSOLETO si genero las ondas sinusoidales con el DDS compliler
-		// Setea la frec de muestreo (cambia frec_clk y divisor del clock)
-		// frecuencia debe estar en Hz 
-		void set_clk_from_frec (int frecuencia)
-		{
-			int frec,divisor;
-			
-			double min_divisor=1;
-			double max_divisor=1000;
-			
-			double min_error = 10000000;
-            int frec_final = 1;
-			int divisor_final = 1;
-			int ready_flag = 0;
-			
-			for (frec = 1; frec <= 65; frec = frec + 1)
-            {
-				for(divisor = min_divisor; divisor <= max_divisor; divisor++)
-				{
-					double error = std::abs(frecuencia - (double)frec * 1000000 / (double)(divisor));
-					if (error == 0)
-					{
-						ready_flag=1;
-						frec_final = frec;
-						divisor_final = divisor;	
-						break;						
-					}					
-					else if (error < min_error)
-					{
-						min_error = error;
-						frec_final = frec;
-						divisor_final = divisor;						
-					}
-				}
-				if(ready_flag==1)
-				{
-					break;
-				}
-            }
-			
-			set_frec_clk(frec_final);
-			set_divisor_clock(divisor_final);
-		}
+		
+
+
+		/////// ============  Funciones de clock a una frecuencia determinada  ================ /////	
+		/////// =============================================================================== /////
 
 		// OBSOLETO si genero las ondas sinusoidales con el DDS compliler
 		// Setea la frec de la onda sinusoidal generada para el lockin (cambia frec_clk y divisor del clock... necesita saber M)
@@ -488,6 +479,64 @@ class FPGA_de1soc {
 			return (double)frec_final*1000000/(M*divisor_final);
 		}
 
+		// OBSOLETO si genero las ondas sinusoidales con el DDS compliler
+		// Setea la frec de muestreo (cambia frec_clk y divisor del clock)
+		// frecuencia debe estar en Hz 
+		void set_clk_from_frec (int frecuencia)
+		{
+			int frec,divisor;
+			
+			double min_divisor=1;
+			double max_divisor=1000;
+			
+			double min_error = 10000000;
+            int frec_final = 1;
+			int divisor_final = 1;
+			int ready_flag = 0;
+			
+			for (frec = 1; frec <= 65; frec = frec + 1)
+            {
+				for(divisor = min_divisor; divisor <= max_divisor; divisor++)
+				{
+					double error = std::abs(frecuencia - (double)frec * 1000000 / (double)(divisor));
+					if (error == 0)
+					{
+						ready_flag=1;
+						frec_final = frec;
+						divisor_final = divisor;	
+						break;						
+					}					
+					else if (error < min_error)
+					{
+						min_error = error;
+						frec_final = frec;
+						divisor_final = divisor;						
+					}
+				}
+				if(ready_flag==1)
+				{
+					break;
+				}
+            }
+			
+			set_frec_clk(frec_final);
+			set_divisor_clock(divisor_final);
+		}
+
+
+
+
+
+
+
+
+		/////// ============  Funciones de generacion de señales y manejo de clks ================ /////	
+		/////// ================================================================================== /////
+
+
+		/////// ============  Setea frecuencia de referencias ================ /////		
+		// Funciona sin importar como quiera generar las señales DDS o directo con CLK
+
 		double setFrecuenciaReferencias(int metodo, int frecuencia, int f_clk, int M)
 		{
 			// metodo = 1 es con dds compiler. Sino directamente dvidiendo el clk en M puntos
@@ -503,6 +552,10 @@ class FPGA_de1soc {
 				return set_clk_from_frec_and_M(frecuencia,M);
 			}
 		}
+
+		/////// ============  Setea frecuencia de DAC ================ /////		
+		// Funciona sin importar como quiera generar las señales DDS o directo con CLK
+
 		double setFrecuenciaDAC(int metodo, int frecuencia, int f_clk, int M)
 		{
 			// metodo = 1 es con dds compiler. Sino directamente dvidiendo el clk en M puntos

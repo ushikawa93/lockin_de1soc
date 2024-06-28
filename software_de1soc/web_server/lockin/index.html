@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<!----------------------------------------------------------------------------------------->
+<!------------------------------- Interfaz lockin con HTML -------------------------------->
+<!----------------------------------------------------------------------------------------->
+
 <head>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
@@ -57,6 +63,10 @@
         <div class="tab" onclick="openTab(event, 'tab4')">DEP (experimental)</div>
     </div>
 
+
+    <!----------------------------------------------------------------------------------------->
+    <!-------------------------------------- TAB LOCKIN --------------------------------------->
+    <!----------------------------------------------------------------------------------------->
 
 
     <div id="tab1" class="tab-content active">
@@ -165,6 +175,13 @@
 
 
 
+
+
+    <!----------------------------------------------------------------------------------------->
+    <!----------------------- TAB Barrido en frecuencia --------------------------------------->
+    <!----------------------------------------------------------------------------------------->
+
+
     <div id="tab2" class="tab-content">
         <section id="barrido">
             <header>
@@ -215,6 +232,14 @@
     </div>
 
 
+
+
+
+    <!--------------------------------------------------------------------------------------------->
+    <!----------------------- TAB Barrido de ctes de tiempo --------------------------------------->
+    <!--------------------------------------------------------------------------------------------->
+
+
     <div id="tab3" class="tab-content">
         <section id="mediciones_de_ruido">          
 
@@ -231,6 +256,9 @@
 
                         <label for="numero_iteraciones"> Numero de iteraciones</label>
                         <input type="text" id="numero_iteraciones" name="numero_iteraciones" value="100">
+                   
+
+                        <label id="tiempo"></label>
 
                        
                     </aside>
@@ -255,6 +283,12 @@
 
         </section><br>
     </div>
+
+
+
+    <!--------------------------------------------------------------------------------------------->
+    <!----------------------- TAB Densidad espectral de potencia ---------------------------------->
+    <!--------------------------------------------------------------------------------------------->
 
     <div id="tab4" class="tab-content">
         <section id="dep">          
@@ -303,14 +337,30 @@
     </div>
 
 
+
+
+
+
+
+    <!--------------------------------------------------------------------------------------------->
+    <!----------------------- Funcionalidades de la interfaz (JS) ---------------------------------->
+    <!--------------------------------------------------------------------------------------------->
+
+
     <script>
+
+
+        ///// ================================================================================= /////
+        ///// ============================ Cosas generales ==================================== /////
+        ///// ================================================================================= /////
+
 
         var serverIP = window.location.hostname; // Obtiene la dirección IP del servidor
         var habilitar_oscilosocpio = false;
         habilitarSetRuido();
         habilitarM();
 
-        // Función para las pestañas:
+        /////// ========================== Función para las pestañas ===================================== /////	        
         function openTab(evt, tabName) {
             // Esconde todo el contenido de las pestañas
             var tabContents = document.getElementsByClassName("tab-content");
@@ -329,7 +379,9 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // Función para habilitar ruido en simulacion:
+
+
+        /////// ========================== Función para habilitar ruido en simulacion ===================================== /////	  
         function habilitarSetRuido() {
             var fuenteSelect = document.getElementById("fuente");
             var noiseInput = document.getElementById("noise");
@@ -340,6 +392,9 @@
                 noiseInput.disabled = true;      // Deshabilitar el campo "noise" para otras opciones
             }
         }
+
+
+        /////// ========================== Función para habilitar cambio de M o f_clk===================================== /////	  
 
         function habilitarM() {
             var modo_referencias = document.getElementById("modo_referencias");
@@ -358,7 +413,45 @@
             }
         }
 
-        // Funcion para el lockin
+        /////// ============== Funciones para aproximar el tiempo del barrido de ruido ================================== /////	  
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var inputs = document.querySelectorAll('#barrido_N_inicial, #barrido_N_final, #frecuencia, #numero_iteraciones');
+            inputs.forEach(input => {
+                input.addEventListener('input', calcularTiempoBarridoRuido);
+            });
+
+            // Llamar a la función al cargar la página para mostrar el valor inicial
+            calcularTiempoBarridoRuido();
+        });
+
+
+        function calcularTiempoBarridoRuido()
+        {
+            var tiempo_label = document.getElementById("tiempo");         
+            var N_inicial = parseInt(document.getElementById("barrido_N_inicial").value);
+            var N_final = parseInt(document.getElementById("barrido_N_final").value);  
+            var iteraciones = parseInt(document.getElementById("numero_iteraciones").value);
+            var frecuencia = parseInt(document.getElementById("frecuencia").value);     
+
+            var suma = 0;
+            for (var i = N_inicial; i <= N_final; i++) {                
+                suma += i;
+            }
+
+            tiempo_label.textContent = 'Tiempo estimado: ' + (1/frecuencia) * suma * iteraciones  + ' s';
+        }
+
+
+
+
+        ///// ================================================================================= /////
+        ///// ================================= LOCKIN ========================================= /////
+        ///// ================================================================================= /////
+
+
+        /////// ================ Función para calcular el lockin =============================== /////	  
+
         function iniciar() {
             // Obtener los valores de los campos de entrada
             var noise = document.getElementById("noise").value;
@@ -402,14 +495,14 @@
             });
         }
 
-        // Funcion para habilitar el osciloscopio
+        /////// ================ Funciones para graficar señales =============================== /////	
+
         function habilitarOSC() {
             habilitar_oscilosocpio = !habilitar_oscilosocpio; // Cambiar el estado del osciloscopio
 
             var habilitar_button = document.getElementById("HabilitarOsciloscopio");
 
             habilitar_button.textContent = (habilitar_oscilosocpio) ? "Detener" : "Iniciar";
-
         }
 
         // Crear chart para señales crudas
@@ -516,7 +609,15 @@
 
 
 
-        // Barrido en frecuencia -> recuperar TXT
+
+
+
+        ///// ================================================================================= /////
+        ///// ==================== Barrido en frecuencia ======================================= /////
+        ///// ================================================================================= /////
+
+        /////// ================ Función para calcular el barrido =============================== /////	  
+
         function barrido() {
 
             var boton = document.getElementById('BarridoFrec');
@@ -571,7 +672,8 @@
             
         }
 
-        // Graficar barrido en frecuencia
+        /////// ================ Función para procesar los datos del barrido =============================== /////	  
+
         function processData(data) {
             const lines = data.trim().split('\n');
             const dataLines = lines.slice(4);
@@ -582,7 +684,8 @@
             return parsedData;
         }
 
-        // Función para crear los gráficos de la funcion de transferencia
+       /////// ============ Función para crear los gráficos de la funcion de transferencia =============== /////	  
+
         function createCharts_barrido(datos_barrido) {
 
             const data = processData(datos_barrido);
@@ -684,17 +787,14 @@
         }
 
 
-        function processDataRuido(data) {
-            const lines = data.trim().split('\n');
-            const dataLines = lines.slice(3);
-            const parsedData = dataLines.map(line => {
-                const [N, mean_r, std_r] = line.split(',').map(Number);
-                return { N, mean_r, std_r };
-            });
-            return parsedData;
-        }
 
-        // Funcion para calculos de ruido
+
+        
+        ///// ================================================================================= /////
+        ///// =================== Barrido de ctes de tiempo =================================== /////
+        ///// ================================================================================= /////
+
+       /////// ==================== Funcion para calculos de ruido  ==================== /////	
         function barrido_ruido() {
 
             var grafico_logaritmico = true;
@@ -715,37 +815,61 @@
             var M = document.getElementById("M_puntos").value;
             var modo_referencias = document.getElementById("modo_referencias").value;
 
+            
+
             // Uso barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida
 
-            $.get("http://" + serverIP + ":8080/barrido_ruido", {
-                frecuencia: frecuencia,
-                N_inicial: N_inicial,
-                N_final: N_final,
-                iteraciones: iteraciones,
-                fuente: fuente,
-                noise: noise,
-                f_clk: f_clk,
-                M : M,
-                modo_referencias : modo_referencias
+            $.ajax({
+                url: "http://" + serverIP + ":8080/barrido_ruido",
+                method: "GET",
+                data: {
+                    frecuencia: frecuencia,
+                    N_inicial: N_inicial,
+                    N_final: N_final,
+                    iteraciones: iteraciones,
+                    fuente: fuente,
+                    noise: noise,
+                    f_clk: f_clk,
+                    M: M,
+                    modo_referencias: modo_referencias
+                },
+                timeout: 3600000, // 1 hora en milisegundos
+                success: function(data, status) {
+                    var descargar = document.getElementById("descargar_archivo_ruido");
 
-            }, function (data, status) {
-
-                var descargar = document.getElementById("descargar_archivo_ruido");
-
-                if(descargar.value == 1)
-                {
-                    // Crear un enlace de descarga
-                    var blob = new Blob([data], { type: 'text/plain' });
-                    var downloadLink = document.createElement('a');
-                    downloadLink.href = window.URL.createObjectURL(blob);
-                    downloadLink.download = nombre_archivo_ruido; // Nombre del archivo a descargar
-                    downloadLink.click();
-                }                                
-                // Llamar a la función para crear los gráficos
-                createCharts_noise(data,grafico_logaritmico,N_inicial,N_final,normalizar);
-                boton.disabled = false;
+                    if (descargar.value == 1) {
+                        // Crear un enlace de descarga
+                        var blob = new Blob([data], { type: 'text/plain' });
+                        var downloadLink = document.createElement('a');
+                        downloadLink.href = window.URL.createObjectURL(blob);
+                        downloadLink.download = nombre_archivo_ruido; // Nombre del archivo a descargar
+                        downloadLink.click();
+                    }
+                    
+                    // Llamar a la función para crear los gráficos
+                    createCharts_noise(data, grafico_logaritmico, N_inicial, N_final, normalizar);
+                    boton.disabled = false;
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error en la solicitud: " + status + " - " + error);
+                    boton.disabled = false;
+                }
             });
         }
+
+        /////// ================ Función para procesar los datos del barrido =============================== /////	
+        function processDataRuido(data) {
+            const lines = data.trim().split('\n');
+            const dataLines = lines.slice(3);
+            const parsedData = dataLines.map(line => {
+                const [N, mean_r, std_r] = line.split(',').map(Number);
+                return { N, mean_r, std_r };
+            });
+            return parsedData;
+        }
+
+
+        /////// ==================== Función para crear los gráficos  ==================== /////	  
 
         function createCharts_noise(data_ruido_in, isLogarithmic,minN,maxN,normalize) {
             const data_ruido = processDataRuido(data_ruido_in);
@@ -835,9 +959,20 @@
                     }
                 }
             });
+
         }
 
 
+
+
+
+
+
+        ///// ================================================================================= /////
+        ///// =================== Densidad espectral de potencia ============================== /////
+        ///// ================================================================================= /////
+
+        /////// ==================== Función para calcular la DEP  ==================== /////
         function dep_iniciar() 
         {
             var boton = document.getElementById('DEP');
@@ -896,6 +1031,7 @@
         
         }
 
+        /////// ==================== Función para procesar los datos  ==================== /////
         function processDataDEP(data) {
             const lines = data.trim().split('\n');
             const dataLines = lines.slice(4);
@@ -907,7 +1043,7 @@
         }
        
 
-
+        /////// ==================== Función para crear los gráficos  ==================== /////
         function createCharts_dep(data_ruido_in, delta_f) {
         // Suponiendo que processDataDEP devuelve un array de objetos con {f, mean_r, std_r}
         const data_DEP = processDataDEP(data_ruido_in);

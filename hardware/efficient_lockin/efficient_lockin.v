@@ -97,7 +97,7 @@ wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
 parameter fuente_dac = dds_compiler_sen ;	
 
 parameter fuente_fifo0_32bit = datos_procesamiento;
-wire fuente_fifo1_32bit = (dds_in_data_sim) ? referencia_seno : avgd_signal;
+wire fuente_fifo1_32bit = avgd_signal;
 
 parameter fuente_fifo0_64bit = procesada_1;
 parameter fuente_fifo1_64bit = procesada_2;
@@ -462,18 +462,38 @@ data_in data(
 	
 );
 
+
+////// Delay para acomodar la señal sync //////
+
+wire sync_dat_simulada;
+wire sync_dat_simulada_retrasada;
+
+///// Si se usan las referencias internas del modulo lockin habria que atrasar el sync! /////
+delay_axi_streaming#(
+	
+	.delay(12),
+	.width(1)
+
+	) delay_sync(
+	
+	.clk(clk_custom),
+   .reset_n(reset_n),
+   .bypass(0),
+   .data_in(sync_dat_simulada),    
+   .data_out(sync_dat_simulada_retrasada),
+
+);
+
 ////// Salidas de datos simulados //////
 
 wire [31:0] noise;
-
-wire sync_dat_simulada;
 
 wire [31:0] datos_simulados_old;
 wire datos_simulados_old_valid;
 
 wire [31:0] datos_simulados = (dds_in_data_sim)? ( sen_dds_compiler_14b + noise ): datos_simulados_old;
 wire datos_simulados_valid = (dds_in_data_sim)? dds_compiler_valid : datos_simulados_old_valid;
-wire sync_procesamiento = (dds_in_data_sim) ? sync_referencias : sync_dat_simulada;
+wire sync_procesamiento = (dds_in_data_sim) ? sync_referencias : sync_dat_simulada_retrasada;
 
 ///// Salidas de los ADC HS ////////
 wire [31:0] data_canal_a;

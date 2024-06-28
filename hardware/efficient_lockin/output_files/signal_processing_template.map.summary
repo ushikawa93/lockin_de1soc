@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Thu Jun 27 17:19:36 2024
+Analysis & Synthesis Status : Successful - Fri Jun 28 14:13:16 2024
 Quartus Prime Version : 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 Revision Name : signal_processing_template
 Top-level Entity Name : efficient_lockin
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 8807
+Total registers : 8819
 Total pins : 158
 Total virtual pins : 0
 Total block memory bits : 2,652,160
