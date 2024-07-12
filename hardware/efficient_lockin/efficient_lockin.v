@@ -468,6 +468,8 @@ data_in data(
 wire sync_dat_simulada;
 wire sync_dat_simulada_retrasada;
 
+wire bypass_delay = ((fuente_procesamiento == simulacion) && (dds_in_data_sim == 0) ) ? 1 : 0;
+
 ///// Si se usan las referencias internas del modulo lockin habria que atrasar el sync! /////
 delay_axi_streaming#(
 	
@@ -478,7 +480,7 @@ delay_axi_streaming#(
 	
 	.clk(clk_custom),
    .reset_n(reset_n),
-   .bypass(0),
+   .bypass(bypass_delay),
    .data_in(sync_dat_simulada),    
    .data_out(sync_dat_simulada_retrasada),
 
