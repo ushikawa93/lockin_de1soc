@@ -484,8 +484,8 @@
                 // Verificar si los datos recibidos tienen los atributos R y phi
                 if (data.hasOwnProperty("r") && data.hasOwnProperty("phi")) {
                     // Actualizar el contenido de los elementos HTML con los valores recibidos
-                    amplitud_label.textContent = "R : " + data.r;
-                    fase_label.textContent = "PHI : " + data.phi;
+                    amplitud_label.textContent = "R : " + (data.r*1000).toFixed(4) + " mV";
+                    fase_label.textContent = "PHI : " + (data.phi).toFixed(4) + " °";
                     frecuencia_real_label.textContent = "   (Frecuencia real: " + data.f + " Hz)";
                 } else {
                     console.error("Los datos recibidos del servidor son incorrectos o faltan atributos.");
@@ -519,7 +519,7 @@
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderWidth: 1
                     }, {
-                        label: 'FIFO 1 (Referencia)',
+                        label: 'FIFO 1 (Datos Promediados)',
                         data: [], // Aquí irán los datos de la señal 2
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -572,10 +572,19 @@
                         var minData2 = Math.min(...newData2);
                         var median2 = (maxData2 + minData2) / 2;
 
-                        var data_escalada = newData1.map(value => (value - median1) * ((maxData2 - minData2) / (maxData1 - minData1)));
+                        var range1 = maxData1 - minData1;
+                        var range2 = maxData2 - minData2;
+
+                        // Verificar que los rangos no sean cero para evitar división por cero
+                        if (range1 !== 0 && range2 !== 0) {
+                            var data_escalada = newData2.map(value => ((value - median2) / range2) * range1 + median1);
+                        } else {
+                            var data_escalada = newData2; // No escalar si el rango es 0 para evitar errores
+                        }
+
                         // Agregar todos los nuevos datos al gráfico
-                        chart.data.datasets[0].data = (escalar == 1) ? data_escalada : newData1;
-                        chart.data.datasets[1].data = newData2;
+                        chart.data.datasets[0].data = newData1;
+                        chart.data.datasets[1].data = (parseInt(escalar) === 1) ? data_escalada : newData2;
 
                         // Agregar etiquetas de tiempo para cada punto de datos
                         for (var i = 0; i < newData1.length - 1; i++) {

@@ -180,6 +180,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "adc_dout",
+					"strict" : false
+				},
+				{
 					"name" : "ADC_DB[0]",
 					"strict" : false
 				},
@@ -289,10 +293,6 @@
 				},
 				{
 					"name" : "ADC_DA[13]",
-					"strict" : false
-				},
-				{
-					"name" : "adc_dout",
 					"strict" : false
 				}
 			]

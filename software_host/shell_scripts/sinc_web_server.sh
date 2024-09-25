@@ -16,9 +16,9 @@ rsync -av --exclude="$script_file" "$source_dir/" "$remote_user@$remote_ip:$remo
 #scp -r $source_dir/ $remote_user@$remote_ip:$remote_dir/
 
 
-ssh $remote_user@$remote_ip "chmod 0644 /var/www/html/led_test/index.html /var/www/html/lockin/index.html; \
-                             chmod 0777 /var/www/html /var/www/html/led_test /var/www/html/lockin; \
-                             chmod 0755 /var/www/html /var/www/html/led_test /var/www/html/lockin; \
+ssh $remote_user@$remote_ip "chmod 0644 /var/www/html/led_test/index.html /var/www/html/lockin/index.html /var/www/html/tomografo/index.html; \
+                             chmod 0777 /var/www/html /var/www/html/led_test /var/www/html/lockin /var/www/html/tomografo; \
+                             chmod 0755 /var/www/html /var/www/html/led_test /var/www/html/lockin /var/www/html/tomografo; \
                              systemctl stop web_server; \
                              systemctl start web_server;"   
 

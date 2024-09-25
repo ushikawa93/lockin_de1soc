@@ -447,6 +447,8 @@ class FPGA_de1soc {
             int frec_final = 1;
 			int divisor_final = 1;
 			int ready_flag = 0;
+
+			int max_frec = 30;
 			
 			for (frec = 1; frec <= 65; frec = frec + 1)
             {

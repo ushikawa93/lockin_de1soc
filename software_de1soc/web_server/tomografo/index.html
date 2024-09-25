@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!----------------------------------------------------------------------------------------->
+<!------------------------------- Interfaz lockin con HTML -------------------------------->
+<!----------------------------------------------------------------------------------------->
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <title>Asistente para Tomografía Magnética</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .tab-container {
+            display: flex;
+        }
+
+        .tab {
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            background-color: #f1f1f1;
+        }
+
+        .tab:hover {
+            background-color: #ddd;
+        }
+
+        .tab.active {
+            background-color: white;
+            border-bottom: 1px solid white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>                
+        <h2> Asistente para Tomografía Magnética </h2>
+
+        <section>
+            
+                <aside>
+                    <label for="frecuencia"> Frecuencia de operación [Hz]:</label>
+                    <input type="text" id="frecuencia" name="frecuencia" value="100000">       
+                    
+                    <label for="nombre_archivo"> Nombre del archivo de salida</label>
+                    <input type="text" id="nombre_archivo" name="nombre_archivo" value="medidas.txt">     
+
+                </aside>
+                <aside>
+                    <label for="N"> Ciclos promediación :</label>
+                    <input type="text" id="N" name="N" value="100">          
+
+                    <!-- Aquí se mostrará la constante de tiempo -->
+                    <p id="constanteTiempo">(Constante de tiempo: )</p>
+                </aside>         
+     
+        </section>
+        
+        <div class="tab-container">
+            <div class="tab active" onclick="openTab(event, 'tab1')">Manual</div>
+            <div class="tab" onclick="openTab(event, 'tab2')">Automático</div>
+        </div>
+    
+        <div id="tab1" class="tab-content active">
+            <section>
+
+                <aside>                
+                    <button id="ProbarLockin" onclick="iniciar_lockin()">Iniciar</button>
+                </aside>
+
+                <aside>
+                    <label id="R"></label>
+                    <label id="PHI"></label>
+                </aside>
+
+            </section>
+
+            <section>
+
+                <aside>
+                    <label id="espira_excitadora"> Espira excitadora : 0</label>
+                    <label id="espira_sensora"> Espira sensora : 1 </label>
+                </aside>           
+
+                <aside>
+                    <button id="GuardarYavanzar" onclick="guardar_dato()">Guardar y avanzar</button>
+                </aside>            
+
+            </section>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <section>
+                <aside>
+                    <button id="IniciarOpAutomatica" onclick="OpAutomatica()">Iniciar</button>
+                    <button id="PausarOpAutomatica" onclick="pausarOperacion()" disabled>Pausar</button>
+                    <button id="CancelarOpAutomatica" onclick="cancelarOperacion()" disabled>Cancelar</button>         
+                </aside>
+
+                <aside>
+                    <label id="mensaje"> Esperando... </label>
+                    <label id="R2"></label>          
+                    <label id="PHI2"></label>     
+                </aside>
+            </section>
+        </div>
+
+        <section>                         
+            <header>
+                <h2> Señales involucradas </h2>                    
+                <canvas id="myChart" style="width: 100%; height: 300px;"></canvas>
+            </header> 
+            <br>
+        </section>
+        <section>
+            <aside>
+                <label for="escalar">Ver señales en misma escala?</label>
+                <select id="escalar" name="escalar">
+                    <option value="0">NO</option>
+                    <option value="1" selected>SI</option>
+                </select>
+            </aside>
+            <aside>
+                <label for="ciclos2display">Mostrar en grafico [ciclos]:</label>
+                <input type="text" id="ciclos2display" name="ciclos2display" value="1">
+            </aside>
+            <aside>
+                <button id="HabilitarOsciloscopio" onclick="habilitarOSC()">Iniciar</button>
+            </aside>                
+        </section>
+
+    </header>
+
+
+    <script>
+
+        ///// ================================================================================= /////
+        ///// ============================ Cosas generales ==================================== /////
+        ///// ================================================================================= /////
+        
+        var habilitar_oscilosocpio = false;
+        var serverIP = window.location.hostname;
+        document.getElementById('ProbarLockin').disabled = habilitar_oscilosocpio;
+        document.getElementById('GuardarYavanzar').disabled = habilitar_oscilosocpio;
+
+        // Parametros fijos en este modo de funcionamiento
+        var f_clk = 20;
+        var fuente = 1;
+        var noise = 0;
+        var M = 64;
+        var modo_referencias = 1;
+        var corregir_fase = 0;
+        var modo = 1;
+        var constanteDeTiempo = 100 / (100000 ) * 1000;
+
+        // Para llevar la cuenta de las espiras excitadora y sensora
+        var N_espiras = 4;
+        var excitadora = 0;
+        var sensora = 1;
+        var matriz_medidas = Array(N_espiras).fill(null).map(() => Array(N_espiras).fill(null));
+        var R_actual = 0;       
+
+        for (var k = 0; k< N_espiras; k++)
+        {
+            matriz_medidas[k][k] = 0;
+        }
+        
+
+        // Tiempos de espera para operacion automatica
+        var t1 = 10000; // Tiempo de espera t1 en milisegundos
+        var t2 = 4000; // Tiempo de espera t2 en milisegundos
+        var t3 = t2;
+        var pausa = false;
+        var cancelar = false;
+
+
+        /////// ========================== Función para las pestañas ===================================== /////	        
+        function openTab(evt, tabName) {
+           // Esconde todo el contenido de las pestañas
+           var tabContents = document.getElementsByClassName("tab-content");
+           for (var i = 0; i < tabContents.length; i++) {
+               tabContents[i].classList.remove("active");
+           }
+
+           // Elimina la clase "active" de todas las pestañas
+           var tabs = document.getElementsByClassName("tab");
+           for (var i = 0; i < tabs.length; i++) {
+               tabs[i].classList.remove("active");
+           }
+
+           // Muestra el contenido de la pestaña actual y añade la clase "active" a la pestaña actual
+           document.getElementById(tabName).classList.add("active");
+           evt.currentTarget.classList.add("active");
+        }
+
+        
+
+
+        ///// ================================================================================= /////
+        ///// ================================= Lockin ======================================== /////
+        ///// ================================================================================= /////
+
+
+        /////// ================ Función para calcular la constante de tiempo =============================== /////	
+
+        
+        function actualizarConstanteDeTiempo() {
+            const frecuencia = parseFloat(document.getElementById('frecuencia').value);
+            const ciclos = parseFloat(document.getElementById('N').value);
+
+            // Validamos que los valores ingresados sean números válidos
+            if (isNaN(frecuencia) || isNaN(ciclos) || frecuencia === 0) {
+                document.getElementById('constanteTiempo').textContent = "(Constante de tiempo: valor inválido)";
+            } else {
+                constanteDeTiempo = ciclos / (frecuencia ) * 1000;
+                document.getElementById('constanteTiempo').textContent = "(Constante de tiempo: " + constanteDeTiempo.toFixed(6) + " ms)";
+            }
+        }
+
+        // Asignamos el evento `input` para recalcular cuando el usuario cambie los valores
+        document.getElementById('frecuencia').addEventListener('input', actualizarConstanteDeTiempo);
+        document.getElementById('N').addEventListener('input', actualizarConstanteDeTiempo);
+
+        // Llamamos la función al cargar la página para calcular inicialmente
+        actualizarConstanteDeTiempo();
+
+
+
+
+         /////// ================ Función para calcular el lockin =============================== /////	  
+
+         function iniciar_lockin() {
+            // Obtener los valores de los campos de entrada           
+            var N = document.getElementById("N").value;
+            var frecuencia = document.getElementById("frecuencia").value;
+
+            // Enviar los valores al servidor
+            $.get("http://" + serverIP + ":8080/iniciar_lockin", {
+                noise: noise,
+                N: N,
+                frecuencia: frecuencia,
+                fuente: fuente,
+                modo: modo,
+                f_clk: f_clk,
+                corregir_fase: corregir_fase,
+                M : M,
+                modo_referencias : modo_referencias 
+            }, function (data, status) {
+                // Manejar la respuesta del servidor
+                var amplitud_label = document.getElementById("R");
+                var amplitud_label_2 = document.getElementById("R2");
+                var fase_label = document.getElementById("PHI");
+                var fase_label_2 = document.getElementById("PHI2");
+
+                // Verificar si los datos recibidos tienen los atributos R y phi
+                if (data.hasOwnProperty("r") && data.hasOwnProperty("phi")) {
+                    // Actualizar el contenido de los elementos HTML con los valores recibidos
+                    R_actual = (data.r*1000).toFixed(4);
+                    amplitud_label.textContent = "R : " + (data.r*1000).toFixed(4) + " mV";
+                    amplitud_label_2.textContent = "R : " + (data.r*1000).toFixed(4) + " mV";
+                    fase_label.textContent = "PHI : " + (data.phi).toFixed(4) + " °";
+                    fase_label_2.textContent = "PHI : " + (data.phi).toFixed(4) + " °";
+                } else {
+                    console.error("Los datos recibidos del servidor son incorrectos o faltan atributos.");
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error en la solicitud AJAX:", errorThrown);
+            });
+        }
+
+
+
+
+        /////// ================ Funciones para graficar señales =============================== /////	
+
+         function habilitarOSC() {
+            habilitar_oscilosocpio = !habilitar_oscilosocpio; // Cambiar el estado del osciloscopio
+            document.getElementById('ProbarLockin').disabled = habilitar_oscilosocpio;
+            document.getElementById('GuardarYavanzar').disabled = habilitar_oscilosocpio;
+
+            var habilitar_button = document.getElementById("HabilitarOsciloscopio");
+
+            habilitar_button.textContent = (habilitar_oscilosocpio) ? "Detener" : "Iniciar";
+        }
+
+        // Crear chart para señales crudas
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [], // Aquí irán las etiquetas de tiempo (si es necesario)
+                    datasets: [{
+                        label: 'FIFO 0 (ADC)',
+                        data: [], // Aquí irán los datos de la señal 1
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 1
+                    }, {
+                        label: 'FIFO 1 (Datos Promediados)',
+                        data: [], // Aquí irán los datos de la señal 2
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+            });
+
+            // Función para actualizar el gráfico
+            function updateChart() {
+                if (habilitar_oscilosocpio) {
+                    
+                    var frec = document.getElementById("frecuencia").value;
+                    var N = document.getElementById("N").value;
+                    var ciclos2display = document.getElementById("ciclos2display").value;
+                    var escalar = document.getElementById("escalar").value;
+
+
+
+                    $.get("http://" + serverIP + ":8080/datos_adc", {
+                        frec: frec,
+                        ciclos2display: ciclos2display,
+                        f_clk: f_clk,
+                        fuente: fuente,
+                        noise: noise,
+                        N: N,
+                        M : M,
+                        modo_referencias : modo_referencias 
+                    }, function (data, status) {
+                        // Obtener los datos de data1 y data2
+                        var newData1 = data.data1;
+                        var newData2 = data.data2;
+
+                        // Limpiar los datasets y etiquetas del gráfico
+                        chart.data.datasets[0].data = [];
+                        chart.data.datasets[1].data = [];
+                        chart.data.labels = [];
+
+                        // Escalo las señales para verlas juntas NO ANDA
+
+                        var maxData1 = Math.max(...newData1);
+                        var minData1 = Math.min(...newData1);
+                        var median1 = (maxData1 + minData1) / 2;
+
+                        var maxData2 = Math.max(...newData2);
+                        var minData2 = Math.min(...newData2);
+                        var median2 = (maxData2 + minData2) / 2;
+
+                        var range1 = maxData1 - minData1;
+                        var range2 = maxData2 - minData2;
+
+                        // Verificar que los rangos no sean cero para evitar división por cero
+                        if (range1 !== 0 && range2 !== 0) {
+                            var data_escalada = newData2.map(value => ((value - median2) / range2) * range1 + median1);
+                        } else {
+                            var data_escalada = newData2; // No escalar si el rango es 0 para evitar errores
+                        }
+
+                        // Agregar todos los nuevos datos al gráfico
+                        chart.data.datasets[0].data = newData1;
+                        chart.data.datasets[1].data = (parseInt(escalar) === 1) ? data_escalada : newData2;
+
+                        // Agregar etiquetas de tiempo para cada punto de datos
+                        for (var i = 0; i < newData1.length - 1; i++) {
+                            // Crear etiquetas de tiempo para cada punto de datos
+                            var timeLabel = i;
+
+                            // Agregar etiquetas de tiempo al array de etiquetas del gráfico
+                            chart.data.labels.push(timeLabel);
+                        }
+
+                        // Actualizar el gráfico
+                        chart.update();
+                    });
+                }
+                else {
+
+                    chart.data.datasets[0].data = [];
+                    chart.data.datasets[1].data = [];
+                    chart.data.labels = [];
+                    //chart.update();
+                }
+
+                // Llamar a esta función nuevamente en 1 segundo
+                setTimeout(updateChart, 1000);
+            }
+
+            // Iniciar la actualización del gráfico
+            updateChart();
+        });
+
+
+
+
+        ///// ================================================================================= /////
+        ///// ================================= Tomografo ======================================== /////
+        ///// ================================================================================= /////
+        function guardar_dato() {
+
+            // Si R_actual es diferente de 0, guardar el valor en la matriz
+            if (R_actual != 0) 
+            {
+                matriz_medidas[excitadora][sensora] = R_actual;  // restar 1 para índices de 0
+            }
+            else {
+                iniciar_lockin(); // Llama a la función para iniciar el lock-in si R_actual es 0
+                return;
+            }
+
+            console.log(matriz_medidas);
+
+            avanzarEspiras(); 
+            // Si excitadora y sensora son iguales, colocar un 0 en la matriz (diagonal)
+            if (excitadora == sensora) {
+                avanzarEspiras();             
+            }
+
+            // Si llegamos al límite (56 medidas), descargar el archivo
+            if (excitadora == N_espiras) {
+                descargarArchivo();
+
+                // Reiniciar las variables
+                excitadora = 0;
+                sensora = 1;
+            }
+
+
+            
+            // Actualizar las etiquetas en el HTML
+            document.getElementById("espira_excitadora").textContent = "Espira excitadora : " + excitadora;
+            document.getElementById("espira_sensora").textContent = "Espira sensora : " + sensora;
+
+
+            limpiarMedidas();
+        }
+
+        function limpiarMedidas()
+        {
+            document.getElementById("R").textContent = "";
+            document.getElementById("PHI").textContent = "";
+
+            document.getElementById("R2").textContent = "";
+            document.getElementById("PHI2").textContent = "";
+          
+            R_actual = 0;
+        }
+
+        // Función para avanzar la sensora y excitadora
+        function avanzarEspiras() {
+            console.log(sensora);
+            sensora = (sensora+1) % N_espiras;
+            console.log(sensora);   
+            // Si la sensora llega al número total de espiras, reiniciar y avanzar la excitadora
+            if (sensora == excitadora) {                
+                excitadora++;
+                sensora = (excitadora+1) % N_espiras;
+            }
+            // Actualizar las etiquetas en el HTML
+            document.getElementById("espira_excitadora").textContent = "Espira excitadora : " + excitadora;
+            document.getElementById("espira_sensora").textContent = "Espira sensora : " + sensora;
+        }
+
+
+
+        function descargarArchivo() {
+            // Convertir las medidas a una cadena de texto con saltos de línea
+            // Inicializa una variable para almacenar el contenido
+
+            const fechaActual = obtenerFecha();
+            var frec = document.getElementById("frecuencia").value;
+            var contenido = `Medición tomógrafo (${fechaActual}) \nFilas -> Espira excitadora \nColumnas -> Espira sensora\nFrecuencia:${frec} Hz \nConstante de tiempo:${constanteDeTiempo} ms \n\n`; // Encabezado con fecha
+
+            var contenido = contenido + matriz_medidas.map(fila => fila.join(",")).join("\n");
+
+            // Crear un blob con el contenido
+            var blob = new Blob([contenido], { type: "text/plain" });
+
+            // Crear un enlace temporal para descargar el archivo
+            var enlace = document.createElement("a");
+            enlace.href = URL.createObjectURL(blob);
+            enlace.download = document.getElementById("nombre_archivo").value;
+
+            // Hacer clic en el enlace para iniciar la descarga
+            enlace.click();
+          
+            matriz_medidas = Array(N_espiras).fill(null).map(() => Array(N_espiras).fill(null));
+            matriz_medidas[0][0] = 0;
+        }
+
+        function obtenerFecha() 
+        {
+            const hoy = new Date();
+            const dia = String(hoy.getDate()).padStart(2, '0'); // Obtiene el día y lo formatea
+            const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Obtiene el mes (0-11) y lo formatea
+            const anio = hoy.getFullYear(); // Obtiene el año
+            
+            const horas = String(hoy.getHours()).padStart(2, '0'); // Obtiene las horas y las formatea
+            const minutos = String(hoy.getMinutes()).padStart(2, '0'); // Obtiene los minutos y los formatea
+
+            return `${dia}/${mes}/${anio} ${horas}:${minutos}`; // Retorna la fecha y hora en formato dd/mm/aaaa hh:mm:ss
+        }
+
+        function mostrarMensaje(mensaje) 
+        {
+            document.getElementById("mensaje").textContent = mensaje;
+        }
+
+        function esperar(tiempo) 
+        {
+            return new Promise(resolve => setTimeout(resolve, tiempo));
+        }
+
+        function pausarOperacion() 
+        {
+            pausa = !pausa; // Cambiar entre pausar y reanudar
+            document.getElementById("PausarOpAutomatica").textContent = pausa ? "Reanudar" : "Pausar";
+        }
+
+        function cancelarOperacion() 
+        {
+            cancelar = true;
+        }
+
+        function esperar(tiempo) {
+            return new Promise(resolve => setTimeout(resolve, tiempo));
+        }
+
+        async function OpAutomatica() {
+            pausa = false;
+            cancelar = false;
+
+            var exc = 0;
+            var sens = 1;
+            
+
+            document.getElementById("IniciarOpAutomatica").disabled = true;
+            document.getElementById("PausarOpAutomatica").disabled = false;
+            document.getElementById("CancelarOpAutomatica").disabled = false;
+
+            while (exc < N_espiras) {
+                // Verificar si la operación fue cancelada
+                if (cancelar) {
+                    mostrarMensaje("Operación cancelada.");
+                    limpiarMedidas();
+                    document.getElementById("IniciarOpAutomatica").disabled = false;
+                    document.getElementById("PausarOpAutomatica").disabled = true;
+                    document.getElementById("CancelarOpAutomatica").disabled = true;
+                    return; // Salir de la función
+                }
+
+                limpiarMedidas();
+                mostrarMensaje(`Ponga espira excitadora en posición ${exc}`);
+                await esperar(t1); // Espera t1 segundos
+                
+                matriz_medidas[exc][exc] = 0; // Poner cero en la diagonal
+
+                var i = 1;
+
+                while (i<N_espiras) {
+                    // Verificar si la operación fue cancelada
+                    if (cancelar) {
+                        mostrarMensaje("Operación cancelada.");
+                        limpiarMedidas();
+                        document.getElementById("IniciarOpAutomatica").disabled = false;
+                        document.getElementById("PausarOpAutomatica").disabled = true;
+                        document.getElementById("CancelarOpAutomatica").disabled = true;
+                        return; // Salir de la función
+                    }
+
+                    // Si está pausado, espera hasta que se reanude
+                    while (pausa) {
+                        await esperar(500); // Verificar el estado cada 500ms
+                    }
+
+                    // Mostrar mensaje para colocar espira sensora
+                    mostrarMensaje(`Ponga espira sensora en posición ${i}`);
+                    await esperar(t2); // Espera t2 segundos
+
+                    mostrarMensaje(`Midiendo... Exc: ${exc} Sens: ${sens}`);
+                    await iniciar_lockin(); // Iniciar el lock-in para obtener R_actual
+                    await esperar(t3); // Espera t3 segundos
+
+                    matriz_medidas[exc][sens] = R_actual; // Guardar la medida
+
+                    limpiarMedidas();
+                    sens = (sens+1) % 8;
+                    i++;
+                }
+                exc++;
+                sens = (exc+1) % 8;
+            }
+
+            descargarArchivo(); // Descargar el archivo con las mediciones
+            mostrarMensaje("Operación automática completada.");
+            document.getElementById("IniciarOpAutomatica").disabled = false;
+            document.getElementById("PausarOpAutomatica").disabled = true;
+            document.getElementById("CancelarOpAutomatica").disabled = true;
+
+            // Resetear variables de pausa y cancelación
+            pausa = false;
+            cancelar = false;
+            document.getElementById("PausarOpAutomatica").textContent = "Pausar";
+        }
+
+
+
+
+
+
+
+  
+    </script>
+
+
+</body>
+
+</html>

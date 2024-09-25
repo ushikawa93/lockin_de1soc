@@ -62,12 +62,14 @@ int main(int argc, char *argv[])
 	{
 		sim_noise = atoi(argv[5]);
 		f_clk = atoi(argv[6]);
+		M = f_clk*1000000  / f;	
 	}
 	else if (argc == 8)
 	{	
 		sim_noise = atoi(argv[5]);
 		f_clk = atoi(argv[6]);
 		fuente = atoi(argv[7]);
+		M = f_clk*1000000  / f;	
 	}
 	else if (argc == 10)
 	{
@@ -80,6 +82,10 @@ int main(int argc, char *argv[])
 		{
 			M = atoi(argv[8]);
 		}		
+		else
+		{
+			M = f_clk*1000000  / f;	
+		}
 	}
 	
 	

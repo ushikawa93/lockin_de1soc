@@ -97,7 +97,7 @@ wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
 parameter fuente_dac = dds_compiler_sen ;	
 
 parameter fuente_fifo0_32bit = datos_procesamiento;
-wire fuente_fifo1_32bit = avgd_signal;
+parameter fuente_fifo1_32bit = avgd_signal;
 
 parameter fuente_fifo0_64bit = procesada_1;
 parameter fuente_fifo1_64bit = procesada_2;
@@ -132,7 +132,8 @@ end
 
 ///////////////////////// Entradas del DAC ////////////////////////////////////:
 
-wire [31:0] data_in_dac = aux_dac[32:1];
+parameter att_dac = 0;
+wire [31:0] data_in_dac = aux_dac[32:1] >> att_dac;
 wire data_in_dac_valid = aux_dac[0];
 
 
@@ -225,7 +226,7 @@ wire [64:0] aux_fifo1_64b = (fuente_fifo1_64bit == adc_2308) ? {data_adc_2308,da
 /////////////////////////////////////////////////////////////////////////////////////////									 
 
 
-//// En Proceso... mejor forma de generar ondas sinusoidales ////
+//// Mejor forma de generar ondas sinusoidales ////
 
 parameter B_dds_dac = 14;
 parameter B_dds_ref = 16;
@@ -383,8 +384,6 @@ control nios (
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////// =============== Interfaz de datos de entrada  ==============/////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 
 data_in data(
