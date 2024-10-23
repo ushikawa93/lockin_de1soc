@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include <cmath>
 
-#define amplitud_ref 32767;
+#define amplitud_ref 8388607;	//2^23-1 Referencia cuantizada en 24 bits!!
 
 
 //using namespace std;

@@ -29,9 +29,11 @@ reg [B_lu_table-1:0] lu_table [0:depth_LU_table/4];	// Uso solo 1/4 de la tabla 
 	
 initial	
 begin
-		if (B_depth_lu_table == 12) $readmemh("LU_Tables/x4096_16b_cuarto_de_tabla.mem",lu_table);
+		if ((B_depth_lu_table == 12)&(B_lu_table == 16)) $readmemh("LU_Tables/x4096_16b_cuarto_de_tabla.mem",lu_table);
 		
-		else if(B_depth_lu_table == 14) $readmemh("LU_Tables/x16384_16b_cuarto_de_tabla.mem",lu_table);
+		else if((B_depth_lu_table == 14)&(B_lu_table == 16)) $readmemh("LU_Tables/x16384_16b_cuarto_de_tabla.mem",lu_table);
+		
+		else if((B_depth_lu_table == 14)&(B_lu_table == 24)) $readmemh("LU_Tables/x16384_24b_cuarto_de_tabla.mem",lu_table);
 		
 		else $readmemh("LU_Tables/x4096_16b_cuarto_de_tabla.mem",lu_table);	// Nunca deberia llegar aca
 end

@@ -229,7 +229,8 @@ wire [64:0] aux_fifo1_64b = (fuente_fifo1_64bit == adc_2308) ? {data_adc_2308,da
 //// Mejor forma de generar ondas sinusoidales ////
 
 parameter B_dds_dac = 14;
-parameter B_dds_ref = 16;
+parameter B_dds_ref = 14;
+parameter Q_ref = 24;
 
 
 wire signed [31:0] sen_dds_compiler_ca_coupled = $signed (sen_ca_aux) ;
@@ -239,7 +240,7 @@ wire signed [31:0] referencia_sen = sen_dds_compiler_ca_coupled;
 wire signed [31:0] referencia_cos = cos_dds_compiler_ca_coupled;
 
 
-wire signed [B_dds_ref-1:0] sen_ca_aux,cos_ca_aux;
+wire signed [Q_ref-1:0] sen_ca_aux,cos_ca_aux;
 
 wire signed [31:0] sen_dds_compiler_14b ;
 wire signed [31:0] cos_dds_compiler_14b ;
@@ -268,7 +269,9 @@ wire enable_ref = (fuente_procesamiento == simulacion)? enable : data_adc_valid;
 
 
 dds_compiler_module #(	
-	.B_out(B_dds_ref)
+	.B_out(Q_ref),
+	.B_depth_lu_table(B_dds_ref),
+	.B_lu_table(Q_ref) 
 ) generador_sinusoidal_para_referencias
 (
 	.clk(clk_custom),

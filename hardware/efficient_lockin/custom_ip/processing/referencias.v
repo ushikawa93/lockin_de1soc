@@ -22,8 +22,10 @@ module referencias(
 // Parametros de configuracion de los módulos
 //=======================================================
 
-parameter ref_mean_value = 32767;
+
 parameter atenuacion = 0;
+parameter B_lu_table = 24;
+parameter ref_mean_value = 2**(B_lu_table-1)-1;
 
 wire [15:0] M = pts_x_ciclo;				// Puntos por ciclo de señal
 
@@ -37,8 +39,8 @@ reg [15:0] interval;
 //=======================================================
 
 // Referencias seno y coseno en sendas LU table
-reg [15:0]  ref_sen   [0:2047];	initial	$readmemh("LU_Tables/x2048_16b.mem",ref_sen);
-reg [15:0] 	ref_cos   [0:2047];	initial	$readmemh("LU_Tables/y2048_16b.mem",ref_cos);
+reg [B_lu_table-1:0]  ref_sen   [0:2047];	initial if(B_lu_table == 16) $readmemh("LU_Tables/x2048_16b.mem",ref_sen); else $readmemh("LU_Tables/x2048_24b.mem",ref_sen);
+reg [B_lu_table-1:0]  ref_cos   [0:2047];	initial if(B_lu_table == 16) $readmemh("LU_Tables/y2048_16b.mem",ref_cos); else $readmemh("LU_Tables/y2048_24b.mem",ref_cos);
 
 reg [31:0] index,index_out;
 
