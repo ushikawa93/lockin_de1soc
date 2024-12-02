@@ -90,6 +90,9 @@
 
                     <!-- Aquí se mostrará la constante de tiempo -->
                     <p id="constanteTiempo">(Constante de tiempo: )</p>
+
+                    <label for="posicion_phantom"> Posicion del phantom:</label>
+                    <input type="text" id="posicion_phantom" name="posicion_phantom" value="0,0">  
                 </aside>         
      
         </section>
@@ -857,7 +860,8 @@
 
             const fechaActual = obtenerFecha();
             var frec = document.getElementById("frecuencia").value;
-            var contenido = `Medición tomógrafo (${fechaActual}) \nFilas -> Espira excitadora \nColumnas -> Espira sensora\nFrecuencia:${frec} Hz \nConstante de tiempo:${constanteDeTiempo} ms \n\n`; // Encabezado con fecha
+            var posicion_phantom = document.getElementById("posicion_phantom").value;
+            var contenido = `Medición tomógrafo (${fechaActual}) \nFilas -> Espira excitadora \nColumnas -> Espira sensora\nFrecuencia:${frec} Hz \nConstante de tiempo:${constanteDeTiempo} ms \nPosicion del Phantom: (x,y): (${posicion_phantom})  \n\n`; // Encabezado con fecha
 
             var contenido = contenido + matriz_diferencias.map(fila => fila.join(",")).join("\n");
 
