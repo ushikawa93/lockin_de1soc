@@ -1,4 +1,4 @@
-/db
-/incremental_db
+db/
+incremental_db/
 *.qsf
 *.qsf.bak
