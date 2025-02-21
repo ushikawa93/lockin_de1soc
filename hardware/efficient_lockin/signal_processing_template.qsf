@@ -1,0 +1,398 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2017  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+# Date created = 14:50:24  September 26, 2022
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		signal_processing_template_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name DEVICE 5CSEMA5F31C6
+set_global_assignment -name TOP_LEVEL_ENTITY efficient_lockin
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 17.1.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "14:50:24  SEPTEMBER 26, 2022"
+set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name USE_DLL_FREQUENCY_FOR_DQS_DELAY_CHAIN ON
+set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
+set_global_assignment -name ECO_REGENERATE_REPORT ON
+set_location_assignment PIN_AA14 -to KEY[0]
+set_location_assignment PIN_AA15 -to KEY[1]
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity embedded_adc_test -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity embedded_adc_test -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity embedded_adc_test -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity BCD_display -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity BCD_display -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity BCD_display -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity ghrd_top -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity ghrd_top -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity ghrd_top -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity ghrd_top -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity BCD_display -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity embedded_adc_test -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity signal_processing -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity signal_processing -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity signal_processing -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity func_generator -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity func_generator -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity func_generator -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity func_generator -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity SSVEP_ADC_BL -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity SSVEP_ADC_BL -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity SSVEP_ADC_BL -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity SSVEP_ADC_BL -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity signal_processing -section_id Top
+set_location_assignment PIN_AB12 -to SW[0]
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity Lock_In -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity Lock_In -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity Lock_In -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE1_SOC_ADA -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity DE1_SOC_ADA -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity DE1_SOC_ADA -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE1_SOC_ADA -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity ADC_DAC_test -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity ADC_DAC_test -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity ADC_DAC_test -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity ADC_DAC_test -section_id Top
+set_location_assignment PIN_AC12 -to SW[1]
+set_location_assignment PIN_AF9 -to SW[2]
+set_location_assignment PIN_AF10 -to SW[3]
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity Lock_In -section_id Top
+set_location_assignment PIN_V16 -to LED[0]
+set_location_assignment PIN_W16 -to LED[1]
+set_location_assignment PIN_V17 -to LED[2]
+set_location_assignment PIN_V18 -to LED[3]
+set_location_assignment PIN_W15 -to KEY[2]
+set_location_assignment PIN_Y16 -to KEY[3]
+set_location_assignment PIN_AA18 -to ADC_CLK_A
+set_location_assignment PIN_AE17 -to ADC_CLK_B
+set_location_assignment PIN_AA19 -to ADC_DA[0]
+set_location_assignment PIN_AC20 -to ADC_DA[1]
+set_location_assignment PIN_AH19 -to ADC_DA[2]
+set_location_assignment PIN_AH20 -to ADC_DA[3]
+set_location_assignment PIN_AJ20 -to ADC_DA[4]
+set_location_assignment PIN_AK21 -to ADC_DA[5]
+set_location_assignment PIN_AD19 -to ADC_DA[6]
+set_location_assignment PIN_AE18 -to ADC_DA[7]
+set_location_assignment PIN_AD20 -to ADC_DA[8]
+set_location_assignment PIN_AE19 -to ADC_DA[9]
+set_location_assignment PIN_AF20 -to ADC_DA[10]
+set_location_assignment PIN_AF19 -to ADC_DA[11]
+set_location_assignment PIN_AF21 -to ADC_DA[12]
+set_location_assignment PIN_AG21 -to ADC_DA[13]
+set_location_assignment PIN_Y17 -to ADC_DB[0]
+set_location_assignment PIN_Y18 -to ADC_DB[1]
+set_location_assignment PIN_AK16 -to ADC_DB[2]
+set_location_assignment PIN_AK19 -to ADC_DB[3]
+set_location_assignment PIN_AK18 -to ADC_DB[4]
+set_location_assignment PIN_AJ19 -to ADC_DB[5]
+set_location_assignment PIN_AJ17 -to ADC_DB[6]
+set_location_assignment PIN_AH18 -to ADC_DB[7]
+set_location_assignment PIN_AJ16 -to ADC_DB[8]
+set_location_assignment PIN_AH17 -to ADC_DB[9]
+set_location_assignment PIN_AG16 -to ADC_DB[10]
+set_location_assignment PIN_AF16 -to ADC_DB[11]
+set_location_assignment PIN_AE16 -to ADC_DB[12]
+set_location_assignment PIN_AG17 -to ADC_DB[13]
+set_location_assignment PIN_AJ21 -to ADC_OEB_A
+set_location_assignment PIN_AG20 -to ADC_OEB_B
+set_location_assignment PIN_AC18 -to ADC_OTR_A
+set_location_assignment PIN_AD17 -to ADC_OTR_B
+set_location_assignment PIN_AK27 -to DAC_CLK_A
+set_location_assignment PIN_AK26 -to DAC_CLK_B
+set_location_assignment PIN_AK28 -to DAC_DA[0]
+set_location_assignment PIN_AJ27 -to DAC_DA[1]
+set_location_assignment PIN_AK29 -to DAC_DA[2]
+set_location_assignment PIN_AH27 -to DAC_DA[3]
+set_location_assignment PIN_AH24 -to DAC_DA[4]
+set_location_assignment PIN_AG25 -to DAC_DA[5]
+set_location_assignment PIN_AG26 -to DAC_DA[6]
+set_location_assignment PIN_AF26 -to DAC_DA[7]
+set_location_assignment PIN_AF25 -to DAC_DA[8]
+set_location_assignment PIN_AE23 -to DAC_DA[9]
+set_location_assignment PIN_AE24 -to DAC_DA[10]
+set_location_assignment PIN_AD24 -to DAC_DA[11]
+set_location_assignment PIN_AC23 -to DAC_DA[12]
+set_location_assignment PIN_AA21 -to DAC_DA[13]
+set_location_assignment PIN_AE22 -to DAC_DB[0]
+set_location_assignment PIN_AF24 -to DAC_DB[1]
+set_location_assignment PIN_AD21 -to DAC_DB[2]
+set_location_assignment PIN_AF23 -to DAC_DB[3]
+set_location_assignment PIN_AH22 -to DAC_DB[4]
+set_location_assignment PIN_AK22 -to DAC_DB[5]
+set_location_assignment PIN_AG22 -to DAC_DB[6]
+set_location_assignment PIN_AJ22 -to DAC_DB[7]
+set_location_assignment PIN_AH23 -to DAC_DB[8]
+set_location_assignment PIN_AG23 -to DAC_DB[9]
+set_location_assignment PIN_AK23 -to DAC_DB[10]
+set_location_assignment PIN_AK24 -to DAC_DB[11]
+set_location_assignment PIN_AJ24 -to DAC_DB[12]
+set_location_assignment PIN_AH25 -to DAC_DB[13]
+set_location_assignment PIN_AC22 -to DAC_MODE
+set_location_assignment PIN_AJ26 -to DAC_WRT_A
+set_location_assignment PIN_AA20 -to DAC_WRT_B
+set_location_assignment PIN_AB21 -to OSC_SMA_ADC4
+set_location_assignment PIN_AF18 -to POWER_ON
+set_location_assignment PIN_AB17 -to SMA_DAC4
+set_location_assignment PIN_AD11 -to SW[4]
+set_location_assignment PIN_AD12 -to SW[5]
+set_location_assignment PIN_AE11 -to SW[6]
+set_location_assignment PIN_AC9 -to SW[7]
+set_location_assignment PIN_AD10 -to SW[8]
+set_location_assignment PIN_AE12 -to SW[9]
+set_location_assignment PIN_W17 -to LEDR[4]
+set_location_assignment PIN_W19 -to LEDR[5]
+set_location_assignment PIN_Y19 -to LEDR[6]
+set_location_assignment PIN_W20 -to LEDR[7]
+set_location_assignment PIN_W21 -to LEDR[8]
+set_location_assignment PIN_Y21 -to LEDR[9]
+set_location_assignment PIN_AE26 -to HEX0[0]
+set_location_assignment PIN_AE27 -to HEX0[1]
+set_location_assignment PIN_AE28 -to HEX0[2]
+set_location_assignment PIN_AG27 -to HEX0[3]
+set_location_assignment PIN_AF28 -to HEX0[4]
+set_location_assignment PIN_AG28 -to HEX0[5]
+set_location_assignment PIN_AH28 -to HEX0[6]
+set_location_assignment PIN_AJ29 -to HEX1[0]
+set_location_assignment PIN_AH29 -to HEX1[1]
+set_location_assignment PIN_AH30 -to HEX1[2]
+set_location_assignment PIN_AG30 -to HEX1[3]
+set_location_assignment PIN_AF29 -to HEX1[4]
+set_location_assignment PIN_AF30 -to HEX1[5]
+set_location_assignment PIN_AD27 -to HEX1[6]
+set_location_assignment PIN_AB23 -to HEX2[0]
+set_location_assignment PIN_AE29 -to HEX2[1]
+set_location_assignment PIN_AD29 -to HEX2[2]
+set_location_assignment PIN_AC28 -to HEX2[3]
+set_location_assignment PIN_AD30 -to HEX2[4]
+set_location_assignment PIN_AC29 -to HEX2[5]
+set_location_assignment PIN_AC30 -to HEX2[6]
+set_location_assignment PIN_AD26 -to HEX3[0]
+set_location_assignment PIN_AC27 -to HEX3[1]
+set_location_assignment PIN_AD25 -to HEX3[2]
+set_location_assignment PIN_AC25 -to HEX3[3]
+set_location_assignment PIN_AB28 -to HEX3[4]
+set_location_assignment PIN_AB25 -to HEX3[5]
+set_location_assignment PIN_AB22 -to HEX3[6]
+set_location_assignment PIN_AA24 -to HEX4[0]
+set_location_assignment PIN_Y23 -to HEX4[1]
+set_location_assignment PIN_Y24 -to HEX4[2]
+set_location_assignment PIN_W22 -to HEX4[3]
+set_location_assignment PIN_W24 -to HEX4[4]
+set_location_assignment PIN_V23 -to HEX4[5]
+set_location_assignment PIN_W25 -to HEX4[6]
+set_location_assignment PIN_V25 -to HEX5[0]
+set_location_assignment PIN_AA28 -to HEX5[1]
+set_location_assignment PIN_Y27 -to HEX5[2]
+set_location_assignment PIN_AB27 -to HEX5[3]
+set_location_assignment PIN_AB26 -to HEX5[4]
+set_location_assignment PIN_AA26 -to HEX5[5]
+set_location_assignment PIN_AA25 -to HEX5[6]
+set_location_assignment PIN_AG18 -to watch
+set_global_assignment -name DSP_BLOCK_BALANCING AUTO
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_RZQ
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[0]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[1]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[1]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[2]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[2]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[2]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[3]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[3]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[3]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[4]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[4]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[4]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[5]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[5]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[5]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[6]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[6]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[6]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DQ[7]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[7]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[7]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to HPS_DDR3_DQS_P[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQS_P[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQS_P[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to HPS_DDR3_DQS_N[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQS_N[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQS_N[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to HPS_DDR3_CK_P
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to HPS_DDR3_CK_P
+set_instance_assignment -name D5_DELAY 2 -to HPS_DDR3_CK_P
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.5-V SSTL CLASS I" -to HPS_DDR3_CK_N
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to HPS_DDR3_CK_N
+set_instance_assignment -name D5_DELAY 2 -to HPS_DDR3_CK_N
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[0]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[10]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[11]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[12]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[12]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[1]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[2]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[3]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[4]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[5]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[6]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[7]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[8]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ADDR[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ADDR[9]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_BA[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_BA[0]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_BA[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_BA[1]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_BA[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_BA[2]
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_CAS_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_CAS_N
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_CKE
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_CKE
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_CS_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_CS_N
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_ODT
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_ODT
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_RAS_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_RAS_N
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_WE_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_WE_N
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_RESET_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to HPS_DDR3_RESET_N
+set_instance_assignment -name IO_STANDARD "SSTL-15 CLASS I" -to HPS_DDR3_DM[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DM[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[2]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[3]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[4]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[5]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[6]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQ[7]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DM[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQS_P[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_DQS_N[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[10]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[11]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[12]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[2]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[3]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[4]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[5]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[6]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[7]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[8]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ADDR[9]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_BA[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_BA[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_BA[2]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_CAS_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_CKE
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_CS_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_ODT
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_RAS_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_WE_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_RESET_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_CK_P
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to HPS_DDR3_CK_N
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst|p0|umemphy|ureset|phy_reset_mem_stable_n
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst|p0|umemphy|ureset|phy_reset_n
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst|p0|umemphy|uio_pads|dq_ddio[0].read_capture_clk_buffer
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst|p0|umemphy|uread_datapath|reset_n_fifo_write_side[0]
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[0]
+set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst
+set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to nios|nios2|hps_0|hps_io|border|hps_sdram_inst|pll0|fbout
+set_location_assignment PIN_AF14 -to clk
+set_global_assignment -name VERILOG_FILE custom_ip/processing/decimator.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/filtro_ma_con_sync.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/lu_table.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/dds_compiler_module.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/coherent_avg.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/multiplicate_ref.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/multiplicate_ref_2.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/lockin_segmentado.v
+set_global_assignment -name VERILOG_FILE efficient_lockin.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/prom_coherente_pipelined.v
+set_global_assignment -name SDC_FILE timing.sdc
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/timer.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/LFSR.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/GCL.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/embedded_adc.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/data_source_dac.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/data_source.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/dac_driver.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/adc2streaming.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/adc_ltc2308.v
+set_global_assignment -name VERILOG_FILE custom_ip/data_source/adc_driver.v
+set_global_assignment -name VERILOG_FILE custom_ip/control/clock_divider.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/filtro_promedio_movil.v
+set_global_assignment -name QIP_FILE procesador/synthesis/procesador.qip
+set_global_assignment -name VERILOG_FILE control.v
+set_global_assignment -name VERILOG_FILE data_in.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/multiplicador.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/referencias.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/FIR_filter.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/signal_processing_CALI.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/signal_processing_LI.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/filtro_ma.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/prom_coherente_pipelined_con_sync.v
+set_global_assignment -name VERILOG_FILE custom_ip/processing/delay_axi_streaming.v
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
