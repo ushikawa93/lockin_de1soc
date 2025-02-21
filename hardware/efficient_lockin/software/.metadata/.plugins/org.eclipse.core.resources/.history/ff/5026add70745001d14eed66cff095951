@@ -1,0 +1,97 @@
+/*
+ * "Hello World" example.
+ *
+ * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
+ * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
+ * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
+ * device in your system's hardware.
+ * The memory footprint of this hosted application is ~69 kbytes by default
+ * using the standard reference design.
+ *
+ * For a reduced footprint version of this template, and an explanation of how
+ * to reduce the memory footprint for a given application, see the
+ * "small_hello_world" template.
+ *
+ */
+
+#include <stdio.h>
+#include "funciones_pll.h"
+#include "parameters_control.h"
+#include "system.h"
+#include "control_functions.h"
+#include "result_functions.h"
+#include "lockin_results.h"
+
+void imprimir_buffer_32bit(int N_datos,int* puntero_a_buffer);
+void imprimir_buffer_64bit(int N_datos,long long* puntero_a_buffer);
+
+// Punteros a posiciones de memoria que me interesan
+int* pll_ptr = (int*)PLL_RECONFIGURAR_BASE;
+int* clk_divider_ptr = (int*)DIVISOR_CLOCK_BASE;
+int* parameters_ptr = (int*)PARAMETERS_BASE;
+int* enable_ptr = (int*)ENABLE_BASE;
+int* reset_ptr = (int*) RESET_BASE;
+
+int* fifo0_32_bit_ptr = (int*)FIFO0_32_BIT_BASE;
+int* result0_32_bit = (int*)RESULT0_32_BIT_BASE;
+
+int* fifo1_32_bit_ptr = (int*)FIFO1_32_BIT_BASE;
+int* result1_32_bit = (int*)RESULT1_32_BIT_BASE;
+
+unsigned int* fifo0_64_bit_down_ptr = (unsigned int*)FIFO0_64_BIT_DOWN_BASE;
+unsigned int* fifo0_64_bit_up_ptr = (unsigned int*)FIFO0_64_BIT_UP_BASE;
+unsigned int* result0_64_bit_down = (unsigned int*)RESULT0_64_BIT_DOWN_BASE;
+unsigned int* result0_64_bit_up = (unsigned int*)RESULT0_64_BIT_UP_BASE;
+
+unsigned int* fifo1_64_bit_down_ptr = (unsigned int*)FIFO1_64_BIT_DOWN_BASE;
+unsigned int* fifo1_64_bit_up_ptr = (unsigned int*)FIFO1_64_BIT_UP_BASE;
+unsigned int* result1_64_bit_down = (unsigned int*)RESULT1_64_BIT_DOWN_BASE;
+unsigned int* result1_64_bit_up = (unsigned int*)RESULT1_64_BIT_UP_BASE;
+
+int main()
+{
+	int N = 4;
+	float div=32*N;
+
+	configurar_pll(40,pll_ptr);
+	setClockDivider(1,clk_divider_ptr);
+
+	setParam0(0,parameters_ptr);
+	setParam1(N,parameters_ptr);
+
+	Reset(enable_ptr,reset_ptr);
+	setEnable(enable_ptr);
+
+	printf("\n\nResultados FIFO 0 32 bits: \n");
+	imprimir_buffer_32bit(512,leer_fifo_32_bit(fifo0_32_bit_ptr));
+
+	printf("\n\nResultados FIFO 0 64 bits: \n");
+	imprimir_buffer_64bit(512,leer_fifo_64_bit(fifo0_64_bit_down_ptr,fifo0_64_bit_up_ptr));
+
+	printf("\n\nResultados FIFO 1 64 bits: \n");
+	imprimir_buffer_64bit(512,leer_fifo_64_bit(fifo1_64_bit_down_ptr,fifo1_64_bit_up_ptr));
+
+	long long X = leer_resultado_64_bit(result0_64_bit_down,result0_64_bit_up);
+	long long Y = leer_resultado_64_bit(result1_64_bit_down,result1_64_bit_up);
+
+
+
+	printf("\n\nAmplitud: %f", amplitud_lockin(X,Y),div);
+	printf("\n\nFase: %f", fase_lockin(X,Y));
+
+	return 0;
+}
+
+void imprimir_buffer_32bit(int N_datos,int* puntero_a_buffer){
+	for(int i=0;i<N_datos;i++){
+		printf("%d, ",(*(puntero_a_buffer+i)));
+	}
+}
+
+void imprimir_buffer_64bit(int N_datos,long long* puntero_a_buffer){
+	for(int i=0;i<N_datos;i++){
+		printf("%d, ",(*(puntero_a_buffer+i)));
+	}
+}
+
+

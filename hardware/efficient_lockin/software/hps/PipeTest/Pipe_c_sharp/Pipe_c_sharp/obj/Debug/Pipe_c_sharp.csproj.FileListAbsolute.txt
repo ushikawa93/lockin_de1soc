@@ -1,0 +1,8 @@
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\bin\Debug\Pipe_c_sharp.exe.config
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\bin\Debug\Pipe_c_sharp.exe
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\bin\Debug\Pipe_c_sharp.pdb
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\obj\Debug\Pipe_c_sharp.csproj.AssemblyReference.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\obj\Debug\Pipe_c_sharp.csproj.SuggestedBindingRedirects.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\obj\Debug\Pipe_c_sharp.csproj.CoreCompileInputs.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\obj\Debug\Pipe_c_sharp.exe
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\signal_processing_template\software\hps\PipeTest\Pipe_c_sharp\Pipe_c_sharp\obj\Debug\Pipe_c_sharp.pdb

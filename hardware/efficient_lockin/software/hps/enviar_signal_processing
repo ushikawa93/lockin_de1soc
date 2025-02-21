@@ -1,0 +1,1 @@
+scp -r signal_processing/ root@192.168.1.2:/root/Documents/c++

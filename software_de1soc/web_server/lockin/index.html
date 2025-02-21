@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!----------------------------------------------------------------------------------------->
+<!------------------------------- Interfaz lockin con HTML -------------------------------->
+<!----------------------------------------------------------------------------------------->
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <title>Lock in en DE1-SoC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .tab-container {
+            display: flex;
+        }
+
+        .tab {
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            background-color: #f1f1f1;
+        }
+
+        .tab:hover {
+            background-color: #ddd;
+        }
+
+        .tab.active {
+            background-color: white;
+            border-bottom: 1px solid white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tab-container">
+        <div class="tab active" onclick="openTab(event, 'tab1')">Lock in</div>
+        <div class="tab" onclick="openTab(event, 'tab2')">Barrido en frecuencia</div>
+        <div class="tab" onclick="openTab(event, 'tab3')">Medidas de ruido</div>
+        <div class="tab" onclick="openTab(event, 'tab4')">DEP (experimental)</div>
+    </div>
+
+
+    <!----------------------------------------------------------------------------------------->
+    <!-------------------------------------- TAB LOCKIN --------------------------------------->
+    <!----------------------------------------------------------------------------------------->
+
+
+    <div id="tab1" class="tab-content active">
+        <header>
+            <h2>Lockin en DE1-SoC</h2>
+        </header>
+
+        <section id="lockin">
+            <aside>
+
+                <label for="fuente">Fuente:</label>
+                <select id="fuente" name="fuente" onchange="habilitarSetRuido()">
+                    <option value="1" selected> ADC </option>
+                    <option value="2">Simulación interna </option>
+                </select>
+
+
+                <label for="noise">Ruido [bits]:</label>
+                <input type="text" id="noise" name="noise" value="5">
+
+
+                <label for="modo">Tipo de procesamiento:</label>
+                <select id="modo" name="modo">
+                    <option value="0" > CALI  </option>
+                    <option value="1" selected > LI </option>
+                </select>
+
+                <label for="corregir">Corregir fase?</label>
+                <select id="corregir" name="corregir">
+                    <option value="0" selected > NO </option>
+                    <option value="1" > SI </option>
+                </select>
+
+                <label for="modo_referencias">Generación de referencias:</label>
+                <select id="modo_referencias" name="modo_referencias" onchange="habilitarM()">
+                    <option value="1" selected> DDS Compiler </option>
+                    <option value="0"> M puntos de una LU table </option>
+                </select>
+
+
+
+            </aside>
+            <aside>
+                <label for="frecuencia"> Frecuencia [Hz]:</label>
+                <input type="text" id="frecuencia" name="frecuencia" value="100000">               
+
+                <label for="N">N:</label>
+                <input type="text" id="N" name="N" value="1">               
+
+                <label for="frecuencia_clk"> Frecuencia del reloj [MHz]:</label>
+                <input type="text" id="frecuencia_clk" name="frecuencia_clk" value="64">
+
+                
+                <label for="M_puntos">M:</label>
+                <input type="M_puntos" id="M_puntos" name="M_puntos" value="32">
+
+
+                <br>
+                <label id="frecuencia_real"></label>
+                
+
+            </aside>
+
+        </section>
+
+        <section>
+
+            <aside>
+                <button id="IniciarLockin" onclick="iniciar()">Iniciar</button>
+            </aside>
+
+            <aside>
+                <label id="R"></label>
+                <label id="PHI"></label>
+            </aside>
+
+        </section>
+
+        <section>
+                         
+            <header>
+                <h2> Señales involucradas </h2>                    
+                <canvas id="myChart" style="width: 100%; height: 300px;"></canvas>
+            </header> 
+            <br>
+        </section>
+        <section>
+            <aside>
+                <label for="escalar">Ver señales en misma escala?</label>
+                <select id="escalar" name="escalar">
+                    <option value="0">NO</option>
+                    <option value="1" selected>SI</option>
+                </select>
+            </aside>
+            <aside>
+                <label for="ciclos2display">Mostrar en grafico [ciclos]:</label>
+                <input type="text" id="ciclos2display" name="ciclos2display" value="1">
+            </aside>
+            <aside>
+                <button id="HabilitarOsciloscopio" onclick="habilitarOSC()">Iniciar</button>
+            </aside>
+                
+        </section>
+
+    </div>
+
+
+
+
+
+    <!----------------------------------------------------------------------------------------->
+    <!----------------------- TAB Barrido en frecuencia --------------------------------------->
+    <!----------------------------------------------------------------------------------------->
+
+
+    <div id="tab2" class="tab-content">
+        <section id="barrido">
+            <header>
+                
+                <h2> Barrido en frecuencia </h2>
+            
+                <section>
+                    <aside>
+                        <label for="barrido_f_inicial"> Frecuencia inicial [Hz]:</label>
+                        <input type="text" id="barrido_f_inicial" name="barrido_f_inicial" value="100000">
+
+
+                        <label for="barrido_f_final"> Frecuencia final [Hz]:</label>
+                        <input type="text" id="barrido_f_final" name="barrido_f_final" value="1000000">
+
+                    </aside>
+                    <aside>
+
+                        <label for="descargar">Descargar archivo?</label>
+                        <select id="descargar" name="descargar">
+                            <option value="0" selected> NO </option>
+                            <option value="1" > SI </option>
+                        </select>
+
+                        <label for="nombre_archivo_barrido"> Archivo de salida:</label>
+                        <input type="text" id="nombre_archivo_barrido" name="nombre_archivo_barrido" value="barrido.txt">
+
+                        <label for="barrido_step"> Paso [Hz]:</label>
+                        <input type="text" id="barrido_step" name="barrido_step" value="100000">
+
+
+                    </aside>
+                </section>
+            </header>
+        </section>
+        <section>
+            <button id="BarridoFrec" onclick="barrido()">Iniciar barrido</button>
+        </section>
+        <section id="transferencias">
+            <header>
+                <hr>
+                <h2> Funcion de transferencia </h2>
+                <canvas id="chart_transferencia_amplitud"></canvas>
+                <canvas id="chart_transferencia_fase"></canvas>
+            </header>
+        </section>
+
+    </div>
+
+
+
+
+
+    <!--------------------------------------------------------------------------------------------->
+    <!----------------------- TAB Barrido de ctes de tiempo --------------------------------------->
+    <!--------------------------------------------------------------------------------------------->
+
+
+    <div id="tab3" class="tab-content">
+        <section id="mediciones_de_ruido">          
+
+            <header>
+                <h2> Medidas de ruido </h2>
+            
+                <section>
+                    <aside>
+                        <label for="barrido_N_inicial"> N inicial</label>
+                        <input type="text" id="barrido_N_inicial" name="barrido_N_inicial" value="1">
+
+                        <label for="barrido_N_final"> N final</label>
+                        <input type="text" id="barrido_N_final" name="barrido_N_final" value="64">
+
+                        <label for="numero_iteraciones"> Numero de iteraciones</label>
+                        <input type="text" id="numero_iteraciones" name="numero_iteraciones" value="100">
+                   
+
+                        <label id="tiempo"></label>
+
+                       
+                    </aside>
+                    <aside>
+
+                        <label for="descargar_archivo_ruido">Descargar archivo?</label>
+                        <select id="descargar_archivo_ruido" name="descargar_archivo_ruido">
+                            <option value="0" selected> NO </option>
+                            <option value="1" > SI </option>
+                        </select>
+
+                        <label for="nombre_archivo_ruido"> Archivo de salida:</label>
+                        <input type="text" id="nombre_archivo_ruido" name="nombre_archivo_ruido" value="barrido_ruido.txt">
+
+                        <button id="BarridoRuido" onclick="barrido_ruido()">Iniciar</button>
+
+                    </aside>    
+                </section>          
+                <canvas id="chart_ruido_vs_N"></canvas> 
+                <canvas id="chart_mean_vs_N"></canvas>            
+            </header>            
+
+        </section><br>
+    </div>
+
+
+
+    <!--------------------------------------------------------------------------------------------->
+    <!----------------------- TAB Densidad espectral de potencia ---------------------------------->
+    <!--------------------------------------------------------------------------------------------->
+
+    <div id="tab4" class="tab-content">
+        <section id="dep">          
+
+            <header>
+                <h2> Densidad espectral de potencia </h2>
+            
+                <section>
+                    <aside>
+                        <label for="dep_f_inicial"> Frecuencia inicial [Hz]</label>
+                        <input type="text" id="dep_f_inicial" name="dep_f_inicial" value="10000">
+
+                        <label for="dep_f_final"> Frecuencia final [Hz]</label>
+                        <input type="text" id="dep_f_final" name="dep_f_final" value="20000">
+
+                        <label for="dep_f_step"> Paso [Hz] </label>
+                        <input type="text" id="dep_f_step" name="dep_f_step" value="100">
+
+                        <label for="numero_iteraciones_dep"> Numero de iteraciones</label>
+                        <input type="text" id="numero_iteraciones_dep" name="numero_iteraciones_dep" value="100">
+
+                       
+                    </aside>
+                    <aside>
+
+                        <label for="f_dac_dep"> Frecuencia DAC [Hz] </label>
+                        <input type="text" id="f_dac_dep" name="f_dac_dep" value="15000">
+
+                        <label for="descargar_archivo_dep">Descargar archivo?</label>
+                        <select id="descargar_archivo_dep" name="descargar_archivo_dep">
+                            <option value="0" selected> NO </option>
+                            <option value="1" > SI </option>
+                        </select>
+
+                        <label for="nombre_archivo_dep"> Archivo de salida:</label>
+                        <input type="text" id="nombre_archivo_dep" name="nombre_archivo_dep" value="barrido_dep.txt">
+
+                        <button id="DEP" onclick="dep_iniciar()">Iniciar</button>
+
+                    </aside>    
+                </section>          
+                <canvas id="chart_dep"></canvas>           
+            </header>            
+
+        </section><br>
+    </div>
+
+
+
+
+
+
+
+    <!--------------------------------------------------------------------------------------------->
+    <!----------------------- Funcionalidades de la interfaz (JS) ---------------------------------->
+    <!--------------------------------------------------------------------------------------------->
+
+
+    <script>
+
+
+        ///// ================================================================================= /////
+        ///// ============================ Cosas generales ==================================== /////
+        ///// ================================================================================= /////
+
+
+        var serverIP = window.location.hostname; // Obtiene la dirección IP del servidor
+        var habilitar_oscilosocpio = false;
+        habilitarSetRuido();
+        habilitarM();
+
+        /////// ========================== Función para las pestañas ===================================== /////	        
+        function openTab(evt, tabName) {
+            // Esconde todo el contenido de las pestañas
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Elimina la clase "active" de todas las pestañas
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+
+            // Muestra el contenido de la pestaña actual y añade la clase "active" a la pestaña actual
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+
+
+        /////// ========================== Función para habilitar ruido en simulacion ===================================== /////	  
+        function habilitarSetRuido() {
+            var fuenteSelect = document.getElementById("fuente");
+            var noiseInput = document.getElementById("noise");
+
+            if (fuenteSelect.value === "2") {  // Si la opción seleccionada es "Simulación interna en FPGA"
+                noiseInput.disabled = false;     // Habilitar el campo "noise"
+            } else {
+                noiseInput.disabled = true;      // Deshabilitar el campo "noise" para otras opciones
+            }
+        }
+
+
+        /////// ========================== Función para habilitar cambio de M o f_clk===================================== /////	  
+
+        function habilitarM() {
+            var modo_referencias = document.getElementById("modo_referencias");
+            var M_puntos = document.getElementById("M_puntos");
+            var frec_clk_label = document.getElementById("frecuencia_clk");
+
+            if (modo_referencias.value === "0") {  // Si la opción seleccionada es "M puntos con una LU table"
+                M_puntos.disabled = false;     // Habilitar el campo "M"
+                //frec_clk_label.value = "F obj x M ";
+                frec_clk_label.disabled = true;
+                
+            } else {
+                M_puntos.disabled = true;      // Deshabilitar el campo "noise" para otras opciones
+                frec_clk_label.value = 64;
+                frec_clk_label.disabled = false;
+            }
+        }
+
+        /////// ============== Funciones para aproximar el tiempo del barrido de ruido ================================== /////	  
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var inputs = document.querySelectorAll('#barrido_N_inicial, #barrido_N_final, #frecuencia, #numero_iteraciones');
+            inputs.forEach(input => {
+                input.addEventListener('input', calcularTiempoBarridoRuido);
+            });
+
+            // Llamar a la función al cargar la página para mostrar el valor inicial
+            calcularTiempoBarridoRuido();
+        });
+
+
+        function calcularTiempoBarridoRuido()
+        {
+            var tiempo_label = document.getElementById("tiempo");         
+            var N_inicial = parseInt(document.getElementById("barrido_N_inicial").value);
+            var N_final = parseInt(document.getElementById("barrido_N_final").value);  
+            var iteraciones = parseInt(document.getElementById("numero_iteraciones").value);
+            var frecuencia = parseInt(document.getElementById("frecuencia").value);     
+
+            var suma = 0;
+            for (var i = N_inicial; i <= N_final; i++) {                
+                suma += i;
+            }
+
+            tiempo_label.textContent = 'Tiempo estimado: ' + (1/frecuencia) * suma * iteraciones  + ' s';
+        }
+
+
+
+
+        ///// ================================================================================= /////
+        ///// ================================= LOCKIN ========================================= /////
+        ///// ================================================================================= /////
+
+
+        /////// ================ Función para calcular el lockin =============================== /////	  
+
+        function iniciar() {
+            // Obtener los valores de los campos de entrada
+            var noise = document.getElementById("noise").value;
+            var N = document.getElementById("N").value;
+            var frecuencia = document.getElementById("frecuencia").value;
+            var fuente = document.getElementById("fuente").value;
+            var modo = document.getElementById("modo").value;
+            var frecuencia_clk = document.getElementById("frecuencia_clk").value;
+            var corregir_fase = document.getElementById("corregir").value;
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
+
+            // Enviar los valores al servidor
+            $.get("http://" + serverIP + ":8080/iniciar_lockin", {
+                noise: noise,
+                N: N,
+                frecuencia: frecuencia,
+                fuente: fuente,
+                modo: modo,
+                f_clk: frecuencia_clk,
+                corregir_fase: corregir_fase,
+                M : M,
+                modo_referencias : modo_referencias 
+            }, function (data, status) {
+                // Manejar la respuesta del servidor
+                var amplitud_label = document.getElementById("R");
+                var fase_label = document.getElementById("PHI");
+                var frecuencia_real_label = document.getElementById("frecuencia_real");
+
+                // Verificar si los datos recibidos tienen los atributos R y phi
+                if (data.hasOwnProperty("r") && data.hasOwnProperty("phi")) {
+                    // Actualizar el contenido de los elementos HTML con los valores recibidos
+                    amplitud_label.textContent = "R : " + data.r;
+                    fase_label.textContent = "PHI : " + data.phi;
+                    frecuencia_real_label.textContent = "   (Frecuencia real: " + data.f + " Hz)";
+                } else {
+                    console.error("Los datos recibidos del servidor son incorrectos o faltan atributos.");
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error en la solicitud AJAX:", errorThrown);
+            });
+        }
+
+        /////// ================ Funciones para graficar señales =============================== /////	
+
+        function habilitarOSC() {
+            habilitar_oscilosocpio = !habilitar_oscilosocpio; // Cambiar el estado del osciloscopio
+
+            var habilitar_button = document.getElementById("HabilitarOsciloscopio");
+
+            habilitar_button.textContent = (habilitar_oscilosocpio) ? "Detener" : "Iniciar";
+        }
+
+        // Crear chart para señales crudas
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [], // Aquí irán las etiquetas de tiempo (si es necesario)
+                    datasets: [{
+                        label: 'FIFO 0 (ADC)',
+                        data: [], // Aquí irán los datos de la señal 1
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 1
+                    }, {
+                        label: 'FIFO 1 (Referencia)',
+                        data: [], // Aquí irán los datos de la señal 2
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+            });
+
+            // Función para actualizar el gráfico
+            function updateChart() {
+                if (habilitar_oscilosocpio) {
+
+                    var frec = document.getElementById("frecuencia").value;
+                    var ciclos2display = document.getElementById("ciclos2display").value;
+                    var f_clk = document.getElementById("frecuencia_clk").value;
+                    var fuente = document.getElementById("fuente").value;
+                    var noise = document.getElementById("noise").value;
+                    var N = document.getElementById("N").value;
+                    var escalar = document.getElementById("escalar").value;
+                    var M = document.getElementById("M_puntos").value;
+                    var modo_referencias = document.getElementById("modo_referencias").value;
+
+
+                    $.get("http://" + serverIP + ":8080/datos_adc", {
+                        frec: frec,
+                        ciclos2display: ciclos2display,
+                        f_clk: f_clk,
+                        fuente: fuente,
+                        noise: noise,
+                        N: N,
+                        M : M,
+                        modo_referencias : modo_referencias 
+                    }, function (data, status) {
+                        // Obtener los datos de data1 y data2
+                        var newData1 = data.data1;
+                        var newData2 = data.data2;
+
+                        // Limpiar los datasets y etiquetas del gráfico
+                        chart.data.datasets[0].data = [];
+                        chart.data.datasets[1].data = [];
+                        chart.data.labels = [];
+
+                        // Escalo las señales para verlas juntas NO ANDA
+
+                        var maxData1 = Math.max(...newData1);
+                        var minData1 = Math.min(...newData1);
+                        var median1 = (maxData1 + minData1) / 2;
+
+                        var maxData2 = Math.max(...newData2);
+                        var minData2 = Math.min(...newData2);
+                        var median2 = (maxData2 + minData2) / 2;
+
+                        var data_escalada = newData1.map(value => (value - median1) * ((maxData2 - minData2) / (maxData1 - minData1)));
+                        // Agregar todos los nuevos datos al gráfico
+                        chart.data.datasets[0].data = (escalar == 1) ? data_escalada : newData1;
+                        chart.data.datasets[1].data = newData2;
+
+                        // Agregar etiquetas de tiempo para cada punto de datos
+                        for (var i = 0; i < newData1.length - 1; i++) {
+                            // Crear etiquetas de tiempo para cada punto de datos
+                            var timeLabel = i;
+
+                            // Agregar etiquetas de tiempo al array de etiquetas del gráfico
+                            chart.data.labels.push(timeLabel);
+                        }
+
+                        // Actualizar el gráfico
+                        chart.update();
+                    });
+                }
+                else {
+
+                    chart.data.datasets[0].data = [];
+                    chart.data.datasets[1].data = [];
+                    chart.data.labels = [];
+                    //chart.update();
+                }
+
+                // Llamar a esta función nuevamente en 1 segundo
+                setTimeout(updateChart, 1000);
+            }
+
+            // Iniciar la actualización del gráfico
+            updateChart();
+        });
+
+
+
+
+
+
+
+        ///// ================================================================================= /////
+        ///// ==================== Barrido en frecuencia ======================================= /////
+        ///// ================================================================================= /////
+
+        /////// ================ Función para calcular el barrido =============================== /////	  
+
+        function barrido() {
+
+            var boton = document.getElementById('BarridoFrec');
+            boton.disabled = true;  // Deshabilitar el botón
+
+            // Obtener los valores de los campos de entrada
+
+            var f_clk = document.getElementById("frecuencia_clk").value;
+            var N = document.getElementById("N").value;
+            var fuente = document.getElementById("fuente").value;
+            var modo = document.getElementById("modo").value;
+            var corregir_fase = document.getElementById("corregir").value;
+            var f_inicial = document.getElementById("barrido_f_inicial").value;
+            var f_final = document.getElementById("barrido_f_final").value;
+            var f_step = document.getElementById("barrido_step").value;
+            var nombre_archivo_barrido = document.getElementById("nombre_archivo_barrido").value;
+            var noise = document.getElementById("noise").value;
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
+
+            $.get("http://" + serverIP + ":8080/barrido_lockin", {
+                f_clk: f_clk,
+                N: N,
+                fuente: fuente,
+                modo: modo,
+                f_inicial: f_inicial,
+                f_final: f_final,
+                f_step: f_step,
+                nombre_archivo_barrido: nombre_archivo_barrido,
+                corregir_fase: corregir_fase,
+                noise: noise,
+                M : M,
+                modo_referencias : modo_referencias 
+
+            }, function (data, status) {
+
+                var descargar = document.getElementById("descargar");
+
+                if(descargar.value == 1)
+                {
+                    // Crear un enlace de descarga
+                    var blob = new Blob([data], { type: 'text/plain' });
+                    var downloadLink = document.createElement('a');
+                    downloadLink.href = window.URL.createObjectURL(blob);
+                    downloadLink.download = nombre_archivo_barrido; // Nombre del archivo a descargar
+                    downloadLink.click();
+                }                                
+                // Llamar a la función para crear los gráficos
+                createCharts_barrido(data);
+                boton.disabled = false; 
+            });
+            
+        }
+
+        /////// ================ Función para procesar los datos del barrido =============================== /////	  
+
+        function processData(data) {
+            const lines = data.trim().split('\n');
+            const dataLines = lines.slice(4);
+            const parsedData = lines.map(line => {
+                const [f, x, y, r, phi] = line.split(',').map(Number);
+                return { f, r, phi };
+            });
+            return parsedData;
+        }
+
+       /////// ============ Función para crear los gráficos de la funcion de transferencia =============== /////	  
+
+        function createCharts_barrido(datos_barrido) {
+
+            const data = processData(datos_barrido);
+
+            const frequencies = data.map(point => point.f);
+            const magnitudes = data.map(point => point.r);
+            const phases_degrees = data.map(point => point.phi);
+
+            const magnitudeCtx = document.getElementById('chart_transferencia_amplitud').getContext('2d');
+            const phaseCtx = document.getElementById('chart_transferencia_fase').getContext('2d');
+
+            if (window.magnitudeChart) {
+            window.magnitudeChart.destroy();
+            }
+
+            if (window.phaseChart) {
+                window.phaseChart.destroy();
+            }
+
+            // Gráfico de magnitud
+            window.magnitudeChart = new Chart(magnitudeCtx, {
+                
+                type: 'line',
+                data: {
+                    labels: frequencies,
+                    datasets: [{
+                        label: 'Magnitud (V)',
+                        data: magnitudes,
+                        borderColor: 'blue',
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            //type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Frecuencia (Hz)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Magnitud'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Gráfico Bode - Magnitud'
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de fase
+            window.phaseChart = new Chart(phaseCtx, {
+                type: 'line',
+                data: {
+                    labels: frequencies,
+                    datasets: [{
+                        label: 'Fase (Grados)',
+                        data: phases_degrees,
+                        borderColor: 'red',
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            //type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Frecuencia (Hz)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Fase (Grados)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Gráfico Bode - Fase'
+                        }
+                    }
+                }
+            });          
+
+        }
+
+
+
+
+        
+        ///// ================================================================================= /////
+        ///// =================== Barrido de ctes de tiempo =================================== /////
+        ///// ================================================================================= /////
+
+       /////// ==================== Funcion para calculos de ruido  ==================== /////	
+        function barrido_ruido() {
+
+            var grafico_logaritmico = true;
+            var normalizar = true;
+
+            var boton = document.getElementById('BarridoRuido');
+            boton.disabled = true;  // Deshabilitar el botón
+
+            // Obtener los valores de los campos de entrada
+            var N_inicial = document.getElementById("barrido_N_inicial").value;
+            var N_final = document.getElementById("barrido_N_final").value;
+            var nombre_archivo_ruido = document.getElementById("nombre_archivo_ruido").value;
+            var iteraciones = document.getElementById("numero_iteraciones").value;
+            var frecuencia = document.getElementById("frecuencia").value;
+            var fuente = document.getElementById("fuente").value;
+            var noise = document.getElementById("noise").value;
+            var f_clk = document.getElementById("frecuencia_clk").value;
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
+
+            
+
+            // Uso barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida
+
+            $.ajax({
+                url: "http://" + serverIP + ":8080/barrido_ruido",
+                method: "GET",
+                data: {
+                    frecuencia: frecuencia,
+                    N_inicial: N_inicial,
+                    N_final: N_final,
+                    iteraciones: iteraciones,
+                    fuente: fuente,
+                    noise: noise,
+                    f_clk: f_clk,
+                    M: M,
+                    modo_referencias: modo_referencias
+                },
+                timeout: 3600000, // 1 hora en milisegundos
+                success: function(data, status) {
+                    var descargar = document.getElementById("descargar_archivo_ruido");
+
+                    if (descargar.value == 1) {
+                        // Crear un enlace de descarga
+                        var blob = new Blob([data], { type: 'text/plain' });
+                        var downloadLink = document.createElement('a');
+                        downloadLink.href = window.URL.createObjectURL(blob);
+                        downloadLink.download = nombre_archivo_ruido; // Nombre del archivo a descargar
+                        downloadLink.click();
+                    }
+                    
+                    // Llamar a la función para crear los gráficos
+                    createCharts_noise(data, grafico_logaritmico, N_inicial, N_final, normalizar);
+                    boton.disabled = false;
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error en la solicitud: " + status + " - " + error);
+                    boton.disabled = false;
+                }
+            });
+        }
+
+        /////// ================ Función para procesar los datos del barrido =============================== /////	
+        function processDataRuido(data) {
+            const lines = data.trim().split('\n');
+            const dataLines = lines.slice(3);
+            const parsedData = dataLines.map(line => {
+                const [N, mean_r, std_r] = line.split(',').map(Number);
+                return { N, mean_r, std_r };
+            });
+            return parsedData;
+        }
+
+
+        /////// ==================== Función para crear los gráficos  ==================== /////	  
+
+        function createCharts_noise(data_ruido_in, isLogarithmic,minN,maxN,normalize) {
+            const data_ruido = processDataRuido(data_ruido_in);
+
+            const N = data_ruido.map(point => point.N);
+            var std_r = data_ruido.map(point => point.std_r);
+            const mean_r = data_ruido.map(point => point.mean_r);
+
+            if (normalize) {
+                var maxStdR = Math.max(...std_r);
+                std_r = std_r.map(value => value / maxStdR);
+            }
+
+            const noiseCtx = document.getElementById('chart_ruido_vs_N').getContext('2d');
+            const meanCtx = document.getElementById('chart_mean_vs_N').getContext('2d');
+
+            if (window.noiseChart) {
+                window.noiseChart.destroy();
+            }
+            if (window.meanChart) {
+                window.meanChart.destroy();
+            }
+
+            const xScaleConfig = {
+                type: isLogarithmic ? 'logarithmic' : 'linear',
+                title: {
+                    display: true,
+                    text: 'N (constantes de tiempo)'
+                },
+                min: Math.min(...N),
+                max: Math.max(...N),
+                ticks: {
+                    callback: function(value, index, values) {
+                        return Number(value.toString()); // Convierte los valores a números
+                    }
+                }
+            };
+
+            window.noiseChart = new Chart(noiseCtx, {
+                type: 'line',
+                data: {
+                    labels: N,
+                    datasets: [{
+                        label: 'Desviacion estándar',
+                        data: std_r,
+                        borderColor: 'blue',
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: xScaleConfig,
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Desviación estandar de las mediciones'
+                            }
+                        }
+                    }
+                }
+            });
+
+            window.meanChart = new Chart(meanCtx, {
+                type: 'line',
+                data: {
+                    labels: N,
+                    datasets: [{
+                        label: 'Valor promedio de mediciones',
+                        data: mean_r,
+                        borderColor: 'blue',
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: xScaleConfig,
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Media de las mediciones'
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+
+
+
+
+
+
+
+        ///// ================================================================================= /////
+        ///// =================== Densidad espectral de potencia ============================== /////
+        ///// ================================================================================= /////
+
+        /////// ==================== Función para calcular la DEP  ==================== /////
+        function dep_iniciar() 
+        {
+            var boton = document.getElementById('DEP');
+            boton.disabled = true;  // Deshabilitar el botón
+
+            // Obtener los valores de los campos de entrada
+            var f_inicial = document.getElementById("dep_f_inicial").value;
+            var f_final = document.getElementById("dep_f_final").value;
+            var f_step = document.getElementById("dep_f_step").value;
+            var f_dac = document.getElementById("f_dac_dep").value;
+
+            var nombre_archivo_dep = document.getElementById("nombre_archivo_dep").value;
+            var iteraciones = document.getElementById("numero_iteraciones_dep").value;
+
+            var fuente = document.getElementById("fuente").value;
+            var sim_noise = document.getElementById("noise").value;
+            var f_clk = document.getElementById("frecuencia_clk").value;
+            var N = document.getElementById("N").value;
+
+            var M = document.getElementById("M_puntos").value;
+            var modo_referencias = document.getElementById("modo_referencias").value;
+
+            // Uso calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise
+
+            $.get("http://" + serverIP + ":8080/calcular_dep", {
+                f_clk: f_clk,
+                N: N,
+                fuente:fuente,
+                f_dac: f_dac,
+                f_inicial: f_inicial,
+                f_final: f_final,
+                f_step : f_step,
+                iteraciones: iteraciones,
+                sim_noise:sim_noise,
+                M : M,
+                modo_referencias : modo_referencias               
+
+            }, function (data, status) {
+
+                var descargar = document.getElementById("descargar_archivo_dep");
+
+                if(descargar.value == 1)
+                {
+                    // Crear un enlace de descarga
+                    var blob = new Blob([data], { type: 'text/plain' });
+                    var downloadLink = document.createElement('a');
+                    downloadLink.href = window.URL.createObjectURL(blob);
+                    downloadLink.download = nombre_archivo_dep; // Nombre del archivo a descargar
+                    downloadLink.click();
+                }                                
+                // Llamar a la función para crear los gráficos
+                createCharts_dep(data,f_step);
+                boton.disabled = false;
+            });
+            
+        
+        }
+
+        /////// ==================== Función para procesar los datos  ==================== /////
+        function processDataDEP(data) {
+            const lines = data.trim().split('\n');
+            const dataLines = lines.slice(4);
+            const parsedData = lines.map(line => {
+                const [f, mean_r, std_r] = line.split(',').map(Number);
+                return { f, mean_r, std_r };
+            });
+            return parsedData;
+        }
+       
+
+        /////// ==================== Función para crear los gráficos  ==================== /////
+        function createCharts_dep(data_ruido_in, delta_f) {
+        // Suponiendo que processDataDEP devuelve un array de objetos con {f, mean_r, std_r}
+        const data_DEP = processDataDEP(data_ruido_in);
+
+        const f = data_DEP.map(point => point.f);
+        const std_r = data_DEP.map(point => point.std_r);
+        const mean_r = data_DEP.map(point => point.mean_r);
+
+        // Calcular la DEP para cada punto y convertir a dB
+        const DEP_dB = data_DEP.map(point => {
+            const potencia_signal = Math.pow(point.mean_r, 2);
+            const potencia_ruido = Math.pow(point.std_r, 2);
+            const potencia_total = potencia_signal + potencia_ruido;
+            const DEP = potencia_total / delta_f;
+            return 10 * Math.log10(DEP);
+        });
+
+        const depCTX = document.getElementById('chart_dep').getContext('2d');
+
+        // Destruir el gráfico anterior si existe
+        if (window.depChart) {
+            window.depChart.destroy();
+        }
+
+        // Crear un nuevo gráfico
+        window.depChart = new Chart(depCTX, {
+            type: 'line',
+            data: {
+                labels: f,
+                datasets: [{
+                    label: 'Densidad Espectral de Potencia (dB)',
+                    data: DEP_dB,
+                    borderColor: 'blue',
+                    fill: false,
+                    pointRadius: 3,
+                    pointHoverRadius: 5
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Frecuencia (Hz)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Densidad Espectral de Potencia (dB)'
+                        }
+                    }
+                }
+            }
+        });
+    }
+    </script>
+
+</body>
+
+</html>

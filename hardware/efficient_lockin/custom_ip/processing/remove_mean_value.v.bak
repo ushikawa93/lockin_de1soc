@@ -1,0 +1,36 @@
+
+module remove_mean_value(
+input clock,
+input reset,
+input data_in,
+input CE,
+
+output signed reg [15:0] data_out,
+output reg data_valid);
+
+reg data_reg;
+
+single_port_ram data_mem(
+	.data(data_in),
+	.addr(index),
+	.we(write_ram_en),
+	.clk(clock),
+	.q()
+);
+
+parameter M=31; 
+reg [31:0] acumulador;
+
+always @ (posedge clock)
+begin
+
+	if(CE)
+	begin 
+		write_ram_en <= 1;
+		index <= (index == M)? 0:index+1;
+	
+	end else begin
+		write_ram_en<=0; 
+	end
+	
+end

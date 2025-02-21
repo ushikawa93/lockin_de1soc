@@ -1,0 +1,11 @@
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\bin\Debug\LIA_GUI_1.exe.config
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\bin\Debug\LIA_GUI_1.exe
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\bin\Debug\LIA_GUI_1.pdb
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.csproj.AssemblyReference.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.csproj.SuggestedBindingRedirects.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.Form1.resources
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.Properties.Resources.resources
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.csproj.GenerateResource.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.csproj.CoreCompileInputs.cache
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.exe
+C:\Users\MatiOliva\Documents\00-ProyectosQuartus\efficient_lockin\software\hps\LIA_GUI\LIA_GUI_1\LIA_GUI_1\obj\Debug\LIA_GUI_1.pdb

@@ -1,0 +1,118 @@
+
+module multiplicate_ref(
+
+
+	input clock,
+	input reset,
+	
+	input [50:0]	 configuracion,
+	
+	input data_valid,
+	input signed [31:0] data,	
+		
+	output signed [63:0] data_out_seno,
+	output reg signed [63:0] data_out_coseno,
+	output data_valid_multiplicacion,	
+
+);
+
+//=======================================================
+// Parametros de configuracion de los módulos
+//=======================================================
+
+
+wire origen_datos = configuracion[0];								// 1 para datos simulados, 0 para adc
+wire [7:0] simulation_noise = configuracion[8:1];				// Cantidad de bits de ruido en la simulacion
+wire [15:0] ptos_x_ciclo = configuracion[24:9];					// Ctdad de puntos por ciclo de señal
+wire [7:0] frames_integracion = configuracion[32:25];			// Largo del Lock In
+wire adc_channel = configuracion[33];								// 1 canal a, 0 canal b
+wire [15:0] frames_prom_coherente = configuracion[49:34];	// Cantidad de ciclos promediados coherentemente 
+
+
+parameter ref_mean_value = 32767;
+
+// Referencias seno y coseno en sendas LU table
+reg [15:0]  ref_sen   [0:2047];	initial	$readmemh("LU_Tables/x2048_16b.mem",ref_sen);
+reg [15:0] 	ref_cos   [0:2047];	initial	$readmemh("LU_Tables/y2048_16b.mem",ref_cos);
+
+// Reg/Wire declarations 
+reg [15:0] index_ref,index_ref_2;
+reg signed [63:0] data_in_2_etapa;
+reg signed [63:0] data_in_3_etapa;
+reg signed [63:0] ref_fase_actual;
+reg signed [63:0] ref_cuad_actual;
+
+reg data_valid_1,data_valid_2,data_valid_3;
+
+
+// Estos serian los outputs
+wire [63:0] data_out_seno;			
+wire [63:0] data_out_coseno;
+wire data_valid_multiplicacion;
+
+reg [15:0] interval;
+	always @ (posedge clock) interval = 2048/M; // Para poder cambiar el largo de la secuencia sin tener que leer otro archivo
+	
+
+// Registro las entradas... es mas prolijo trabajar con las entradas registradas
+reg signed [31:0] data_in_reg; always @ (posedge clock) data_in_reg <= (!reset)? 0: data;
+reg signed data_valid_reg; always @ (posedge clock) data_valid_reg <= (!reset)? 0: data_valid;
+
+
+//=======================================================
+// Algoritmo principal
+//=======================================================
+
+always @ (posedge clock or negedge reset)
+begin
+	
+	if(!reset)
+	begin		
+	
+		prod_fase<=0;
+		prod_cuad<=0;	
+		data_in_2_etapa<=0;
+		data_in_3_etapa<=0;		
+	
+		index_ref<=0;
+		index_ref_2<=0;
+	
+		data_valid_1<=0;
+		data_valid_2<=0;
+		data_valid_3<=0;	
+		
+	end
+	else if(data_valid_reg)
+	begin
+	
+		index_ref <= (index_ref == (M-1))? 0: index_ref+1;
+	
+		//calcular indice de la referencia (1 etapa)
+		
+			index_ref_2 <= index_ref*interval;	
+			data_in_2_etapa <= data_in_reg;		
+			data_valid_1 <= 1;	
+		
+		//registrar dato entrante (2 etapa)
+			
+			ref_fase_actual <= ref_sen[index_ref_2]-ref_mean_value;
+			ref_cuad_actual <= ref_cos[index_ref_2]-ref_mean_value;
+			data_in_3_etapa <= data_in_2_etapa;
+			data_valid_2 <= data_valid_1;
+					
+
+		//registrar productos (3 etapa)
+		
+			prod_fase <= data_in_3_etapa * ref_fase_actual;
+			prod_cuad <= data_in_3_etapa * ref_cuad_actual;
+			data_valid_3 <= data_valid_2;
+	end
+
+end
+
+//=======================================================
+// Salidas
+//=======================================================
+assign data_out_seno = prod_fase;
+assign data_out_coseno = prod_cuadratura;
+assign data_valid_multiplicacion = data_valid_3;
