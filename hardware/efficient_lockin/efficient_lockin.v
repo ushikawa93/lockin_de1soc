@@ -5,7 +5,7 @@ module efficient_lockin(
 	input clk,
 	
 	 ///////// SW /////////
-   input       [3:0]  SW,
+    input       [3:0]  SW,
 	
 	///////// KEYS ////////
 	input 		[1:0] KEY,
@@ -87,12 +87,10 @@ parameter referencia_coseno = 9;
 parameter datos_procesamiento = 10;
 parameter open = 11;
 
-
-
-
 // Fuentes de señal para cada etapa del proceso
 
-wire [31:0] fuente_procesamiento;	// Lo define la etapa de control
+// Este determina de donde vienen los datos para el procesamiento: 
+wire [31:0] fuente_procesamiento;	// Lo define la etapa de control pueden ser simulada, adc_2308,adc_hs
 
 parameter fuente_dac = dds_compiler_sen ;	
 
@@ -322,12 +320,12 @@ wire [31:0] dds_in_data_sim;
 control nios (
 
 	 // Logica de control
-	 .clk							(clk),
+	 .clk						(clk),
 	 .reset_n					(reset_physical),	
-	 .enable						(enable_from_control),
+	 .enable					(enable_from_control),
 	 .clk_custom				(clk_custom),
 	 .reset_from_control		(reset_from_control),
-	 .calculo_finalizado 	(calculo_finalizado),
+	 .calculo_finalizado 		(calculo_finalizado),
 	 
 	 // Parametros reconfigurables
 	 .parameter_out_0				(fuente_procesamiento),
@@ -339,8 +337,8 @@ control nios (
 	 .parameter_out_6				(N_LI),
 	 .parameter_out_7				(delta_phase_ref),
 	 .parameter_out_8				(delta_phase_dac),
-	 .parameter_out_9 			(dds_in_data_sim),
-	 .parameter_out_10			(led_test),
+	 .parameter_out_9 				(dds_in_data_sim),
+	 .parameter_out_10				(led_test),
 	 
 	 
 	 .parameter_in_0				(n_datos_promediados),
@@ -348,16 +346,16 @@ control nios (
 	
 	 // Resultados de procesamiento de 32 bits
 	 .result_0_32_bit			(data_in_fifo0_32bit),
-	 .result_0_32_bit_valid	(data_in_fifo0_32bit_valid),
+	 .result_0_32_bit_valid		(data_in_fifo0_32bit_valid),
 	
 	 .result_1_32_bit			(data_in_fifo1_32bit),
-	 .result_1_32_bit_valid (data_in_fifo1_32bit_valid),
+	 .result_1_32_bit_valid 	(data_in_fifo1_32bit_valid),
 	 
 	 .result_0_64_bit			(data_in_fifo0_64bit),
-	 .result_0_64_bit_valid	(data_in_fifo0_64bit_valid),
+	 .result_0_64_bit_valid		(data_in_fifo0_64bit_valid),
 	 
 	 .result_1_64_bit			(data_in_fifo1_64bit),
-	 .result_1_64_bit_valid	(data_in_fifo1_64bit_valid),
+	 .result_1_64_bit_valid		(data_in_fifo1_64bit_valid),
 	 
 	  // Memoria DDR3 del HPS
 	 .HPS_DDR3_ADDR         (HPS_DDR3_ADDR),                          //          memory.mem_a

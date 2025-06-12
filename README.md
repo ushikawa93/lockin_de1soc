@@ -2,6 +2,8 @@
 Detección Lock-in con DE1-SoC
 
 # Carpeta Hardware
+*Top Level entity:* efficient_lockin.v
+
 Hardware de la FPGA, realiza el Lock-in de dos formas distintas
 
 1) LI: Lock-in con filtro de media movil (MAF) de N_ma x N_ca ciclos de señal.
