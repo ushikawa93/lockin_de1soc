@@ -1,3 +1,55 @@
+# Quartus build outputs
+.qsys_edit/
 db/
 incremental_db/
-*.qsf.bak
+simulation/
+output_files/
+greybox_tmp/
+*.qws
+*.rpt
+*.summary
+*.smsg
+*.bak
+*.ddb
+*.eqn
+*.esf
+*.fit.*
+*.jdi
+*.lpc
+*.map.*
+*.pin
+*.pof
+*.sof
+*.sta.*
+*.jam
+*.ttf
+*.vho
+*.vqm
+*.xml
+*.qdf
+*.qdf.*
+*.qip
+*.smsg
+*.fsf
+
+# Backups
+*~
+*.bak
+*.old
+*.orig
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+# Archivo de pines (se genera en compilacion)
+c5_pin_model_dump.txt
+
+# Archivos generados por HPS SDRAM controller
+hps_sdram_p0_all_pins.txt
+hps_sdram_p0_summary.csv
+
+# Logs de archivado de Quartus
+*.qarlog
