@@ -1,4 +1,31 @@
-﻿using System;
+﻿/*
+    Filtro - Representación de un filtro FIR individual
+
+    Descripción:
+    ------------
+    Esta clase encapsula la información de un filtro FIR específico, incluyendo
+    sus coeficientes, tipo y frecuencia de muestreo.
+
+    Propiedades y Funciones:
+    -----------------------
+    - F_muestreo: Permite obtener o establecer la frecuencia de muestreo del filtro.
+    - F_corte: Calcula la frecuencia de corte real del filtro a partir de su 
+      frecuencia normalizada y la frecuencia de muestreo.
+    - Coeficientes: Lista de coeficientes enteros que definen la respuesta del filtro.
+    - TipoFiltro: Indica si el filtro es Pasa-bajos (PB), Pasa-altos (PA) o Bypass.
+    - ToString(): Retorna una descripción legible del filtro, incluyendo tipo,
+      orden (cantidad de coeficientes - 1) y frecuencia de corte.
+
+    Notas:
+    ------
+    - Los coeficientes se asumen en formato entero y listos para ser enviados
+      a la FPGA.
+    - La frecuencia de corte se calcula en kHz.
+    - Los filtros de tipo BYPASS simplemente indican que no se aplica procesamiento.
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

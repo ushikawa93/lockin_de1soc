@@ -1,6 +1,46 @@
-
 /*
-	Clase que controla el comportamiento de la FPGA
+================================================================================
+ Clase de control avanzada de la FPGA DE1-SoC
+ Archivo: FPGA_de1soc.h
+--------------------------------------------------------------------------------
+ Esta clase encapsula el manejo completo de la FPGA, incluyendo:
+   - Control de parámetros configurables (DATA_OUT) y lectura de resultados (DATA_IN).
+   - Manejo de FIFOs de 32 y 64 bits.
+   - Configuración de la frecuencia de muestreo y el PLL interno.
+   - Secuencias de inicio, cálculo y finalización de operaciones.
+   - Conversión de valores de ADC a voltaje.
+
+Funcionalidad principal:
+   - Inicializar la FPGA con parámetros por defecto.
+   - Setear parámetros de forma individual o masiva.
+   - Configurar reloj y divisor de clock.
+   - Iniciar, calcular y terminar operaciones.
+   - Leer resultados desde FIFOs o registros instantáneos (32/64 bits).
+
+Definiciones incluidas:
+   - FIFO y buffers locales de 32 y 64 bits.
+   - Arreglo de parámetros y macros de salida.
+   - Métodos privados para control de flujo (Iniciar, Reset, Esperar).
+   - Métodos públicos para control de la FPGA, parámetros y resultados.
+
+Funciones disponibles:
+   - Comenzar(), Calcular(), Terminar(): secuencias de control de la FPGA.
+   - set_parameter(index, value): configura un parámetro individual.
+   - set_N_parametros(N, array): configura varios parámetros a la vez.
+   - set_frec_clk(value), set_divisor_clock(value), set_clk_from_frec(value): control de reloj.
+   - get_parameter(index): consulta valor de un parámetro.
+   - leer_FIFO_32_bit(fifo), leer_resultado_32_bit(fifo): lectura de datos de 32 bits.
+   - leer_FIFO_64_bit(fifo), leer_resultado_64_bit(fifo): lectura de datos de 64 bits.
+
+Uso típico:
+   FPGA_de1soc fpga;
+   fpga.set_parameter(3, 42);           // Configura parámetro OUT_3
+   fpga.set_clk_from_frec(1000000);     // Ajusta frecuencia de muestreo a 1 MHz
+   fpga.Comenzar();                      // Inicia operación
+   fpga.Calcular();                      // Espera a que finalice el cálculo
+   int val = fpga.leer_resultado_32_bit(0);  // Lee resultado FIFO 0 32 bits
+
+================================================================================
 */
 
 

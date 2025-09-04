@@ -1,3 +1,33 @@
+/*
+    BancoFiltros - Contenedor y administrador de filtros FIR predefinidos
+
+    Descripción:
+    ------------
+    Esta clase mantiene listas de filtros FIR predefinidos para Pasa-bajos (PB),
+    Pasa-altos (PA) y un filtro Bypass. Proporciona métodos para acceder, agregar
+    y seleccionar filtros según su tipo y frecuencia de corte.
+
+    Funcionalidades principales:
+    ---------------------------
+    - Inicializa filtros FIR con coeficientes predefinidos y frecuencia de muestreo.
+    - Permite cambiar la frecuencia de muestreo de todos los filtros de manera centralizada.
+    - Devuelve filtros específicos por índice o el filtro más cercano a una frecuencia de corte dada.
+    - Permite agregar filtros adicionales a las listas PB o PA.
+    - Proporciona acceso a las listas de filtros mediante propiedades públicas:
+      Filtros_PB, Filtros_PA y Bypass.
+    - Mantiene un filtro Bypass único que indica que no se aplica procesamiento.
+
+    Notas:
+    ------
+    - Los coeficientes de los filtros están en formato entero, listos para enviar a FPGA.
+    - Las listas PB y PA contienen filtros con distintas frecuencias de corte normalizadas.
+    - Se puede recuperar un filtro específico según su índice y tipo, o buscar el filtro
+      más cercano a una frecuencia de corte deseada.
+    - Esta clase centraliza el manejo de filtros para simplificar la interfaz de la GUI
+      y la comunicación con la FPGA.
+*/
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

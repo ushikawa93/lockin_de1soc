@@ -1,7 +1,37 @@
-
-
 /*
-	Clase estática con filtros de distintas frecuencias de corte
+    Clase `filters` para filtros FIR predefinidos
+
+    Descripción:
+    ------------
+    Esta clase encapsula diferentes filtros FIR (Finite Impulse Response) de 33
+    coeficientes predefinidos para frecuencias de corte específicas. Permite
+    seleccionar filtros Pasa-bajos o Pasa-altos según la necesidad del usuario.
+
+    Propiedades:
+    ------------
+    - Filtros Pasa-bajos (PB) con frecuencias de corte normalizadas: 0.05, 0.1, 0.15, 0.2, 0.25, 0.3
+    - Filtros Pasa-altos (PA) con frecuencias de corte normalizadas: 0.05, 0.1, 0.15, 0.2, 0.25, 0.3
+    - `zero_array`: arreglo de 33 ceros, devuelto como fallback si no se encuentra el filtro solicitado
+
+    Métodos públicos:
+    ----------------
+    - `int* getfiltro(int w, int high_low)`: Devuelve un puntero al arreglo de coeficientes del filtro
+        Parámetros:
+        - `w`: frecuencia de corte deseada expresada como porcentaje (ej: 15 para 0.15)
+        - `high_low`: tipo de filtro (0 = Pasa-bajos, 1 = Pasa-altos)
+        Retorna:
+        - Puntero a un arreglo de 33 coeficientes del filtro correspondiente.
+        - Si no existe el filtro para los parámetros dados, retorna `zero_array`.
+    
+    Uso típico:
+    -----------
+        filters filtros;
+        int* coeficientes = filtros.getfiltro(15, 0); // Devuelve PB_0_15
+
+    Notas:
+    ------
+    - Los coeficientes están precalculados y codificados manualmente.
+    - La clase no depende de ninguna librería externa.
 */
 
 

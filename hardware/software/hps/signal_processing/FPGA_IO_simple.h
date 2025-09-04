@@ -1,6 +1,34 @@
 /*
-	Clase que controla las entradas y salidas de la FPGA.
+================================================================================
+ Clase de control de entradas y salidas de la FPGA
+ Archivo: FPGA_IO_simple.h
+--------------------------------------------------------------------------------
+ Esta clase encapsula la interacción con los registros mapeados de la FPGA
+ usando /dev/mem, permitiendo leer y escribir parámetros de forma sencilla 
+ desde software, así como configurar el PLL interno.
+
+ Funcionalidad principal:
+   - Mapear la FPGA en memoria usando mmap.
+   - Leer y escribir registros y parámetros en direcciones específicas.
+   - Configurar la frecuencia del clock principal mediante un PLL.
+   - Facilitar la abstracción de las operaciones de bajo nivel.
+
+Definiciones incluidas:
+   - Constructor: mapea la FPGA en memoria.
+   - Destructor: libera el mapeo.
+   - WriteFPGA(ADDRESS, OFFSET, value): escribe un valor en la FPGA.
+   - ReadFPGA(ADDRESS, OFFSET): lee un valor desde la FPGA.
+   - ConfigurarPll(value): configura la frecuencia del PLL interno.
+
+Uso típico:
+   FPGA_IO_simple fpga;
+   fpga.WriteFPGA(PARAMETERS_BASE, 3, 42);  // Escribe valor 42 en parámetro 3
+   long val = fpga.ReadFPGA(RESULT0_32_BIT_BASE, 0); // Lee resultado 32-bit
+   fpga.ConfigurarPll(50); // Configura PLL a ~50 MHz
+
+================================================================================
 */
+
 
 // Librerias para mmap y entradas/salidas
 #include <sys/mman.h>

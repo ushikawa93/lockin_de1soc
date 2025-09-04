@@ -1,3 +1,25 @@
+/*
+================================================================================
+ Programa: Selector de Bitstream para FPGA
+================================================================================
+ Descripci√≥n:
+ -------------
+ Este programa lista todos los archivos con extensi√≥n ".rbf" en la carpeta
+ "bitstreams", muestra cu√°l est√° actualmente cargado en la FPGA y permite al
+ usuario seleccionar un nuevo archivo para cargar. 
+
+ Funcionalidades principales:
+ - Abrir la carpeta "bitstreams" y leer archivos ".rbf".
+ - Mostrar el bitstream actualmente cargado.
+ - Permitir seleccionar un bitstream de la lista.
+ - Ejecutar un script externo para configurar la FPGA con el bitstream
+   seleccionado.
+ - Guardar el bitstream actualmente seleccionado en "bitstream_actual.txt".
+
+================================================================================
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,7 +55,7 @@ int main() {
       if (savedFile != NULL) {
           char savedFileName[256];
           if (fgets(savedFileName, sizeof(savedFileName), savedFile) != NULL) {
-              savedFileName[strcspn(savedFileName, "\n")] = '\0';  // Elimina el salto de lÌnea
+              savedFileName[strcspn(savedFileName, "\n")] = '\0';  // Elimina el salto de lÔøΩnea
           }
           printf("Bitstream cargado: %s\n\n", savedFileName);
       }
@@ -57,19 +79,19 @@ int main() {
     } else if (selection >= 1 && selection <= fileCount) {
         printf("Archivo seleccionado: %s\n", fileList[selection - 1]);
 
-        // Verifica si el archivo seleccionado ya est· guardado
+        // Verifica si el archivo seleccionado ya estÔøΩ guardado
         FILE *savedFile = fopen("bitstream_actual.txt", "r");
         if (savedFile != NULL) {
             char savedFileName[256];
             if (fgets(savedFileName, sizeof(savedFileName), savedFile) != NULL) {
-                savedFileName[strcspn(savedFileName, "\n")] = '\0';  // Elimina el salto de lÌnea
+                savedFileName[strcspn(savedFileName, "\n")] = '\0';  // Elimina el salto de lÔøΩnea
                 if (strcmp(savedFileName, fileList[selection - 1]) == 0) {
-                    printf("Este bitsream ya est· cargado en la FPGA.\n");
+                    printf("Este bitsream ya estÔøΩ cargado en la FPGA.\n");
                     fclose(savedFile);
                     printf("\n\nIngrese enter para salir\n\n");
                     getchar();
                     while (getchar() != '\n') {
-                        // VacÌa el b˙fer de entrada
+                        // VacÔøΩa el bÔøΩfer de entrada
                     }
                     return 0;
                 }
@@ -93,7 +115,7 @@ int main() {
             perror("Error al crear el archivo");
         }
     } else {
-        printf("SelecciÛn inv·lida.\n");
+        printf("SelecciÔøΩn invÔøΩlida.\n");
     }
 
     // Libera la memoria de la lista de archivos
@@ -105,7 +127,7 @@ int main() {
 
     getchar();
     while (getchar() != '\n') {
-        // VacÌa el b˙fer de entrada
+        // VacÔøΩa el bÔøΩfer de entrada
     }
 
     return 0;
