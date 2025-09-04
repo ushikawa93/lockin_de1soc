@@ -1,3 +1,39 @@
+/* ==========================================================================
+ * ============================ MULTIPLE_IIR =================================
+ *  Descripción general:
+ *    Este módulo encadena cinco filtros IIR de paso bajo para procesar una
+ *    señal de entrada en streaming. Cada salida de un filtro se conecta como
+ *    entrada del siguiente, formando una cadena de filtros en cascada.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset: reset síncrono.
+ *    - enable: habilita el procesamiento de datos.
+ *    - ptos_x_ciclo: parámetro de configuración (no usado funcionalmente).
+ *    - frames_integracion: parámetro de configuración (no usado funcionalmente).
+ *    - data_valid: indica que la entrada `data` es válida.
+ *    - data: señal de entrada a procesar (signed 64 bits).
+ *
+ *  Salidas:
+ *    - data_out: señal filtrada después de la cadena de 5 IIR (signed 64 bits).
+ *    - data_out_valid: indica que `data_out` es válida.
+ *    - ready: indica que el último IIR está listo para enviar datos.
+ *    - fifo_lleno: indica que el buffer del último IIR está lleno.
+ *
+ *  Funcionamiento:
+ *    1. Cada filtro IIR de la cadena recibe la salida válida del anterior.
+ *    2. El primer filtro recibe directamente la señal de entrada.
+ *    3. La señal de salida final se obtiene del quinto IIR.
+ *    4. Las señales auxiliares (`ready`, `fifo_lleno`) se propagan desde
+ *       el último IIR para notificar al procesador.
+ *
+ *  Observaciones:
+ *    - Los parámetros `ptos_x_ciclo` y `frames_integracion` se incluyen para
+ *      mantener la misma interfaz que el filtro de media móvil, aunque no
+ *      son funcionales dentro de los IIR.
+ *    - Esta estructura permite suavizar la señal mediante varios filtros
+ *      en cascada para lograr un efecto de atenuación de ruido más fuerte.
+ * ========================================================================== */
 
 module multiple_IIR(
 

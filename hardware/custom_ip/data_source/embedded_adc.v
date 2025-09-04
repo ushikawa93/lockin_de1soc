@@ -1,3 +1,13 @@
+/* =================================================================================
+ * ==============================  embedded_adc =====================================
+ * Este módulo controla el ADC LTC2308 disponible en la placa DE1SoC. 
+ * Utiliza el módulo instanciado en adc_ltc2308.v.
+ * Recibe clk (máximo 40 MHz), reset_n (activo en bajo) y enable. 
+ * Tambien recibe las señales adc_* que son la interfaz SPI del ADC LTC2308.
+ * Un parámetro fmuestreo determina la frecuencia de muestreo del módulo.
+ * El parámetro sel_ch selecciona que canal del ADC se rutea hacia la salida.
+ * La salida esta disponible en formato AvalonStreaming.
+//================================================================================= */
 
 module embedded_adc(
 

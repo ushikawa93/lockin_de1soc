@@ -1,3 +1,64 @@
+/*==============================================================================
+ Módulo: coherent_average_sm
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Implementación de una **promediación coherente** mediante acumulación de muestras 
+ en memoria. El módulo recibe una señal de entrada, acumula `N` bloques de `M` 
+ muestras y luego transmite el promedio resultante.  
+ Utiliza dos dominios de reloj:  
+ - `clk_rapido` para el cálculo y actualización de la RAM.  
+ - `clk_lento` para la transmisión de los resultados.  
+
+ Características:
+ -----------------
+ - Acumula bloques de tamaño M y promedia sobre N repeticiones.
+ - Dos dominios de reloj: rápido (cálculo) y lento (transmisión).
+ - Incluye máquina de estados para controlar las fases: idle, cálculo, 
+   transmisión, limpieza y finalización.
+ - Soporta inicialización para simulación.
+ - Salida validada con `data_out_valid`.
+
+ Parámetros:
+ ------------
+ - M          : Tamaño del bloque de muestras.  
+ - Q_in       : Resolución (bits) de la entrada.  
+ - Q_out      : Resolución (bits) de la salida.  
+ - N          : Número de promedios coherentes a realizar.  
+ - simulacion : Si es 1, inicializa el arreglo `y` con ceros al comenzar.
+
+ Entradas:
+ ----------
+ - clk_rapido : Reloj de alta frecuencia (cálculo y limpieza).  
+ - clk_lento  : Reloj de baja frecuencia (transmisión).  
+ - reset_n    : Reset global activo en bajo.  
+ - enable     : Habilita el inicio del cálculo.  
+ - x          : Muestra de entrada (Q_in bits).  
+ - x_valid    : Flag que indica validez de la muestra de entrada.
+
+ Salidas:
+ ---------
+ - data_out       : Resultado del promedio coherente (32 bits).  
+ - data_out_valid : Flag de validez de la salida.
+
+ Máquina de estados:
+ --------------------
+ - idle          : Espera enable=1.  
+ - calculando    : Acumulación de N bloques de M muestras.  
+ - transmitiendo : Emisión de los resultados usando clk_lento.  
+ - limpiando     : Puesta a cero de la RAM interna.  
+ - finished      : Estado final, solo un reset lo reinicia.  
+ - extra_1..3    : Estados de prueba/extensión.
+
+ Notas:
+ -------
+ - La memoria `y` guarda las sumas parciales de las M posiciones.  
+ - El contador `k` lleva la cuenta de los promedios acumulados.  
+ - Los registros `n`, `n_1`, `n_2`, `h` controlan la indexación de la RAM.  
+ - La limpieza asegura que el arreglo `y` quede listo para una nueva corrida.  
+
+==============================================================================*/
 
 module coherent_average_sm
 

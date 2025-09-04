@@ -1,3 +1,11 @@
+/* =================================================================================
+ * ==============================  adc_driver ===============================
+ * Este módulo controla un ADC de alta velocidad. 
+ * Toma la señal de reloj CLK_65 y señales de habilitación, 
+ * y genera las salidas del ADC con registro intermedio para sincronización. 
+ * También produce señales de salida Avalon streaming: data_canal_a, data_canal_b
+ * y data_valid para indicar datos válidos.
+//================================================================================= */
 
 module adc_driver(
 

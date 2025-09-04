@@ -1,3 +1,34 @@
+/* ==========================================================================
+ * ============================ REFERENCE_MIXER =============================
+ *  Descripción general:
+ *    Este módulo genera las componentes de fase y cuadratura de una señal
+ *    mediante multiplicación con referencias seno y coseno. Es parte del
+ *    procesamiento de un Lock-In digital.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset_n: reset activo en bajo.
+ *    - enable: habilita el procesamiento.
+ *    - data: señal de entrada (signed 32 bits).
+ *    - data_valid: indica que `data` es válida.
+ *    - ptos_x_ciclo: cantidad de puntos por ciclo de la referencia.
+ *
+ *  Salidas:
+ *    - data_out_seno: señal de salida multiplicada por la referencia seno (signed 64 bits).
+ *    - data_out_coseno: señal de salida multiplicada por la referencia coseno (signed 64 bits).
+ *    - data_valid_multiplicacion: indica que ambos productos (fase y cuadratura) son válidos.
+ *
+ *  Funcionamiento:
+ *    1. Se obtiene la referencia seno y coseno desde el módulo `referencias`.
+ *    2. La señal de entrada se registra un ciclo para sincronizar con las referencias.
+ *    3. Se generan los productos de fase y cuadratura usando módulos `multiplicador`.
+ *    4. La señal `data_valid_multiplicacion` indica que ambos resultados están listos.
+ *
+ *  Observaciones:
+ *    - El registro de la señal de entrada asegura sincronización con las referencias.
+ *    - Se pueden usar estos productos para filtrado posterior (filtros IIR o promediadores).
+ * ========================================================================== */
+
 
 module reference_mixer(
 

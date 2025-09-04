@@ -1,3 +1,44 @@
+/* ==========================================================================
+ * ========================= LOCKIN_SEGMENTADO ==============================
+ *  Descripción general:
+ *    Este módulo implementa un Lock-in amplifier digital de manera segmentada,
+ *    separando la multiplicación por referencias y los filtros pasabajos de
+ *    fase y cuadratura en módulos independientes. Permite el cálculo de la
+ *    componente en fase y cuadratura de una señal de entrada en streaming.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset: reset síncrono.
+ *    - enable: habilita el procesamiento.
+ *    - ptos_x_ciclo: cantidad de puntos por ciclo de la señal.
+ *    - frames_integracion: cantidad de ciclos a promediar.
+ *    - data_valid: indica que el dato de entrada es válido.
+ *    - data: señal de entrada (signed 32 bits).
+ *
+ *  Salidas:
+ *    - data_out_fase: componente en fase acumulada (signed 64 bits).
+ *    - data_valid_fase: indica que data_out_fase es válida.
+ *    - data_out_cuad: componente en cuadratura acumulada (signed 64 bits).
+ *    - data_valid_cuad: indica que data_out_cuad es válida.
+ *    - lockin_ready: indica que ambos canales del Lock-in están listos.
+ *    - fifos_llenos: indica que los FIFOs internos de fase y cuadratura están completos.
+ *
+ *  Funcionamiento:
+ *    1. Los datos de entrada se multiplican por las referencias seno y coseno 
+ *       correspondientes mediante el módulo `multiplicate_ref`.
+ *    2. Los resultados se envían a filtros pasabajos (IIR) independientes para
+ *       fase y cuadratura usando `multiple_IIR`.
+ *    3. Las salidas de fase y cuadratura se actualizan en streaming.
+ *    4. Las señales `lockin_ready` y `fifos_llenos` se generan combinando el
+ *       estado de los dos filtros.
+ *
+ *  Observaciones:
+ *    - Este enfoque segmentado permite reutilizar los módulos de multiplicación
+ *      y filtrado y facilita el pipeline y la inferencia de bloques DSP.
+ *    - La sincronización de las señales de validación se realiza con registros
+ *      para asegurar consistencia en todo el pipeline.
+ * ========================================================================== */
+
 
 module lockin_segmentado(
 

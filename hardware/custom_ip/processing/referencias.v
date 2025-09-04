@@ -1,3 +1,33 @@
+/* ==========================================================================
+ * ============================== REFERENCIAS ==============================
+ *  Descripción general:
+ *    Este módulo genera referencias seno y coseno discretizadas, almacenadas
+ *    en tablas ROM, para ser utilizadas en la multiplicación coherente en un
+ *    Lock-In digital.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset_n: reset activo en bajo.
+ *    - enable: habilita el procesamiento.
+ *    - pts_x_ciclo: cantidad de puntos por ciclo de la referencia (configurable).
+ *    - avanzar_en_tabla: habilita el avance del índice de la tabla en cada ciclo.
+ *
+ *  Salidas:
+ *    - data_out_seno: valor de la referencia seno correspondiente al índice actual.
+ *    - data_out_cos: valor de la referencia coseno correspondiente al índice actual.
+ *
+ *  Funcionamiento:
+ *    1. Se calcula el intervalo de acceso a la tabla según `pts_x_ciclo`.
+ *    2. La señal `avanzar_en_tabla` avanza el índice de la tabla.
+ *    3. Se calcula `index_out = index * interval` para obtener el valor correcto
+ *       en la tabla ROM de 2048 posiciones.
+ *    4. Se ajusta el valor restando `ref_mean_value` para centrar en cero.
+ *
+ *  Observaciones:
+ *    - Las tablas ROM deben contener valores de 16 bits de seno y coseno.
+ *    - Este módulo asegura que la referencia se sincroniza con la señal de entrada
+ *      para el procesamiento Lock-In.
+ * ========================================================================== */
 
 module referencias(
 

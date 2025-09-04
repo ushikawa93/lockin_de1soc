@@ -1,3 +1,34 @@
+/* ==========================================================================
+ * ======================= PROM_COHERENTE_PIPELINED =========================
+ *  Descripción general:
+ *    Este módulo realiza un promedio coherente de N frames sobre M puntos 
+ *
+ *  Entradas:
+ *    - clk: reloj del sistema.
+ *    - reset: reset activo en bajo.
+ *    - enable: habilita la operación del módulo.
+ *    - ptos_x_ciclo: cantidad de puntos por ciclo de la señal (M).
+ *    - frames_prom_coherente: cantidad de frames a promediar coherentemente (N).
+ *    - data_in: señal de entrada a promediar (signed 32 bits).
+ *    - data_in_valid: indica que `data_in` es válida.
+ *
+ *  Salidas:
+ *    - data_out: salida del promedio coherente (signed 32 bits).
+ *    - data_out_valid: indica que `data_out` es válida.
+ *
+ *  Funcionamiento:
+ *    1. Se mantiene un buffer de tamaño `M` para almacenar la suma acumulada 
+ *       de los frames a promediar.
+ *    2. Se implementa un pipeline de 2 etapas:
+ *       a) Se suman los datos actuales con los valores anteriores del buffer.
+ *       b) Se actualiza el buffer y se genera la salida si se completaron N frames.
+ *    3. La salida se habilita únicamente cuando se completan los N frames 
+ *       de promedio coherente.
+ *
+ *  Observaciones:
+ *    - El buffer se limpia cuando `enable` está en 0.
+ *    - `data_out_valid` se mantiene activo solo mientras se generan salidas válidas.
+ * ========================================================================== */
 
 
 module prom_coherente_pipelined(

@@ -1,3 +1,10 @@
+/* =================================================================================
+ * ======================== adc2streaming ==========================================
+ * Este módulo convierte una señal de ADC de tipo "latch" o muestreo puntual 
+ * en un flujo de datos streaming. 
+ * Detecta flancos de subida en la señal `sinc` para generar `data_out_valid0`. 
+ * La salida `data_out0` mantiene el último valor de `data_in` hasta el siguiente flanco.
+ * ================================================================================= */
 
 module adc2streaming(
 

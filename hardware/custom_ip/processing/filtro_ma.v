@@ -1,3 +1,55 @@
+/*==============================================================================
+ Módulo: filtro_ma
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Implementa un **filtro de media móvil simple** para señales de streaming tipo 
+ Avalon. El módulo acumula `frames_integracion` ciclos de señal, cada uno con 
+ `ptos_x_ciclo` puntos, y entrega la suma acumulada como salida.
+
+ Características:
+ -----------------
+ - Entrada/salida tipo Avalon Streaming (data + valid).  
+ - Acumulación de datos controlada por `enable`.  
+ - Señales auxiliares de control: `ready_to_calculate`, `calculo_finalizado`.  
+ - Reset síncrono y asíncrono.  
+ - Conteo interno de muestras y acumulador de 64 bits para evitar saturación.
+
+ Parámetros internos:
+ ---------------------
+ - M : Puntos por ciclo de señal (`ptos_x_ciclo`).  
+ - N : Número de frames a integrar (`frames_integracion`).  
+ - MxN: Total de muestras a acumular (M * N).
+
+ Entradas:
+ ----------
+ - clock           : Reloj del sistema.  
+ - reset_n         : Reset activo en bajo.  
+ - enable          : Habilita la operación del filtro.  
+ - ptos_x_ciclo    : Puntos por ciclo de señal (M).  
+ - frames_integracion: Número de ciclos a integrar (N).  
+ - data_valid      : Señal de validez de la entrada.  
+ - data            : Datos de entrada (64 bits con signo).
+
+ Salidas:
+ ---------
+ - data_out           : Resultado acumulado (64 bits con signo).  
+ - data_out_valid     : Indica validez de `data_out`.  
+ - ready_to_calculate  : Señal de control que indica que el módulo está listo.  
+ - calculo_finalizado : Flag activo cuando se completa la integración.
+
+ Notas:
+ -------
+ - La acumulación solo ocurre cuando `data_valid` está activo y el proceso no 
+   ha finalizado (`finish`).  
+ - `index` lleva la cuenta de cuántas muestras válidas han sido sumadas.  
+ - `acumulador` es de 64 bits para prevenir saturación al acumular múltiples 
+   frames.  
+ - Una vez alcanzado el total de muestras (`MxN`), `calculo_finalizado` se activa 
+   y el módulo deja de acumular hasta un reset.
+
+==============================================================================*/
 
 module filtro_ma(
 

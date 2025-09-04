@@ -1,3 +1,13 @@
+/* =================================================================================
+ * ==============================  dac_driver ======================================
+ * Este módulo controla un DAC de alta velocidad. 
+ * Puede seleccionar la señal de salida entre datos digitales externos 
+ * o una tabla de look-up interna (LU table). 
+ * Realiza ajuste de niveles digitales para compatibilidad con el DAC/ADC. 
+ * Genera la señal de salida DAC_DA/DAC_DB, los clocks DAC_CLK_A/B y 
+ * la señal de validación data_valid_dac_export para sincronización con módulos posteriores.
+//================================================================================= */
+
 
 module dac_driver(
 

@@ -1,3 +1,38 @@
+/* ==========================================================================
+ * ============================ DATA SOURCE ==================================
+ *  Descripción general:
+ *    Este módulo genera datos simulados tipo sinusoidal cuantizada en 14 bits,
+ *    agregando ruido opcional. Puede generar ruido mediante LFSR o un
+ *    generador congruencial lineal (GCL), según el parámetro de selección.
+ *    Los datos se entregan como flujo tipo Avalon Streaming.
+ *
+ *  Entradas:
+ *    - clock: reloj principal de operación.
+ *    - reset_n: reset activo en bajo.
+ *    - enable: habilita la generación de datos.
+ *    - simulation_noise: cantidad de bits de ruido a generar.
+ *    - ptos_x_ciclo: número de puntos por ciclo de la señal sinusoidal.
+ *    - seleccion_ruido: 0 -> LFSR; 1 -> GCL.
+ *
+ *  Salidas:
+ *    - data_valid: indica que el dato de salida es válido.
+ *    - data: dato de salida de 32 bits con señal y ruido.
+ *    - zero_cross: pulso en cada paso por cero de la señal sinusoidal.
+ *    - lfsr_cicled: indica cuando el LFSR completa un ciclo completo.
+ *
+ *  Funcionamiento:
+ *    1. Se selecciona el generador de ruido según `seleccion_ruido`.
+ *    2. Se calcula el intervalo dentro de la tabla de look-up para obtener
+ *       la señal sinusoidal cuantizada.
+ *    3. Se suma el ruido atenuado al valor de la señal para producir la
+ *       salida final `data`.
+ *    4. Se generan las señales auxiliares `zero_cross` y `lfsr_cicled`.
+ *
+ *  Observaciones:
+ *    - La tabla de look-up tiene 2048 valores y se adapta a la cantidad de
+ *      puntos por ciclo usando interpolación por índice.
+ *    - Adecuado para pruebas de sistemas de ADC/DAC con señal y ruido controlado.
+ * ========================================================================== */
 
 module data_source(
 

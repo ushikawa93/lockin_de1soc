@@ -1,3 +1,35 @@
+/* ==========================================================================
+ * ============================ MULTIPLICATE_REF ============================
+ *  Descripción general:
+ *    Este módulo multiplica una señal de entrada por sus referencias 
+ *    seno y coseno almacenadas en tablas (LU tables), generando las 
+ *    componentes de fase y cuadratura en streaming.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset: reset activo en bajo.
+ *    - enable: habilita la operación del módulo.
+ *    - ptos_x_ciclo: cantidad de puntos por ciclo de señal, usado para 
+ *      calcular correctamente los índices de las referencias.
+ *    - data: señal de entrada a multiplicar (signed 32 bits).
+ *    - data_valid: indica que `data` es válida.
+ *
+ *  Salidas:
+ *    - data_out_seno: resultado de multiplicar `data` por la referencia seno.
+ *    - data_out_coseno: resultado de multiplicar `data` por la referencia coseno.
+ *    - data_valid_multiplicacion: indica que las salidas son válidas.
+ *
+ *  Funcionamiento:
+ *    1. Se leen las referencias seno y coseno desde las tablas `ref_sen` y `ref_cos`.
+ *    2. La señal de entrada se registra en varias etapas para sincronización.
+ *    3. Se calculan los productos `data*ref_seno` y `data*ref_cos`.
+ *    4. Se generan las salidas en streaming junto con la señal de validación.
+ *
+ *  Observaciones:
+ *    - Se implementa en pipeline de 4 etapas para mejorar el timing.
+ *    - `data_valid_multiplicacion` se genera solo cuando todas las etapas han procesado la entrada.
+ * ========================================================================== */
+
 
 module multiplicate_ref(
 

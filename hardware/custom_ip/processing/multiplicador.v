@@ -1,3 +1,33 @@
+/* ==========================================================================
+ * ============================= MULTIPLICADOR ==============================
+ *  Descripción general:
+ *    Este módulo realiza la multiplicación de dos señales de entrada
+ *    en streaming (Avalon streaming) y entrega la salida registrada
+ *    junto con la señal de validación.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset_n: reset activo en bajo.
+ *    - enable: habilita la operación de multiplicación.
+ *    - data_a: primer operando (signed 32 bits).
+ *    - data_b: segundo operando (signed 32 bits).
+ *    - data_valid: indica que las entradas `data_a` y `data_b` son válidas.
+ *
+ *  Salidas:
+ *    - data_out: resultado de la multiplicación (signed 64 bits).
+ *    - data_valid_multiplicacion: indica que `data_out` es válido.
+ *
+ *  Funcionamiento:
+ *    1. Las entradas se registran para sincronizar y estabilizar los datos.
+ *    2. La multiplicación se realiza en dos etapas:
+ *       - Primera etapa: producto registrado.
+ *       - Segunda etapa: producto enviado a la salida y validado.
+ *    3. La señal `data_valid_multiplicacion` indica cuándo la salida es confiable.
+ *
+ *  Observaciones:
+ *    - La señal `enable` permite detener la operación sin alterar el registro.
+ *    - El módulo está preparado para trabajar en un pipeline de 2 etapas.
+ * ========================================================================== */
 
 module multiplicador(
 

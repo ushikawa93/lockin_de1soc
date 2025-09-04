@@ -1,3 +1,50 @@
+/* ==========================================================================
+ * ========================= LOCKIN_PIPELINED ===============================
+ *  Descripción general:
+ *    Este módulo implementa un Lock-in amplifier digital con procesamiento
+ *    en pipeline. Calcula simultáneamente la componente en fase y en cuadratura
+ *    de una señal de entrada mediante multiplicación con referencias seno y 
+ *    coseno predefinidas y acumulación de resultados sobre un número configurable
+ *    de puntos por ciclo y frames de integración.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset: reset síncrono.
+ *    - configuracion: word de 51 bits que define parámetros del Lock-in:
+ *        - [0]: origen de datos (1 = simulado, 0 = ADC)
+ *        - [8:1]: cantidad de bits de ruido en simulación
+ *        - [24:9]: puntos por ciclo de señal
+ *        - [32:25]: largo del Lock-in (frames de integración)
+ *        - [33]: canal ADC (1 = canal a, 0 = canal b)
+ *        - [49:34]: cantidad de ciclos promediados coherentemente
+ *    - data_valid: indica que el dato de entrada es válido.
+ *    - data: señal de entrada (signed 32 bits)
+ *
+ *  Salidas:
+ *    - data_out_fase: componente en fase acumulada (signed 64 bits)
+ *    - data_valid_fase: indica que data_out_fase es válida
+ *    - data_out_cuad: componente en cuadratura acumulada (signed 64 bits)
+ *    - data_valid_cuad: indica que data_out_cuad es válida
+ *    - fifos_llenos: indica que se completó el llenado de los FIFOs internos
+ *
+ *  Funcionamiento:
+ *    1. Al recibir un dato válido, se calcula el índice de referencia según la
+ *       configuración de puntos por ciclo y frames de integración.
+ *    2. Se multiplican los datos entrantes por las referencias seno y coseno
+ *       correspondientes.
+ *    3. Los productos se guardan en arreglos circulares y se acumulan mediante
+ *       un acumulador tipo FIFO deslizante.
+ *    4. Las salidas de fase y cuadratura se actualizan en la última etapa del
+ *       pipeline.
+ *    5. La señal fifos_llenos indica cuándo se completó el llenado del buffer
+ *       interno y se pueden procesar los resultados.
+ *
+ *  Observaciones:
+ *    - Los arrays de referencias se inicializan desde archivos hexadecimales.
+ *    - Para inferencia correcta de bloques DSP, algunas señales no se inicializan
+ *      explícitamente.
+ *    - El pipeline tiene 6 etapas, optimizando el throughput de la operación.
+ * ========================================================================== */
 
 module lockin_pipelined(
 

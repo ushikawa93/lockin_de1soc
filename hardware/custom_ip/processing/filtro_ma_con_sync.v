@@ -1,3 +1,64 @@
+/*==============================================================================
+ Módulo: filtro_ma_con_sync
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Implementa un **filtro de media móvil sincronizado** para señales de streaming 
+ tipo Avalon.  
+ Acumula `frames_integracion` ciclos de señal (cada uno con `ptos_x_ciclo` puntos) 
+ y entrega la suma acumulada como salida, junto con señales de validación y 
+ control.
+
+ Características:
+ -----------------
+ - Entrada/salida tipo Avalon Streaming (data + valid).  
+ - Acumulación de datos con control de habilitación (`enable`).  
+ - Control mediante señal de inicio (`start_signal`) y conteo de frames.  
+ - Señales auxiliares de control: `ready_to_calculate`, `calculo_finalizado`, 
+   `datos_promediados`.  
+ - Reset síncrono y asíncrono.  
+ - Conteo interno de frames promediados y acumulación de datos de 64 bits.
+
+ Parámetros internos:
+ ---------------------
+ - M : Cantidad de puntos por ciclo de señal (`ptos_x_ciclo`).  
+ - N : Número de frames a integrar (`frames_integracion`).  
+ - ignore_cycles : Ciclos iniciales de start a ignorar (default = 1).
+
+ Entradas:
+ ----------
+ - clock             : Reloj del sistema.  
+ - reset_n           : Reset activo en bajo.  
+ - enable            : Habilita la operación del filtro.  
+ - ptos_x_ciclo      : Puntos por ciclo de señal (M).  
+ - frames_integracion: Número de ciclos a integrar (N).  
+ - data_valid        : Señal de validez de entrada.  
+ - data              : Datos de entrada (64 bits).  
+ - start_signal      : Señal de inicio de cálculo.
+
+ Salidas:
+ ---------
+ - data_out           : Resultado acumulado (64 bits).  
+ - data_out_valid     : Indica validez de `data_out`.  
+ - ready_to_calculate  : Señal de control que indica que el módulo está listo.  
+ - calculo_finalizado : Flag activo cuando se completa la integración.  
+ - datos_promediados  : Número de muestras acumuladas hasta el momento.
+
+ Notas:
+ -------
+ - El módulo acumula las muestras solo cuando `start_signal` está activo y 
+   el proceso no ha terminado (`finish`).  
+ - `start_count` controla el inicio efectivo del cálculo después de ignorar 
+   los ciclos iniciales.  
+ - `datos_promediados` permite conocer cuántas muestras válidas han sido 
+   sumadas.  
+ - `acumulador` es de 64 bits para evitar saturación durante la suma de múltiples 
+   frames.  
+
+==============================================================================*/
+
+
 module filtro_ma_con_sync(
 
 	// Entradas de control

@@ -1,3 +1,70 @@
+/*==============================================================================
+ Módulo: signal_processing_CALI
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Módulo de procesamiento de señal para promedio coherente seguido de lockin, implementando 
+ un **lock-in segmentado** con promediación coherente previa. Procesa señales de 
+ streaming tipo Avalon y soporta referencias externas senoidales y cosenoidales.  
+
+ Características principales:
+ -----------------------------
+ - Promediación coherente de la señal de entrada usando `prom_coherente_pipelined_con_sync`.
+ - Lock-in segmentado que calcula componente en fase y en cuadratura.
+ - Soporte de referencias externas (sen y cos) con retraso para sincronización 
+   de pipeline.
+ - Salidas de streaming tipo Avalon:
+     - `data_out1`: señal en fase.
+     - `data_out2`: señal en cuadratura (cuadratura del lock-in).
+     - `aux_signal`: salida auxiliar de la etapa de promediación coherente.
+ - Señales de control:
+     - `ready_to_calculate`: indica que el lock-in está listo.
+     - `processing_finished`: indica que se completó el cálculo.
+ - Soporta bypass de promediación coherente.
+ - Parametrización mediante registros configurables (`parameter_in_0` a `parameter_in_32`) 
+   que se cargan al reset.
+
+ Entradas:
+ ----------
+ - clk                      : Reloj del sistema.
+ - reset_n                  : Reset activo bajo.
+ - enable_gral              : Habilita procesamiento general.
+ - bypass                    : Habilita paso directo sin promediación coherente.
+ - referencia_externa        : Señal de referencia externa (binaria).
+ - sync                      : Señal de sincronización para el promedio coherente.
+ - referencia_externa_sen    : Componente senoidal de la referencia externa.
+ - referencia_externa_cos    : Componente cosenoidal de la referencia externa.
+ - referencia_externa_valid  : Indica validez de la referencia externa.
+ - data_in                   : Datos de entrada a procesar (32 bits con signo).
+ - data_in_valid             : Validez de `data_in`.
+ - parameter_in_0 .. parameter_in_32 : Parámetros de configuración cargados al reset.
+
+ Paámetros importantes:
+ -M = parameter_0_reg;   	 : Puntos por ciclo de señal
+ -N_ma = parameter_1_reg;	 : Número de ciclos proediados en el Lock-in
+ -N_ca = parameter_2_reg;	 : Número de ciclos promediados coherentemente
+
+ Salidas:
+ ---------
+ - data_out1                 : Componente en fase del lock-in (64 bits).
+ - data_out1_valid           : Validez de `data_out1`.
+ - data_out2                 : Componente en cuadratura del lock-in (64 bits).
+ - data_out2_valid           : Validez de `data_out2`.
+ - aux_signal                : Salida auxiliar de promediación coherente (32 bits).
+ - aux_signal_valid          : Validez de `aux_signal`.
+ - ready_to_calculate        : Indica que el lock-in está listo para calcular.
+ - processing_finished       : Indica que el procesamiento finalizó.
+ - parameter_out_0 .. parameter_out_4 : Parámetros de salida (uso general).
+
+ Notas:
+ -------
+ - La promediación coherente utiliza un pipeline de 3 etapas.
+ - Se introducen delays en la referencia externa para compensar desfases.
+ - `lockin_segmentado` procesa la señal promedio coherente en componentes de fase 
+   y cuadratura.
+ - Se pueden deshabilitar las etapas de procesamiento usando la sección de bypass.
+==============================================================================*/
 
 module signal_processing_CALI(
 	input clk,

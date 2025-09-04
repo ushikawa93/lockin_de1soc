@@ -1,3 +1,63 @@
+/*==============================================================================
+ Módulo: filtro_promedio_movil
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Implementa un **filtro de promedio móvil** para señales de streaming tipo 
+ Avalon. El módulo acumula `frames_integracion` ciclos de señal, cada uno con 
+ `ptos_x_ciclo` puntos, y entrega la media móvil resultante en tiempo real.  
+ Se utiliza un buffer circular para mantener los valores y evitar overflow, y 
+ la salida se actualiza cada ciclo de manera pipelined.
+
+ Características:
+ -----------------
+ - Entrada/salida tipo Avalon Streaming (data + valid).  
+ - Acumulación de datos con buffer circular para promedio móvil.  
+ - Señales auxiliares de control: `ready_to_calculate`, `calculo_finalizado`.  
+ - Reset síncrono y asíncrono.  
+ - Evita overflow usando registros de 64 bits y buffer.  
+ - Control de llenado de FIFO y ciclos completados para integración.
+
+ Parámetros internos:
+ ---------------------
+ - buf_tam : Tamaño máximo del buffer (4096).  
+ - delay   : Retardo interno de pipeline (3).  
+ - fifo_depth : Profundidad del FIFO (2048).  
+ - M : Puntos por ciclo de señal (`ptos_x_ciclo`).  
+ - N : Número de frames a integrar (`frames_integracion`).  
+ - MxN : Total de muestras a acumular (M * N).  
+ - ciclos_para_llenar_fifo : Número de ciclos necesarios para llenar el FIFO.
+
+ Entradas:
+ ----------
+ - clock           : Reloj del sistema.  
+ - reset_n         : Reset activo en bajo.  
+ - enable          : Habilita la operación del filtro.  
+ - ptos_x_ciclo    : Puntos por ciclo de señal (M).  
+ - frames_integracion: Número de ciclos a integrar (N).  
+ - data_valid      : Señal de validez de la entrada.  
+ - data            : Datos de entrada (64 bits con signo).
+
+ Salidas:
+ ---------
+ - data_out           : Resultado del promedio móvil (64 bits con signo).  
+ - data_out_valid     : Indica validez de `data_out`.  
+ - ready_to_calculate  : Indica que el módulo está listo para operar.  
+ - calculo_finalizado : Flag activo cuando se completa la integración o FIFO lleno.
+
+ Notas:
+ -------
+ - El cálculo se realiza en tres etapas: registro de entrada, actualización del 
+   acumulador y actualización de la salida.  
+ - Se utiliza un buffer circular (`array_datos`) para restar el valor antiguo 
+   y sumar el valor nuevo, manteniendo la media móvil.  
+ - `limpiando_arrays` asegura que el buffer esté inicializado antes de empezar 
+   el cálculo.  
+ - `fifo_lleno` y `finish` controlan la finalización del cálculo para evitar 
+   overflow.  
+
+==============================================================================*/
 
 module filtro_promedio_movil(
 

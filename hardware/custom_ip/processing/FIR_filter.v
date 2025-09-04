@@ -1,3 +1,37 @@
+/* ==========================================================================
+ * ============================ FIR_FILTER ==================================
+ *  Descripción general:
+ *    Este módulo implementa un filtro FIR de longitud configurable (N+1
+ *    coeficientes). Realiza la convolución de los datos de entrada con los
+ *    coeficientes especificados. Permite un modo bypass donde los datos de
+ *    entrada se transmiten directamente a la salida.
+ *
+ *  Entradas:
+ *    - clk: reloj del sistema.
+ *    - reset_n: reset activo en bajo.
+ *    - enable: habilita el procesamiento del filtro.
+ *    - bypass: si es 1, los datos entran directamente a la salida.
+ *    - coef_0 ... coef_32: coeficientes del FIR (signed 32 bits).
+ *    - data_in: dato de entrada (signed 32 bits).
+ *    - data_in_valid: indica que el dato de entrada es válido.
+ *
+ *  Salidas:
+ *    - data_out: dato filtrado (signed 32 bits).
+ *    - data_out_valid: indica que la salida es válida.
+ *
+ *  Funcionamiento:
+ *    1. Se almacenan los últimos N+1 datos en un buffer interno x[].
+ *    2. Cada nuevo dato desplaza el buffer y se calcula la suma ponderada
+ *       de los productos de coeficientes y datos.
+ *    3. La suma parcial se divide en bloques de 10 elementos para optimizar
+ *       la síntesis y luego se suman los bloques parciales para obtener y.
+ *    4. Si bypass está activo, data_out = data_in y se replica data_in_valid.
+ *
+ *  Observaciones:
+ *    - El módulo permite hasta 33 coeficientes, ajustables por parámetro N.
+ *    - La salida se ajusta con un desplazamiento a la derecha de 16 bits
+ *      para mantener la escala de 32 bits.
+ * ========================================================================== */
 
 module FIR_filter (
 

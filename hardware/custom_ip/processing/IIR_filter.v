@@ -1,3 +1,41 @@
+/* ==========================================================================
+ * ============================ IIR_FILTER ==================================
+ *  Descripción general:
+ *    Este módulo implementa un filtro IIR discreto de segundo orden con
+ *    coeficientes predefinidos. Realiza la ecuación en diferencias:
+ *       y[n] = (B1*x[n] + B2*x[n-1] - A2*y[n-1]) >> log2A1
+ *    Permite el procesamiento de datos en streaming con control de habilitación
+ *    y reset, y genera señales auxiliares para indicar disponibilidad y FIFO lleno.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset_n: reset activo en bajo.
+ *    - enable: habilita el procesamiento del filtro.
+ *    - data_valid: indica que el dato de entrada es válido.
+ *    - data: dato de entrada (signed 64 bits).
+ *    - ptos_x_ciclo, frames_integracion: parámetros de configuración (no usados
+ *      funcionalmente, se mantienen para compatibilidad de interfaz).
+ *
+ *  Salidas:
+ *    - data_out: dato filtrado (signed 64 bits).
+ *    - data_out_valid: indica que la salida es válida.
+ *    - ready: indica que el filtro está listo para calcular.
+ *    - fifo_lleno: indica que se alcanzó la profundidad del FIFO.
+ *
+ *  Funcionamiento:
+ *    1. Al recibir un dato válido, se actualiza el estado x[n-1].
+ *    2. Se calcula y[n] usando los coeficientes B1, B2 y A2 con desplazamiento
+ *       log2A1 para ajustar la cuantización.
+ *    3. Se incrementa un contador para controlar cuándo se completó el llenado
+ *       del FIFO.
+ *    4. Las señales auxiliares indican disponibilidad y llenado del buffer.
+ *
+ *  Observaciones:
+ *    - Los coeficientes A1, A2, B1 y B2 están predefinidos y cuantizados a 8 bits.
+ *    - El módulo mantiene compatibilidad de interfaz con otros filtros de media móvil
+ *      aunque ptos_x_ciclo y frames_integracion no se usan.
+ * ========================================================================== */
+
 
 module IIR_filter(
 

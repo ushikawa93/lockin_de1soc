@@ -1,3 +1,58 @@
+/*==============================================================================
+ Módulo: prom_coherente_pipelined_con_sync
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Implementa un **promediador coherente en pipeline** de señales de streaming 
+ tipo Avalon. El módulo acumula `frames_prom_coherente` ciclos de señal, cada 
+ uno con `ptos_x_ciclo` puntos, y entrega el ciclo promedio resultante.  
+ Soporta señal de sincronización (`sync`) para alinear el promedio y un modo 
+ bypass para pasar la señal de entrada directamente.
+
+ Características:
+ -----------------
+ - Entrada/salida tipo Avalon Streaming (data + valid).  
+ - Promediado coherente de múltiples frames de la señal.  
+ - Pipeline de 3 etapas: registro, suma con buffer, almacenamiento.  
+ - Control de sincronización (`sync`) para alinear los ciclos.  
+ - Modo bypass para pasar los datos sin procesar.  
+ - Reset síncrono y asíncrono.  
+ - Buffer circular de 32k muestras para evitar overflow.
+
+ Parámetros internos:
+ ---------------------
+ - buf_tam : Tamaño del buffer (32768).  
+ - M : Puntos por ciclo de señal (`ptos_x_ciclo`).  
+ - N : Número de frames a promediar (`frames_prom_coherente`).  
+
+ Entradas:
+ ----------
+ - clk           : Reloj del sistema.  
+ - reset_n       : Reset activo en bajo.  
+ - enable        : Habilita la operación del módulo.  
+ - ptos_x_ciclo  : Puntos por ciclo de señal (M).  
+ - frames_prom_coherente : Número de frames a promediar (N).  
+ - sync          : Señal de sincronización para reiniciar promedio.  
+ - bypass        : Habilita el paso directo de la señal de entrada.  
+ - data_in_valid : Indica validez de `data_in`.  
+ - data_in       : Datos de entrada (32 bits con signo).
+
+ Salidas:
+ ---------
+ - data_out       : Resultado del promedio coherente (32 bits con signo).  
+ - data_out_valid : Indica validez de `data_out`.  
+ - sync_out       : Señal de sincronización salida (opcional, alineada con 
+                    la salida).  
+
+ Notas:
+ -------
+ - El pipeline interno utiliza tres registros de índices para mantener la 
+   coherencia entre las etapas.  
+ - `buffer` almacena temporalmente los datos sumados para el promedio.  
+ - `start` indica el inicio del promedio cuando se recibe un `sync`.  
+ - Modo bypass permite usar el módulo como simple retraso sin procesamiento.
+==============================================================================*/
 
 
 module prom_coherente_pipelined_con_sync(

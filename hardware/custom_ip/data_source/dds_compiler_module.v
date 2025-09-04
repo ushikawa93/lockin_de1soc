@@ -1,3 +1,50 @@
+/*==============================================================================
+ Módulo: dds_compiler_module
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Generador de señal digital basado en la técnica de **Direct Digital Synthesis** (DDS).
+ Este módulo implementa un acumulador de fase y una tabla de búsqueda (LU table) 
+ para obtener las señales seno y coseno cuantizadas a una resolución configurable.
+
+ Características:
+ -----------------
+ - Generación de señales senoidales y cosenoidales de salida con resolución ajustable.
+ - Control de frecuencia mediante incremento de fase (word de control).
+ - Opción de retornar a cero en caso de overflow del acumulador de fase.
+ - Salidas disponibles en modo normal (0–Vmax) y en modo CA acoplado (centradas en cero).
+ - Señal de validación de datos (`data_out_valid`).
+ - Señal de cruce por cero (`zero_cross`) para sincronización externa.
+
+ Parámetros:
+ ------------
+ - res_f              : Resolución en frecuencia (Hz).
+ - f_clk              : Frecuencia de reloj del sistema (Hz).
+ - B_acumulador       : Bits del acumulador de fase (ceil(log2(f_clk/res_f))).
+ - B_out              : Bits de las señales de salida seno/coseno.
+ - B_depth_lu_table   : Bits de dirección de la tabla de búsqueda (determina SFDR).
+ - B_lu_table         : Bits de cuantización de los valores en la tabla.
+ - return2zero        : Habilita retorno a cero en overflow del acumulador (1=activo).
+
+ Entradas:
+ ----------
+ - clk                : Reloj del sistema.
+ - reset_n            : Reset activo en bajo.
+ - enable             : Habilita la actualización del DDS.
+ - incremento_fase    : Word de control de frecuencia 
+                        (≈ f_deseada * 2^B_acumulador / f_clk).
+
+ Salidas:
+ ---------
+ - zero_cross                  : Señal activa en cruce por cero.
+ - data_out_seno               : Señal senoidal (no firmada).
+ - data_out_coseno             : Señal cosenoidal (no firmada).
+ - data_out_valid              : Flag de validez de datos de salida.
+ - data_out_seno_ca_coupled    : Señal senoidal firmada, centrada en cero.
+ - data_out_coseno_ca_coupled  : Señal cosenoidal firmada, centrada en cero.
+
+==============================================================================*/
 
 module dds_compiler_module #(
 

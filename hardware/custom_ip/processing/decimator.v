@@ -1,3 +1,53 @@
+/*==============================================================================
+ Módulo: decimator
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Módulo **decimador** que reduce la tasa de muestreo de una señal digital.  
+ Cada N-ésima muestra (definida por `decimate_value`) se transmite al 
+ siguiente bloque, descartando las demás.  
+ Mantiene una señal de validez (`data_out_valid`) para la salida y un flag 
+ de finalización (`finish`) cuando se alcanza la profundidad máxima del buffer.
+
+ Características:
+ -----------------
+ - Entrada/salida de 32 bits.
+ - Control de decimación mediante `decimate_value`.
+ - Señal de salida validada (`data_out_valid`).
+ - Flag de finalización (`finish`) al alcanzar `FIFO_DEPTH`.
+ - Reset síncrono y asíncrono.
+
+ Parámetros:
+ ------------
+ - FIFO_DEPTH : Cantidad máxima de datos procesados antes de indicar `finish` 
+                (default = 1024).
+
+ Entradas:
+ ----------
+ - clk           : Reloj del sistema.
+ - reset_n       : Reset global activo en bajo.
+ - enable        : Habilita la operación del decimador.
+ - data_in       : Señal de entrada a decimar (32 bits).
+ - data_in_valid : Señal que indica validez de la entrada.
+ - decimate_value: Factor de decimación (cada `decimate_value` muestras se toma 1).
+
+ Salidas:
+ ---------
+ - data_out       : Salida decimada (32 bits).
+ - data_out_valid : Señal de validez de `data_out`.
+ - finish         : Flag activo cuando se han procesado `FIFO_DEPTH` muestras.
+
+ Notas:
+ -------
+ - El contador interno `counter` controla la frecuencia de muestreo de salida.
+ - `counter_data` lleva la cuenta total de muestras transmitidas.
+ - Solo se transmite una muestra cada `decimate_value` entradas válidas.
+ - Se puede reiniciar el proceso mediante `reset_n`.
+
+==============================================================================*/
+
+
 `timescale 1ns / 1ps
 
 module decimator(

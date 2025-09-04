@@ -1,3 +1,31 @@
+/* ==========================================================================
+ * ============================ TIMER =======================================
+ *  Descripción general:
+ *    Este módulo genera una señal tipo "sinc" con una frecuencia deseada
+ *    a partir de un reloj de entrada. La frecuencia de salida se ajusta
+ *    dinámicamente según la entrada `frecuencia_deseada`.
+ *
+ *  Entradas:
+ *    - clk: reloj base del sistema.
+ *    - reset: resetea el contador y la salida.
+ *    - enable: habilita la generación de la señal sinc.
+ *    - frecuencia_deseada: frecuencia objetivo de la señal de salida.
+ *
+ *  Salidas:
+ *    - sinc: señal periódica con ciclo de trabajo aproximadamente 50%.
+ *
+ *  Funcionamiento:
+ *    1. La frecuencia deseada se almacena en un registro interno.
+ *    2. Se calcula el número de ciclos del reloj base necesarios para
+ *       generar un periodo de la señal de salida (`clock_count`).
+ *    3. Un contador incrementa en cada flanco de reloj habilitado.
+ *    4. La salida `sinc` se activa cuando el contador supera la mitad del
+ *       periodo (`half_clock_count`) para mantener un ciclo de trabajo ~50%.
+ *
+ *  Observaciones:
+ *    - Permite cambiar la frecuencia de salida dinámicamente.
+ *    - Ideal para generar triggers o relojes lentos a partir de un PLL rápido.
+ * ========================================================================== */
 
 module timer(
 

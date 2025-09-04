@@ -1,3 +1,39 @@
+/* ==========================================================================
+ * ============================== LOCKIN ====================================
+ *  Descripción general:
+ *    Este módulo implementa un Lock-in amplifier digital simple para una
+ *    señal de entrada en streaming. Calcula las componentes en fase y
+ *    cuadratura mediante multiplicación por referencias seno y coseno
+ *    almacenadas en ROM, y un esquema de acumulación tipo FIFO circular.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset: reset síncrono.
+ *    - CE: enable de entrada para procesar el dato.
+ *    - data: señal de entrada (signed 32 bits).
+ *
+ *  Salidas:
+ *    - data_out_fase: componente en fase acumulada (signed 32 bits).
+ *    - data_valid_fase: indica que data_out_fase es válida.
+ *    - data_out_cuad: componente en cuadratura acumulada (signed 32 bits).
+ *    - data_valid_cuad: indica que data_out_cuad es válida.
+ *
+ *  Funcionamiento:
+ *    1. La señal de entrada se multiplica por la referencia seno y coseno
+ *       correspondiente según el índice de la tabla de ROM.
+ *    2. Los productos se almacenan en RAM de puerto simple para poder restar
+ *       la contribución anterior y sumar la nueva, implementando un filtro
+ *       pasabajo tipo moving average de largo M+1.
+ *    3. La salida de fase y cuadratura se actualiza en cada ciclo válido.
+ *    4. El índice de la tabla de referencia se incrementa de manera circular.
+ *
+ *  Observaciones:
+ *    - Se utiliza un FSM con 6 estados para pipeline: init, esperar,
+ *      multiplicar, restar_anterior, sumar_nuevo y act_salida.
+ *    - Las tablas de referencia se cargan mediante $readmemh desde ROM.
+ *    - Este módulo es adecuado para longitudes de ventana fijas y relativamente
+ *      pequeñas (M=31 por defecto).
+ * ========================================================================== */
 
 module lockin
 

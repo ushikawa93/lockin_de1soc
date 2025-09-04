@@ -1,3 +1,38 @@
+/* ==========================================================================
+ * ====================== REMOVE_MEAN_VALUE_PIPELINED ======================
+ *  Descripción general:
+ *    Este módulo elimina el valor medio (DC offset) de una señal de entrada
+ *    utilizando un promedio móvil de M puntos, implementado de manera pipelined.
+ *    La salida es la señal centrada en cero.
+ *
+ *  Entradas:
+ *    - clock: reloj del sistema.
+ *    - reset_n: reset activo en bajo.
+ *    - data_in: señal de entrada a procesar.
+ *    - data_in_valid: flag de dato válido en entrada.
+ *
+ *  Salidas:
+ *    - data_out: señal de salida con el valor medio eliminado.
+ *    - data_out_valid: flag indicando que la salida es válida.
+ *
+ *  Parámetros:
+ *    - M: cantidad de muestras usadas para el cálculo del promedio móvil.
+ *
+ *  Funcionamiento:
+ *    1. Se registran las entradas para sincronizar el pipeline (etapas 1-2).
+ *    2. Se guarda cada dato en un buffer circular de M posiciones.
+ *    3. Se mantiene un acumulador que suma el dato entrante y resta el dato
+ *       que se va a sobrescribir (etapa 3), obteniendo un promedio móvil eficiente.
+ *    4. La salida se calcula restando el promedio (acumulador/M) del dato actual
+ *       (etapa 4), entregando la señal centrada en cero.
+ *    5. Se utilizan registros auxiliares `data_valid_aux*` para propagar la validez
+ *       de la señal a través del pipeline.
+ *
+ *  Observaciones:
+ *    - La operación de promedio se realiza con desplazamiento de bits `>> 5`
+ *      lo cual corresponde a M=32. Ajustar el shift si se cambia M.
+ *    - El clear inicial borra el buffer antes de comenzar el procesamiento.
+ * ========================================================================== */
 
 module remove_mean_value_pipelined(
 	input clock,

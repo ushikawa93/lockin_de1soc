@@ -1,3 +1,55 @@
+/*==============================================================================
+ Módulo: lu_table
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Implementación de una **tabla de búsqueda (Look-Up Table, LUT)** optimizada para 
+ generación de señales senoidal y cosenoidal en un DDS.  
+ Aprovecha simetrías de las funciones seno y coseno para almacenar únicamente 
+ el primer cuarto de la onda, reduciendo así el espacio de memoria requerido 
+ (1/4 de la tabla completa).  
+
+ Características:
+ -----------------
+ - Uso de memoria inicializada desde archivos externos (`.mem`).
+ - Generación simultánea de seno y coseno.
+ - Resolución configurable en profundidad (direcciones) y cuantización (bits).
+ - Optimización de espacio gracias a las propiedades de simetría de las funciones.
+
+ Parámetros:
+ ------------
+ - B_depth_lu_table  : Bits de dirección de la tabla de búsqueda.  
+                       Determina el número de muestras de la onda 
+                       (depth = 2^B_depth_lu_table).
+ - B_lu_table        : Bits de cuantización de cada valor de seno/coseno.
+
+ Parámetros internos:
+ ---------------------
+ - depth_LU_table    : Cantidad total de puntos de la tabla (2^B_depth_lu_table).  
+ - c                 : Punto donde la función seno comienza a decrecer (¼ del ciclo).  
+ - v_medio           : Valor medio de la cuantización (centra las ondas).  
+
+ Entradas:
+ ----------
+ - clk               : Reloj del sistema.
+ - reset_n           : Reset activo en bajo.
+ - address           : Dirección de fase truncada (proveniente del acumulador DDS).
+
+ Salidas:
+ ---------
+ - sen               : Valor senoidal correspondiente a la dirección.
+ - cos               : Valor cosenoidal correspondiente a la dirección.
+
+ Notas:
+ -------
+ - La tabla de memoria se carga desde archivo según la resolución:  
+    * x4096_16b_cuarto_de_tabla.mem  → para B_depth_lu_table = 12  
+    * x16384_16b_cuarto_de_tabla.mem → para B_depth_lu_table = 14  
+ - Se aprovecha simetría para generar los 4 cuadrantes de seno y coseno a partir 
+   de un solo cuarto de tabla.  
+
+==============================================================================*/
 
 module lu_table #(
 

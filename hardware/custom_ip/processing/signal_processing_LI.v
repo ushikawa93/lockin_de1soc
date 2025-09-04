@@ -1,3 +1,57 @@
+/*==============================================================================
+ Módulo: signal_processing_LI
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Módulo de procesamiento de señal tipo Lock-In (LI) para streaming Avalon. 
+ Calcula componentes en fase y en cuadratura de la señal de entrada usando una 
+ referencia externa senoidal/cosenoidal.  
+
+ Características principales:
+ -----------------------------
+ - Lock-in segmentado con referencia externa opcional.
+ - Procesamiento de señales de streaming tipo Avalon.
+ - Salidas en fase y cuadratura (64 bits con signo).
+ - Parametrizable mediante registros configurables (`parameter_in_0` a `parameter_in_32`) 
+   cargados al reset.
+ - Señales de control:
+     - `ready_to_calculate`: indica que el lock-in está listo para operar.
+     - `processing_finished`: indica que se completó el cálculo.
+ - Soporta bypass para evaluación sin procesamiento si se desea.
+
+ Entradas:
+ ----------
+ - clk                      : Reloj del sistema.
+ - reset_n                  : Reset activo bajo.
+ - enable_gral              : Habilita procesamiento general.
+ - bypass                    : Habilita paso directo sin procesamiento.
+ - referencia_externa        : Señal de referencia externa (binaria).
+ - sync                      : Señal de sincronización para el lock-in.
+ - referencia_externa_sen    : Componente senoidal de la referencia externa.
+ - referencia_externa_cos    : Componente cosenoidal de la referencia externa.
+ - referencia_externa_valid  : Validez de la referencia externa.
+ - data_in                   : Datos de entrada a procesar (32 bits con signo).
+ - data_in_valid             : Validez de `data_in`.
+ - parameter_in_0 .. parameter_in_32 : Parámetros de configuración cargados al reset.
+
+ Salidas:
+ ---------
+ - data_out1                 : Componente en fase del lock-in (64 bits).
+ - data_out1_valid           : Validez de `data_out1`.
+ - data_out2                 : Componente en cuadratura del lock-in (64 bits).
+ - data_out2_valid           : Validez de `data_out2`.
+ - ready_to_calculate        : Indica que el lock-in está listo.
+ - processing_finished       : Indica que el procesamiento finalizó.
+ - parameter_out_0 .. parameter_out_4 : Parámetros de salida (uso general).
+
+ Notas:
+ -------
+ - El lock-in segmentado utiliza referencias sen/cos con validación.
+ - Las salidas están sincronizadas con la validez de la entrada.
+ - `n_datos_promediados` se expone como `parameter_out_0`.
+ - Se puede comentar la sección de bypass para pruebas sin procesamiento.
+==============================================================================*/
 
 module signal_processing_LI(
 	input clk,

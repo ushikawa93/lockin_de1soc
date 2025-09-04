@@ -1,3 +1,10 @@
+/* =================================================================================
+ * ======================== data_source_dac ==========================================
+ * Fuente de las señales para el DAC en modo de look up table 
+ * recorre un archivo .mem y va sacando una muestra cada delay+1 ciclos de señal
+ * Tiene un enable (CE) y se le pueden determinar 
+ * la cantidad de ptos_x_ciclo de la señal sinusoidal
+ * ================================================================================= */
 
 module data_source_dac(
 

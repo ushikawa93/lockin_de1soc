@@ -1,3 +1,32 @@
+/* ==========================================================================
+ * ============================ GCL =========================================
+ *  Descripción general:
+ *    Este módulo implementa un Generador Congruencial Lineal (GCL) para
+ *    producir números pseudoaleatorios de 32 bits. La salida se entrega
+ *    en 64 bits por compatibilidad y se acompaña de una señal de validez.
+ *
+ *  Entradas:
+ *    - i_Clk: reloj principal de operación.
+ *    - i_Enable: habilita la generación de datos.
+ *    - i_seed: semilla inicial para la generación de números aleatorios.
+ *
+ *  Salidas:
+ *    - o_Data: número pseudoaleatorio generado (64 bits, menor de 32 bits
+ *              efectivo en los bits menos significativos).
+ *    - o_Data_valid: indica cuando la salida `o_Data` es válida.
+ *
+ *  Funcionamiento:
+ *    1. Se registra la semilla de entrada al activarse `i_Enable`.
+ *    2. Se realiza la multiplicación lineal y se atrasa la señal de validez.
+ *    3. Se suma la constante `c` y se aplica la operación módulo `m` para
+ *       generar el siguiente número pseudoaleatorio.
+ *    4. La señal de validez se propaga con tres ciclos de retardo para
+ *       sincronizar con los cálculos internos.
+ *
+ *  Observaciones:
+ *    - Parámetros típicos: m = 2^32, a = 69069, c = 1.
+ *    - Adecuado para generar ruido en simulaciones de sistemas digitales.
+ * ========================================================================== */
 
 module GCL(
 	input i_Clk,

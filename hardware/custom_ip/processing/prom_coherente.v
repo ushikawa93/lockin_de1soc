@@ -1,3 +1,36 @@
+/* ==========================================================================
+ * ============================ PROM_COHERENTE ==============================
+ *  Descripción general:
+ *    Este módulo realiza un promedio coherente de N frames sobre M puntos 
+ *    por ciclo de señal. Se utiliza en un Lock-In digital para suavizar la 
+ *    señal de fase o cuadratura después de la multiplicación por referencias.
+ *
+ *  Entradas:
+ *    - clk: reloj del sistema.
+ *    - reset: reset activo en bajo.
+ *    - data_in: señal de entrada a promediar (signed 32 bits).
+ *    - data_in_valid: indica que `data_in` es válida.
+ *
+ *  Salidas:
+ *    - data_out: salida del promedio coherente (signed 32 bits).
+ *    - data_out_valid: indica que `data_out` es válida.
+ *    - calculando: indica que el módulo aún está acumulando frames.
+ *
+ *  Parámetros:
+ *    - M: cantidad de puntos por ciclo de señal.
+ *    - N: cantidad de frames a promediar coherentemente.
+ *
+ *  Funcionamiento:
+ *    1. Se mantiene un buffer de tamaño M que acumula la suma de los frames.
+ *    2. Se incrementa `frames_promediados` cuando se completa un ciclo.
+ *    3. Una vez que se completan N frames, se generan 8 ciclos de salida de
+ *       datos válidos (`data_out_valid` = 1) usando el buffer acumulado.
+ *    4. Luego se limpia el buffer y se puede volver a iniciar el promedio.
+ *
+ *  Observaciones:
+ *    - `calculando` permite saber si el módulo aún está acumulando frames.
+ *    - La salida se mantiene válida solo durante 8 ciclos por promedio.
+ * ========================================================================== */
 
 module prom_coherente(
 	

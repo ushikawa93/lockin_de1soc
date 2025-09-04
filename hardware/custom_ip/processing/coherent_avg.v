@@ -1,6 +1,61 @@
-/*
-	Este modulo promedia frames_prom_coherente ciclos de la señal y despues transmite el ciclo de señal resultante al siguiente modulo	
-*/
+/*==============================================================================
+ Módulo: coherent_avg
+ ------------------------------------------------------------------------------
+
+ Descripción:
+ -------------
+ Realiza la **promediación coherente** de una señal periódica a partir de varios 
+ frames completos. El módulo acumula `frames_prom_coherente` ciclos de señal, 
+ promediando muestra a muestra, y luego transmite el ciclo resultante al siguiente 
+ bloque del sistema.
+
+ Características:
+ -----------------
+ - Entrada/salida tipo Avalon Streaming (data + valid).
+ - Promediación coherente configurable mediante registros de control.
+ - Máquina de estados interna para controlar las fases de cálculo, transmisión 
+   y limpieza del buffer.
+ - Memoria interna (buffer) para acumular sumas parciales.
+ - Reset síncrono global.
+
+ Parámetros internos:
+ ---------------------
+ - buf_tam : Tamaño máximo del buffer (2048 por defecto).
+
+ Entradas:
+ ----------
+ - clk                 : Reloj del sistema.
+ - reset_n             : Reset global activo en bajo.
+ - enable              : Señal de habilitación para iniciar el proceso.
+ - ptos_x_ciclo        : Número de puntos que contiene un ciclo de la señal (M).
+ - frames_prom_coherente: Número de ciclos a promediar coherentemente (N).
+ - data_in_valid       : Flag que indica validez de la entrada.
+ - data_in             : Datos de entrada (32 bits con signo).
+
+ Salidas:
+ ---------
+ - data_out_valid : Flag que indica validez de la salida.
+ - data_out       : Datos de salida (32 bits con signo).
+
+ Máquina de estados:
+ --------------------
+ - idle        : Espera `enable=1` para comenzar.
+ - average     : Acumulación de N ciclos de M muestras en el buffer.
+ - reset_index : Reinicialización de índices internos.
+ - transmit    : Transmisión de los valores promediados al siguiente bloque.
+ - clean       : Limpieza del buffer para nueva corrida.
+ - finish      : Estado final, solo un reset lo reinicia.
+
+ Notas:
+ -------
+ - `buffer` almacena las sumas parciales de cada posición dentro del ciclo.  
+ - `frames_promediados` controla cuántos ciclos han sido acumulados.  
+ - Una vez completado el promedio, se recorre el buffer para transmitir y 
+   luego se limpia en preparación a la siguiente ejecución.  
+ - El ancho de entrada y salida es de 32 bits con signo.
+
+==============================================================================*/
+
 
 module coherent_avg(
 	
