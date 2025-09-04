@@ -1,3 +1,38 @@
+/* ==========================================================================
+ * ===================== Módulo de Procesamiento Lock-in =====================
+ *  Descripción general:
+ *    Este módulo implementa un flujo de procesamiento de señal basado en:
+ *      1. Promediación coherente de la señal de entrada.
+ *      2. Procesamiento lock-in segmentado para obtener las componentes de
+ *         fase y cuadratura.
+ *    Los parámetros principales (M, N_ma, N_ca) se registran al inicio con
+ *    reset y permanecen fijos durante la operación. 
+ *
+ *  Señales principales:
+ *    - clk, reset_n, enable_gral: control de reloj, reset y habilitación.
+ *    - bypass: reservado (no implementado en esta versión).
+ *    - data_in, data_in_valid: datos de entrada al módulo.
+ *    - data_out1, data_out1_valid: salida de la componente en fase.
+ *    - data_out2, data_out2_valid: salida de la componente en cuadratura.
+ *    - ready_to_calculate: indica que el lock-in está listo para procesar.
+ *    - processing_finished: indica finalización del cálculo de un bloque.
+ *    - parameter_in_0..32: parámetros de configuración (solo se usan algunos
+ *      como M, N_ma, N_ca; el resto no se emplea en este diseño).
+ *    - parameter_out_0..4: parámetros de salida no utilizados (fijos en 0).
+ *
+ *  Funcionamiento:
+ *    1. Se registran los parámetros al inicio mediante reset.
+ *    2. La señal de entrada se procesa con promediación coherente.
+ *    3. Los resultados se integran en el lock-in segmentado, obteniendo fase
+ *       y cuadratura.
+ *    4. Se proveen indicadores de estado para sincronización externa.
+ *
+ *  Observaciones:
+ *    - Este módulo mantiene una interfaz genérica de parámetros para facilitar
+ *      el reemplazo del bloque interno de procesamiento si fuera necesario.
+ *    - El bloque FIR mencionado en versiones anteriores no está implementado
+ *      aquí; en su lugar se emplea promediación coherente y lock-in.
+ * ========================================================================== */
 
 module signal_processing(
 	input clk,
@@ -67,10 +102,13 @@ module signal_processing(
 
 
 
-
-////////////////////////////////////////////////////////////////
-// ================ Registro parametros en reset ===============
-////////////////////////////////////////////////////////////////
+/* ============================================================================
+ * ====================== Registro parametros en reset ========================
+ *  Lo hago asi para que no se modifiquen en medio de la operacion
+ *  capaz sería mejor registrarlos con un enable mas que con un reset... 
+ *  igual es sincronico asique no creo que genere cosas raras.
+ =============================================================================== 
+*/
 
 
 // Modificables en tiempo de ejecucion:
@@ -125,17 +163,25 @@ begin
 
 end
 
-//////////////////////////////////////////////////
-// ================ Procesamiento ===============
-//////////////////////////////////////////////////
+
+/* ============================================================================
+ *  ================================= Procesamiento ============================
+ =============================================================================== 
+*/
 
 wire [15:0] M = parameter_0_reg;
 wire [15:0] N_ma = parameter_1_reg;
 wire [15:0] N_ca = parameter_2_reg;
 
-////////////////////////////////////////////////
-// =========== Promediacion coherente  =============
-////////////////////////////////////////////////
+// ==========================================================================
+// Bloque de Promediación Coherente (promC):
+//   - Entrada: señal de 32 bits con validación (data_in, data_in_valid).
+//   - Parámetros configurables:
+//       * ptos_x_ciclo (M): cantidad de puntos por ciclo de la señal.
+//       * frames_prom_coherente (N_ca): número de frames a promediar.
+//   - Salidas:
+//       * data_out / data_out_valid: señal promediada coherentemente.
+// ==========================================================================
 
 //////// Entradas de promC ///////
 wire data_in_promC_valid;
@@ -170,10 +216,19 @@ prom_coherente_pipelined promC(
 	
 );
 
-
-////////////////////////////////////////////////
-// ================== Lock in  ===============
-////////////////////////////////////////////////
+// ==========================================================================
+// Bloque Lock-in Segmentado:
+//   - Entrada: señal promediada coherentemente (32 bits).
+//   - Parámetros configurables:
+//       * ptos_x_ciclo (M): define la cantidad de puntos por ciclo.
+//	 		(esta versión del Lock-in solo funciona con ciclos uniformes de M muestras CU)
+//       * frames_integracion (N_ma): número de frames para integración.
+//   - Salidas:
+//       * data_fase / data_fase_valid: componente en fase.
+//       * data_cuad / data_cuad_valid: componente en cuadratura.
+//       * lockin_ready: indica que el lock-in está listo para procesar.
+//       * calculo_finalizado: señala que terminó la integración.
+// ==========================================================================
 
 //////// Entradas de LIA ///////
 wire data_in_lia_valid;
@@ -220,10 +275,12 @@ wire calculo_finalizado;
 wire lockin_ready;	// El lockin esta listo para calcular
 
 
+/* ========================================================================
+ * ================================= Salidas  =============================
+ * Para bypasear el procesamiento habría que comentar
+ * este bloque y descomentar el siguiente
+ * ======================================================================== */
 
-//////////////////////////////////////////////////
-// ================ Salidas  ===============
-//////////////////////////////////////////////////
 
 assign data_out1 = data_fase;
 assign data_out1_valid = data_fase_valid;
@@ -246,9 +303,12 @@ assign parameter_out_3 = 0;
 assign parameter_out_4 = 0;
 
 
-//////////////////////////////////////////////////
-// ================ Sin procesamiento ===============
-//////////////////////////////////////////////////
+
+/* ==================================================================================
+ * ================================= Sin procesamiento ==============================
+ * Decomentar este bloque y comentar el anterior para bypass
+ * =================================================================================== */
+
 /*
 assign data_out1 = data_in;
 assign data_out1_valid = data_in_valid;

@@ -1,3 +1,68 @@
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                          //
+//                                    efficient_lockin                                      //
+//                                                                                          //
+//  Descripción:                                                                            //
+//  --------------------------------------------------------------------------------------  //
+//  Módulo principal para el procesamiento tipo Lock-In en FPGA. Integra adquisición de     //
+//  señales desde ADCs de alta velocidad y el ADC 2308, generación de referencias con DDS,  //
+//  procesamiento de señales (LI y CA-LI), control mediante Nios/HPS, y salida por DAC.     //
+//                                                                                          //
+//  Funcionalidades clave:                                                                  //
+//   - Multiplexación flexible de fuentes de datos (ADC, simulación, señales procesadas).   //
+//   - Generación de referencias sinusoidales y cosenoidales con DDS.                       //
+//   - Procesamiento Lock-In (LI) y Coherent Averaging Lock-In (CA-LI).                     //
+//   - Interfaz con memorias FIFO de 32 y 64 bits.                                          //
+//   - Control parametrizable mediante softcore Nios/HPS.                                   //
+//   - Monitoreo con LEDs y señal de reloj de vigilancia.                                   //
+//                                                                                          //
+//  Entradas/Salidas principales:                                                           //
+//   - CLK, SW, KEY, LED                                                                    //
+//   - ADC/DAC de alta velocidad                                                            //
+//   - ADC 2308                                                                             //
+//   - HPS DDR3                                                                             //
+//                                                                                          //
+//  Autor: [Tu Nombre]                                                                      //
+//  Fecha: [03/09/2025]                                                                     //
+//                                                                                          //
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+/* ================================================================================ *
+ *                      +-------------------+										*
+ *     ADC HS --------->|                   |										*
+ *     ADC 2308 ------->|    Multiplexor    |										*
+ *         ^            | (fuente de datos) |										*
+ *         |            +---------+---------+										*
+ *     Desde Carga                |													*
+ *                                v													*
+ *                      +-------------------+										*
+ *                      |  DDS (sin/cos)    |										*
+ *                      |  Generación ref.  |-------+	 							*
+ *                      +---------+---------+		|								*
+ *                                |					|								*
+ *                                v					|								*
+ *                      +-------------------+		|								*
+ *                      |   Procesamiento   |		|								*
+ *                      |  LI / CA-LI core  |		|								*
+ *                      +---------+---------+		|								*
+ *                                |					|								*
+ *                +---------------+				    |								*
+ *                |                                 |								*
+ *                v                                 v								*
+ *       +------------------+              +------------------+						*
+ *       |   FIFO 32/64b    |              |       DAC        |						*
+ *       |  (almacenaje)    |              |  salida analógica|						*
+ *       +------------------+              +------------------+						*
+ *                |									|								*
+ *                v									v								*
+ *        +-----------------+					Hacia Carga							*
+ *        |  HPS / Nios II  |														*
+ *        |  Control y cfg. |														*
+ *        +-----------------+														*
+ *																					*
+ *                    (Monitoreo: LEDs + reloj watchdog)							*
+ * ================================================================================	*/
+
 
 module efficient_lockin(
 
@@ -68,10 +133,52 @@ module efficient_lockin(
 
 
 
+/* =============================================================================
+ * ======================== Ruteo de Señales ==================================
+ *
+ * Descripción general:
+ *   Esta sección define cómo se rutean las señales dentro del sistema.
+ *   Cada destino (procesamiento, DAC o FIFOs) puede tomar su entrada desde
+ *   diferentes fuentes de datos, permitiendo una arquitectura flexible.
+ *
+ * Fuentes disponibles:
+ *   - adc_2308              : datos desde el ADC 2308
+ *   - adc_hs                : datos desde el ADC de alta velocidad
+ *   - simulacion            : datos simulados
+ *   - procesada_1           : señal procesada (canal 1)
+ *   - procesada_2           : señal procesada (canal 2)
+ *   - avgd_signal           : señal promediada
+ *   - dds_compiler_sen      : salida seno del DDS
+ *   - dds_compiler_cos      : salida coseno del DDS
+ *   - referencia_seno       : señal de referencia senoidal
+ *   - referencia_coseno     : señal de referencia cosenoidal
+ *   - datos_procesamiento   : datos ya preparados para etapa de cálculo
+ *   - open                  : sin señal (vacío)
+ *
+ * Señales de control principales:
+ *   - fuente_procesamiento  : selecciona qué fuente alimenta la etapa de cálculo
+ *   - fuente_dac            : define qué fuente se envía al DAC
+ *   - fuente_fifo0_32bit    : fuente que alimenta el FIFO0 de 32 bits
+ *   - fuente_fifo1_32bit    : fuente que alimenta el FIFO1 de 32 bits
+ *   - fuente_fifo0_64bit    : fuente que alimenta el FIFO0 de 64 bits
+ *   - fuente_fifo1_64bit    : fuente que alimenta el FIFO1 de 64 bits
+ *
+ * Funcionamiento:
+ *   - Cada destino recibe un paquete {dato, valid} generado mediante un bloque
+ *     combinacional de selección (tipo multiplexer).
+ *   - Los datos y sus señales de validez se mantienen sincronizados en todo el
+ *     ruteo, asegurando consistencia en el sistema.
+ *   - Este esquema permite reconfigurar fácilmente qué señales se procesan,
+ *     visualizan o almacenan en cada FIFO.
+ *
+ * Observaciones:
+ *   - Se agregaron fuentes adicionales (avgd_signal, DDS y referencias).
+ *   - El control del ruteo se realiza desde la etapa de control (HPS/NIOS).
+ *   - Se incluye lógica para sincronizar el ADC HS con el procesamiento.
+ *
+ * =============================================================================
+ */
 
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////// =============== Ruteo de las señales  ==============/////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
 
 // Posibilidades...
 parameter adc_2308 = 0;
@@ -218,12 +325,68 @@ wire [64:0] aux_fifo1_64b = (fuente_fifo1_64bit == adc_2308) ? {data_adc_2308,da
 
 									 
 
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////// =============== DDS compiler  ==============/////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////									 
+/* =============================================================================
+ * =========================== DDS Compiler ===================================
+ *
+ * Descripción general:
+ *   Esta sección implementa dos instancias del módulo DDS (Direct Digital
+ *   Synthesizer) para generar señales sinusoidales y cosenoidales usadas en
+ *   el sistema:
+ *     - Un DDS para el DAC de salida.
+ *     - Un DDS para las señales de referencia (Lock-In).
+ *
+ * Parámetros:
+ *   - B_dds_dac : Ancho de palabra de salida hacia el DAC (14 bits).
+ *   - B_dds_ref : Ancho de palabra de salida de las referencias (16 bits).
+ *
+ * Señales principales:
+ *   - sen_dds_compiler_14b, cos_dds_compiler_14b :
+ *       Señales seno y coseno generadas para el DAC.
+ *   - sen_dds_compiler_ca_coupled, cos_dds_compiler_ca_coupled :
+ *       Señales seno y coseno de referencia en 32 bits (convertidas a signed).
+ *   - referencia_sen, referencia_cos :
+ *       Alias para las señales de referencia.
+ *   - dds_compiler_valid :
+ *       Señal de validez de los datos del DDS hacia el DAC.
+ *   - referencia_valid :
+ *       Señal de validez de los datos de referencia.
+ *   - sync_referencias :
+ *       Pulso de cruce por cero, útil para sincronización.
+ *
+ * Funcionamiento:
+ *   - El DDS del DAC funciona continuamente habilitado por la señal `enable`.
+ *   - El DDS de referencias se habilita según la fuente seleccionada:
+ *       • Si fuente_procesamiento = simulación → habilitado por `enable`.
+ *       • En otro caso → habilitado por la validez del ADC HS.
+ *   - Ambos DDS reciben un `incremento_fase` que determina la frecuencia de
+ *     salida (f_out = delta_phase * f_clk / 2^B_acumulador).
+ *
+ * Observaciones:
+ *   - Esta sección genera tanto las señales analógicas de salida (DAC) como
+ *     las referencias internas requeridas por el procesamiento Lock-In.
+ *   - Se asegura que las referencias estén acopladas en fase con la señal de
+ *     entrada mediante el pulso de sincronización.
+ *
+ * Diagrama simplificado:
+ *
+ *              		 +--------------------+
+ *   delta_phase_dac --->|      DDS DAC       |---> seno/coseno (14b) ---> DAC
+ *                       +--------------------+
+ *                                ^
+ *                                |
+ *                       enable (global)
+ *
+ *              		 +--------------------+
+ *   delta_phase_ref --->|   DDS Referencia   |---> referencia_sen/cos (32b)
+ *                       |  (con sync zero)   |---> referencia_valid
+ *                       +--------------------+
+ *                                ^
+ *                                |
+ *                  enable_ref (según fuente seleccionada)
+ *
+ * =============================================================================
+ */
 
-
-//// En Proceso... mejor forma de generar ondas sinusoidales ////
 
 parameter B_dds_dac = 14;
 parameter B_dds_ref = 16;
@@ -284,11 +447,26 @@ dds_compiler_module #(
 );
 
 
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////// =============== Interfaz de control  ==============/////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
+/* =============================================================================
+ * ========================== Interfaz de control =============================
+ *
+ * Descripción general:
+ *   Esta sección implementa la interfaz de control del sistema, que gestiona
+ *   la activación, reinicio y configuración de todos los bloques de procesamiento
+ *   y adquisición de datos.
+ *
+ * Funcionalidad destacada:
+ *   • Combina señales de control físicas y de software para habilitar el sistema.
+ *   • Genera el reloj interno (`clk_custom`) usado por los módulos de adquisición.
+ *   • Permite reconfigurar parámetros del sistema desde el Nios o HPS:
+ *       - Fuente de procesamiento
+ *       - Parámetros de promediado y filtrado
+ *       - Configuración del DDS
+ *       - Parámetros de simulación y selección de resultados
+ *   • Recibe resultados procesados de 32 y 64 bits para almacenamiento o visualización.
+ *   • Incluye interfaces hacia la memoria DDR3 del HPS para lectura y escritura.
+ * =============================================================================
+ */
 
 
 wire enable;
@@ -378,9 +556,30 @@ control nios (
 		
 );
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////// =============== Interfaz de datos de entrada  ==============/////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
+/* =============================================================================
+ * ===================== Interfaz de datos de entrada ==========================
+ *
+ * Descripción general:
+ *   Esta sección implementa la interfaz principal de adquisición y simulación
+ *   de datos, incluyendo:
+ *     - Entradas de control y reloj.
+ *     - Configuración de parámetros de simulación y muestreo.
+ *     - Generación de datos simulados con ruido opcional.
+ *     - Interfaz de salida de datos para ADC/DAC de alta velocidad.
+ *     - Manejo del ADC externo (2308).
+ *     - Sincronización de señales de referencia mediante retardo ajustable.
+ *
+ * Funcionalidad destacada:
+ *   • Permite seleccionar entre datos simulados o generados por el DDS como
+ *     fuente de entrada.
+ *   • Incorpora un generador de ruido digital parametrizable.
+ *   • Sincroniza los datos de simulación con las referencias del lock-in.
+ *   • Expone interfaces Avalon Streaming para datos de simulación, ADC HS y
+ *     ADC 2308.
+ *   • Incluye conexiones directas a los conversores analógico-digital y
+ *     digital-analógico.
+ * =============================================================================
+ */
 
 
 
@@ -503,10 +702,29 @@ wire [31:0] data_adc_2308;
 wire data_adc_2308_valid;
 
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////// =============== Procesamiento de señal CA-LI  ==============/////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
+/* =============================================================================
+ * ======================= Procesamiento de señal CA-LI ========================
+ *
+ * Descripción general:
+ *   Esta sección implementa el bloque de procesamiento de señal para la
+ *   adquisición CA-LI, que realiza:
+ *     - Filtrado y cálculo de señales procesadas.
+ *     - Promediado coherente de la señal.
+ *     - Sincronización con referencias externas generadas por DDS o simulación.
+ *	   - Lock-in en fase y cuadratura para le señal procesada coherentemente
+ * Parametros importantes:
+ *
+ *	.parameter_in_1(N_ma_CALI)   -> Cantida de ciclos promediados en el Lockin (filtro MA)
+ *	.parameter_in_2(N_ca_CALI)   -> Cantidad de ciclos promediados coherentemente
+ *
+ * Funcionalidad destacada:
+ *   • Recibe la señal de entrada desde la interfaz de datos (simulada o ADC).
+ *   • Procesa la señal a través de los módulos CALI para obtener dos salidas
+ *     principales de 64 bits y una señal auxiliar promediada de 32 bits.
+ *   • Gestiona señales de control como `ready_to_calculate` y `processing_finished`.
+ *   • Sincroniza los resultados con el sistema de referencia del lock-in.
+ * =============================================================================
+ */
 
 
 wire sync_cali = sync_procesamiento;
@@ -560,10 +778,30 @@ wire [31:0] data_promc;
 wire data_promc_valid;
 wire sync_avgd_signal;
 
+/* =============================================================================
+ * ========================== Procesamiento de señal LI ========================
+ *
+ * Descripción general:
+ *   Esta sección implementa el bloque de procesamiento de señal para el
+ *   procesamiento LI (Lock-In), que realiza:
+ *     - Lock-in en fase y cuadratura para le señal procesada coherentemente
+ *			- Multiplicación por referencias
+ *			- Filtro de media movil
+ * 
+ * Parametros importantes:
+ *   .parameter_in_1(N_LI)   -> Cantidad de ciclos promediados en el MAF
+ *
+ * Funcionalidad destacada:
+ *   • Recibe la señal de entrada desde la interfaz de datos (simulada o ADC).
+ *   • Procesa la señal a través del módulo LI para obtener dos salidas
+ *     principales de 64 bits.
+ *   • Calcula el número de datos promediados (`n_datos_promediados`) para la
+ *     salida coherente.
+ *   • Gestiona señales de control como `ready_to_calculate` y `processing_finished`.
+ *   • Sincroniza los resultados con el sistema de referencia del lock-in.
+ * =============================================================================
+ */
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////// =============== Procesamiento de señal LI  ==============////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 wire sync_li = sync_procesamiento;
 
@@ -610,9 +848,26 @@ wire [31:0] n_datos_promediados;
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////// ========== Ruteo señales de procesamiento segun seleccion_resultado  ==========//////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
+/* =============================================================================
+ * =================== Ruteo de señales de procesamiento ========================
+ *
+ * Descripción general:
+ *   Esta sección selecciona qué conjunto de señales de procesamiento se
+ *   utiliza como salida final del sistema, según el parámetro
+ *   `seleccion_resultado`:
+ *     - Si `seleccion_resultado == 0`, se usan las señales del procesamiento
+ *       CA-LI (CALI).
+ *     - Si `seleccion_resultado == 1`, se usan las señales del procesamiento
+ *       LI (Lock-In).
+ *
+ * Funcionalidad destacada:
+ *   • Rutea las salidas de 64 bits de los módulos de procesamiento
+ *     (`data_procesada1`, `data_procesada2`) hacia los FIFOs y DAC.
+ *   • Rutea las señales de validez (`_valid`) correspondientes.
+ *   • Rutea las señales de control (`ready_to_calculate`, `calculo_finalizado`)
+ *     según la selección.
+ * =============================================================================
+ */
 
 
 ///// Salidas de procesamiento ////////
@@ -623,10 +878,17 @@ wire data_procesada2_valid = (seleccion_resultado == 0)?  data_procesada2_CALI_v
 wire ready_to_calculate = (seleccion_resultado == 0)? ready_to_calculate_CALI : ready_to_calculate_LI;
 wire calculo_finalizado = (seleccion_resultado == 0)? calculo_finalizado_CALI : calculo_finalizado_LI;
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-////// ========== Contador para ver si clk anda  ==========///////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
 
+/* ================================================================================
+ * ======================= Cosas adicionales =====================
+ *  Para ver si la placa esta andando y bien configurada se agrega un titileo de LED
+ *  También se puede rutear los LED a distintas señales para ver que hacen
+ ================================================================================ */
+
+
+////////////////////////////////////////////////
+// ====== Contador para ver si clk anda  =========
+////////////////////////////////////////////////
 
 reg [31:0] count;
 always @ (posedge clk_custom)
@@ -636,10 +898,9 @@ end
 
 assign LED[0] = ( count > (65000000 >> 1) );
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-////// ========== Algunos LED para ver cositas   ==========///////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////
+// ====== Algunos LED para ver cositas  =========
+////////////////////////////////////////////////
 assign LED[3] = led_test;
 
 assign LED[2] = calculo_finalizado;

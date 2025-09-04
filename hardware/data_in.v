@@ -1,4 +1,45 @@
 
+/* =========================================================================
+ * ============= Módulo de Entrada de Datos ================================
+ *  Descripción general:
+ *    Este módulo centraliza la adquisición de datos desde distintas fuentes,
+ *    incluyendo:
+ *      - Datos simulados (con ruido configurable)
+ *      - ADC/DAC Highspeed
+ *      - ADC 2308 embebido
+ *    Permite sincronización de clocks, habilitación selectiva y parametrización
+ *    de cada bloque.
+ *
+ *  Señales principales:
+ *    - clk_*: distintos relojes para simulación, DAC, ADC y ADC 2308.
+ *    - reset_n, enable: control de reset y habilitación general.
+ *    - simulation_noise_bits, ptos_x_ciclo_sim, metodo_ruido: configuración
+ *      de la generación de datos simulados.
+ *    - ptos_x_ciclo_dac, sincronizar_adc_con_dac: configuración DAC/ADC
+ *      highspeed.
+ *    - f_muestreo_2308, sel_ch_2308: configuración ADC 2308.
+ *    - ADC_*, DAC_*: señales físicas hacia los ADCs y DACs.
+ *    - digital_data_in: datos digitales para DAC.
+ *    - data_*: señales de salida avalon-streaming para simulación y ADCs.
+ *
+ *  Funcionamiento:
+ *    1. Genera una señal simulada cuantizada de 14 bits, con ruido opcional.
+ *    2. Controla la salida digital hacia el DAC highspeed, pudiendo usar
+ *       look-up table o datos externos.
+ *    3. Adquiere datos desde ADC highspeed y ADC 2308, aplicando la
+ *       sincronización y habilitación correspondiente.
+ *    4. Expone los datos adquiridos mediante interfaces streaming válidas
+ *       para las etapas de procesamiento posteriores.
+ *
+ *  Observaciones:
+ *    - La habilitación del ADC highspeed puede depender del DAC (sincronización)
+ *      o ser independiente.
+ *    - Se permite usar distintas fuentes de datos de manera simultánea o
+ *      selectiva según la aplicación.
+ * ==========================================================================
+*/
+
+
 module data_in(
 
 	input clk_sim,
@@ -80,10 +121,15 @@ module data_in(
 );
 
 
-/////////////////////////////////////////////////
-// ================ Datos simulados ===============
-/////////////////////////////////////////////////
-
+/* ================================================================================
+ * ============================ Datos simulados ===================================
+ * Este módulo genera una señal sinusoidal cuantizada en 14 bits, 
+ * posiblemente contaminada con ruido uniforme de simulation_noise_bits bits
+ * Para generar el ruido se usa un algoritmo LFSR o un generador congruencial lineal,
+ * segun el parámetro metodo ruido ( 0 -> LFSR ; 1 -> GCL	)
+ * pts_x_ciclo setea cuantos puntos hay en cada periodo de la sinusoide
+ * ================================================================================ */
+ 
 data_source data_sim(
 
 	// Entradas de control
@@ -109,9 +155,14 @@ data_source data_sim(
 
 
 
-/////////////////////////////////////////////////
-// ===================== DAC ===================
-/////////////////////////////////////////////////
+/* ==============================================================
+ * ====================== DAC ===================================
+ * Driver del DAC Highspeed, la señal seleccion_dac determina 
+ * si los datos que se convierten a analogico
+ * son los de una LU table que tiene seteada
+ * o los que le van entrando por digital_data_in
+ * ============================================================== */
+
 wire data_dac_valid;
 
 dac_driver dac_HS(
@@ -150,15 +201,12 @@ dac_driver dac_HS(
 
 
 
-/////////////////////////////////////////////////
-// ===================== ADC  ===================
-/////////////////////////////////////////////////
-/*
-	Si se quiere usar este ADC el clk_custom setea la frecuencia de muestreo 
-	la señal data_adc_valid sirve para sincronizar el procesamiento de 
-	etapas posteriores.
-
-*/
+/* ==============================================================
+ * ====================== ADC ===================================
+ * Si se quiere usar este ADC el clk_custom setea la frecuencia de muestreo 
+ * la señal data_adc_valid sirve para sincronizar el procesamiento de 
+ * etapas posteriores.
+ * ============================================================== */
 
 wire enable_adc = (sincronizar_adc_con_dac)? data_dac_valid : enable;
 
@@ -191,16 +239,14 @@ adc_driver adc_HS(
 
 
 
-/////////////////////////////////////////////////
-// ===================== ADC 2308 ===================
-/////////////////////////////////////////////////
-/*
-	Si se quiere usar este ADC el clk_custom debe estar en 40 MHz...
-	La frecuencia de muestreo queda dada por f_muestreo y la señal
-	data_adc_2308_valid sirve para sincronizar el procesamiento de 
-	etapas posteriores.
+/* ==================================================================
+ * ====================== ADC 2308 ==================================
+ * 	Si se quiere usar este ADC el clk_custom debe estar en 40 MHz...
+ *	La frecuencia de muestreo queda dada por f_muestreo y la señal
+ *	data_adc_2308_valid sirve para sincronizar el procesamiento de 
+ *	etapas posteriores.
+ * ================================================================= */
 
-*/
 embedded_adc adc_2308(
 
 	// Entradas de control

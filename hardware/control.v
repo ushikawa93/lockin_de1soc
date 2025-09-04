@@ -1,3 +1,40 @@
+/* =========================================================================
+ * ====================== Módulo de Control ================================
+ *  Descripción general:
+ *    Este módulo coordina el funcionamiento de los diferentes bloques del
+ *    sistema, incluyendo la lógica de procesamiento, el NIOS/HPS y la
+ *    interfaz con memoria DDR3. Controla el enable general, el reset, y
+ *    genera el clock custom a partir del PLL y un divisor.
+ *
+ *  Señales principales:
+ *    - clk, reset_n: reloj principal y reset síncrono.
+ *    - enable, clk_custom, reset_from_control: señales de control hacia otros
+ *      módulos.
+ *    - result_?_64_bit, result_?_32_bit y sus flags valid: resultados de
+ *      procesamiento de 64 y 32 bits.
+ *    - parameter_in_0 .. parameter_in_4: parámetros recibidos desde la lógica
+ *      hacia el sistema de control.
+ *    - parameter_out_0 .. parameter_out_39: parámetros enviados desde el
+ *      sistema de control hacia la lógica.
+ *    - HPS_DDR3_*: interfaz de memoria DDR3 para el HPS.
+ *
+ *  Funcionamiento:
+ *    1. Instancia y configura el QSYS system que incluye NIOS, HPS, FIFOs
+ *       y PLL.
+ *    2. Gestiona la transferencia de datos entre los módulos de procesamiento
+ *       y el sistema de control.
+ *    3. Genera un clock custom mediante un divisor para los módulos que lo
+ *       requieren.
+ *    4. Facilita la configuración de parámetros desde y hacia la lógica
+ *       mediante interfaces memory-mapped.
+ *
+ *  Observaciones:
+ *    - La mayor parte de la lógica de control se encuentra dentro del QSYS,
+ *      este módulo actúa principalmente como envoltorio y ruteo de señales.
+ *    - El divisor de clock externo permite obtener frecuencias menores que
+ *      las provistas por el PLL.
+ * ========================================================================== */
+
 
 module control (
 
@@ -103,9 +140,14 @@ wire reset_from_control_reg,enable_wire;
 assign reset_from_control = reset_from_control_reg;
 
 
-/////////////////////////////////////////////////
-// =============== Qsys system ==================
-/////////////////////////////////////////////////
+/* =============================================================================================
+ * ============================ Qsys system ====================================================
+ * La mayor parte del control esta en un QSYS que instancia el NIOS, el HPS, los FIFO y el PLL.
+ * Hay tambien un ip que controla los parámetros configurables con un memory mapped.
+ * Para que QSYS pueda detectarlo bien tendria que estar en una carpeta ip/
+ * ============================================================================================= 
+ */
+
 
 procesador nios2 (
         .clk_clk                             (clk),                             	//                       clk.clk
@@ -250,11 +292,13 @@ begin
 end
 	 
 assign enable = enable_reg;
-	 
-	 
-/////////////////////////////////////////////////
-// ============= Divisor del clock ===============
-/////////////////////////////////////////////////
+	 	 
+/* ================================================================================
+ * ============================ Divisor del clock =================================
+ * Lo unico externo al QSYS aca es un divisor del clock para lograr frecuencias 
+ * mas bajas que las que logra el PLL (1-65 MHz)
+ * ================================================================================
+ */
 
 wire [31:0] divisor_clk;
 wire clk_pre_divisor;
