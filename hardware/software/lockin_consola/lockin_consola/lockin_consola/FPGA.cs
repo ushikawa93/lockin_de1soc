@@ -1,4 +1,42 @@
-﻿using System;
+﻿/*
+================================================================================
+ Clase FPGA
+================================================================================
+ Propósito:
+ ----------
+ Esta clase proporciona una interfaz en C# para controlar la FPGA a través
+ de un "pipe" de comunicación (PipeControl). Permite enviar comandos, configurar
+ parámetros, leer resultados y manejar los FIFOs de la FPGA.
+
+ Componentes principales:
+ ------------------------
+ 1. Enumeraciones:
+    - COMANDOS: Lista de comandos que la FPGA entiende (RST, START, SET_CLK, etc.).
+    - FUENTE_DATOS: Fuente de datos para la adquisición (ADC, Simulado, etc.).
+    - PROC_MODE: Modo de procesamiento (Calibración o Lock-in).
+    - FIFO_DIRECTION: Identifica los 4 FIFOs disponibles (2 de 32 bits, 2 de 64 bits).
+
+ 2. Variables internas:
+    - pipe: Objeto PipeControl para comunicación con la FPGA.
+    - led_state: Estado del LED de prueba.
+    - led_base: Índice del parámetro que controla el LED.
+
+ Funcionalidad:
+ -------------
+ - Resetear la FPGA.
+ - Iniciar adquisición/procesamiento.
+ - Configurar clock principal y clock del lock-in.
+ - Configurar parámetros individuales o múltiples.
+ - Seleccionar fuente de datos y modo de procesamiento.
+ - Leer datos desde FIFOs de 32 o 64 bits.
+ - Leer el último resultado de la FPGA.
+ - Encender/apagar un LED de prueba.
+ - Terminar la comunicación y liberar recursos.
+
+================================================================================
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
