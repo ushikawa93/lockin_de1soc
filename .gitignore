@@ -28,7 +28,6 @@ greybox_tmp/
 *.xml
 *.qdf
 *.qdf.*
-*.qip
 *.smsg
 *.fsf
 
