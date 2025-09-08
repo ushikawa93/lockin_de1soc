@@ -1,3 +1,29 @@
+"""
+************************************************************************************
+Script: test_fpga.py
+Proyecto: LIA Python Interface
+Autor: Matías Oliva
+Fecha: 2025
+
+Descripción:
+------------
+Script de prueba para funciones básicas de la FPGA DE1-SoC desde Python.
+Incluye:
+- Reset de la FPGA.
+- Encendido/apagado de LED.
+- Configuración de frecuencia de reloj principal y DDS.
+- Inicialización de adquisición.
+
+Uso:
+----
+python test_fpga.py [valor_frecuencia]
+- Si no se proporciona valor, se usa 32 por defecto.
+
+Notas:
+------
+- Requiere que la clase FPGA_de1soc esté correctamente implementada y accesible.
+************************************************************************************
+"""
 
 # Testeo de funciones de la FPGA en python
 

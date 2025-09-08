@@ -1,3 +1,27 @@
+"""
+************************************************************************************
+Módulo: PLL
+Proyecto: LIA Python Interface
+Autor: Matías Oliva
+Fecha: 2025
+
+Descripción:
+------------
+Clase para configurar y calcular parámetros de PLL (Phase-Locked Loop) para la FPGA DE1-SoC.
+Incluye:
+- Configuración de multiplicador (M), divisor (N) y contador (C).
+- Cálculo de parámetros optimizados para una frecuencia deseada.
+- Métodos combinados para setear M, N y C de forma atómica.
+- Interacción directa con memoria mapeada de la FPGA.
+
+Notas:
+------
+- Los métodos usan struct.pack_into para escribir directamente en memoria mapeada.
+- Ajustar offsets y bases según el hardware específico.
+************************************************************************************
+"""
+
+
 import struct
 
 class PLL:

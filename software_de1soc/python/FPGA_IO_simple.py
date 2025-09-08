@@ -1,3 +1,46 @@
+"""
+************************************************************************************
+Módulo: FPGA_IO_simple
+Proyecto: LIA Python Interface
+Autor: Matías Oliva
+Fecha: 2025
+
+Descripción:
+------------
+Clase para acceder y controlar registros de memoria de la FPGA DE1-SoC desde Python
+utilizando mapeo de memoria directa (/dev/mem) y memoria compartida. Permite leer y 
+escribir registros de la FPGA, así como configurar la PLL a través de la clase PLL.
+
+Principales funcionalidades:
+----------------------------
+- Inicialización y mapeo de memoria:
+    - __init__(): Abre /dev/mem y mapea la región de memoria de la FPGA.
+    - __del__(): Desmapea la memoria y cierra el archivo.
+
+- Acceso a registros de la FPGA:
+    - write_fpga(address, offset, value): Escribe un valor en un registro específico.
+    - read_fpga(address, offset): Lee un valor de un registro específico.
+
+- Configuración de PLL:
+    - configurar_pll(value): Configura la PLL de la FPGA usando la clase PLL.
+
+Notas:
+------
+- ALT_STM_OFST, HW_REGS_BASE, HW_REGS_SPAN y ALT_LWFPGASLVS_OFST deben ajustarse 
+  según la dirección base y mapeo de tu hardware.
+- Las operaciones de lectura/escritura usan struct para manejar enteros de 32 bits.
+- Se requiere acceso de root para abrir /dev/mem.
+
+Uso:
+----
+fpga_io = FPGA_IO_simple()
+fpga_io.write_fpga(0x0000, 0, 123)  # Escribe 123 en registro base + offset 0
+valor = fpga_io.read_fpga(0x0000, 0)  # Lee el valor del mismo registro
+fpga_io.configurar_pll(1000000)      # Configura la PLL con valor deseado
+************************************************************************************
+"""
+
+
 import mmap
 import os
 import struct

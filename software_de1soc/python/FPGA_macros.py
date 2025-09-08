@@ -1,3 +1,24 @@
+"""
+************************************************************************************
+Módulo: FPGA_macros
+Proyecto: LIA Python Interface
+Autor: Matías Oliva
+Fecha: 2025
+
+Descripción:
+------------
+Constantes y macros para la interacción con la FPGA DE1-SoC desde Python, incluyendo:
+- Direcciones de memoria mapeadas.
+- Bases de registros de control y resultados.
+- Parámetros configurables y entradas/salidas auxiliares.
+- Límites y tamaño de buffers.
+
+Notas:
+------
+- Ajustar las direcciones y offsets según la FPGA específica y el mapeo de memoria.
+- Facilita agregar nuevas entradas, salidas y parámetros.
+************************************************************************************
+"""
 
 # Macros para interaccion con la FPGA
 

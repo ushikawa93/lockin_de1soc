@@ -1,3 +1,52 @@
+"""
+************************************************************************************
+Clase: FPGA_de1soc
+Proyecto: LIA Python Interface
+Autor: Matías Oliva
+Fecha: 2025
+
+Descripción:
+------------
+Clase que maneja la comunicación y control de la FPGA DE1-SoC desde Python usando 
+la interfaz FPGA_IO_simple. Implementa la lectura y escritura de FIFOs, parámetros, 
+configuración de clocks y PLL, y cálculos de resultados tipo Lock-In.
+
+Principales funcionalidades:
+----------------------------
+- Inicialización y control general de la FPGA:
+    - iniciar(), reset(), terminar(), esperar()
+- Gestión de parámetros y registros:
+    - set_parameter(value, index), set_n_parametros(N, array)
+    - get_parameter(index), get_output_auxiliar(index)
+- Configuración de clocks y DDS:
+    - set_frec_clk(frec_clk), set_divisor_clock(div_clk)
+    - set_frec_dds_compiler(f_deseada, f_clk)
+- Control de LED:
+    - switch_led(state)
+- Lectura de FIFOs:
+    - leer_fifo_32_bit(fifo), leer_resultado_32_bit(fifo)
+- Conversión de cuentas a voltaje:
+    - cuentas2volt(cuentas), to_volt_adc_hs(tension)
+- Procesamiento de resultados Lock-In:
+    - get_resultados_from_xy(X, Y, div, convert2volt)
+
+Notas:
+------
+- fifo0_32_bit y fifo1_32_bit almacenan temporalmente los datos leídos de la FPGA.
+- amplitud_ref se utiliza como referencia para normalizar resultados tipo Lock-In.
+- Se utilizan constantes y macros definidas en FPGA_macros para mapeo de direcciones y parámetros.
+
+Uso:
+----
+fpga = FPGA_de1soc()
+fpga.iniciar()
+fpga.set_parameter(123, 0)
+fifo_data = fpga.leer_fifo_32_bit(0)
+resultados = FPGA_de1soc.get_resultados_from_xy(X, Y, div, convert2volt=True)
+************************************************************************************
+"""
+
+
 import math
 from FPGA_IO_simple import FPGA_IO_simple
 import FPGA_macros as MACROS
