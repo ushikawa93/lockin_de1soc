@@ -1,3 +1,41 @@
+/*
+================================================================================
+ Implementación de funciones de reconfiguración del PLL
+ Archivo: funciones_pll.c
+--------------------------------------------------------------------------------
+ Este archivo contiene la implementación de las funciones declaradas en 
+ funciones_pll.h, utilizadas para reconfigurar dinámicamente el PLL en un 
+ SoC-FPGA. 
+
+ Funcionalidad principal:
+   - Configuración de divisores y multiplicadores internos del PLL (M, N, C).
+   - Cálculo automático de parámetros a partir de la frecuencia deseada.
+   - Escritura en los registros de reconfiguración mediante la interfaz Avalon.
+
+ Detalles clave:
+   - Fórmula de salida: Fout = (M / (N * C0)) * Fin
+   - Restricciones:
+       • fvco = (Fin * M / N) debe estar en [300, 1600] MHz
+       • fpfd = (Fin / N) debe estar en [5, 325] MHz
+   - El PLL incluye un divisor interno de VCO activado (divide por 2), lo que
+     obliga a cargar el mismo valor en high_count y low_count.
+
+ Funciones principales:
+   - setClockDivider(): ajusta un divisor externo del clock.
+   - configurar_pll(): configura automáticamente el PLL según frecuencia deseada.
+   - setM(), setN(), setC(): ajustan parámetros internos individuales.
+   - setMNC(): configura M, N y C de una sola vez.
+   - calculatePll_parameters(): determina parámetros válidos (M, N, C) para 
+     obtener la frecuencia de salida deseada.
+
+ Uso recomendado:
+   - Llamar a configurar_pll(frec_deseada, pll_reconfig) y usar el valor 
+     de retorno (frecuencia configurada final) para verificar el resultado.
+
+================================================================================
+*/
+
+
 
 #include <stdio.h>
 #include "funciones_pll.h"

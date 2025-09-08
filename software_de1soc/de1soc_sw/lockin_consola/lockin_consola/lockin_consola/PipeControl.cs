@@ -1,4 +1,42 @@
-﻿using System;
+﻿/*
+================================================================================
+ Clase PipeControl
+================================================================================
+ Propósito:
+ ----------
+ Manejar la comunicación entre el programa en C# y el proceso en C++ mediante 
+ tres pipes nombrados en Linux (/tmp/myfifo1, /tmp/myfifo2, /tmp/myfifo3).
+
+ Estructura de los pipes:
+ ------------------------
+ - myfifo1 → escribe C++ / lee C#   (32 bits)
+ - myfifo2 → escribe C# / lee C++
+ - myfifo3 → escribe C++ / lee C#   (64 bits)
+
+ Funcionalidades principales:
+ ----------------------------
+ - Inicializa tres hilos (thread1, thread2, thread3) que administran cada pipe.
+ - Encolar y desencolar datos de 32 y 64 bits en forma segura.
+ - Enviar y recibir datos en bloques (N valores) o de a uno.
+ - Manejar el cierre ordenado de los hilos con Terminate().
+
+ Uso:
+ ----
+ Se crea una instancia de PipeControl, que automáticamente lanza los hilos 
+ de comunicación.  
+ Métodos públicos como Enviar(), Recibir32(), Recibir64() y sus variantes con N
+ se utilizan para transferir datos entre C# y C++.
+
+ Notas:
+ ------
+ - block_async se usa como flag para evitar condiciones de carrera.
+ - Hay un tiempo de espera máximo (timeoutSeconds) para la recepción de datos
+   de 64 bits.
+================================================================================
+*/
+
+
+using System;
 using System.IO;
 using System.IO.Pipes;
 using System.Text;

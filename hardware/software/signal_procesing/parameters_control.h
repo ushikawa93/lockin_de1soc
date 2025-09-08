@@ -1,6 +1,37 @@
-/*****************************************************
- * MACROS PARA MODIFICAR FACIL EL TEMA DE LOS PARAMETROS
-*****************************************************/
+/*
+================================================================================
+ Módulo de parámetros configurables
+ Archivo: parametros.h
+--------------------------------------------------------------------------------
+ Este archivo define un conjunto de macros y funciones para vincular los 
+ parámetros de configuración del sistema con las señales de entrada/salida 
+ (I/O) expuestas por el módulo `mmaped_macros.h`.
+
+ Funcionalidad principal:
+   - Asociar parámetros lógicos a direcciones físicas de I/O.
+   - Proveer funciones para setear y leer parámetros de manera directa.
+   - Simplificar la reconfiguración en tiempo real desde software.
+
+ Definiciones incluidas:
+   - PARAMETRO_OUT_[0..10]: parámetros de salida (DATA_OUT).
+   - PARAMETRO_IN_[0..4]: parámetros de entrada (DATA_IN).
+
+ Funciones disponibles:
+   - setParam(parametro, value, addr): escribe un valor en un parámetro.
+   - setParamN(...): versiones simplificadas para parámetros 0 a 10.
+   - getParamN(...): versiones simplificadas para parámetros de entrada 0 a 4.
+
+ Uso típico:
+   - Llamar a setParamX(valor, base_addr) para configurar un parámetro.
+   - Llamar a getParamX(base_addr) para leer un parámetro de entrada.
+
+ Ejemplo:
+   setParam3(42, parameters_addr);   // Configura el parámetro OUT_3 con valor 42
+   int val = getParam1(parameters_addr); // Lee el parámetro IN_1
+
+================================================================================
+*/
+
 
 #include "mmaped_macros.h"
 

@@ -1,4 +1,65 @@
-﻿using System;
+﻿/*
+================================================================================
+ Programa principal (console) - Lock-in DE1-SoC
+================================================================================
+ Propósito:
+ ----------
+ Orquestar la app de consola para controlar el sistema Lock-In en la DE1-SoC:
+ configurar parámetros, iniciar medidas, leer FIFOs, ejecutar barridos y
+ gestionar archivos de resultados/calibración.
+
+ Componentes clave:
+ ------------------
+ - FPGA fpga: fachada de control/IO hacia el proceso C++/FPGA (vía PipeControl).
+ - menues: generación de textos de menú y estado.
+ - Lockin_results: conversión X/Y → R/Φ y corrección por transferencia analógica.
+
+ Parámetros configurables (mapeo con el HDL):
+ --------------------------------------------
+ - fuente (parameter_out_0): 0=ADC_2308, 1=ADC_HS, 2=SIM
+ - M (parameter_out_1): puntos por ciclo
+ - N_ma_CALI (parameter_out_2): MAF del CA-LI
+ - N_ca_CALI (parameter_out_3): N de promediado coherente
+ - sim_noise (parameter_out_4): bits de ruido en simulación
+ - seleccion_resultado (parameter_out_5): modo de salida (usado internamente)
+ - N_LI (parameter_out_6): ciclos para LI puro
+ - frec_lockin + M → set_lockin_frec(): configura frecuencia de referencia/DDS
+
+ Flujo general:
+ --------------
+ - Main(): inicializa parámetros por defecto, crea FPGA(), llama configure().
+ - Bucle de menú:
+    1) Cambiar configuración (frecuencia, N, M, fuente, archivo, modo, corrección, ruido)
+    2) Iniciar medida (Reset/Start, leer X/Y 64b, calcular R/Φ, guardar)
+    3) Ver N valores almacenados (FIFOs 32/64 bits)
+    4) Barrido de frecuencias (guarda CSV en results/)
+    5) Barrido de constantes de tiempo N (guarda CSV en results/)
+    6) Comparar LI vs CA-LI a la frecuencia actual
+    7) Enviar archivo a HOST (send2pc)
+    8) Generar/actualizar transferencia.dat (calibración “en corto”)
+    0) Salir
+ - Al salir: fpga.Terminate().
+
+ Archivos generados/consumidos:
+ ------------------------------
+ - results/<nombreArchivo>: resultados puntuales y barridos (CSV sencillo)
+ - transferencia.dat: magnitud/fase de la cadena analógica para corrección
+ - results/<barrido>_cali.dat y <barrido>_li.dat: comparación de métodos
+
+ Notas y consideraciones:
+ ------------------------
+ - Measure(): divide X/Y por (N_total*M) acorde al modo (CALI vs LI).
+ - configure(configure_frec): aplica parámetros a la FPGA; la frecuencia del
+   lock-in sólo se envía si configure_frec=true.
+ - Lecturas de FIFOs: F0_32, F1_32, F0_64, F1_64.
+ - Interacción bloqueante: algunas esperas simples (Reset/Start/lecturas).
+ - Se asume existencia de carpetas results/ y del pipe server en C++.
+================================================================================
+*/
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

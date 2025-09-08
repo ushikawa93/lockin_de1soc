@@ -1,3 +1,33 @@
+/******************************************************************************
+* Clase: pipeControl
+* Archivo: pipeControl.h / pipeControl.cpp
+* Autor: [Tu Nombre]
+* Fecha: [Fecha Actual]
+* Descripción:
+*   Implementa la comunicación entre C++ y C# mediante FIFOs (pipes) en Linux.
+*   Permite enviar y recibir valores de 32 y 64 bits usando los FIFOs:
+*       - myfifo1 -> escribe C++ y lee C#
+*       - myfifo2 -> escribe C# y lee C++
+*
+*   Funcionalidades principales:
+*       - Enviar(int)        : envía un entero de 32 bits al FIFO.
+*       - Enviar(long long)  : envía un entero de 64 bits al FIFO.
+*       - Recibir32()        : recibe un entero de 32 bits desde el FIFO.
+*       - Recibir64()        : recibe un entero de 64 bits desde el FIFO.
+*
+*   La clase se encarga de:
+*       - Crear los FIFOs si no existen (mkfifo).
+*       - Convertir los enteros a bytes y viceversa.
+*       - Abrir, escribir/leer y cerrar los FIFOs en cada operación.
+*
+* Notas:
+*   - La conversión de enteros asume sistema little-endian.
+*   - No mantiene los FIFOs abiertos permanentemente, lo que simplifica el código
+*     pero puede ser menos eficiente para muchas operaciones consecutivas.
+*   - Para valores de 64 bits, se usa long long int.
+******************************************************************************/
+
+
 #include <iostream>
 #include <fstream>
 #include <string>

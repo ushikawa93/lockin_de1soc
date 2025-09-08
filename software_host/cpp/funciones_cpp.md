@@ -7,7 +7,7 @@ Estos programas se pueden llamar desde la linea de comandos del SoC, con argumen
 
  -> Uso: toggle_led led_state
  
- Autoexplicativo... sirve para probar si llegar los msj del micro a la FPGA
+ Autoexplicativo... sirve para probar si llegan los msj del micro a la FPGA
 
 ## adquirir 
 

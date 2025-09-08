@@ -1,4 +1,30 @@
-﻿using System;
+﻿/*
+================================================================================
+ Clase menues
+================================================================================
+ Propósito:
+ ----------
+ Proporciona menús y funciones de visualización para la consola del Lock-in DE1-SoC.
+
+ Funcionalidades principales:
+ ----------------------------
+ - Menu_principal(): Devuelve el texto del menú principal con opciones disponibles.
+ - ConfiguracionActual(...): Muestra la configuración actual del lock-in, incluyendo
+   parámetros de adquisición, frecuencia, modo de procesamiento, archivo de destino,
+   fuente de datos y corrección de resultados.
+ - source(...): Devuelve una cadena descriptiva de la fuente de datos seleccionada.
+ - mode(...): Devuelve una cadena descriptiva del modo de procesamiento seleccionado.
+
+ Uso:
+ ----
+ Todas las funciones son estáticas y pueden ser llamadas directamente desde el nombre
+ de la clase, por ejemplo: menues.Menu_principal().
+
+================================================================================
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

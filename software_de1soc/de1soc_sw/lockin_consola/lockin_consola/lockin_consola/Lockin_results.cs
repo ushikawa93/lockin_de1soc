@@ -1,4 +1,52 @@
-﻿using System;
+﻿/*
+================================================================================
+ Clase Lockin_results
+================================================================================
+ Propósito:
+ ----------
+ Representa los resultados obtenidos de un lock-in amplifier. Calcula 
+ magnitud (R), fase (Phi), y componentes X e Y a partir de datos brutos
+ leídos desde la FPGA o simulados.
+
+ Funcionalidades principales:
+ ----------------------------
+ - Convertir valores de X e Y en magnitud y fase.
+ - Corregir resultados según transferencia del lock-in para altas frecuencias.
+ - Proporcionar acceso a los resultados mediante propiedades.
+ - Formatear los resultados para impresión o log.
+
+ Atributos:
+ ----------
+ - x, y: Componentes cartesianas.
+ - r: Magnitud calculada.
+ - phi: Fase calculada.
+ - amplitud_ref: Referencia para normalización de amplitud.
+
+ Constructor:
+ ------------
+ Lockin_results(long X, long Y, int div, int frec, bool corregir)
+    - X, Y: Valores brutos.
+    - div: Factor de división para normalizar X e Y.
+    - frec: Frecuencia de operación.
+    - corregir: Si se deben aplicar correcciones ad-hoc.
+ 
+ Propiedades:
+ ------------
+ - R: Devuelve magnitud.
+ - Phi: Devuelve fase en grados.
+ - X, Y: Componentes cartesianas.
+
+ Métodos:
+ --------
+ - ToString(): Formatea X, Y, R, Phi para mostrar.
+ - corregirResultados(double frec): Ajusta R y Phi usando datos de transferencia
+   para frecuencias altas. Lee archivo "transferencia.dat" y corrige según la frecuencia
+   más cercana disponible.
+
+================================================================================
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;

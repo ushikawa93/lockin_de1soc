@@ -1,6 +1,34 @@
+/*
+================================================================================
+ Programa principal de demostración de filtros FIR en FPGA
+ Archivo: main.cpp
+--------------------------------------------------------------------------------
+ Este programa permite interactuar con la FPGA DE1-SoC para:
+   - Configurar filtros FIR Pasa-Bajos y Pasa-Altos.
+   - Ajustar la frecuencia de muestreo y la frecuencia de corte.
+   - Enviar los coeficientes a la FPGA y ejecutar el filtrado.
+   - Mostrar información sobre el filtro aplicado y su frecuencia de corte.
 
-/* 
-	Programa principal
+Funcionalidad principal:
+   - Lectura de parámetros de usuario desde consola.
+   - Configuración de la FPGA mediante la clase FPGA_de1soc.
+   - Selección de filtros mediante la clase filters.
+   - Ciclo de demostración interactivo hasta que el usuario decida salir.
+
+Definiciones incluidas:
+   - CLEAR_CONSOLE: Macro para limpiar la consola.
+   - N_CRUDOS: Cantidad de muestras a procesar.
+   - RAW_FIFO_DEPTH: Profundidad del FIFO de datos crudos.
+   - Uso de clases FPGA_de1soc y filters para manejo de hardware y filtros.
+
+Uso típico:
+   - Ejecutar el programa.
+   - Ingresar la frecuencia de muestreo (en kHz).
+   - Seleccionar tipo de filtro: 0 = Pasa Bajos, 1 = Pasa Altos.
+   - Ingresar frecuencia de corte deseada (en porcentaje relativo a f_s/2).
+   - Observar el filtrado y repetir hasta salir con 0.
+
+================================================================================
 */
 
 #include <iostream>

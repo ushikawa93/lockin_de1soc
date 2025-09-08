@@ -1,4 +1,37 @@
-﻿using System;
+﻿/****************************************************************************************
+ *  Proyecto:   LIA_GUI_1 - Control del Lock-in Amplifier en FPGA
+ *  Archivo:    FPGA.cs
+ *
+ *  Descripción:
+ *  --------------------------------------------------------------------
+ *  Clase de alto nivel que abstrae la comunicación con la FPGA a través de 
+ *  un objeto PipeControl. Define y envía comandos específicos para configurar 
+ *  y controlar el procesamiento lock-in.
+ *
+ *  Comandos implementados (enum COMANDOS):
+ *    - RST              → Reinicia la FPGA.
+ *    - START            → Inicia la adquisición y procesamiento.
+ *    - SET_CLK          → Configura la frecuencia de reloj (kHz).
+ *    - SET_PARAM        → Setea un parámetro en una posición de memoria.
+ *    - GET_PARAM        → Lee el valor de un parámetro.
+ *    - RD_FIFO          → Lee N datos de un FIFO (32 o 64 bits).
+ *    - RD_RESULT        → Obtiene el último resultado desde un FIFO.
+ *    - SET_LOCKIN_FREC  → Configura la frecuencia de muestreo del lock-in.
+ *    - TERMINATE        → Finaliza la comunicación con la FPGA.
+ *
+ *  Funcionalidades principales:
+ *    - Configuración de parámetros individuales o múltiples (set_param, set_N_param).
+ *    - Control del reloj y frecuencia del lock-in.
+ *    - Lectura de resultados de 32 y 64 bits desde FIFOs.
+ *    - Encendido/apagado de LED de prueba en la FPGA.
+ *    - Métodos auxiliares privados para enviar/recibir comandos y valores.
+ *
+ *  Autor:    [Tu nombre / equipo]
+ *  Fecha:    [dd/mm/aaaa]
+ ****************************************************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

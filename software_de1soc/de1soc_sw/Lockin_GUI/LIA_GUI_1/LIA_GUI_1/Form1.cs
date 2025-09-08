@@ -1,4 +1,30 @@
-﻿using System;
+﻿/****************************************************************************************
+ *  Proyecto:   LIA_GUI_1 - Interfaz gráfica para control de Lock-in Amplifier en FPGA
+ *  Archivo:    Form1.cs
+ *
+ *  Descripción:
+ *  --------------------------------------------------------------------
+ *  Esta aplicación WinForms permite configurar y controlar un Lock-in Amplifier
+ *  implementado en FPGA. La interfaz gráfica envía parámetros al hardware,
+ *  inicia la adquisición y muestra los resultados procesados.
+ *
+ *  Funcionalidades principales:
+ *    - Configuración de parámetros reconfigurables (fuente, M, N_ma, N_ca, ruido).
+ *    - Control de la FPGA (reset, start, toggle LED, terminate).
+ *    - Lectura de resultados de 64 bits desde FIFOs (X e Y).
+ *    - Cálculo de amplitud (R) y fase (Φ) mediante la clase Lockin_results.
+ *    - Visualización de resultados en la interfaz (textboxes).
+ *
+ *  Controles principales en la GUI:
+ *    - Botón "Iniciar" → configura, resetea e inicia el lock-in, luego muestra resultados.
+ *    - Botón "Cerrar"  → termina la comunicación con la FPGA y cierra la aplicación.
+ *
+ *  Autor:    Matías Oliva
+ *  Fecha:    2025
+ ****************************************************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

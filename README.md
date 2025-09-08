@@ -76,7 +76,7 @@ Version preeliminar del software del lockin en python (en proceso)
 
 ## Carpeta web_server
 Monta un servidor WEB en el uP de la FPGA para usar el Lock-in sin mucho conocimiento.
-Habría que copiar todo lo que hay aca al directorio raiz del servido HTTP de uP y listo.
+Habría que copiar todo lo que hay aca al directorio raiz del servicio HTTP de uP y listo.
 La FPGA debe tener configurada el lockin_estable.rbf para que esto funcione bien..
 Este servidor se vale de archivos cpp que estan definidos en software_host, y deben copiarse a una carpeta apropiada y compilarse
 

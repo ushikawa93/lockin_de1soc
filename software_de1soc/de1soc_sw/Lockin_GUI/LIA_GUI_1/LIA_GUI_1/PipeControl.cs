@@ -1,4 +1,46 @@
-﻿using System;
+﻿﻿/************************************************************************************
+ * Clase: PipeControl
+ * Proyecto: LIA_GUI_1
+ * 
+ * Descripción:
+ * ------------
+ * Clase que gestiona la comunicación entre C# y C++ mediante pipes con nombre 
+ * (FIFOs). Se implementa un sistema de colas y tres hilos que controlan la 
+ * transferencia de datos.
+ * 
+ * Canales FIFO:
+ * -------------
+ * - myfifo1: escribe C++ → lee C#  (32 bits)
+ * - myfifo2: escribe C# → lee C++
+ * - myfifo3: escribe C++ → lee C#  (64 bits)
+ * 
+ * Detalles de implementación:
+ * ---------------------------
+ * - Usa tres hilos independientes:
+ *      - managePipe1: recepción de enteros de 32 bits.
+ *      - managePipe2: envío de enteros de 32 bits.
+ *      - managePipe3: recepción de enteros de 64 bits.
+ * - Sincronización con flags (`block_read_*`, `block_write`) para evitar colisiones.
+ * - Maneja colas en memoria:
+ *      - datos_a_enviar      → enteros pendientes de envío.
+ *      - datos_recibidos32   → enteros recibidos de 32 bits.
+ *      - datos_recibidos64   → enteros recibidos de 64 bits.
+ * - Métodos de acceso:
+ *      - `Enviar(int dato)` → envía dato a C++.
+ *      - `Recibir32()`, `Recibir32_N(N)` → recibe enteros de 32 bits.
+ *      - `Recibir64()`, `Recibir64_N(N)` → recibe enteros de 64 bits.
+ * - `Terminate()` detiene los hilos y finaliza la comunicación.
+ * 
+ * Uso:
+ * ----
+ *   var pipe = new PipeControl();
+ *   pipe.Enviar(1234);
+ *   int valor = pipe.Recibir32();
+ * 
+ ************************************************************************************/
+
+
+using System;
 using System.IO;
 using System.IO.Pipes;
 using System.Text;

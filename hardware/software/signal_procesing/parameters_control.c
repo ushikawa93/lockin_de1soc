@@ -1,3 +1,45 @@
+/*
+================================================================================
+ Módulo: parameters_control.c
+--------------------------------------------------------------------------------
+ Implementación de funciones para configurar y leer parámetros del sistema a 
+ través de la interfaz mapeada en memoria.
+
+ Funcionalidad:
+   - Escritura de parámetros OUT[0..10] (valores de salida).
+   - Lectura de parámetros IN[0..4] (valores de entrada).
+   - Funciones genéricas (setParam) y específicas (setParamN / getParamN).
+
+ Detalles de implementación:
+   - Cada parámetro se accede como *(parameters_addr + offset).
+   - Los offsets están definidos en "parameters_control.h" vía macros
+     asociadas a DATA_OUT_x y DATA_IN_x.
+
+ Funciones principales:
+   - int setParam(int parametro, int value, int* parameters_addr)
+       Configura el parámetro indicado (0..10) con el valor deseado.
+
+   - int setParamN(int value, int* parameters_addr)
+       Configura directamente el parámetro N con el valor especificado.
+       (versiones disponibles: 0..10)
+
+   - int getParamN(int* parameters_addr)
+       Devuelve el valor leído de un parámetro de entrada.
+       (versiones disponibles: 0..4)
+
+ Ejemplo de uso:
+   setParam3(42, parameters_addr);   // Configura el parámetro OUT_3
+   int val = getParam1(parameters_addr); // Lee el valor del parámetro IN_1
+
+ Notas:
+   - La función setParam es útil para código genérico (cuando no se conoce el
+     parámetro de antemano).
+   - Las funciones setParamN y getParamN son más directas y rápidas.
+
+================================================================================
+*/
+
+
 
 #include "parameters_control.h"
 

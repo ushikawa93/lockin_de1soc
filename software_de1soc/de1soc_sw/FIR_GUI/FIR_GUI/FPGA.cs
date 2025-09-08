@@ -1,4 +1,38 @@
-﻿using System;
+﻿/*
+    FPGA - Clase de control de la FPGA desde C#
+
+    Descripción:
+    ------------
+    Esta clase encapsula la comunicación y control de una FPGA para la
+    demostración de filtros FIR. Proporciona métodos para:
+
+    - Iniciar y reiniciar la FPGA.
+    - Configurar la frecuencia de muestreo (clock) y parámetros de filtros.
+    - Leer datos desde los distintos FIFOs de la FPGA.
+    - Enviar un filtro completo a la FPGA.
+    - Alternar el estado de un LED conectado a la FPGA.
+    - Finalizar la comunicación de manera ordenada.
+
+    Detalles de implementación:
+    ---------------------------
+    - La comunicación se realiza a través de un PipeControl.
+    - Los comandos se envían como enteros de 32 bits siguiendo un protocolo
+      definido por el enum COMANDOS.
+    - Se soportan cuatro FIFOs: dos de 32 bits y dos de 64 bits.
+    - Métodos como set_N_param permiten cargar de manera secuencial todos
+      los coeficientes de un filtro FIR a la FPGA.
+    - Toggle_led alterna el estado del LED para indicar actividad.
+
+    Notas:
+    ------
+    - La clase no implementa la lógica de procesamiento de los filtros, solo
+      la transmisión y lectura de datos hacia y desde la FPGA.
+    - Los métodos que requieren respuesta de la FPGA bloquean la ejecución
+      hasta recibir la información correspondiente.
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

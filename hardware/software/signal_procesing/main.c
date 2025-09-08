@@ -1,18 +1,33 @@
-/*
- * "Hello World" example.
+/****************************************************************************************
+ *  Proyecto:      Control y Lectura de Resultados Lock-in en FPGA
+ *  Archivo:       main.c
  *
- * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
- * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
- * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
- * device in your system's hardware.
- * The memory footprint of this hosted application is ~69 kbytes by default
- * using the standard reference design.
+ *  Descripción:
+ *  --------------------------------------------------------------------
+ *  Este programa configura y controla el procesamiento lock-in en FPGA.
+ *  - Configura el PLL y divisores de clock.
+ *  - Define parámetros reconfigurables de procesamiento (M, N_ma, N_ca, N_LI, etc).
+ *  - Maneja señales de habilitación, reset y finalización.
+ *  - Lee datos desde FIFOs de 32 y 64 bits.
+ *  - Calcula resultados de amplitud y fase del lock-in y CA-lockin.
  *
- * For a reduced footprint version of this template, and an explanation of how
- * to reduce the memory footprint for a given application, see the
- * "small_hello_world" template.
+ *  Funciones principales:
+ *      - configurar_pll()
+ *      - setClockDivider()
+ *      - setParam()
+ *      - Reset(), setEnable(), waitForFin()
+ *      - leer_fifo_32_bit(), leer_fifo_64_bit()
+ *      - leer_resultado_64_bit()
+ *      - amplitud_lockin(), fase_lockin()
  *
- */
+ *  Funciones auxiliares:
+ *      - imprimir_buffer_32bit()
+ *      - imprimir_buffer_64bit()
+ *
+ *  Autor:      Matías Oliva
+ *  Fecha:      2025
+ ****************************************************************************************/
+
 
 #include <stdio.h>
 #include "funciones_pll.h"
@@ -92,17 +107,15 @@ int main()
 	setEnable(enable_ptr);
 	waitForFin(finish_ptr);
 
+	printf("\n\nResultados FIFO 0 32 bits: \n");
 	imprimir_buffer_32bit(pts_to_print,leer_fifo_32_bit( fifo0_32_bit_ptr) );
-	/*
 
 	printf("\n\nResultados FIFO 0 64 bits: \n");
 	imprimir_buffer_64bit(pts_to_print,leer_fifo_64_bit(fifo0_64_bit_down_ptr,fifo0_64_bit_up_ptr));
 
 	printf("\n\nResultados FIFO 1 64 bits: \n");
 	imprimir_buffer_64bit(pts_to_print,leer_fifo_64_bit(fifo1_64_bit_down_ptr,fifo1_64_bit_up_ptr));
-	*/
-
-
+	
 	setParam(5,1,parameters_ptr);
 
 	long long salida_fase = leer_resultado_64_bit(fifo0_64_bit_down_ptr,fifo0_64_bit_up_ptr);

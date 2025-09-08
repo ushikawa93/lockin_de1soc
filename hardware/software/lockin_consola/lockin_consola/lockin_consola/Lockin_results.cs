@@ -49,22 +49,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-
-namespace lockin_consola
-{
-    public class Lockin_results
-    {
-        // Componentes y resultados
-        double r, phi, x, y;
-        double amplitud_ref = 32767;
-
-        // Constructor
-
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

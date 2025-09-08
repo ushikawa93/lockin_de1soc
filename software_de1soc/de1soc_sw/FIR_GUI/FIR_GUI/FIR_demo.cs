@@ -1,4 +1,47 @@
-﻿using System;
+﻿/*
+    FIR_demo - Interfaz gráfica para demostración de filtros FIR en FPGA
+
+    Descripción:
+    ------------
+    Esta clase implementa la GUI principal para la demostración y control
+    de filtros FIR sobre una FPGA. Permite al usuario:
+
+    - Seleccionar la frecuencia de muestreo.
+    - Elegir entre filtros Pasa-bajos, Pasa-altos o Bypass.
+    - Seleccionar un filtro específico dentro del banco de filtros.
+    - Iniciar, detener y resetear la FPGA para aplicar el filtro.
+    - Visualizar en tiempo real las señales crudas y procesadas mediante un plot interactivo.
+    - Ajustar la escala de tiempo y amplitud de la visualización.
+
+    Propiedades principales:
+    -----------------------
+    - fpga: objeto que representa la FPGA y permite control de filtros y lectura de FIFOs.
+    - f_muestreo: frecuencia de muestreo actual en kHz.
+    - filtros: banco de filtros disponibles.
+    - index_filtro_actual: índice del filtro seleccionado.
+    - plotter: objeto para manejo de gráficos en tiempo real.
+    - Nplot y MaxAmplitudPlot: parámetros de visualización de la señal.
+
+    Eventos y métodos:
+    -----------------
+    - Iniciar_button_Click / finalizar_button_Click: control de ejecución de la FPGA.
+    - frec_muestreo_ok_Click: actualización de la frecuencia de muestreo.
+    - checkedListBox_filtros_SelectedIndexChanged: actualización del filtro seleccionado.
+    - filter_type_changed: actualización de la lista de filtros según el tipo seleccionado.
+    - timer_plot_Tick: refresco periódico del plot de señales.
+    - button_time_up/down y button_tension_up/down: ajuste de escala de tiempo y amplitud.
+
+    Notas:
+    ------
+    - La GUI interactúa con la FPGA mediante la clase FPGA, que abstrae la configuración
+      de filtros y la lectura de datos desde FIFOs.
+    - El plot en tiempo real se realiza mediante BufferedScope.
+    - Esta clase no maneja la lógica de los filtros, solo la selección y visualización.
+*/
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

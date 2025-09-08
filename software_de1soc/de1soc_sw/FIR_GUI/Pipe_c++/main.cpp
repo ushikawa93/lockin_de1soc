@@ -1,7 +1,48 @@
+/******************************************************************************
+* Programa: main.cpp
+* Autor: Matías Oliva
+* Fecha: 2025
+* Descripción:
+*   Programa principal que corre en Linux y se comunica con C# a través de FIFOs
+*   (pipes) para controlar la FPGA DE1-SoC. Recibe comandos desde C# y ejecuta 
+*   las operaciones correspondientes en la FPGA, incluyendo:
+*       - Reinicio (RST)
+*       - Inicio de adquisición/procesamiento (START)
+*       - Configuración del clock (SET_CLK)
+*       - Configuración de parámetros (SET_PARAM)
+*       - Lectura de parámetros (GET_PARAM)
+*       - Lectura de FIFOs (RD_FIFO)
+*       - Terminación del programa (TERMINATE)
+*
+*   Comunicación con C#:
+*       - myfifo1: escribe C++ y lee C# 
+*       - myfifo2: escribe C# y lee C++
+*
+*   La aplicación implementa un loop principal que espera comandos, decodifica
+*   su tipo y ejecuta la acción correspondiente sobre la FPGA mediante la clase
+*   FPGA_de1soc. La lectura/escritura de FIFOs se realiza usando la clase 
+*   pipeControl.
+*
+* Enumeraciones:
+*   - COMANDOS: RST, START, SET_CLK, SET_PARAM, GET_PARAM, RD_FIFO, ERROR, TERMINATE
+*   - FIFO_DIRECTION: F0_32, F1_32, F0_64, F1_64, ERR
+*
+* Funciones auxiliares:
+*   - DecodeComando(int value) -> COMANDOS: convierte un entero recibido de C#
+*     al comando correspondiente.
+*   - Decode_fifo_direction(int value) -> FIFO_DIRECTION: convierte un entero 
+*     recibido de C# al FIFO correspondiente.
+*
+* Notas:
+*   - Cada operación que involucra un FIFO abre, lee/escribe y cierra el FIFO
+*     para simplicidad de implementación.
+*   - Para lectura de FIFO de 64 bits se usa long long int.
+*   - Se asume que el sistema es little-endian.
+*   - La constante CLEAR_CONSOLE permite limpiar la consola (ANSI escape codes).
+*   - N_CRUDOS define la cantidad de muestras crudas a procesar.
+*   - RAW_FIFO_DEPTH define la profundidad de los FIFOs de la FPGA.
+******************************************************************************/
 
-/* 
-	Programa principal
-*/
 
 #include <iostream>
 #include <fstream>

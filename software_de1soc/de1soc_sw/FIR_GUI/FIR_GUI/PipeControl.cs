@@ -1,4 +1,39 @@
-﻿using System;
+﻿/*
+    PipeControl - Gestión de comunicación con la FPGA vía Named Pipes
+
+    Descripción:
+    ------------
+    Esta clase administra la comunicación bidireccional entre C# y C++ usando
+    named pipes en Linux. Se encarga de enviar comandos y datos hacia la FPGA
+    y recibir respuestas o datos procesados desde ella.
+
+    Funcionamiento:
+    ---------------
+    - Se crean dos hilos separados:
+        * managePipe1: Lee datos desde el pipe "/tmp/myfifo1" (C++ escribe, C# lee)
+        * managePipe2: Escribe datos en el pipe "/tmp/myfifo2" (C# escribe, C++ lee)
+    - Se utilizan dos colas internas:
+        * datos_a_enviar: Cola de enteros pendientes de envío al pipe.
+        * datos_recibidos: Cola de enteros recibidos del pipe.
+    - Los métodos Recibir y RecibirN bloquean la ejecución hasta que haya datos
+      disponibles.
+    - Los métodos Enviar y Enviar_int32/64 permiten enviar datos enteros de 32
+      o 64 bits al pipe correspondiente.
+    - El método Terminate aborta ambos hilos y cierra la comunicación.
+
+    Notas:
+    ------
+    - Los hilos controlan el acceso mediante flags block_read y block_write
+      para evitar colisiones durante la lectura/escritura de las colas.
+    - Se emplean sleeps cortos (10 ms) para evitar saturar la CPU en el loop
+      de escritura.
+    - Actualmente, las funciones de 64 bits no se usan en la lógica principal,
+      pero están implementadas para posibles FIFOs de 64 bits.
+    - Los pipes se asumen creados en "/tmp/myfifo1" y "/tmp/myfifo2".
+*/
+
+
+using System;
 using System.IO;
 using System.IO.Pipes;
 using System.Text;
