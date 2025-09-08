@@ -1,9 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<!DOCTYPE html>
+<html lang="es">
+
 <!----------------------------------------------------------------------------------------->
-<!------------------------------- Interfaz lockin con HTML -------------------------------->
+<!------------------- Interfaz Web Lock-In (Control y Visualización en DE1-SoC) ----------->
 <!----------------------------------------------------------------------------------------->
+<!--
+Este archivo HTML implementa la interfaz gráfica para controlar y visualizar
+mediciones del sistema lock-in en FPGA (DE1-SoC). Utiliza jQuery y Chart.js
+para la comunicación con el servidor Node.js y la representación de datos.
+
+Se organiza en pestañas principales:
+  - Lock-in: configuración de parámetros, ejecución y visualización de señales.
+  - Barrido en frecuencia: definición de rango y paso, con gráficos de función
+    de transferencia (amplitud y fase).
+  - Medidas de ruido: barrido de N y análisis estadístico del ruido, con gráficos
+    de evolución.
+  - DEP (Densidad Espectral de Potencia, experimental): análisis espectral con
+    parámetros de frecuencia y exportación de resultados.
+
+Cada sección permite enviar parámetros al servidor, recibir resultados en tiempo
+real y mostrarlos en gráficos interactivos.
+-->
+<!----------------------------------------------------------------------------------------->
+
 
 <head>
 

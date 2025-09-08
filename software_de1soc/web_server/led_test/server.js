@@ -1,3 +1,24 @@
+///// ================================================================================== /////
+///// ========== Servidor Node.js: Control básico de LED en placa DE1-SoC ============== /////
+///// ================================================================================== /////
+//
+// Este script levanta un servidor HTTP simple para controlar un LED en la placa DE1-SoC.
+//
+// Funcionalidad:
+//   - Escucha en el puerto 8080.
+//   - Expone el endpoint /toggle con parámetro led_state (0 = OFF, 1 = ON).
+//   - Ejecuta el binario toggle_led en C++ que enciende/apaga el LED en la FPGA.
+//   - Lleva un contador de cuántas veces se presionó el botón en la interfaz web.
+//   - Devuelve la respuesta en formato JSON, incluyendo el conteo.
+//
+// Uso esperado:
+//   • Cliente web (HTML/JS) envía peticiones GET con el estado del LED.
+//   • El servidor ejecuta el comando correspondiente en la DE1-SoC.
+//   • Se puede verificar el funcionamiento básico del LED desde navegador.
+//
+///// ================================================================================== /////
+
+
 const http = require('http');
 var execFile = require('child_process').execFile;
 const url = require('url');

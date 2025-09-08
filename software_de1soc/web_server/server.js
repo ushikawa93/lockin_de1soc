@@ -1,9 +1,26 @@
-///// ================================================================================= /////
-///// ============================ Servidor Lockin ==================================== /////
-///// ================================================================================= /////
+///// =================================================================================== /////
+///// ======================= Servidor HTTP para Control Lock-in ======================== /////
+///// =================================================================================== /////
+/////                                                                                     /////
+///// Este script en Node.js implementa un servidor HTTP que permite interactuar          /////
+///// con distintos programas en C++ (ejecutados mediante `execFile`) para controlar      /////
+///// y adquirir datos de un sistema de medición tipo lock-in sobre FPGA (DE1-SoC).       /////
+/////                                                                                     /////
+///// Funcionalidades principales expuestas como endpoints:                               /////
+/////   - /iniciar_lockin     : Ejecuta la medición lock-in y devuelve resultados JSON.   /////
+/////   - /datos_adc          : Adquiere datos crudos del ADC.                            /////
+/////   - /barrido_lockin     : Realiza un barrido en frecuencia.                         /////
+/////   - /barrido_ruido      : Ejecuta un barrido de ruido con variación de N.           /////
+/////   - /calcular_dep       : Calcula parámetros de DEP en función de la entrada.       /////
+/////   - /toggle             : Cambia el estado de un LED en la FPGA.                    /////
+/////                                                                                     /////
+///// Cada endpoint recibe parámetros por querystring, ejecuta el binario correspondiente /////
+///// y devuelve los resultados procesados (JSON o texto plano).                          /////
+/////                                                                                     /////
+///// Puerto de servicio: 8080                                                            /////
+///// =================================================================================== /////
 
-
- /////// ====================== Variables generales ================================== /////	
+ /////// ====================== Variables generales ====================================  /////	
 const http = require('http');
 var execFile = require('child_process').execFile;
 
