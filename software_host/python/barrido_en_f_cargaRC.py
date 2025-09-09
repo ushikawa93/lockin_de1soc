@@ -1,9 +1,35 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar  5 15:21:56 2024
+Script para realizar barridos en frecuencia sobre una carga RC usando dos lock-ins: 
+el lock-in de la FPGA DE1-SoC y el lock-in SR865.
 
-@author: MatiOliva
+Se obtienen amplitudes y fases de la señal en función de la frecuencia, comparando:
+1. Medidas con la FPGA DE1-SoC
+2. Medidas con el SR865
+3. Resultados teóricos para una carga RC ideal
+
+El script permite:
+- Configurar los parámetros de adquisición de cada lock-in (M, N, frecuencia inicial, final, paso)
+- Guardar los datos en archivos
+- Graficar resultados comparando medidas experimentales y teóricas
+
+Autor: MatiOliva
+Creado: Tue Mar 5 15:21:56 2024
+
+Dependencias:
+- de1soc_class (control del lock-in de la FPGA)
+- sr865_functions (control del SR865)
+- matplotlib
+- numpy
+- funciones.py (cálculos teóricos)
+
+Ejemplo de ejecución:
+1. Configurar los parámetros deseados (M, N, nombres de archivo, rangos de frecuencia)
+2. Conectar la carga RC
+3. Ejecutar el script desde Python
+4. Visualizar gráficos de amplitud y fase vs frecuencia
 """
+
 
 from de1soc_class import de1soc_handler
 import matplotlib.pyplot as plt

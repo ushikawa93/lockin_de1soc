@@ -1,14 +1,35 @@
+///// ============================================================================================== /////
+///// ============================== Barrido en frecuencia (Lock-In) ================================ /////
+///// ============================================================================================== /////
+//
+// Programa en C++ para ejecutar en el micro de la FPGA DE1-SoC.
+// Realiza un barrido de frecuencias en el lock-in, midiendo amplitud (r), fase (φ) y componentes X/Y.
+// Permite evaluar la respuesta del sistema a distintas frecuencias.
+//
+// Funcionalidad principal:
+//   • Configura la FPGA con los parámetros de reloj, N, fuente de datos y modo de referencia.
+//   • Recorre un rango de frecuencias definido por (f_inicial → f_final, con paso f_step).
+//   • Para cada frecuencia, obtiene X, Y, r y φ del lock-in.
+//   • Registra los resultados en un archivo de salida con formato CSV.
+//
+// Uso:
+//   ./barrido_en_f f_clk N fuente modo f_inicial f_final f_step nombre_archivo corregir_fase sim_noise [M ref_with_dds_compiler]
+//
+// Parámetros clave:
+//   f_clk       -> Frecuencia de reloj (MHz)
+//   N           -> Constante de tiempo (ciclos de promediación)
+//   fuente      -> Fuente de datos {0=ADC_2308, 1=ADC_HS, 2=SIM}
+//   modo        -> Procesamiento {0=CALI, 1=LI}
+//   f_inicial   -> Frecuencia inicial del barrido (Hz)
+//   f_final     -> Frecuencia final del barrido (Hz)
+//   f_step      -> Incremento en frecuencia (Hz)
+//   nombre_archivo -> Archivo CSV de salida
+//   corregir_fase  -> (0/1) Aplica corrección de fase
+//   sim_noise      -> Nivel de ruido en modo simulación
+//   M, ref_with_dds_compiler (opcionales) -> Configuración fina de referencia
+//
+///// ============================================================================================== /////
 
-
-///// ====================== barrido_en_f.cpp ======================================= /////
-///// ================================================================================= /////
-///// Programa en c++ para testear el lockin a varias frecuencias distintas				 /////
-///// ================================================================================= /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> barrido_en_f f_clk N fuente modo f_inicial f_final f_step nombre_archivo corregir_fase sim_noise 
-		
-*/
 
 #include <iostream>
 #include <fstream>

@@ -1,14 +1,37 @@
 
 
-///// ====================== adquirir.cpp ======================================= /////
-///// ================================================================================= /////
-///// Programa en c++ para setear los parametros de la FPGA y obtener medidas del ADC /////
-///// ================================================================================= /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> adquirir N frecuencia ciclos2display nombre_archivo fifo2read
-		
-*/
+///// ================================================================================== /////
+///// ========================== adquirir.cpp (Programa base) ========================== /////
+///// ================================================================================== /////
+//
+// Programa en C++ para configurar parámetros de la FPGA (DE1-SoC) y adquirir medidas del ADC.
+//
+// Uso:
+//   adquirir N frecuencia ciclos2display nombre_archivo fifo2read [M modo_referencias]
+//
+// Parámetros obligatorios:
+//   • N                -> Ciclos de promediación.
+//   • frecuencia       -> Frecuencia de referencia en Hz.
+//   • ciclos2display  -> Número de ciclos a mostrar/guardar.
+//   • nombre_archivo   -> Archivo de salida (.csv).
+//   • fifo2read        -> FIFO desde la cual leer los datos.
+//
+// Parámetros opcionales:
+//   • M                -> Puntos por ciclo (si no se especifica, se calcula automáticamente).
+//   • modo_referencias -> 0 = LUT, 1 = DDS compiler.
+//
+// Funcionalidad:
+//   - Configura la frecuencia de las referencias y del DAC.
+//   - Define fuente de datos (ADC, simulación, etc.).
+//   - Ajusta parámetros de promediación coherente y lock-in.
+//   - Ejecuta la captura de datos desde la FPGA.
+//   - Escribe las muestras en el archivo de salida especificado.
+//
+// Notas:
+//   • Debe ejecutarse en el microprocesador (uP) de la DE1-SoC.
+//   • Requiere el driver `FPGA_de1soc` incluido en `../fpga_driver/FPGA_de1soc.h`.
+//
+///// ================================================================================== /////
 
 #include <iostream>
 #include <fstream>

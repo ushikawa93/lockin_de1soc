@@ -1,9 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Nov 23 12:47:18 2023
+Script para medir la respuesta del lock-in DE1-SoC usando señal simulada
 
-@author: MatiOliva
+Este script:
+- Se conecta a la FPGA DE1-SoC vía IP
+- Configura el lock-in para operar en modo LI (Lock-In)
+- Establece la fuente de datos como simulada
+- Ajusta la frecuencia de la señal y el número de ciclos de promediación
+- Obtiene las medidas de r (amplitud) y phi (fase) para cada frecuencia
+- Imprime los resultados en consola
+
+Parámetros configurables:
+- frecuencias: lista de frecuencias a medir
+- N: número de ciclos de promediación
+- sim_noise: nivel de ruido simulado
+- modo_procesamiento: CALI o LI
+- fuente: ADC o simulación
+
+Autor: MatiOliva
+Creado: 2023
 """
+
 
 from de1soc_class import de1soc_handler
 from de1soc_class import FuenteDatos

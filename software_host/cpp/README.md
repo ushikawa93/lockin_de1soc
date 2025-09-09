@@ -1,7 +1,7 @@
 
 # Programas en c++ para controlar la acción del Lockin
 
-Estos programas se pueden llamar desde la linea de comandos del SoC, con argumentos que parametrizan la operación
+Estos programas se pueden llamar desde la linea de comandos del SoC, con argumentos que parametrizan la operación. Cada uno tiene un makefile para su compilación, o pueden compilarse todos juntos usando el shell script "make_all.sh".
 
 ## toggle_led
 

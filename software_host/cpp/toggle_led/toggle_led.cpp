@@ -1,14 +1,31 @@
+///// ============================================================================================== /////
+///// ================================== toggle_led.cpp ============================================ /////
+///// ============================================================================================== /////
+/////
+///// Programa en C++ para controlar los LEDs de la FPGA DE1-SoC.
+/////
+///// Objetivo:
+/////   • Encender o apagar un LED de la placa desde el microprocesador.
+/////
+///// Uso:
+/////   toggle_led estado
+/////
+/////   Parámetros:
+/////     estado : Valor entero {0 = OFF, 1 = ON}.
+/////
+///// Flujo general:
+/////   1. Inicializa la interfaz con la FPGA.
+/////   2. Envía el comando para modificar el estado del LED.
+/////   3. Termina la ejecución.
+/////
+///// Dependencias:
+/////   - `FPGA_de1soc.h`
+/////
+///// Nota:
+/////   Este programa es usado por el servidor web para probar el LED de usuario.
+/////
+///// ============================================================================================== /////
 
-
-///// ====================== toggle_led.cpp ======================================= /////
-///// ================================================================================= /////
-///// Programa en c++ para setear los parametros de la FPGA y obtener medidas de lockin /////
-///// ================================================================================= /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> measure_lockin M | N | frecuencia | fuente | modo | nombre_archivo 
-		
-*/
 
 #include <iostream>
 #include <fstream>

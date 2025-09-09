@@ -1,14 +1,45 @@
-
-
-///// ====================== measure_lockin.cpp ======================================= /////
-///// ================================================================================= /////
-///// Programa en c++ para setear los parametros de la FPGA y obtener medidas de lockin /////
-///// ================================================================================= /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> measure_lockin sim_noise N frecuencia fuente modo nombre_archivo [f_clk corregir_fase](opcional)
-		
-*/
+///// ============================================================================================== /////
+///// ================================== measure_lockin.cpp ========================================= /////
+///// ============================================================================================== /////
+/////
+///// Programa en C++ para configurar la FPGA DE1-SoC y obtener mediciones con el lock-in digital.
+/////
+///// Objetivo:
+/////   • Setear parámetros de adquisición y procesamiento en la FPGA.
+/////   • Medir señales procesadas en los dos modos disponibles:
+/////        - Lock-in (LI).
+/////        - Promedio coherente seguido de Lock-in (CALI).
+/////   • Guardar los resultados en un archivo de salida con amplitud y fase.
+/////
+///// Uso:
+/////   measure_lockin sim_noise N frecuencia fuente modo nombre_archivo
+/////                 [f_clk corregir_fase {M modo_referencias}]
+/////
+/////   Parámetros obligatorios:
+/////     sim_noise       : Nivel de ruido en simulación.
+/////     N               : Número de ciclos de promediación.
+/////     frecuencia      : Frecuencia de la señal de referencia.
+/////     fuente          : Fuente de datos {0=ADC_2308, 1=ADC_HS, 2=SIM}.
+/////     modo            : Modo de salida {0=CALI, 1=LI}.
+/////     nombre_archivo  : Archivo donde se guardan los resultados.
+/////
+/////   Parámetros opcionales:
+/////     f_clk           : Frecuencia del clock principal en MHz (default=64).
+/////     corregir_fase   : Aplicar corrección de fase (1=Sí, 0=No, default=1).
+/////     M               : Puntos por ciclo (default = f_clk*1e6 / f).
+/////     modo_referencias: Generación de señales {0=LU_Table, 1=DDS_compiler}.
+/////
+///// Flujo general:
+/////   1. Inicializa la FPGA y configura parámetros de operación.
+/////   2. Ajusta frecuencias de referencia y DAC mediante DDS Compiler o LUT.
+/////   3. Ejecuta medidas en modo Lock-in (LI) y Calibración (CALI).
+/////   4. Calcula amplitud (r) y fase (phi), con opción de corrección de fase.
+/////   5. Exporta resultados a archivo de texto.
+/////
+///// Dependencias:
+/////   - `FPGA_de1soc.h`
+/////
+///// ============================================================================================== /////
 
 #include <iostream>
 #include <fstream>

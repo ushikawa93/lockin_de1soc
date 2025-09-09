@@ -1,11 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Apr  5 13:49:49 2024
+Script para medir el ruido del lock-in DE1-SoC con las entradas cortocircuitadas.
 
-Script para medir ruido en el Lockin.. ¡cortocircuitar entradas!
+Este script:
+- Realiza mediciones repetidas del lock-in para distintos valores de N (número de ciclos de promediación)
+- Calcula la desviación estándar y el valor promedio del ruido de la señal
+- Grafica la desviación estándar en función de N
+- Muestra el promedio del ruido de todas las mediciones
 
-@author: MatiOliva
+Uso:
+1. Conectar la FPGA DE1-SoC y asegurar que las entradas del lock-in estén cortocircuitadas.
+2. Ejecutar el script. Se mostrará la desviación estándar y el valor promedio del ruido.
+
+Autor: MatiOliva
+Creado: 2024
 """
+
 
 
 from de1soc_class import de1soc_handler

@@ -1,9 +1,25 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar  5 16:03:14 2024
+Script para adquirir y mostrar datos del ADC del lock-in DE1-SoC
 
-@author: MatiOliva
+Este script:
+- Se conecta a la FPGA DE1-SoC vía IP
+- Configura el lock-in para obtener N ciclos de promediación de la señal
+- Lee los datos de un FIFO específico del ADC
+- Aplica la conversión a voltaje de la señal
+- Grafica los datos obtenidos
+
+Parámetros configurables:
+- N_promediacion: número de ciclos de promediación
+- f: frecuencia de la señal generada
+- display_ciclos: cantidad de ciclos que se muestran en la gráfica
+- fifo2read: FIFO de lectura del ADC
+- sim_noise: nivel de ruido simulado
+
+Autor: MatiOliva
+Creado: 2024
 """
+
 
 
 from de1soc_class import de1soc_handler

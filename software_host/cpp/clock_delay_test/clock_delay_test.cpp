@@ -1,14 +1,33 @@
+///// ============================================================================================== /////
+///// ============================ clock_delay_test.cpp ============================================= /////
+///// ============================================================================================== /////
+/////
+///// Programa en C++ para ejecutar en el micro de la FPGA DE1-SoC.
+/////
+///// Objetivo:
+/////   • Probar el lock-in a distintas frecuencias de reloj (f_clk).
+/////   • Evaluar la respuesta de la etapa analógica en función del clock.
+/////
+///// Funcionamiento:
+/////   • Configura parámetros de la FPGA (fuente de datos, promediación, modo de procesamiento).
+/////   • Barre f_clk entre 1 y 64 MHz, calcula la frecuencia de señal correspondiente (DAC y Ref).
+/////   • Para cada frecuencia realiza varias iteraciones y obtiene:
+/////        - Amplitud media.
+/////        - Fase promedio.
+/////        - Delay relativo al clock (en ciclos).
+/////   • Exporta los resultados en un archivo `desfasajes.dat` con columnas:
+/////        frec | amplitud | fase | delay_clk
+/////
+///// Uso:
+/////   Se compila en el micro de la FPGA y se ejecuta directamente:
+/////       ./clock_delay_test
+/////
+///// Requisitos:
+/////   - FPGA configurada con el lock-in estable (`lockin_estable.rbf`).
+/////   - Librería `FPGA_de1soc.h` incluida en el proyecto.
+/////
+///// ============================================================================================== /////
 
-
-
-///// ====================== clock_delay_test.cpp ====================================================== /////
-///// ================================================================================================== /////
-///// Programa en c++ para probar el lockin a distintas frecuencias de clock y evaluar la etapa analógica/////
-///// ================================================================================================== /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		
-*/
 
 #include <iostream>
 #include <fstream>

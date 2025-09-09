@@ -1,14 +1,36 @@
+///// ============================================================================================== /////
+///// =============================== Cálculo DEP (Barrido en f) =================================== /////
+///// ============================================================================================== /////
+//
+// Programa en C++ para ejecutar en el micro de la FPGA DE1-SoC.
+// Realiza un barrido de frecuencias manteniendo fija la frecuencia de DAC y variando la frecuencia
+// de referencia. Para cada punto calcula la amplitud media (r) y su desviación estándar, 
+// estimando el nivel de ruido.
+//
+// Funcionalidad principal:
+//   • Configura la FPGA con parámetros de reloj, fuente de datos y modo de operación.
+//   • Barre frecuencias desde f_inicial hasta f_final, con paso f_step.
+//   • Para cada frecuencia repite 'iteraciones' medidas, calcula la media y el desvío de r.
+//   • Exporta resultados en un archivo CSV para análisis posterior.
+//
+// Uso:
+//   ./calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise [M ref_with_dds_compiler]
+//
+// Parámetros clave:
+//   f_clk       -> Frecuencia de reloj (MHz)
+//   N           -> Constante de tiempo (ciclos de promediación)
+//   fuente      -> Fuente de datos {0=ADC_2308, 1=ADC_HS, 2=SIM}
+//   f_dac       -> Frecuencia del DAC (Hz)
+//   f_inicial   -> Frecuencia inicial del barrido (Hz)
+//   f_final     -> Frecuencia final del barrido (Hz)
+//   f_step      -> Paso de incremento en frecuencia (Hz)
+//   nombre_archivo -> Archivo CSV de salida
+//   iteraciones -> Cantidad de repeticiones por frecuencia
+//   sim_noise   -> Nivel de ruido en simulación
+//   M, ref_with_dds_compiler (opcionales) -> Configuración de referencia
+//
+///// ============================================================================================== /////
 
-
-///// ====================== barrido_en_f.cpp ======================================= /////
-///// ================================================================================= /////
-///// Programa en c++ para testear el lockin a varias frecuencias distintas				 /////
-///// ================================================================================= /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> calcular_dep f_clk N fuente f_dac f_inicial f_final f_step nombre_archivo iteraciones sim_noise
-		
-*/
 
 #include <iostream>
 #include <fstream>

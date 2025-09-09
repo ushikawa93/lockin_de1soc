@@ -1,7 +1,53 @@
-
-///// ================================================================================= /////
-///// ============= Clase que controla el comportamiento de la FPGA =================== /////
-///// ================================================================================= /////
+///// ============================================================================================== /////
+///// =================================== FPGA_de1soc.h / .cpp ===================================== /////
+///// ============================================================================================== /////
+/////
+///// Clase en C++ que implementa la lógica de control de la FPGA DE1-SoC para el lock-in.
+/////
+///// Objetivo:
+/////   • Encapsular el acceso a la FPGA a través de la clase `FPGA_IO_simple`.
+/////   • Facilitar el manejo de parámetros, generación de señales, configuración de clocks,
+/////     y lectura de resultados sin que el usuario interactúe con registros bajos directamente.
+/////
+///// Funcionalidad principal:
+/////   • Control del flujo de cálculo en la FPGA (iniciar, resetear, esperar, finalizar).
+/////   • Configuración de parámetros de operación:
+/////        - Selección de fuente de datos.
+/////        - Ciclos de promediación.
+/////        - Modo de procesamiento (CALI / LI).
+/////        - Control de LEDs y salidas auxiliares.
+/////   • Manejo de clocks:
+/////        - Configuración de frecuencia base (PLL).
+/////        - Divisor de clock.
+/////        - Compatibilidad con DDS Compiler para generación de referencias y DAC.
+/////   • Generación de señales:
+/////        - Modo DDS (alta resolución).
+/////        - Modo directo por división de clock.
+/////   • Lectura de resultados:
+/////        - FIFOs de 32 y 64 bits.
+/////        - Resultados acumulados X, Y.
+/////        - Conversión a módulo/fase (estructura `resultados`).
+/////   • Corrección de fase:
+/////        - Tabla de desfasajes empírica para cada frecuencia de clock (1–64 MHz).
+/////
+///// Estructura `resultados`:
+/////   - x : componente en fase
+/////   - y : componente en cuadratura
+/////   - r : amplitud normalizada (o en volt si se solicita)
+/////   - phi : fase en grados (con corrección opcional de clock)
+/////
+///// Notas:
+/////   - Se recomienda usar DDS Compiler para generación precisa de señales.
+/////   - Los métodos `set_clk_from_frec...` se mantienen por compatibilidad,
+/////     pero se consideran obsoletos frente al DDS Compiler.
+/////   - La tabla de `get_desfasaje(f_clk)` debe actualizarse si se recalibra
+/////     la respuesta analógica del sistema.
+/////
+///// Dependencias:
+/////   - `FPGA_IO_simple.h`
+/////   - `FPGA_macros.h`
+/////
+///// ============================================================================================== /////
 
 
 

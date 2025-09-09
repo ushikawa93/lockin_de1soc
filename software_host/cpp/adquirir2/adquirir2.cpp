@@ -1,14 +1,44 @@
 
+///// ================================================================================== /////
+///// ========================= adquirir2.cpp (Programa base) ========================== /////
+///// ================================================================================== /////
+//
+// Programa en C++ para configurar parámetros de la FPGA (DE1-SoC) y adquirir medidas del ADC.
+// Es una versión extendida de `adquirir.cpp`, con más parámetros opcionales.
+//
+// Uso:
+//   adquirir2 N frecuencia ciclos2display nombre_archivo 
+//             [sim_noise f_clk fuente {M modo_referencias}]
+//
+// Parámetros obligatorios:
+//   • N                -> Ciclos de promediación.
+//   • frecuencia       -> Frecuencia de referencia en Hz.
+//   • ciclos2display  -> Número de ciclos a mostrar/guardar.
+//   • nombre_archivo   -> Archivo de salida (.csv).
+//
+// Parámetros opcionales (en orden):
+//   • sim_noise        -> Bits de ruido para simulación (default = 0).
+//   • f_clk            -> Frecuencia de reloj en MHz (default = 64).
+//   • fuente           -> Fuente de datos {0 = ADC_2308, 1 = ADC_HS, 2 = SIM} (default = 1).
+//   • M                -> Puntos por ciclo (usado si modo_referencias = 0).
+//   • modo_referencias -> {0 = LUT, 1 = DDS compiler} (default = 1).
+//
+// Funcionalidad:
+//   - Configura la frecuencia de las referencias y del DAC.
+//   - Ajusta parámetros de promediación coherente (CALI) y lock-in (LI).
+//   - Permite elegir la fuente de datos (ADC o simulación).
+//   - Inicia la adquisición de datos en la FPGA.
+//   - Guarda los resultados en archivo CSV, con dos bloques separados:
+//       • Primer bloque: datos de FIFO0.
+//       • Segundo bloque: datos de FIFO1.
+//
+// Notas:
+//   • Debe ejecutarse en el microprocesador (uP) de la DE1-SoC.
+//   • Requiere el driver `FPGA_de1soc` (`../fpga_driver/FPGA_de1soc.h`).
+//   • Finaliza limpiamente llamando a `fpga.Terminar()`.
+//
+///// ================================================================================== /////
 
-///// ====================== adquirir.cpp ======================================= /////
-///// ================================================================================= /////
-///// Programa en c++ para setear los parametros de la FPGA y obtener medidas del ADC /////
-///// ================================================================================= /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> adquirir2 N frecuencia ciclos2display nombre_archivo [sim_noise f_clk fuente](opcional)
-		
-*/
 
 #include <iostream>
 #include <fstream>

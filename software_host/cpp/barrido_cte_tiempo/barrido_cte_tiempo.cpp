@@ -1,14 +1,31 @@
-
-
-///// ====================== barrido_cte_tiempo.cpp ============================================== /////
-///// ============================================================================================ /////
-///// Programa en c++ para hacer calculos de lock-in con distintos N y estimar el ruido resultante /////
-///// ============================================================================================ /////
-/*
-	Debe ejecutarse en el micro de la FPGA, con la sintaxis:
-		-> 
-		
-*/
+///// ============================================================================================== /////
+///// ========================== Barrido de constantes de tiempo (Lock-In) ========================== /////
+///// ============================================================================================== /////
+//
+// Programa en C++ para ejecutar en el micro de la FPGA DE1-SoC.
+// Realiza un barrido sobre distintos valores de N (constante de tiempo del lock-in)
+// con el fin de estimar el nivel de ruido resultante.
+//
+// Funcionalidad principal:
+//   • Configura la FPGA con parámetros de frecuencia, fuente de datos y modo de referencia.
+//   • Para cada N entre N_inicial y N_final, ejecuta múltiples iteraciones del lock-in.
+//   • Calcula la media y desviación estándar de la amplitud (r).
+//   • Guarda los resultados en un archivo de salida con formato CSV.
+//
+// Uso:
+//   ./barrido_cte_tiempo frec N_inicial N_final iteraciones fuente sim_ruido nombre_archivo_salida f_clk [M ref_with_dds_compiler]
+//
+// Parámetros clave:
+//   frec                -> Frecuencia de referencia (Hz)
+//   N_inicial, N_final  -> Rango de barrido en N
+//   iteraciones         -> Número de repeticiones por N
+//   fuente              -> Fuente de datos {0=ADC_2308, 1=ADC_HS, 2=SIM}
+//   sim_ruido           -> Nivel de ruido (si fuente=SIM)
+//   nombre_archivo_salida -> Archivo CSV de resultados
+//   f_clk               -> Frecuencia de reloj en MHz
+//   M, ref_with_dds_compiler (opcionales) -> Configuración fina de la referencia
+//
+///// ============================================================================================== /////
 
 #include <iostream>
 #include <fstream>

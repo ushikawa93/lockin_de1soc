@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
 """
-Python class to command the de1soc lockin
+Clase Python para controlar el lock-in de la FPGA DE1-SoC.
 
-@author: MatiOliva
+Esta clase permite:
+- Configurar parámetros de adquisición y procesamiento del lock-in (frecuencia, N, fuente de datos, modo de procesamiento, ruido simulado, f_clk)
+- Obtener resultados del ADC de la FPGA
+- Medir la señal del lock-in y leer los resultados de amplitud (r) y fase (phi)
+- Realizar barridos en frecuencia y almacenar los resultados
+- Ejecutar los scripts de shell asociados para adquirir datos en la FPGA
+- Convertir valores de cuentas a voltaje y corregir fase por la etapa analógica
+
+Enumeraciones auxiliares:
+- FuenteDatos: ADC_2308, ADC_HS o SIM
+- ModoProcesamiento: CALI o LI
+
+Uso básico:
+1. Crear una instancia: li = de1soc_handler("IP_DE_LA_FPGA")
+2. Configurar parámetros: li.set_f_clk(...), li.set_N(...), li.set_fuente(...), li.set_modo_procesamiento(...)
+3. Obtener datos: li.measure_lockin(corregir=True/False) o li.barrido_lockin(f_start,f_stop,step,corregir)
+
+Autor: MatiOliva
+Creado: 2024
 """
+
 
 import subprocess
 import os

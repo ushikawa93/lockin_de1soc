@@ -1,5 +1,33 @@
 /*
-	Macros necesarios para interaccion con FPGA
+================================================================================
+ Macros para interacción con FPGA
+ Archivo: mmaped_macros.h
+--------------------------------------------------------------------------------
+ Este archivo define las direcciones de memoria mapeadas (memory-mapped) para
+ acceder a los registros y FIFOs de la FPGA desde software, así como los 
+ parámetros de entrada y salida.
+
+ Funcionalidad principal:
+   - Mapear direcciones físicas de la FPGA a punteros en C.
+   - Definir macros para parámetros de configuración y resultados.
+   - Establecer límites de frecuencia y tamaño de buffers.
+   - Facilitar la extensión de entradas/salidas según se requiera.
+
+Definiciones incluidas:
+   - Bases de memoria: ENABLE_BASE, RESET_BASE, FINALIZACION_BASE, etc.
+   - Parámetros de configuración: PARAMETERS_BASE y variantes.
+   - Punteros a FIFOs y registros de resultados de 32 y 64 bits.
+   - Macros de entradas y salidas: DATA_IN_[0..15], DATA_OUT_[0..15].
+   - Parámetros auxiliares: SALIDA_AUX_[0..4], PARAMETER_[0..9].
+   - Límites de frecuencia de reloj: MAX_FREC_CLK, MIN_FREC_CLK.
+   - Tamaño de buffers: BUFFER_SIZE_RAW.
+
+Uso típico:
+   - Acceder a registros usando punteros: int* enable_ptr = (int*)ENABLE_BASE;
+   - Leer/Escribir parámetros usando los macros de DATA_IN/DATA_OUT.
+   - Ajustar límites de frecuencia y tamaño de buffer según necesidad del sistema.
+
+================================================================================
 */
 
 // Estas son algunos macros que necesito para mapear la FPGA en memoria

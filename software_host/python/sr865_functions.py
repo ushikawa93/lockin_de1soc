@@ -1,9 +1,31 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Dec 12 13:21:32 2022
+Python class to interface with the SR865 Lock-In Amplifier
 
-@author: MatiOliva
+Este módulo permite:
+- Conectar con un SR865 vía VXI-11 usando su IP
+- Configurar parámetros de referencia (frecuencia y tensión)
+- Seleccionar variables a capturar: X, XY, RT, XYRT
+- Configurar tamaño del buffer de adquisición y tasa máxima
+- Capturar datos y leerlos desde el buffer
+- Guardar los datos en archivos CSV
+- Realizar barridos en frecuencia y procesar resultados (amplitud y fase)
+
+Clases principales:
+- sr865: clase para manejar el Lock-In
+- OpcionesCaptura: enumeración de configuraciones de captura (X, XY, RT, XYRT)
+
+Dependencias:
+- vxi11 (librería necesaria para la comunicación con el instrumento)
+- numpy
+- csv
+- time
+- struct
+
+Autor: MatiOliva
+Creado: 2022
 """
+
 
 from enum import IntEnum
 from struct import unpack_from

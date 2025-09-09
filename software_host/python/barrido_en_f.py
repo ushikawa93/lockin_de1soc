@@ -1,9 +1,33 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar  5 15:21:56 2024
+Script para realizar un barrido en frecuencia utilizando el lock-in de la FPGA DE1-SoC.
 
-@author: MatiOliva
+El script:
+- Configura el lock-in con parámetros de adquisición (f_clk, N, fuente de datos y modo de procesamiento)
+- Realiza un barrido de frecuencia desde f_start hasta f_stop con pasos definidos
+- Almacena amplitud (r) y fase (phi) de la señal para cada frecuencia
+- Grafica amplitud vs frecuencia y fase vs frecuencia
+
+Autor: MatiOliva
+Creado: Tue Mar 5 15:21:56 2024
+
+Dependencias:
+- de1soc_class (control del lock-in de la FPGA)
+- matplotlib
+
+Parámetros de ejemplo:
+- ip: Dirección IP de la FPGA DE1-SoC
+- f_start, f_stop, step: Rango y paso del barrido en Hz
+- corregir_fase: Booleano para corrección de fase de la señal
+- FuenteDatos: ADC_HS, ADC_2308 o SIMULACION
+- ModoProcesamiento: CALI o LI
+
+Uso:
+1. Configurar los parámetros deseados (IP, fuente, modo, f_start, f_stop, step)
+2. Ejecutar el script desde Python
+3. Visualizar gráficos de amplitud y fase vs frecuencia
 """
+
 
 from de1soc_class import de1soc_handler
 import matplotlib.pyplot as plt
